@@ -19,25 +19,44 @@ const FAQ: [string, string][] = [
 
 export default function Home() {
   const total = countIdeas();
-  const sample = searchIdeas({ sort: "opportunity", pageSize: 60 }).items.sort(() => Math.random() - 0.5).slice(0, 12);
+  const best = searchIdeas({ sort: "opportunity", pageSize: 60 }).items;
+  const top = best[0];
+  const sample = [...best].sort(() => Math.random() - 0.5).slice(0, 12);
+  const wall = searchIdeas({ sort: "random", pageSize: 40 }).items;
   return (
     <div className="mc">
       <FunnelNav />
       <main>
-        <section className="wrap hero">
-          <div>
-            <p className="eyebrow">Le radar des formations qui se vendent sur Etsy</p>
-            <h1>Crée tes e-books de formation <em>et vends-les sur Etsy.</em></h1>
-            <p className="lead">
-              Trouve un sujet qui a de la demande dans notre base de {total} idées. L'IA rédige un guide complet de 40 à 60 pages, tu le relis, et tu repars avec le PDF, la couverture et ta fiche Etsy prête à publier.
-            </p>
-            <div className="ctas">
-              <Link className="btn btn-accent btn-lg" href="/quiz">Trouver mes 3 idées →</Link>
-              <a className="btn btn-ghost btn-lg" href="#how">Voir comment ça marche</a>
-            </div>
-            <p className="dim fine">Questionnaire de 2 minutes. Aucun revenu n'est garanti : tes ventes dépendent de ton travail.</p>
+        <section className="hero-bw">
+          <div className="hero-wall" aria-hidden="true">
+            {wall.map((i, k) => (
+              <div className="wall-cover" key={i.id} style={{ ["--r" as string]: `${(k % 5) - 2}deg` }}><span>GUIDE</span><b>{i.title}</b></div>
+            ))}
           </div>
-          <PhoneDemo />
+          <div className="wrap hero">
+            <div className="hero-copy">
+              <h1 className="hero-title"><span>Trouve.</span><span>Crée.</span><span className="chrome-text">Vends sur Etsy.</span></h1>
+              <p className="lead">
+                Chaque e-book est un produit que tu peux vendre.<br />Choisis une idée parmi {total}, l'IA rédige un guide de 50 pages, tu le relis et tu le publies.
+              </p>
+              {top && (
+                <div className="top-card">
+                  <div className="laurel"><b>#1</b></div>
+                  <div className="top-mid"><span className="k">Meilleure opportunité de la base</span><b>{top.title}</b><span className="s">{top.category_name}</span></div>
+                  <div className="top-price"><b>{top.price_min}–{top.price_max}</b><span>€ conseillés</span></div>
+                </div>
+              )}
+              <Link className="btn btn-chrome btn-xl" href="/quiz">Trouver mes 3 idées <span aria-hidden="true">→</span></Link>
+              <p className="fine-line"><span aria-hidden="true">◇</span> Questionnaire de 2 minutes · aucun revenu garanti, tes ventes dépendent de ton travail</p>
+            </div>
+            <div className="hero-visual" aria-hidden="true">
+              <div className="float-tile t1"><b>{total}</b><span>idées de<br />formations</span></div>
+              <div className="float-tile t2"><b>50</b><span>pages<br />par e-book</span></div>
+              <div className="float-tile t3"><b>13</b><span>tags Etsy<br />générés</span></div>
+              <div className="float-tile t4"><b>PDF</b><span>A4 · A5<br />US Letter</span></div>
+              <PhoneDemo tilt />
+            </div>
+          </div>
         </section>
 
         <section className="marquee" aria-label="Outils">
