@@ -4,13 +4,13 @@ import { useRouter } from "next/navigation";
 
 type IdeaLite = { id: number; title: string; audience: string; sensitive: string | null; format: string } | null;
 
-export default function NewEbookForm({ idea, defaultAuthor }: { idea: IdeaLite; defaultAuthor: string }) {
+export default function NewEbookForm({ idea, defaultAuthor, defaults = {} }: { idea: IdeaLite; defaultAuthor: string; defaults?: { tone?: string; language?: string } }) {
   const router = useRouter();
   const [f, setF] = useState({
     topic: idea?.title || "",
     audience: idea?.audience || "",
-    language: "fr",
-    tone: "pedagogique",
+    language: defaults.language || "fr",
+    tone: defaults.tone || "pedagogique",
     chapters: 9,
     extras: "",
     authorName: defaultAuthor,

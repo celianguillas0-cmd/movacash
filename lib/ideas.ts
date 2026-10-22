@@ -129,27 +129,102 @@ export interface QuizAnswers {
   themes?: string[];
   sensitive?: "yes" | "no";
   writing?: "easy" | "ok" | "hard";
-  etsy?: string;
   time?: string;
+  start?: string;
+  tools?: string;
+  job?: string;
+  passion?: string;
+  advice?: string;
+  audience?: string[];
+  refuse?: string[];
+  format?: string;
   [k: string]: unknown;
 }
 
-// Sélection des 3 idées du sondage : meilleures opportunités dans les thèmes choisis, une par catégorie si possible.
+const AUDIENCE_RE: Record<string, RegExp> = {
+  parents: /parent|enfant|bébé|maman|famill|ado/i,
+  students: /étudiant|lycéen|bac|examen|révis/i,
+  sport: /sport|muscu|coureur|cycliste|fitness|athl/i,
+  workers: /salarié|actif|pressé|bureau|télétrav/i,
+  entrepreneurs: /entrepreneur|créateur|freelance|vendeur|commerçant|business/i,
+  seniors: /senior|retrait|40\+|50 ans/i,
+  pets: /chien|chat|chiot|animal|animaux|cheval/i,
+  beginners: /débutant|zéro|nul/i,
+};
+const FORMAT_OF: Record<string, string> = { guide: "Guide complet", program: "Programme", printables: "Guide + printables", collection: "Recueil" };
+
+const str = (v: unknown) => (typeof v === "string" ? v.slice(0, 120) : "");
+const arr = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === "string").slice(0, 8) : []);
+
+// Idées dont le texte correspond au métier, à la passion ou aux conseils donnés par l'utilisateur.
+function terrainMatches(a: QuizAnswers) {
+  const ids = new Set<number>();
+  const db = getDb();
+  for (const t of [str(a.job), str(a.passion), str(a.advice)]) {
+    const words = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4);
+    for (const w of words.slice(0, 6)) {
+      const rows = db.prepare("SELECT rowid AS id FROM ideas_fts WHERE ideas_fts MATCH ? LIMIT 60").all(`"${w}"*`) as { id: number }[];
+      rows.forEach((r) => ids.add(r.id));
+    }
+  }
+  return ids;
+}
+
+function scoreParts(i: Idea, a: QuizAnswers, terrain: Set<number>) {
+  const hay = `${i.title} ${i.audience} ${i.keywords}`;
+  const aud = arr(a.audience).filter((k) => AUDIENCE_RE[k]?.test(hay));
+  const refuse = arr(a.refuse);
+  const parts = {
+    base: i.demand * 2 - i.competition,
+    terrain: terrain.has(i.id) ? (refuse.includes("unknown") ? 5 : 3) : 0,
+    audience: aud.length ? 1.5 : 0,
+    format: FORMAT_OF[str(a.format)] === i.format ? 1 : 0,
+    effort:
+      -(a.writing === "hard" ? i.difficulty - 1 + (i.sensitive ? 2 : 0) : 0) -
+      (a.time === "2" || a.start === "week" ? (i.difficulty - 1) * 0.8 : 0) -
+      (refuse.includes("design") && i.format === "Guide + printables" ? 1.5 : 0) -
+      (refuse.includes("trend") && /tiktok|tendance|viral/i.test(hay) ? 1.5 : 0),
+  };
+  return { parts, aud };
+}
+
+// Sélection des 3 idées du sondage : thèmes choisis, terrain, public, format et contraintes, une par catégorie si possible.
 export function pickIdeasForQuiz(a: QuizAnswers, limit = 3): Idea[] {
   const db = getDb();
-  const themes = (a.themes || []).filter((t) => typeof t === "string").slice(0, 6);
-  const where = [themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "1=1"];
+  const themes = arr(a.themes).slice(0, 6);
+  const terrain = terrainMatches(a);
+  const where = [themes.length || terrain.size ? `(${[themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "", terrain.size ? `i.id IN (${[...terrain].join(",")})` : ""].filter(Boolean).join(" OR ")})` : "1=1"];
   if (a.sensitive === "no") where.push("i.sensitive IS NULL");
   const pool = db
     .prepare(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug WHERE ${where.join(" AND ")}`)
     .all(...themes) as Idea[];
-  const score = (i: Idea) => i.demand * 2 - i.competition - (a.writing === "hard" && i.sensitive ? 2 : 0) - (a.writing === "hard" ? i.difficulty - 1 : 0) + Math.random() * 1.5;
+  const score = (i: Idea) => Object.values(scoreParts(i, a, terrain).parts).reduce((x, y) => x + y, 0) + Math.random() * 1.5;
   const ranked = pool.map((i) => ({ i, s: score(i) })).sort((x, y) => y.s - x.s).map((x) => x.i);
   const picks: Idea[] = [];
   const cats = new Set<string>();
   for (const i of ranked) if (picks.length < limit && !cats.has(i.category_slug)) { picks.push(i); cats.add(i.category_slug); }
   for (const i of ranked) if (picks.length < limit && !picks.includes(i)) picks.push(i);
   return picks;
+}
+
+const AUD_LABEL: Record<string, string> = { parents: "les parents", students: "les étudiants", sport: "les sportifs", workers: "les salariés pressés", entrepreneurs: "les entrepreneurs", seniors: "les seniors", pets: "les propriétaires d'animaux", beginners: "les débutants" };
+const LEVEL = ["très faible", "faible", "moyenne", "bonne", "forte"];
+const COMP = ["très faible", "faible", "moyenne", "élevée", "très élevée"];
+const TIME: Record<string, string> = { "2": "moins de 2 h", "5": "2 à 5 h", "10": "5 à 10 h", "15": "plus de 10 h" };
+
+// Pourquoi cette idée correspond aux réponses (phrases courtes, sans promesse de résultat).
+export function explainIdea(i: Idea, a: QuizAnswers): string[] {
+  const terrain = terrainMatches(a);
+  const { parts, aud } = scoreParts(i, a, terrain);
+  const out: string[] = [];
+  if (parts.terrain) out.push(`Proche de ce que tu connais déjà (${[str(a.job), str(a.passion), str(a.advice)].filter(Boolean).join(", ")}) : ta relecture apportera une vraie valeur.`);
+  else if (arr(a.themes).includes(i.category_slug)) out.push(`Dans la thématique « ${i.category_name} » que tu as choisie.`);
+  if (aud.length) out.push(`Vise ${aud.map((k) => AUD_LABEL[k]).join(" et ")}, un public que tu dis bien connaître.`);
+  if (parts.format) out.push(`Format « ${i.format.toLowerCase()} », celui que tu préfères.`);
+  out.push(`Demande estimée ${LEVEL[i.demand - 1]}, concurrence ${COMP[i.competition - 1]}.`);
+  out.push(`Avec ${TIME[str(a.time)] || "quelques heures"} par semaine, compte une à deux soirées pour relire et publier.`);
+  if (i.sensitive) out.push("Sujet sensible : un avertissement est ajouté automatiquement au PDF et à la fiche.");
+  return out;
 }
 
 export function getIdeasByIds(ids: number[]) {

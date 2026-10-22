@@ -9,6 +9,15 @@ export default async function NewEbook({ searchParams }: { searchParams: Promise
   const { idea: ideaId } = await searchParams;
   const idea = ideaId ? getIdea(Number(ideaId)) : undefined;
   const allowed = canCreateEbook(user);
+  let quiz: { answers?: Record<string, unknown> } = {};
+  try {
+    quiz = JSON.parse(user.quiz_json || "{}");
+  } catch {}
+  const qa = quiz.answers || {};
+  const defaults = {
+    tone: typeof qa.tone === "string" ? qa.tone : undefined,
+    language: qa.lang === "en" ? "en" : undefined,
+  };
   return (
     <div className="max-w-3xl">
       <h1 className="h1">Nouvel e-book</h1>
@@ -23,6 +32,7 @@ export default async function NewEbook({ searchParams }: { searchParams: Promise
       ) : (
         <NewEbookForm
           defaultAuthor={user.name}
+          defaults={defaults}
           idea={idea ? { id: idea.id, title: idea.title, audience: idea.audience, sensitive: idea.sensitive, format: idea.format } : null}
         />
       )}

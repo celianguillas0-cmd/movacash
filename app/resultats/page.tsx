@@ -3,30 +3,39 @@ import { redirect } from "next/navigation";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import Bars from "@/components/funnel/Bars";
 import { getCurrentUser } from "@/lib/auth";
-import { countIdeas, getIdeasByIds, type Idea } from "@/lib/ideas";
+import { countIdeas, explainIdea, getIdeasByIds, type QuizAnswers } from "@/lib/ideas";
+import { label } from "@/lib/quiz-questions";
 import { hasActiveSubscription } from "@/lib/subscription";
 
 export const dynamic = "force-dynamic";
 
-const LEVEL = ["très faible", "faible", "moyenne", "bonne", "forte"];
-const COMP = ["très faible", "faible", "moyenne", "élevée", "très élevée"];
-const TIME: Record<string, string> = { "2": "moins de 2 h", "5": "2 à 5 h", "10": "5 à 10 h", "15": "plus de 10 h" };
+const STRENGTH: Record<string, string> = { teach: "tu expliques bien", organized: "tu es organisé(e)", creative: "tu es créatif(ve)", persistent: "tu es persévérant(e)", numbers: "tu es à l'aise avec les chiffres", social: "tu sais parler aux gens" };
 
-function why(i: Idea, time?: string) {
-  return `Sujet de la catégorie « ${i.category_name} », que tu as choisie. Demande ${LEVEL[i.demand - 1]}, concurrence ${COMP[i.competition - 1]}. Avec ${TIME[time || ""] || "quelques heures"} par semaine, compte une à deux soirées pour le relire et publier la fiche.${i.sensitive ? " Sujet sensible : un avertissement sera ajouté automatiquement." : ""}`;
+// Plan des 30 premiers jours, ajusté au temps disponible, à la promotion acceptée et à la patience.
+function plan30(a: QuizAnswers): [string, string][] {
+  const few = a.time === "2";
+  const promo = a.promo === "none" ? "optimise tes titres et tags Etsy (pas de réseaux, comme tu le souhaites)" : a.promo === "faceless" ? "épingle tes visuels sur Pinterest et publie un carrousel sans visage" : "publie une courte vidéo qui montre l'intérieur de ton e-book";
+  return [
+    ["Semaine 1", `génère ton premier e-book et relis-le${few ? " en deux sessions d'une heure" : ""}, crée ta boutique Etsy${a.etsy === "shop" ? " (ou ajoute une section à la tienne)" : ""}.`],
+    ["Semaine 2", `publie-le avec la fiche et les visuels générés, puis ${promo}.`],
+    ["Semaine 3", few ? "regarde les vues de ta fiche et ajuste le titre ou la première photo." : "crée un deuxième e-book dans la même thématique pour renforcer ta boutique."],
+    ["Semaine 4", `${few ? "deuxième e-book" : "troisième e-book"}, et note ce qui attire le plus de vues.${a.patience === "weeks" ? " Les premières ventes peuvent prendre plus d'un mois : c'est normal." : ""}`],
+  ];
 }
 
 export default async function Results({ searchParams }: { searchParams: Promise<{ welcome?: string }> }) {
   const user = await getCurrentUser();
   if (!user) redirect("/inscription");
   const { welcome } = await searchParams;
-  let quiz: { answers?: { time?: string; name?: string }; ideaIds?: number[] } = {};
+  let quiz: { answers?: QuizAnswers; ideaIds?: number[] } = {};
   try {
     quiz = JSON.parse(user.quiz_json || "{}");
   } catch {}
   const ideas = getIdeasByIds((quiz.ideaIds || []).map(Number).filter(Number.isFinite)).slice(0, 3);
   const unlocked = hasActiveSubscription(user);
-  const name = user.name || quiz.answers?.name || "";
+  const a: QuizAnswers = quiz.answers || {};
+  const name = user.name || a.name || "";
+  const strengths = (Array.isArray(a.strengths) ? (a.strengths as string[]) : []).map((k) => STRENGTH[k]).filter(Boolean);
 
   if (!ideas.length)
     return (
@@ -49,6 +58,18 @@ export default async function Results({ searchParams }: { searchParams: Promise<
           <h1 className="q-title" style={{ marginTop: 12 }}>{name ? `${name}, voici` : "Voici"} <em className="serif">tes 3 idées.</em></h1>
           <p className="q-help">Sélectionnées parmi {countIdeas()} sujets selon tes réponses. Les indicateurs sont des estimations : vérifie toujours la demande en cherchant le sujet sur Etsy.</p>
         </div>
+        <div className="profile">
+          <p className="eyebrow">Ton profil</p>
+          <p>
+            {[
+              a.time && `${label("time", String(a.time)).toLowerCase()} par semaine`,
+              a.etsy && ({ none: "premiers pas dans la vente en ligne", online: "déjà vendu en ligne", shop: "boutique Etsy déjà ouverte" } as Record<string, string>)[String(a.etsy)],
+              a.format && `tu préfères ${label("format", String(a.format)).toLowerCase()}`,
+              strengths.length && strengths.join(" et "),
+              a.tone && `ton ${label("tone", String(a.tone)).toLowerCase()}`,
+            ].filter(Boolean).join(" · ")}
+          </p>
+        </div>
         <div style={{ marginTop: 24 }}>
           {ideas.map((i, k) => {
             const locked = !unlocked && k > 0;
@@ -62,7 +83,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
                     <div className="meter"><div className="l">Concurrence</div><Bars n={i.competition} /></div>
                     <div className="meter"><div className="l">Prix conseillé</div><div className="v">{i.price_min} – {i.price_max} €</div></div>
                   </div>
-                  <p className="why">{why(i, quiz.answers?.time)}</p>
+                  <ul className="why">{explainIdea(i, a).map((r) => <li key={r}>{r}</li>)}</ul>
                   {unlocked && (
                     <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
                       <Link className="btn btn-accent btn-sm" href={`/app/nouveau?idea=${i.id}`}>Créer cet e-book →</Link>
@@ -79,10 +100,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
           <p className="eyebrow">Ton plan des 30 premiers jours</p>
           <div style={unlocked ? undefined : { filter: "blur(6px)", userSelect: "none" }}>
             <p style={{ marginTop: 10 }}>
-              <b>Semaine 1</b> : génère et relis ton premier e-book, crée ta boutique Etsy.<br />
-              <b>Semaine 2</b> : publie-le avec la fiche générée, épingle les visuels sur Pinterest.<br />
-              <b>Semaine 3</b> : deuxième e-book sur la même thématique.<br />
-              <b>Semaine 4</b> : ajuste titres et tags selon les vues, troisième e-book.
+              {plan30(a).map(([w, t]) => <span key={w}><b>{w}</b> : {t}<br /></span>)}
             </p>
           </div>
         </div>

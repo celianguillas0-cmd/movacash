@@ -6,7 +6,8 @@ import { ok } from "@/lib/api";
 // Calcule les 3 idées du sondage. Si l'utilisateur est connecté, on enregistre directement le résultat.
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
-  const answers: QuizAnswers = typeof body.answers === "object" && body.answers ? body.answers : {};
+  let answers: QuizAnswers = typeof body.answers === "object" && body.answers ? body.answers : {};
+  if (JSON.stringify(answers).length > 6000) answers = {};
   const ideas = pickIdeasForQuiz(answers, 3);
   const quiz = { answers, ideaIds: ideas.map((i) => i.id) };
   const user = await getCurrentUser();
