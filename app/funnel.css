@@ -334,3 +334,4 @@
 .mc .why li::before { content: "→"; position: absolute; left: 0; color: var(--accent); }
 .mc .profile { margin-top: 20px; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--bg-2); }
 .mc .profile p:last-child { margin-top: 6px; color: var(--muted); font-size: 14px; }
+@media (max-width: 480px) { .mc .q-meta .dim { display: none; } }
