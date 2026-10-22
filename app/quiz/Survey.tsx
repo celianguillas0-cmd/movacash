@@ -44,7 +44,7 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
   }
 
   if (phase === "analyse") {
-    const steps = [`Lecture de tes ${QUESTIONS.length} réponses`, `Analyse des ${total} idées de la base`, "Filtrage selon ton temps, ton niveau et tes refus", "Rapprochement avec ton terrain et tes forces", "Comparaison potentiel / concurrence", "Sélection de tes 3 idées et de ton plan"];
+    const steps = ["Lecture de tes réponses", `Analyse des ${total} idées de la base`, "Filtrage selon ton temps, ton niveau et tes refus", "Rapprochement avec ton terrain et tes forces", "Comparaison potentiel / concurrence", "Sélection de tes 3 idées et de ton plan"];
     return (
       <main className="wrap narrow analyse" style={{ marginInline: "auto" }}>
         <p className="eyebrow">Analyse</p>
@@ -66,7 +66,7 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
     <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
       <div className="progress"><i style={{ width: `${((step + 1) / total_) * 100}%` }} /></div>
       <div className="q-meta">
-        <span className="eyebrow">{q.s} · {step + 1} / {total_}</span>
+        <span className="eyebrow">{q.s}</span>
         <span className="dim">Partie {SECTIONS.indexOf(q.s) + 1} / {SECTIONS.length} · environ {Math.max(1, Math.round(((total_ - step) * 8) / 60))} min</span>
       </div>
       <h1 className="q-title">{q.t}</h1>
