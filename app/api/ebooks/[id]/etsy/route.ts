@@ -1,0 +1,45 @@
+import { z } from "zod";
+import { getDb } from "@/lib/db";
+import { fail, ok, withUser } from "@/lib/api";
+import { briefFromEbook, getEbook, outlineFromRows } from "@/lib/ebooks";
+import { generateEtsyKit } from "@/lib/generator";
+import { hasActiveSubscription } from "@/lib/subscription";
+import { wordCount } from "@/lib/markdown";
+
+export const maxDuration = 120;
+type Ctx = { params: Promise<{ id: string }> };
+
+export async function POST(_req: Request, { params }: Ctx) {
+  const { id } = await params;
+  return withUser(async (user) => {
+    if (!hasActiveSubscription(user)) return fail("Abonnement requis", 402);
+    const data = getEbook(Number(id), user.id);
+    if (!data) return fail("Introuvable", 404);
+    const words = data.chapters.reduce((n, c) => n + wordCount(c.content_md), 0);
+    const pages = Math.max(10, Math.round(words / 380) + 3);
+    const kit = await generateEtsyKit(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), pages);
+    getDb().prepare("UPDATE ebooks SET etsy_json = ? WHERE id = ?").run(JSON.stringify(kit), data.ebook.id);
+    return ok({ kit });
+  });
+}
+
+const kitSchema = z.object({
+  title: z.string().max(300),
+  tags: z.array(z.string().max(60)).max(20),
+  description: z.string().max(20000),
+  priceSuggestion: z.string().max(500).default(""),
+  imageIdeas: z.array(z.string()).default([]),
+  category: z.string().max(300).default(""),
+});
+
+export async function PUT(req: Request, { params }: Ctx) {
+  const { id } = await params;
+  return withUser(async (user) => {
+    const parsed = kitSchema.safeParse(await req.json().catch(() => ({})));
+    if (!parsed.success) return fail("Données invalides");
+    const data = getEbook(Number(id), user.id);
+    if (!data) return fail("Introuvable", 404);
+    getDb().prepare("UPDATE ebooks SET etsy_json = ? WHERE id = ?").run(JSON.stringify(parsed.data), data.ebook.id);
+    return ok();
+  });
+}
