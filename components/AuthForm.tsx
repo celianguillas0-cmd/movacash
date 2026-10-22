@@ -1,13 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();
   const [form, setForm] = useState({ email: "", password: "", name: "", acceptTerms: false });
+  const [hasQuiz, setHasQuiz] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    try {
+      const q = JSON.parse(localStorage.getItem("mc_quiz") || "null");
+      if (q) {
+        setHasQuiz(true);
+        if (q.answers?.name) setForm((f) => ({ ...f, name: f.name || q.answers.name }));
+      }
+    } catch {}
+  }, []);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,47 +35,56 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
     });
     const data = await res.json();
     setLoading(false);
-    if (!res.ok) return setError(data.error || "Erreur");
-    router.push(mode === "signup" ? "/tarifs" : "/app");
+    if (!res.ok) return setError(data.error || "Une erreur est survenue, réessaie.");
+    router.push(mode === "signup" ? (hasQuiz ? "/resultats" : "/tarifs") : "/app");
     router.refresh();
   }
 
   return (
-    <form onSubmit={submit} className="card mx-auto mt-10 max-w-md space-y-4">
-      <h1 className="text-xl font-bold">{mode === "signup" ? "Créer un compte" : "Connexion"}</h1>
-      {mode === "signup" && (
-        <div>
-          <label className="label">Nom ou nom d'auteur</label>
-          <input className="input" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        </div>
-      )}
-      <div>
-        <label className="label">Email</label>
-        <input className="input" type="email" required value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-      </div>
-      <div>
-        <label className="label">Mot de passe</label>
-        <input className="input" type="password" required minLength={mode === "signup" ? 8 : 1} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
-      </div>
-      {mode === "signup" && (
-        <label className="flex items-start gap-2 text-sm text-slate-600">
-          <input type="checkbox" className="mt-1" checked={form.acceptTerms} onChange={(e) => setForm({ ...form, acceptTerms: e.target.checked })} />
-          <span>
-            J'accepte les <Link href="/cgv" className="underline" target="_blank">CGV</Link> et la <Link href="/confidentialite" className="underline" target="_blank">politique de confidentialité</Link>, et je comprends qu'aucun revenu n'est garanti.
-          </span>
-        </label>
-      )}
-      {error && <p className="text-sm text-red-600">{error}</p>}
-      <button className="btn-primary w-full" disabled={loading || (mode === "signup" && !form.acceptTerms)}>
-        {loading ? "…" : mode === "signup" ? "Créer mon compte" : "Se connecter"}
-      </button>
-      <p className="text-center text-sm text-slate-500">
+    <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
+      <p className="eyebrow">{mode === "signup" ? (hasQuiz ? "Dernière étape" : "Créer un compte") : "Connexion"}</p>
+      <h1 className="q-title" style={{ marginTop: 12 }}>
         {mode === "signup" ? (
-          <>Déjà un compte ? <Link href="/connexion" className="underline">Connexion</Link></>
+          hasQuiz ? <>Tes 3 idées sont prêtes. <em className="serif">Crée ton compte</em> pour les voir.</> : <>Crée ton <em className="serif">atelier d'e-books.</em></>
         ) : (
-          <>Pas encore de compte ? <Link href="/quiz" className="underline">Commencer</Link></>
+          <>Content de <em className="serif">te revoir.</em></>
         )}
-      </p>
-    </form>
+      </h1>
+      {mode === "signup" && (
+        <p className="q-help">On te demande juste ton prénom, ton e-mail et un mot de passe, pour retrouver tes réponses, tes idées et tes e-books. Pas de revente de données.</p>
+      )}
+      <form className="form" onSubmit={submit}>
+        {mode === "signup" && (
+          <label htmlFor="f-name">Prénom
+            <input id="f-name" type="text" required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          </label>
+        )}
+        <label htmlFor="f-email">E-mail
+          <input id="f-email" type="email" required placeholder="toi@exemple.fr" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+        </label>
+        <label htmlFor="f-pass">Mot de passe
+          <input id="f-pass" type="password" required minLength={mode === "signup" ? 8 : 1} placeholder={mode === "signup" ? "8 caractères minimum" : ""} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+        </label>
+        {mode === "signup" && (
+          <label className="check" htmlFor="f-cgv">
+            <input id="f-cgv" type="checkbox" checked={form.acceptTerms} onChange={(e) => setForm({ ...form, acceptTerms: e.target.checked })} />
+            <span>
+              J'accepte les <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>CGV</Link> et la <Link href="/confidentialite" target="_blank" style={{ textDecoration: "underline" }}>politique de confidentialité</Link>, et je comprends qu'aucun revenu n'est garanti.
+            </span>
+          </label>
+        )}
+        {error && <p className="error">{error}</p>}
+        <button className="btn btn-accent btn-lg" disabled={loading || (mode === "signup" && !form.acceptTerms)}>
+          {loading ? "Un instant…" : mode === "signup" ? (hasQuiz ? "Voir mes 3 idées →" : "Créer mon compte →") : "Se connecter"}
+        </button>
+        <p className="dim" style={{ textAlign: "center" }}>
+          {mode === "signup" ? (
+            <>Déjà un compte ? <Link href="/connexion" style={{ textDecoration: "underline" }}>Se connecter</Link></>
+          ) : (
+            <>Pas encore de compte ? <Link href="/quiz" style={{ textDecoration: "underline" }}>Trouver mes idées</Link></>
+          )}
+        </p>
+      </form>
+    </main>
   );
 }

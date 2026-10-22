@@ -1,33 +1,43 @@
-import PublicNav from "@/components/PublicNav";
-import Footer from "@/components/Footer";
-import PlanPicker from "@/components/PlanPicker";
+import FunnelNav from "@/components/funnel/FunnelNav";
+import FunnelFooter from "@/components/funnel/FunnelFooter";
+import Paywall from "@/components/funnel/Paywall";
 import { PLANS, isStripeConfigured } from "@/lib/config";
 import { getCurrentUser } from "@/lib/auth";
+import { hasActiveSubscription } from "@/lib/subscription";
+import { countIdeas } from "@/lib/ideas";
 
 export const dynamic = "force-dynamic";
 
-// Paywall minimal et fonctionnel (le design final sera refait).
-export default async function Tarifs() {
+export default async function Tarifs({ searchParams }: { searchParams: Promise<{ canceled?: string }> }) {
   const user = await getCurrentUser();
+  const { canceled } = await searchParams;
   return (
-    <>
-      <PublicNav />
-      <main className="mx-auto max-w-5xl px-4 py-12">
-        <h1 className="h1 text-center">Choisissez votre offre</h1>
-        <p className="mx-auto mt-2 max-w-2xl text-center text-slate-600">
-          Abonnement mensuel sans engagement, résiliable à tout moment depuis votre compte. Les e-books que vous créez vous appartiennent et vous les vendez au prix que vous choisissez.
-        </p>
-        {!isStripeConfigured() && (
-          <p className="mx-auto mt-4 max-w-2xl rounded-lg bg-amber-50 p-3 text-center text-sm text-amber-800">
-            Mode démo : Stripe n'est pas encore configuré, l'abonnement s'active sans paiement pour tester.
-          </p>
-        )}
-        <PlanPicker plans={PLANS} loggedIn={Boolean(user)} currentPlan={user?.sub_status === "active" ? user.plan : null} />
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs text-slate-500">
-          Aucun revenu n'est garanti. Le service étant fourni immédiatement après la souscription, vous renoncez à votre droit de rétractation et aucun remboursement n'est effectué pour la période en cours (voir CGV). La résiliation prend effet à la fin de la période payée.
-        </p>
+    <div className="mc">
+      <FunnelNav />
+      <main className="wrap pw">
+        <div className="pw-head">
+          <p className="eyebrow">Ton atelier d'e-books</p>
+          <h1>Débloque tes idées <em>et crée ton premier e-book ce soir.</em></h1>
+          <p>Accès immédiat à toute la base de {countIdeas()} idées, au générateur, à l'export PDF et au kit Etsy. Sans engagement.</p>
+          {canceled && <p className="error" style={{ marginTop: 12 }}>Paiement annulé : tu n'as pas été débité.</p>}
+          {!isStripeConfigured() && <p className="dim" style={{ marginTop: 12 }}>Mode démo : Stripe n'est pas encore branché, l'abonnement s'active sans paiement.</p>}
+        </div>
+        <Paywall
+          plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: Boolean(p.highlight) }))}
+          loggedIn={Boolean(user)}
+          currentPlan={user && hasActiveSubscription(user) ? user.plan : null}
+        />
+        <div className="trust"><span>Accès immédiat</span><span>Sans engagement</span><span>Tes e-books t'appartiennent</span><span>Paiement Stripe</span></div>
+        <section className="narrow" style={{ margin: "56px auto 0" }}>
+          <div className="faq">
+            <details><summary>Que se passe-t-il si je résilie ?</summary><p>Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.</p></details>
+            <details><summary>Je peux vendre les e-books au prix que je veux ?</summary><p>Oui. Les e-books de ce type se vendent souvent entre 5 et 10 € sur Etsy, mais c'est toi qui décides.</p></details>
+            <details><summary>Et si je ne fais aucune vente ?</summary><p>C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par l'offre Starter, de bien relire et de publier régulièrement.</p></details>
+            <details><summary>Le quota d'e-books se renouvelle quand ?</summary><p>Le 1er de chaque mois, y compris en formule annuelle. Les e-books non utilisés ne sont pas reportés.</p></details>
+          </div>
+        </section>
       </main>
-      <Footer />
-    </>
+      <FunnelFooter />
+    </div>
   );
 }

@@ -9,14 +9,14 @@ export function getStripe() {
   return client;
 }
 
-export function priceIdFor(plan: PlanId) {
+export function priceIdFor(plan: PlanId, annual = false) {
   const p = PLANS.find((x) => x.id === plan);
-  return p ? process.env[p.stripePriceEnv] || null : null;
+  return p ? process.env[annual ? p.stripeAnnualPriceEnv : p.stripePriceEnv] || null : null;
 }
 
 export function planFromPriceId(priceId: string | null | undefined): PlanId | null {
   if (!priceId) return null;
-  const p = PLANS.find((x) => process.env[x.stripePriceEnv] === priceId);
+  const p = PLANS.find((x) => process.env[x.stripePriceEnv] === priceId || process.env[x.stripeAnnualPriceEnv] === priceId);
   return p?.id ?? null;
 }
 
@@ -33,10 +33,10 @@ export function applySubscription(userId: number, sub: Stripe.Subscription) {
     .run(plan, sub.status, periodEnd, sub.id, typeof sub.customer === "string" ? sub.customer : sub.customer.id, userId);
 }
 
-export function activateDemoSubscription(userId: number, plan: PlanId) {
+export function activateDemoSubscription(userId: number, plan: PlanId, annual = false) {
   getDb()
     .prepare("UPDATE users SET plan = ?, sub_status = 'active', current_period_end = ?, is_demo_sub = 1 WHERE id = ?")
-    .run(plan, Math.floor(Date.now() / 1000) + 30 * 86400, userId);
+    .run(plan, Math.floor(Date.now() / 1000) + (annual ? 365 : 30) * 86400, userId);
 }
 
 export function cancelDemoSubscription(userId: number) {

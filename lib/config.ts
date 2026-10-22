@@ -7,10 +7,13 @@ export interface Plan {
   id: PlanId;
   name: string;
   priceEur: number;
+  // Prix mensuel équivalent en facturation annuelle (payé en une fois : x 12)
+  annualMonthlyEur: number;
   ebooksPerMonth: number;
   highlight?: boolean;
   features: string[];
   stripePriceEnv: string;
+  stripeAnnualPriceEnv: string;
 }
 
 // Les prix et quotas sont modifiables ici. Les IDs de prix Stripe viennent des variables d'environnement.
@@ -19,26 +22,32 @@ export const PLANS: Plan[] = [
     id: "starter",
     name: "Starter",
     priceEur: 19,
+    annualMonthlyEur: 15,
     ebooksPerMonth: 10,
-    features: ["10 e-books par mois", "Catalogue complet d'idées", "Export PDF prêt à vendre", "Kit fiche Etsy (titre, tags, description)"],
+    features: ["10 e-books par mois", "Base complète d'idées", "Export PDF A4, A5, US Letter", "Fiche Etsy + vérification"],
     stripePriceEnv: "STRIPE_PRICE_STARTER",
+    stripeAnnualPriceEnv: "STRIPE_PRICE_STARTER_ANNUAL",
   },
   {
     id: "pro",
     name: "Pro",
     priceEur: 39,
+    annualMonthlyEur: 31,
     ebooksPerMonth: 40,
     highlight: true,
-    features: ["40 e-books par mois", "Tout Starter", "Régénération illimitée des chapitres", "Visuels de fiche Etsy"],
+    features: ["40 e-books par mois", "Tout Starter", "Visuels de fiche Etsy", "Régénération illimitée des chapitres"],
     stripePriceEnv: "STRIPE_PRICE_PRO",
+    stripeAnnualPriceEnv: "STRIPE_PRICE_PRO_ANNUAL",
   },
   {
     id: "business",
     name: "Business",
     priceEur: 79,
+    annualMonthlyEur: 63,
     ebooksPerMonth: 150,
-    features: ["150 e-books par mois", "Tout Pro", "Idéal pour plusieurs boutiques"],
+    features: ["150 e-books par mois", "Tout Pro", "Idéal pour plusieurs boutiques", "Support prioritaire"],
     stripePriceEnv: "STRIPE_PRICE_BUSINESS",
+    stripeAnnualPriceEnv: "STRIPE_PRICE_BUSINESS_ANNUAL",
   },
 ];
 

@@ -1,11 +1,11 @@
-import PublicNav from "@/components/PublicNav";
+import FunnelNav from "@/components/funnel/FunnelNav";
 import AuthForm from "@/components/AuthForm";
 
 export default function Page() {
   return (
-    <>
-      <PublicNav />
-      <main className="px-4"><AuthForm mode="login" /></main>
-    </>
+    <div className="mc">
+      <FunnelNav />
+      <AuthForm mode="login" />
+    </div>
   );
 }

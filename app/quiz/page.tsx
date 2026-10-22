@@ -1,16 +1,16 @@
-import PublicNav from "@/components/PublicNav";
-import Quiz from "./Quiz";
+import FunnelNav from "@/components/funnel/FunnelNav";
+import Survey from "./Survey";
 import { countIdeas, listCategories } from "@/lib/ideas";
+import { getCurrentUser } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
-export default function QuizPage() {
+export default async function QuizPage() {
+  const user = await getCurrentUser();
   return (
-    <>
-      <PublicNav />
-      <main className="mx-auto max-w-2xl px-4 py-10">
-        <Quiz categories={listCategories()} total={countIdeas()} />
-      </main>
-    </>
+    <div className="mc">
+      <FunnelNav />
+      <Survey categories={listCategories().map((c) => ({ slug: c.slug, name: c.name }))} total={countIdeas()} loggedIn={Boolean(user)} />
+    </div>
   );
 }

@@ -14,7 +14,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
   const usage = getUsage(user);
   let quizCats: string[] = [];
   try {
-    quizCats = JSON.parse(user.quiz_json || "{}").categories || [];
+    quizCats = JSON.parse(user.quiz_json || "{}").answers?.themes || [];
   } catch {}
   const suggestions = searchIdeas({ category: quizCats[0], sort: "random", pageSize: 4, userId: user.id }).items;
 

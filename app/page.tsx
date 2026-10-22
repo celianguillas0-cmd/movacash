@@ -1,75 +1,174 @@
 import Link from "next/link";
-import PublicNav from "@/components/PublicNav";
-import Footer from "@/components/Footer";
-import { countIdeas, listCategories, searchIdeas } from "@/lib/ideas";
-import { APP_NAME } from "@/lib/config";
+import FunnelNav from "@/components/funnel/FunnelNav";
+import FunnelFooter from "@/components/funnel/FunnelFooter";
+import PhoneDemo from "@/components/funnel/PhoneDemo";
+import { countIdeas, searchIdeas } from "@/lib/ideas";
 
 export const dynamic = "force-dynamic";
 
-// Landing minimale et fonctionnelle (le design final sera refait).
+const TOOLS = ["Gemini", "Etsy", "PDF", "Pinterest", "TikTok", "Instagram", "Canva", "Stripe"];
+
+const FAQ: [string, string][] = [
+  ["Est-ce que je vais vraiment gagner de l'argent ?", "Peut-être, mais rien n'est garanti. Les e-books se vendent souvent entre 5 et 10 € sur Etsy. Ce qui fait la différence : des sujets précis, une vraie relecture, des fiches soignées et de la régularité. Beaucoup de boutiques mettent plusieurs semaines avant leur première vente."],
+  ["Etsy accepte les e-books créés avec l'IA ?", "Oui, à condition de l'indiquer dans la description de l'annonce. Movacash ajoute cette mention automatiquement dans la fiche et dans le PDF."],
+  ["Si tout le monde utilise les mêmes idées, ça ne marche plus ?", "Chaque e-book est rédigé à partir de tes choix (public, ton, consignes) et de ta relecture. Deux personnes sur le même sujet obtiennent deux livres différents. Comme partout sur Etsy, l'exécution compte plus que l'idée."],
+  ["Je ne sais pas écrire. C'est un problème ?", "Non. L'IA rédige, tu relis comme un lecteur exigeant : ce qui est flou, ce qui manque, ce que tu ajouterais. Tu peux régénérer un chapitre en un clic."],
+  ["Pourquoi autant de questions au début ?", "Pour écarter les sujets qui ne te correspondent pas (temps, niveau, langue, thèmes) et te proposer 3 idées réalistes plutôt que 50."],
+  ["Je peux arrêter quand je veux ?", "Oui, l'abonnement est sans engagement et se résilie depuis ton compte. Il reste actif jusqu'à la fin de la période payée. Il n'y a pas de remboursement d'une période entamée."],
+];
+
 export default function Home() {
   const total = countIdeas();
-  const cats = listCategories();
-  const sample = searchIdeas({ sort: "random", pageSize: 8 }).items;
+  const sample = searchIdeas({ sort: "opportunity", pageSize: 60 }).items.sort(() => Math.random() - 0.5).slice(0, 12);
   return (
-    <>
-      <PublicNav />
+    <div className="mc">
+      <FunnelNav />
       <main>
-        <section className="mx-auto max-w-4xl px-4 py-16 text-center">
-          <p className="badge mb-4 bg-brand-100 text-brand-700">{total} idées de formations prêtes à créer</p>
-          <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
-            Créez des e-books de formation de qualité et vendez-les sur Etsy
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-            Choisissez une idée dans notre base, laissez l'IA rédiger un guide complet et structuré, relisez-le, exportez un PDF professionnel et publiez votre fiche Etsy optimisée. Vous fixez votre prix, vous gardez 100 % de vos ventes.
-          </p>
-          <div className="mt-8 flex justify-center gap-3">
-            <Link href="/quiz" className="btn-primary px-6 py-3 text-base">Trouver mon idée (1 min)</Link>
-            <Link href="/tarifs" className="btn-secondary px-6 py-3 text-base">Voir les tarifs</Link>
-          </div>
-          <p className="mt-4 text-xs text-slate-500">Aucun revenu garanti : le résultat dépend de votre travail, de vos sujets et de vos fiches.</p>
-        </section>
-
-        <section className="mx-auto grid max-w-6xl gap-4 px-4 md:grid-cols-4">
-          {[
-            ["1. Trouvez l'idée", `${total} sujets classés en ${cats.length} catégories, avec un potentiel estimé, la concurrence et un prix conseillé.`],
-            ["2. Générez l'e-book", "Plan détaillé puis chapitres de 1800 à 2500 mots : méthodes, exemples, exercices, check-lists et plan d'action."],
-            ["3. Relisez et exportez", "Modifiez chaque chapitre, choisissez la couverture, exportez en PDF A4, A5 ou Letter."],
-            ["4. Publiez sur Etsy", "Titre, 13 tags, description, mention IA obligatoire et vérification de conformité générés pour vous."],
-          ].map(([t, d]) => (
-            <div key={t} className="card">
-              <h3 className="font-semibold">{t}</h3>
-              <p className="mt-1 text-sm text-slate-600">{d}</p>
+        <section className="wrap hero">
+          <div>
+            <p className="eyebrow">Le radar des formations qui se vendent sur Etsy</p>
+            <h1>Crée tes e-books de formation <em>et vends-les sur Etsy.</em></h1>
+            <p className="lead">
+              Trouve un sujet qui a de la demande dans notre base de {total} idées. L'IA rédige un guide complet de 40 à 60 pages, tu le relis, et tu repars avec le PDF, la couverture et ta fiche Etsy prête à publier.
+            </p>
+            <div className="ctas">
+              <Link className="btn btn-accent btn-lg" href="/quiz">Trouver mes 3 idées →</Link>
+              <a className="btn btn-ghost btn-lg" href="#how">Voir comment ça marche</a>
             </div>
-          ))}
+            <p className="dim fine">Questionnaire de 2 minutes. Aucun revenu n'est garanti : tes ventes dépendent de ton travail.</p>
+          </div>
+          <PhoneDemo />
         </section>
 
-        <section className="mx-auto max-w-6xl px-4 py-14">
-          <h2 className="h1 mb-6 text-center">Quelques idées de la base</h2>
-          <div className="grid gap-3 md:grid-cols-4">
-            {sample.map((i) => (
-              <div key={i.id} className="card">
-                <p className="text-xs text-slate-500">{i.emoji} {i.category_name}</p>
-                <p className="mt-1 font-medium">{i.title}</p>
-                <p className="mt-2 text-xs text-slate-500">Prix conseillé : {i.price_min}–{i.price_max} €</p>
+        <section className="marquee" aria-label="Outils">
+          <p className="eyebrow marquee-title">Les outils sur lesquels tu vas t'appuyer</p>
+          <div className="marquee-track">
+            {[...TOOLS, ...TOOLS].map((t, i) => <span key={i}>{t}</span>)}
+          </div>
+        </section>
+
+        <section className="wrap section" id="how">
+          <div className="section-head">
+            <p className="eyebrow">Comment ça marche</p>
+            <h2>De l'idée au PDF vendable, <em>en une soirée.</em></h2>
+            <p>Tu restes l'auteur : l'outil fait le gros du travail, tu apportes la relecture et ta touche.</p>
+          </div>
+          <div className="steps">
+            {[
+              ["Choisis un sujet", `${total} idées classées par potentiel, concurrence et prix conseillé. Musculation, Vinted, vidéos IA, budget, chiots…`],
+              ["Génère l'e-book", "Plan détaillé puis chapitres de 2 000 mots : méthodes, exemples, exercices, check-lists, plan d'action."],
+              ["Relis et personnalise", "Modifie chaque chapitre, régénère ce qui ne te plaît pas, choisis ta couverture."],
+              ["Publie sur Etsy", "PDF A4, A5 ou US Letter, titre, 13 tags, description et visuels de fiche. Tu fixes ton prix."],
+            ].map(([t, d], i) => (
+              <div className="step" key={t}>
+                <span className="n">Étape {i + 1}</span>
+                <h3>{t}</h3>
+                <p>{d}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section className="mx-auto max-w-3xl px-4">
-          <div className="card">
-            <h2 className="text-lg font-semibold">Ce que {APP_NAME} fait, et ne fait pas</h2>
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-slate-700">
-              <li>Il vous fait gagner des heures de rédaction et de mise en page sur des guides réellement utiles.</li>
-              <li>Il respecte les règles Etsy : mention de l'IA dans la fiche, avertissements sur les sujets santé et argent, pas de promesse miracle.</li>
-              <li>Il ne garantit aucun revenu : vendre demande de bons sujets, de la relecture, des fiches soignées et de la régularité.</li>
-              <li>Vous êtes l'auteur : relisez et personnalisez chaque e-book avant de le vendre.</li>
-            </ul>
+        <section className="wrap section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <p className="eyebrow">La base d'idées</p>
+            <h2>{total} formations qui <em>ont un public.</em></h2>
+            <p>Sans API, sans attente : la base est déjà là, avec un prix conseillé pour chaque sujet. Un aperçu :</p>
+          </div>
+          <div className="ideas-wall">
+            {sample.map((i) => (
+              <span className="chip" key={i.id}>{i.title}<small>{i.price_min}–{i.price_max} €</small></span>
+            ))}
           </div>
         </section>
+
+        <section className="wrap section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <p className="eyebrow">Ce que tu obtiens</p>
+            <h2>Un vrai produit, <em>pas un PDF de 5 pages.</em></h2>
+          </div>
+          <div className="deliver">
+            <ul>
+              {[
+                ["Un e-book de 40 à 60 pages", "Structuré, concret, avec exercices et plan d'action. Sans statistiques inventées ni promesses miracles."],
+                ["Une couverture professionnelle", "3 styles, palettes au choix, intégrée au PDF avec sommaire et pagination."],
+                ["La fiche Etsy complète", "Titre de 140 caractères, 13 tags, description et 3 visuels, avec la mention IA exigée par Etsy."],
+                ["Les garde-fous Etsy", "Avertissements automatiques pour la santé et l'argent, contrôle des promesses excessives et des marques citées."],
+              ].map(([t, d], i) => (
+                <li key={t}>
+                  <span className="ic">{i + 1}</span>
+                  <div><b>{t}</b><span>{d}</span></div>
+                </li>
+              ))}
+            </ul>
+            <div className="spread" aria-hidden="true">
+              <div className="page-mock">
+                <div className="k">CHAPITRE 3</div>
+                <h4>Des photos qui vendent</h4>
+                <p>La photo est la première chose que voit l'acheteur. Une lumière naturelle et un fond neutre suffisent pour la plupart des vêtements.</p>
+                <div className="q"><b>À retenir :</b> photographie près d'une fenêtre, entre 10 h et 16 h.</div>
+                <p>☐ Prépare un fond blanc<br />☐ Prends 5 angles par article<br />☐ Montre les étiquettes</p>
+              </div>
+              <div className="page-mock">
+                <div className="k">CHAPITRE 5</div>
+                <h4>Ton plan d'action</h4>
+                <p><b>Semaine 1</b> : trie ton dressing, sélectionne 15 pièces.<br /><b>Semaine 2</b> : photos et annonces.<br /><b>Semaine 3</b> : premier vide-grenier.</p>
+                <div className="q">Note tes temps de vente pour savoir quoi racheter.</div>
+                <p>☐ 15 annonces publiées<br />☐ 3 prix ajustés</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="wrap section" style={{ paddingTop: 0 }}>
+          <div className="section-head">
+            <p className="eyebrow">Transparence</p>
+            <h2>Ce que Movacash fait, <em>et ce qu'il ne fait pas.</em></h2>
+          </div>
+          <div className="honest">
+            <div>
+              <h3>Il fait</h3>
+              <ul>
+                <li>Te faire gagner des heures de rédaction et de mise en page.</li>
+                <li>Te proposer des sujets qui ont un public.</li>
+                <li>Produire des guides utiles que tu peux vendre au prix que tu choisis.</li>
+                <li>Respecter les règles Etsy sur l'IA.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Il ne fait pas</h3>
+              <ul>
+                <li>Garantir des ventes ou un revenu.</li>
+                <li>Publier à ta place sur Etsy.</li>
+                <li>Remplacer ta relecture : tu restes responsable de ce que tu vends.</li>
+                <li>Rembourser une période entamée (voir CGV).</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section className="wrap section narrow" id="faq" style={{ paddingTop: 0, marginInline: "auto" }}>
+          <div className="section-head">
+            <p className="eyebrow">Objections</p>
+            <h2>Les questions qu'on nous pose souvent</h2>
+          </div>
+          <div className="faq">
+            {FAQ.map(([q, a]) => (
+              <details key={q}>
+                <summary>{q}</summary>
+                <p>{a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+        <section className="wrap final">
+          <p className="eyebrow">2 minutes</p>
+          <h2>Trouve tes 3 premières idées <em>d'e-books.</em></h2>
+          <Link className="btn btn-accent btn-lg" href="/quiz">Commencer le questionnaire →</Link>
+        </section>
       </main>
-      <Footer />
-    </>
+      <FunnelFooter />
+    </div>
   );
 }

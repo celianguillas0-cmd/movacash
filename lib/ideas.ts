@@ -124,17 +124,34 @@ export function countIdeas() {
   return (getDb().prepare("SELECT COUNT(*) AS n FROM ideas").get() as { n: number }).n;
 }
 
-// Sélection pour le résultat du quiz : meilleures opportunités dans les catégories choisies, variées.
-export function pickIdeasForQuiz(categories: string[], beginner: boolean, limit = 6) {
+export interface QuizAnswers {
+  name?: string;
+  themes?: string[];
+  sensitive?: "yes" | "no";
+  writing?: "easy" | "ok" | "hard";
+  etsy?: string;
+  time?: string;
+  [k: string]: unknown;
+}
+
+// Sélection des 3 idées du sondage : meilleures opportunités dans les thèmes choisis, une par catégorie si possible.
+export function pickIdeasForQuiz(a: QuizAnswers, limit = 3): Idea[] {
   const db = getDb();
-  const cats = categories.length ? categories : (db.prepare("SELECT slug FROM categories").all() as { slug: string }[]).map((c) => c.slug);
-  const per = Math.max(1, Math.ceil(limit / cats.length));
-  const out: Idea[] = [];
-  const stmt = db.prepare(
-    `SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug
-     WHERE i.category_slug = ? ${beginner ? "AND i.difficulty <= 2" : ""}
-     ORDER BY (i.demand - i.competition) DESC, random() LIMIT ?`
-  );
-  for (const c of cats) out.push(...(stmt.all(c, per) as Idea[]));
-  return out.sort(() => Math.random() - 0.5).slice(0, limit);
+  const themes = (a.themes || []).filter((t) => typeof t === "string").slice(0, 6);
+  const where = [themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "1=1"];
+  if (a.sensitive === "no") where.push("i.sensitive IS NULL");
+  const pool = db
+    .prepare(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug WHERE ${where.join(" AND ")}`)
+    .all(...themes) as Idea[];
+  const score = (i: Idea) => i.demand * 2 - i.competition - (a.writing === "hard" && i.sensitive ? 2 : 0) - (a.writing === "hard" ? i.difficulty - 1 : 0) + Math.random() * 1.5;
+  const ranked = pool.map((i) => ({ i, s: score(i) })).sort((x, y) => y.s - x.s).map((x) => x.i);
+  const picks: Idea[] = [];
+  const cats = new Set<string>();
+  for (const i of ranked) if (picks.length < limit && !cats.has(i.category_slug)) { picks.push(i); cats.add(i.category_slug); }
+  for (const i of ranked) if (picks.length < limit && !picks.includes(i)) picks.push(i);
+  return picks;
+}
+
+export function getIdeasByIds(ids: number[]) {
+  return ids.map((id) => getIdea(id)).filter(Boolean) as Idea[];
 }
