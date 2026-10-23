@@ -7,15 +7,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Noir, blanc et transparent uniquement : aucune teinte, les « couleurs » d'état sont des blancs translucides
+        // Base noir, blanc et transparent ; couleurs chaudes seulement pour les états (vert, ambre, rouge). Jamais de bleu.
         brand: { 50: "rgba(255,255,255,.06)", 100: "rgba(255,255,255,.14)", 500: "#e5e5e5", 600: "#ffffff", 700: "#ffffff", 900: "#ffffff" },
         slate: {
           50: "rgba(255,255,255,.02)", 100: "rgba(255,255,255,.06)", 200: "rgba(255,255,255,.10)", 300: "rgba(255,255,255,.18)", 400: "#737373",
           500: "#8f8f8f", 600: "#a8a8a8", 700: "#c8c8c8", 800: "#e5e5e5", 900: "#f5f5f5",
         },
-        green: { 50: "rgba(255,255,255,.05)", 100: "rgba(255,255,255,.14)", 700: "#ffffff", 800: "#ffffff" },
-        amber: { 50: "rgba(255,255,255,.05)", 100: "rgba(255,255,255,.14)", 700: "#e5e5e5", 800: "#ffffff" },
-        red: { 50: "rgba(255,255,255,.06)", 100: "rgba(255,255,255,.10)", 200: "rgba(255,255,255,.28)", 400: "#ffffff", 600: "#ffffff", 700: "#ffffff" },
+        green: { 50: "#0d2118", 100: "#123022", 700: "#4ade80", 800: "#86efac" },
+        amber: { 50: "#231a0c", 100: "#33250f", 700: "#fbbf24", 800: "#fcd34d" },
+        red: { 50: "#2a1210", 100: "#3a1714", 200: "#5a221d", 400: "#ff6b6b", 600: "#ff6b6b", 700: "#ff8a8a" },
         blue: { 50: "rgba(255,255,255,.05)", 900: "#ffffff" },
       },
       fontFamily: {

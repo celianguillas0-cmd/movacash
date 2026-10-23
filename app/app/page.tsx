@@ -35,7 +35,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         </div>
         <div className="flex flex-wrap gap-2">
           <Link href="/app/idees" className="btn-secondary">Parcourir les idées</Link>
-          {active ? <Link href="/app/nouveau" className="btn-primary">+ Nouvel e-book</Link> : <Link href="/tarifs" className="btn-primary">S'abonner</Link>}
+          {active ? <Link href="/app/nouveau" className="btn-hot">+ Nouvel e-book</Link> : <Link href="/tarifs" className="btn-primary">S'abonner</Link>}
         </div>
       </section>
 
@@ -62,7 +62,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         {ebooks.length === 0 ? (
           <div className="card flex flex-wrap items-center justify-between gap-4">
             <p className="text-sm text-slate-600">Tu n'as pas encore créé d'e-book. Choisis une idée, l'IA rédige le plan puis chaque chapitre.</p>
-            {active && <Link href="/app/nouveau" className="btn-primary">Créer mon premier e-book</Link>}
+            {active && <Link href="/app/nouveau" className="btn-hot">Créer mon premier e-book</Link>}
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
