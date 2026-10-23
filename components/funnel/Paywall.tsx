@@ -53,7 +53,7 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
       <div className="pay-box">
         <div className="pay-row">
           <span>Offre <b>{sel.name}</b> · {annual ? "annuelle" : "mensuelle"}</span>
-          <b style={{ fontSize: 20 }}>{eur(annual ? Math.round(price(sel) * 1200) / 100 : price(sel))} € TTC</b>
+          <b style={{ fontSize: 20 }}>{eur(annual ? Math.round(price(sel) * 1200) / 100 : price(sel))} €</b>
         </div>
         {loggedIn ? (
           <>
@@ -70,7 +70,7 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
           <Link className="btn btn-accent btn-lg" href="/inscription">Créer mon compte pour continuer →</Link>
         )}
         <p className="pay-legal">
-          Paiement sécurisé par Stripe. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.
+          Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.
         </p>
       </div>
     </>

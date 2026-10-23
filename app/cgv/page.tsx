@@ -15,7 +15,7 @@ export default function CGV() {
 
       <h2>4. Offres et prix</h2>
       <ul>
-        {PLANS.map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € TTC par mois, {p.ebooksPerMonth} e-books par mois civil.</li>)}
+        {PLANS.map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € par mois (TVA non applicable, art. 293 B du CGI), {p.ebooksPerMonth} e-books par mois civil.</li>)}
       </ul>
       <p>Les quotas non utilisés ne sont pas reportés. Les prix peuvent évoluer ; tout changement est notifié au moins 30 jours avant son application à un abonnement en cours.</p>
 

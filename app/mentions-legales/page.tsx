@@ -5,7 +5,7 @@ export default function Mentions() {
   return (
     <LegalPage title="Mentions légales">
       <h2>Éditeur</h2>
-      <p>{APP_NAME} est édité par [Raison sociale], [forme juridique] au capital de [montant], immatriculée au RCS de [ville] sous le numéro [SIREN], siège social : [adresse]. TVA intracommunautaire : [numéro]. Directeur de la publication : [nom]. Contact : [email].</p>
+      <p>{APP_NAME} est édité par [Prénom Nom], entrepreneur individuel (micro-entreprise), SIRET [numéro], adresse : [adresse]. TVA non applicable, art. 293 B du CGI. Directeur de la publication : [nom]. Contact : [email].</p>
       <h2>Hébergement</h2>
       <p>[Nom de l'hébergeur], [adresse], [téléphone].</p>
       <h2>Marques</h2>
