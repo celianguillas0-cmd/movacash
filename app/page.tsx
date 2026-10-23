@@ -2,11 +2,10 @@ import Link from "next/link";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import PhoneDemo from "@/components/funnel/PhoneDemo";
+import ToolsCloud from "@/components/funnel/ToolsCloud";
 import { countIdeas, searchIdeas } from "@/lib/ideas";
 
 export const dynamic = "force-dynamic";
-
-const TOOLS = ["Gemini", "Etsy", "PDF", "Pinterest", "TikTok", "Instagram", "Canva", "Stripe"];
 
 const FAQ: [string, string][] = [
   ["Est-ce que je vais vraiment gagner de l'argent ?", "Peut-être, mais rien n'est garanti. Les e-books se vendent souvent entre 5 et 10 € sur Etsy. Ce qui fait la différence : des sujets précis, une vraie relecture, des fiches soignées et de la régularité. Beaucoup de boutiques mettent plusieurs semaines avant leur première vente."],
@@ -60,11 +59,9 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="marquee" aria-label="Outils">
-          <p className="eyebrow marquee-title">Les outils sur lesquels tu vas t'appuyer</p>
-          <div className="marquee-track">
-            {[...TOOLS, ...TOOLS].map((t, i) => <span key={i}>{t}</span>)}
-          </div>
+        <section className="wrap tools-section" aria-label="Outils">
+          <p className="eyebrow tools-title">Les outils sur lesquels tu vas t'appuyer</p>
+          <ToolsCloud />
         </section>
 
         <section className="wrap section" id="how">

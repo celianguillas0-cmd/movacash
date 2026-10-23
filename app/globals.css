@@ -3,24 +3,29 @@
 @tailwind utilities;
 
 :root { color-scheme: dark; }
+*, ::before, ::after { border-color: rgba(255,255,255,.12); }
 body { @apply bg-black font-sans text-slate-900 antialiased; }
 
-/* Composants de l'espace client (thème noir, accent bleu glacier) */
+/* Composants de l'espace client (noir, blanc et transparent, verre liquide) */
 @layer components {
+  /* Verre liquide façon iOS 26 : flou + saturation, reflets sur les bords, dégradé translucide */
+  .glass { border: 1px solid rgba(255,255,255,.14); background: linear-gradient(145deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.035) 45%, rgba(255,255,255,.06) 100%);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.38), inset 0 -1px 0 rgba(255,255,255,.06), inset 1px 0 0 rgba(255,255,255,.12), 0 18px 50px -20px rgba(0,0,0,.9);
+    -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%); }
   .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45; }
-  .btn-primary { @apply btn text-[#06121c] hover:brightness-110; background: linear-gradient(180deg, #e8f5ff 0%, #a5d8ff 45%, #5f9fd1 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 30px -14px #a5d8ff; }
-  .btn-secondary { @apply btn border border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-400 hover:bg-slate-200; }
+  .btn-primary { @apply btn text-black hover:brightness-105; background: linear-gradient(180deg, #fff 0%, #ececec 55%, #d4d4d4 100%); box-shadow: inset 0 1px 0 #fff, inset 0 -2px 6px rgba(0,0,0,.12), 0 12px 34px -16px rgba(255,255,255,.45); }
+  .btn-secondary { @apply btn glass text-slate-900 hover:border-slate-400; }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
-  .btn-danger { @apply btn border border-red-200 bg-transparent text-red-600 hover:bg-red-50; }
-  .card { @apply rounded-2xl border border-slate-200 bg-white/[0.035] p-5 backdrop-blur-md; }
-  .input { @apply w-full rounded-xl border border-slate-300 bg-white/[0.03] px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100; }
+  .btn-danger { @apply btn glass text-white hover:border-white/40; }
+  .card { @apply glass rounded-2xl p-5; }
+  .input { @apply glass w-full rounded-xl px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-white/60 focus:ring-2 focus:ring-white/10; }
   .label { @apply mb-1.5 block text-sm font-medium text-slate-700; }
   .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
   .h1 { @apply font-display text-3xl uppercase leading-none tracking-wide text-slate-900 md:text-4xl; }
   .h2 { @apply font-display text-xl uppercase leading-none tracking-wide text-slate-900; }
   .muted { @apply text-sm text-slate-500; }
   .eyebrow-ws { @apply font-mono text-[11px] uppercase tracking-[.14em] text-brand-600; }
-  .glacier-text { background: linear-gradient(180deg, #e8f5ff 0%, #a5d8ff 45%, #5f9fd1 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .glacier-text { background: linear-gradient(180deg, #fff 0%, #e9e9e9 50%, #bababa 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .notice { @apply rounded-xl border px-4 py-3 text-sm; }
   .notice-info { @apply notice border-brand-100 bg-brand-50 text-slate-800; }
   .notice-ok { @apply notice border-green-100 bg-green-50 text-green-800; }
@@ -32,5 +37,8 @@ body { @apply bg-black font-sans text-slate-900 antialiased; }
   select.input { @apply pr-8; }
 }
 
-.ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: #000; }
+.ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background:
+  radial-gradient(700px 480px at 12% 8%, rgba(255,255,255,.10), transparent 70%),
+  radial-gradient(620px 420px at 92% 38%, rgba(255,255,255,.07), transparent 70%),
+  radial-gradient(800px 520px at 40% 100%, rgba(255,255,255,.06), transparent 70%), #000; }
 select.input option { background: #0b0b0d; }

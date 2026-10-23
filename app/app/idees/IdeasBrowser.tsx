@@ -71,7 +71,7 @@ export default function IdeasBrowser({ categories }: { categories: Cat[] }) {
           <option value="3">Concurrence ≤ 3</option>
         </select>
         <label className="flex items-center gap-2 text-sm text-slate-700">
-          <input type="checkbox" className="accent-[#a5d8ff]" checked={f.favorites === "1"} onChange={(e) => set("favorites", e.target.checked ? "1" : "")} /> Mes favoris
+          <input type="checkbox" className="accent-white" checked={f.favorites === "1"} onChange={(e) => set("favorites", e.target.checked ? "1" : "")} /> Mes favoris
         </label>
         <p className="muted self-center md:col-span-3">{data ? `${data.total} idée(s)` : "Chargement…"}</p>
       </div>

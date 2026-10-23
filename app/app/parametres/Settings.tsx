@@ -88,7 +88,7 @@ export default function Settings({ user }: { user: U }) {
           </div>
         </div>
         <label className="flex items-start gap-2 text-sm text-slate-700">
-          <input type="checkbox" className="mt-1 accent-[#a5d8ff]" checked={profile.email_tips} onChange={(e) => setProfile({ ...profile, email_tips: e.target.checked })} />
+          <input type="checkbox" className="mt-1 accent-white" checked={profile.email_tips} onChange={(e) => setProfile({ ...profile, email_tips: e.target.checked })} />
           Recevoir de temps en temps des conseils pour vendre sur Etsy (désinscription en un clic).
         </label>
         <div className="flex flex-wrap items-center gap-3">

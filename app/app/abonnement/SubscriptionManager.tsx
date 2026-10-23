@@ -300,7 +300,7 @@ function CancelModal({ sub, lower, onClose, onDowngrade, onDone }: { sub: Sub; l
           <div className="grid gap-1.5 sm:grid-cols-2">
             {REASONS.map(([k, l]) => (
               <label key={k} className={`flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 ${reason === k ? "border-brand-600 bg-brand-50" : "border-slate-200"}`}>
-                <input type="radio" name="reason" value={k} checked={reason === k} onChange={() => setReason(k)} className="accent-[#a5d8ff]" /> {l}
+                <input type="radio" name="reason" value={k} checked={reason === k} onChange={() => setReason(k)} className="accent-white" /> {l}
               </label>
             ))}
           </div>
