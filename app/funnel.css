@@ -365,3 +365,18 @@
 .mc .page-photo { background: #000; filter: none; }
 .mc .page-photo::after { display: none; }
 .mc.has-photo .nav { background: rgba(0,0,0,.85); }
+
+/* ================= Test 23/10 : thème noir et transparent (effet verre) ================= */
+.mc { --bg: #000; --bg-2: rgba(255,255,255,.035); --panel: rgba(255,255,255,.07); --line: rgba(255,255,255,.10); --line-2: rgba(255,255,255,.18); background: #000; }
+.mc .opt, .mc .textin, .mc .idea-card, .mc .plan, .mc .pay-box, .mc .plan30, .mc .profile, .mc .step, .mc .honest, .mc .p-card, .mc .lock-badge span,
+.mc .form input, .mc.has-photo .opt, .mc.has-photo .textin, .mc.has-photo .form input, .mc.has-photo .idea-card, .mc.has-photo .plan, .mc.has-photo .pay-box, .mc.has-photo .plan30, .mc.has-photo .profile {
+  background-color: rgba(255,255,255,.035); border-color: rgba(255,255,255,.10); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+}
+.mc .opt:hover { background-color: rgba(255,255,255,.06); border-color: rgba(255,255,255,.2); }
+.mc .opt.on, .mc.has-photo .opt.on { background-color: rgba(165,216,255,.08); border-color: var(--accent); }
+.mc .nav, .mc.has-photo .nav { background: rgba(0,0,0,.55); border-bottom-color: rgba(255,255,255,.08); }
+.mc .top-card > *, .mc .float-tile b, .mc .float-tile span { background-color: rgba(0,0,0,.6); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.mc .toggle { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.12); }
+.mc .btn-ghost { background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.16); }
+.mc .hero-bw { background: #000; }
+.mc footer { border-top-color: rgba(255,255,255,.08); }

@@ -155,7 +155,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
             <button className="btn-primary" disabled={busy} onClick={() => portal("payment_method_update")}>Mettre à jour ma carte</button>
           )}
         </div>
-        <div className="rounded-xl border border-slate-200 bg-[#0b0b0d] p-4">
+        <div className="rounded-xl border border-slate-200 bg-white/[0.02] p-4">
           <QuotaMeter used={usage.used} limit={usage.limit} />
           <p className="mt-3 text-xs text-slate-500">Le quota repart à zéro le {new Date(usage.resetsOn).toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}. Les e-books non utilisés ne sont pas reportés.</p>
         </div>

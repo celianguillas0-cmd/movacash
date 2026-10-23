@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root { color-scheme: dark; }
-body { @apply bg-[#070708] font-sans text-slate-900 antialiased; }
+body { @apply bg-black font-sans text-slate-900 antialiased; }
 
 /* Composants de l'espace client (thème noir, accent bleu glacier) */
 @layer components {
@@ -12,8 +12,8 @@ body { @apply bg-[#070708] font-sans text-slate-900 antialiased; }
   .btn-secondary { @apply btn border border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-400 hover:bg-slate-200; }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
   .btn-danger { @apply btn border border-red-200 bg-transparent text-red-600 hover:bg-red-50; }
-  .card { @apply rounded-2xl border border-slate-200 bg-[#111114]/90 p-5; }
-  .input { @apply w-full rounded-xl border border-slate-300 bg-[#0b0b0d] px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100; }
+  .card { @apply rounded-2xl border border-slate-200 bg-white/[0.035] p-5 backdrop-blur-md; }
+  .input { @apply w-full rounded-xl border border-slate-300 bg-white/[0.03] px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100; }
   .label { @apply mb-1.5 block text-sm font-medium text-slate-700; }
   .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
   .h1 { @apply font-display text-3xl uppercase leading-none tracking-wide text-slate-900 md:text-4xl; }
@@ -32,6 +32,5 @@ body { @apply bg-[#070708] font-sans text-slate-900 antialiased; }
   select.input { @apply pr-8; }
 }
 
-.ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background:
-  radial-gradient(900px 480px at 85% -10%, rgba(165,216,255,.10), transparent 65%),
-  radial-gradient(700px 420px at -10% 110%, rgba(165,216,255,.05), transparent 60%), #070708; }
+.ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: #000; }
+select.input option { background: #0b0b0d; }

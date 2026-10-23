@@ -8,8 +8,9 @@ export default {
     extend: {
       colors: {
         brand: { 50: "#0c1a26", 100: "#13283a", 500: "#7cc0f5", 600: "#a5d8ff", 700: "#c9e8ff", 900: "#e8f5ff" },
+        // Thème noir et transparent : fonds et bordures en blanc translucide
         slate: {
-          50: "#0f0f11", 100: "#18181c", 200: "#26262c", 300: "#34343a", 400: "#6f6f77",
+          50: "rgba(255,255,255,.02)", 100: "rgba(255,255,255,.06)", 200: "rgba(255,255,255,.10)", 300: "rgba(255,255,255,.18)", 400: "#6f6f77",
           500: "#8b8b93", 600: "#a3a3aa", 700: "#c4c4ca", 800: "#e2e2e6", 900: "#f3f3f5",
         },
         green: { 50: "#0d2118", 100: "#123022", 700: "#7fe0b0", 800: "#9be8c1" },
