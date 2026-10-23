@@ -360,3 +360,8 @@
 .mc.has-photo .opt, .mc.has-photo .textin, .mc.has-photo .form input, .mc.has-photo .idea-card, .mc.has-photo .plan, .mc.has-photo .pay-box, .mc.has-photo .plan30, .mc.has-photo .profile { background-color: rgba(15,15,17,.7); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .mc.has-photo .opt.on { background-color: rgba(28,34,42,.85); }
 .mc.has-photo .nav { background: rgba(7,7,8,.6); }
+
+/* Test 23/10 : fond noir uni sur le funnel (la photo reste sur la landing) */
+.mc .page-photo { background: #000; filter: none; }
+.mc .page-photo::after { display: none; }
+.mc.has-photo .nav { background: rgba(0,0,0,.85); }
