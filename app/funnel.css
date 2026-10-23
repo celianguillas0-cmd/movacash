@@ -488,3 +488,9 @@
 .mc .tools-cloud .tool { --x: var(--px); --y: var(--py); --s: var(--ps); width: calc(var(--s) * 1px); height: calc(var(--s) * 1px);
   left: calc((100% - var(--s) * 1px - 44px) * var(--x) + 22px); top: calc((100% - var(--s) * 1px - 44px) * var(--y) + 22px); }
 @media (max-width: 760px) { .mc .tools-cloud .tool { --x: var(--qx); --y: var(--qy); --s: var(--qs); scale: 1; } }
+
+/* 12 icônes : un peu plus de hauteur sur téléphone */
+@media (max-width: 760px) { .mc .tools-cloud { height: 520px; } .mc .tools-cloud .tool:nth-child(n+9) { display: grid; } }
+
+/* Logo AliExpress en toutes lettres : plus large dans son icône */
+.mc .tools-cloud .tool[title="AliExpress"] svg { width: 86%; height: 86%; }

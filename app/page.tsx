@@ -60,7 +60,7 @@ export default async function Home() {
         </section>
 
         <section className="wrap tools-section" aria-label="Outils">
-          <p className="eyebrow tools-title">Les outils sur lesquels tu vas t'appuyer</p>
+          <p className="eyebrow tools-title">Les outils qui peuvent t'être utiles</p>
           <ToolsCloud />
         </section>
 
