@@ -193,7 +193,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
                   {p.features.map((f) => <li key={f}><span className="text-brand-600">✓</span> {f}</li>)}
                 </ul>
                 <button
-                  className={`mt-5 ${up ? "btn-hot" : "btn-secondary"}`}
+                  className={`mt-5 ${up ? "btn-primary" : "btn-secondary"}`}
                   disabled={isCurrent || busy || sub.state === "past_due"}
                   onClick={() => openChange(p, annual)}
                 >

@@ -8,7 +8,7 @@ export default function QuotaMeter({ used, limit, compact }: { used: number; lim
         <span className="font-semibold text-slate-900">{used} / {limit}</span>
       </div>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-200">
-        <div className={`h-full rounded-full ${pct >= 100 ? "bg-red-400" : "bg-hot"}`} style={{ width: `${pct}%` }} />
+        <div className={`h-full rounded-full ${pct >= 100 ? "bg-red-400" : "bg-brand-600"}`} style={{ width: `${pct}%` }} />
       </div>
     </div>
   );

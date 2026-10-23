@@ -29,7 +29,7 @@ export default function PhoneDemo({ tilt = false }: { tilt?: boolean }) {
           <div>
             <div className="t">PDF prêt</div>
             <div className="dim" style={{ fontSize: 12 }}>48 pages · A4 · couverture incluse</div>
-            <div className="ok-green" style={{ marginTop: 8, fontSize: 12 }}>Fiche Etsy générée ✓</div>
+            <div style={{ marginTop: 8, fontSize: 12, color: "var(--accent)" }}>Fiche Etsy générée ✓</div>
           </div>
         </div>
       </div>

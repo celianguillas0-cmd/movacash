@@ -14,7 +14,6 @@ body { @apply bg-black font-sans text-slate-900 antialiased; }
     -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%); }
   .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45; }
   .btn-primary { @apply btn text-black hover:brightness-105; background: linear-gradient(180deg, #fff 0%, #ececec 55%, #d4d4d4 100%); box-shadow: inset 0 1px 0 #fff, inset 0 -2px 6px rgba(0,0,0,.12), 0 12px 34px -16px rgba(255,255,255,.45); }
-  .btn-hot { @apply btn text-white hover:brightness-110; background: linear-gradient(135deg, #FF8A00 0%, #FF4D4D 50%, #E1306C 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 12px 34px -14px rgba(255,77,77,.55); }
   .btn-secondary { @apply btn glass text-slate-900 hover:border-slate-400; }
   .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
   .btn-danger { @apply btn glass text-white hover:border-white/40; }
@@ -38,7 +37,6 @@ body { @apply bg-black font-sans text-slate-900 antialiased; }
   select.input { @apply pr-8; }
 }
 
-.bg-hot { background: linear-gradient(135deg, #FF8A00 0%, #FF4D4D 50%, #E1306C 100%); }
 .ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background:
   radial-gradient(700px 480px at 12% 8%, rgba(255,255,255,.10), transparent 70%),
   radial-gradient(620px 420px at 92% 38%, rgba(255,255,255,.07), transparent 70%),
