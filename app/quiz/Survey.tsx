@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { QUESTIONS, SECTIONS } from "@/lib/quiz-questions";
+import { QUESTIONS, SECTIONS, resolve } from "@/lib/quiz-questions";
 
 type Cat = { slug: string; name: string };
 
@@ -16,11 +16,11 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
   const [done, setDone] = useState(0);
   const [hint, setHint] = useState("");
   const textRef = useRef<HTMLInputElement>(null);
-  const q = QUESTIONS[step];
+  const q = resolve(QUESTIONS[step], answers);
 
   useEffect(() => {
     if (q?.type === "text") textRef.current?.focus();
-  }, [q]);
+  }, [step]);
 
   function next(a: Answers = answers) {
     setHint("");

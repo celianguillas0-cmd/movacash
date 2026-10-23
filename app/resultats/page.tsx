@@ -13,10 +13,10 @@ const STRENGTH: Record<string, string> = { teach: "tu expliques bien", organized
 
 // Plan des 30 premiers jours, ajusté au temps disponible, à la promotion acceptée et à la patience.
 function plan30(a: QuizAnswers): [string, string][] {
-  const few = a.time === "2";
+  const few = a.time === "15";
   const promo = a.promo === "none" ? "optimise tes titres et tags Etsy (pas de réseaux, comme tu le souhaites)" : a.promo === "faceless" ? "épingle tes visuels sur Pinterest et publie un carrousel sans visage" : "publie une courte vidéo qui montre l'intérieur de ton e-book";
   return [
-    ["Semaine 1", `génère ton premier e-book et relis-le${few ? " en deux sessions d'une heure" : ""}, crée ta boutique Etsy${a.etsy === "shop" ? " (ou ajoute une section à la tienne)" : ""}.`],
+    ["Semaine 1", `génère ton premier e-book et relis-le${few ? " par petites sessions de 15 minutes" : ""}, crée ta boutique Etsy${a.etsy === "shop" ? " (ou ajoute une section à la tienne)" : ""}.`],
     ["Semaine 2", `publie-le avec la fiche et les visuels générés, puis ${promo}.`],
     ["Semaine 3", few ? "regarde les vues de ta fiche et ajuste le titre ou la première photo." : "crée un deuxième e-book dans la même thématique pour renforcer ta boutique."],
     ["Semaine 4", `${few ? "deuxième e-book" : "troisième e-book"}, et note ce qui attire le plus de vues.${a.patience === "weeks" ? " Les premières ventes peuvent prendre plus d'un mois : c'est normal." : ""}`],
@@ -64,7 +64,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
           <p className="eyebrow">Ton profil</p>
           <p>
             {[
-              a.time && `${label("time", String(a.time)).toLowerCase()} par semaine`,
+              a.time && `${label("time", String(a.time)).toLowerCase()} par jour`,
               a.etsy && ({ none: "premiers pas dans la vente en ligne", online: "déjà vendu en ligne", shop: "boutique Etsy déjà ouverte" } as Record<string, string>)[String(a.etsy)],
               a.format && `tu préfères ${label("format", String(a.format)).toLowerCase()}`,
               strengths.length && strengths.join(" et "),

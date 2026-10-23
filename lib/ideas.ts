@@ -181,7 +181,7 @@ function scoreParts(i: Idea, a: QuizAnswers, terrain: Set<number>) {
     format: FORMAT_OF[str(a.format)] === i.format ? 1 : 0,
     effort:
       -(a.writing === "hard" ? i.difficulty - 1 + (i.sensitive ? 2 : 0) : 0) -
-      (a.time === "2" || a.start === "week" ? (i.difficulty - 1) * 0.8 : 0) -
+      (a.time === "15" || a.start === "week" ? (i.difficulty - 1) * 0.8 : 0) -
       (refuse.includes("design") && i.format === "Guide + printables" ? 1.5 : 0) -
       (refuse.includes("trend") && /tiktok|tendance|viral/i.test(hay) ? 1.5 : 0),
   };
@@ -210,7 +210,8 @@ export function pickIdeasForQuiz(a: QuizAnswers, limit = 3): Idea[] {
 const AUD_LABEL: Record<string, string> = { parents: "les parents", students: "les étudiants", sport: "les sportifs", workers: "les salariés pressés", entrepreneurs: "les entrepreneurs", seniors: "les seniors", pets: "les propriétaires d'animaux", beginners: "les débutants" };
 const LEVEL = ["très faible", "faible", "moyenne", "bonne", "forte"];
 const COMP = ["très faible", "faible", "moyenne", "élevée", "très élevée"];
-const TIME: Record<string, string> = { "2": "moins de 2 h", "5": "2 à 5 h", "10": "5 à 10 h", "15": "plus de 10 h" };
+const TIME: Record<string, string> = { "15": "15 minutes par jour", "30": "30 minutes par jour", "60": "1 heure par jour", "120": "plus de 2 heures par jour" };
+const DAYS: Record<string, string> = { "15": "deux à trois semaines", "30": "une à deux semaines", "60": "quelques jours", "120": "deux ou trois jours" };
 
 // Pourquoi cette idée correspond aux réponses (phrases courtes, sans promesse de résultat).
 export function explainIdea(i: Idea, a: QuizAnswers): string[] {
@@ -222,7 +223,7 @@ export function explainIdea(i: Idea, a: QuizAnswers): string[] {
   if (aud.length) out.push(`Vise ${aud.map((k) => AUD_LABEL[k]).join(" et ")}, un public que tu dis bien connaître.`);
   if (parts.format) out.push(`Format « ${i.format.toLowerCase()} », celui que tu préfères.`);
   out.push(`Demande estimée ${LEVEL[i.demand - 1]}, concurrence ${COMP[i.competition - 1]}.`);
-  out.push(`Avec ${TIME[str(a.time)] || "quelques heures"} par semaine, compte une à deux soirées pour relire et publier.`);
+  out.push(`Avec ${TIME[str(a.time)] || "un peu de temps chaque jour"}, compte ${DAYS[str(a.time)] || "une à deux semaines"} pour relire et publier.`);
   if (i.sensitive) out.push("Sujet sensible : un avertissement est ajouté automatiquement au PDF et à la fiche.");
   return out;
 }

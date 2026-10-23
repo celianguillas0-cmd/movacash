@@ -12,6 +12,9 @@ export type Question = {
   max?: number;
   optional?: boolean;
   o?: Opt[];
+  // Variante du libellé selon la réponse à une question précédente (ex. le métier selon la situation)
+  dep?: string;
+  v?: Record<string, { t?: string; h?: string; ph?: string }>;
 };
 
 export const SECTIONS = ["Toi", "Ton temps", "Ton niveau", "Ce que tu refuses", "Ton terrain", "Ta force", "La vie que tu vises"];
@@ -21,10 +24,20 @@ export const QUESTIONS: Question[] = [
   { k: "name", s: "Toi", type: "text", t: "Comment tu t'appelles ?", h: "On s'en sert pour personnaliser ton plan.", ph: "Ton prénom" },
   { k: "age", s: "Toi", t: "Quel âge as-tu ?", o: [["18", "18 à 24 ans"], ["25", "25 à 34 ans"], ["35", "35 à 44 ans"], ["45", "45 à 54 ans"], ["55", "55 ans et plus"]] },
   { k: "situation", s: "Toi", t: "Quelle est ta situation aujourd'hui ?", o: [["employed", "Salarié(e)", "Je cherche une activité à côté"], ["student", "Étudiant(e)"], ["parent", "Parent au foyer"], ["freelance", "Indépendant(e) ou freelance"], ["searching", "En recherche d'emploi"], ["retired", "Retraité(e)"]] },
-  { k: "job", s: "Toi", type: "text", optional: true, t: "Quel est (ou était) ton métier ?", h: "Ton métier est souvent ton meilleur sujet : tu connais déjà le public et ses problèmes.", ph: "Ex. aide-soignante, commercial, prof de sport…" },
+  {
+    k: "job", s: "Toi", type: "text", optional: true, dep: "situation",
+    t: "Quel est ton métier ?", h: "Ton métier est souvent ton meilleur sujet : tu connais déjà le public et ses problèmes.", ph: "Ex. aide-soignante, commercial, prof de sport…",
+    v: {
+      student: { t: "Qu'est-ce que tu étudies ?", h: "Tes études sont souvent un bon sujet : tu sais ce qui bloque les autres étudiants.", ph: "Ex. droit, STAPS, BTS commerce, médecine…" },
+      parent: { t: "Quel métier faisais-tu avant ?", h: "Ton ancien métier, ou ton quotidien de parent, peut devenir ton meilleur sujet.", ph: "Ex. assistante RH, coiffeuse, ou « parent à plein temps »" },
+      freelance: { t: "Quelle est ton activité ?", ph: "Ex. graphiste, coach sportif, photographe…" },
+      searching: { t: "Quel était ton dernier métier ?", h: "Ton expérience passée est souvent ton meilleur sujet.", ph: "Ex. vendeuse, logisticien, secrétaire…" },
+      retired: { t: "Quel était ton métier ?", h: "Des années d'expérience, c'est un sujet que peu de gens peuvent écrire.", ph: "Ex. infirmière, artisan, comptable…" },
+    },
+  },
 
   // Ton temps
-  { k: "time", s: "Ton temps", t: "Combien d'heures peux-tu y consacrer par semaine ?", o: [["2", "Moins de 2 heures"], ["5", "2 à 5 heures"], ["10", "5 à 10 heures"], ["15", "Plus de 10 heures"]] },
+  { k: "time", s: "Ton temps", t: "Combien de temps peux-tu y consacrer par jour ?", o: [["15", "15 minutes"], ["30", "30 minutes"], ["60", "1 heure"], ["120", "Plus de 2 heures"]] },
   { k: "when", s: "Ton temps", t: "Quand est-ce que tu as ce temps ?", o: [["evenings", "Le soir en semaine"], ["weekend", "Le week-end"], ["day", "En journée"], ["random", "C'est irrégulier"]] },
   { k: "start", s: "Ton temps", t: "Quand veux-tu publier ton premier e-book ?", o: [["week", "Cette semaine"], ["month", "Dans le mois"], ["later", "Je ne suis pas pressé(e)"]] },
   { k: "patience", s: "Ton temps", t: "Combien de temps peux-tu tenir avant tes premières ventes ?", h: "Sur Etsy, beaucoup de boutiques mettent plusieurs semaines à décoller. Ta réponse sert à te donner un plan réaliste.", o: [["weeks", "Quelques semaines"], ["months", "2 à 3 mois"], ["long", "6 mois ou plus", "Je construis sur la durée"]] },
@@ -57,5 +70,12 @@ export const QUESTIONS: Question[] = [
   { k: "goal", s: "La vie que tu vises", t: "Qu'est-ce que tu veux construire ?", o: [["side", "Un revenu d'appoint", "Quelques ventes par mois"], ["build", "Une vraie boutique", "Une activité qui grandit sur plusieurs mois"], ["test", "Juste tester", "Voir si la vente de produits numériques me plaît"]] },
   { k: "why", s: "La vie que tu vises", t: "Si ça marche, qu'est-ce que ça changerait pour toi ?", h: "Aucun revenu n'est garanti. Ta réponse nous aide seulement à te proposer le bon rythme.", o: [["save", "Mettre de côté chaque mois"], ["treat", "Me faire plaisir sans culpabiliser"], ["less", "Travailler un peu moins"], ["free", "Avoir une activité à moi"], ["learn", "Apprendre quelque chose de nouveau"]] },
 ];
+
+// Libellé effectif d'une question, compte tenu des réponses déjà données.
+export function resolve(q: Question, answers: Record<string, unknown>): Question {
+  const key = q.dep ? answers[q.dep] : undefined;
+  const v = typeof key === "string" ? q.v?.[key] : undefined;
+  return v ? { ...q, ...v } : q;
+}
 
 export const label = (k: string, v: string) => QUESTIONS.find((q) => q.k === k)?.o?.find((o) => o[0] === v)?.[1] ?? v;
