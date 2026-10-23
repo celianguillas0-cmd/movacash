@@ -166,7 +166,7 @@ export default async function Home() {
 
         <section className="wrap section narrow" id="faq" style={{ paddingTop: 0, marginInline: "auto" }}>
           <div className="section-head">
-            <p className="eyebrow">Objections</p>
+            <p className="eyebrow">Questions fréquentes</p>
             <h2>Les questions qu'on nous pose souvent</h2>
           </div>
           <div className="faq">

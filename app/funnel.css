@@ -497,3 +497,16 @@
 
 /* Mouvement doux, sans rebond */
 .mc .tools-cloud .tool { transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+
+/* FAQ : une carte en verre par question, arrondie et aérée */
+.mc .faq { border-top: 0 !important; display: grid; gap: 12px; margin-top: 32px; }
+.mc .faq details { border: 1px solid rgba(255,255,255,.14) !important; border-radius: 20px; padding: 0 !important; overflow: hidden; transition: border-color .2s, background-color .2s; }
+.mc .faq details:hover { border-color: rgba(255,255,255,.26) !important; }
+.mc .faq details[open] { border-color: rgba(255,255,255,.32) !important; }
+.mc .faq summary { padding: 20px 22px 20px 24px; align-items: center; font-size: 17px; line-height: 1.35; }
+.mc .faq summary::-webkit-details-marker { display: none; }
+.mc .faq summary::after { content: "+"; flex: none; width: 30px; height: 30px; border-radius: 999px; display: grid; place-items: center; font-family: var(--body, inherit); font-size: 18px; font-weight: 500; line-height: 1;
+  border: 1px solid rgba(255,255,255,.22); background: rgba(255,255,255,.06); box-shadow: inset 0 1px 0 rgba(255,255,255,.3); transition: transform .25s; }
+.mc .faq details[open] summary::after { content: "+"; transform: rotate(45deg); }
+.mc .faq details p { margin: 0 !important; padding: 0 24px 22px; line-height: 1.6; }
+@media (max-width: 480px) { .mc .faq summary { padding: 18px 16px 18px 18px; font-size: 16px; } .mc .faq details p { padding: 0 18px 18px; } }
