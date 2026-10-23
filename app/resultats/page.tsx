@@ -39,7 +39,8 @@ export default async function Results({ searchParams }: { searchParams: Promise<
 
   if (!ideas.length)
     return (
-      <div className="mc">
+      <div className="mc has-photo">
+      <div className="page-photo" aria-hidden="true" />
         <FunnelNav />
         <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
           <h1 className="q-title">Réponds au questionnaire pour obtenir <em className="serif">tes 3 idées.</em></h1>
@@ -49,7 +50,8 @@ export default async function Results({ searchParams }: { searchParams: Promise<
     );
 
   return (
-    <div className="mc">
+    <div className="mc has-photo">
+      <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <main className="wrap narrow" style={{ marginInline: "auto" }}>
         <div className="res-head">

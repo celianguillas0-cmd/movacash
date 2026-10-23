@@ -28,6 +28,7 @@ export default function Home() {
       <FunnelNav />
       <main>
         <section className="hero-bw">
+          <div className="hero-photo" aria-hidden="true" />
           <div className="hero-wall" aria-hidden="true">
             {wall.map((i, k) => (
               <div className="wall-cover" key={i.id} style={{ ["--r" as string]: `${(k % 5) - 2}deg` }}><span>GUIDE</span><b>{i.title}</b></div>

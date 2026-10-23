@@ -12,7 +12,8 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
   const user = await getCurrentUser();
   const { canceled } = await searchParams;
   return (
-    <div className="mc">
+    <div className="mc has-photo">
+      <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <main className="wrap pw">
         <div className="pw-head">
