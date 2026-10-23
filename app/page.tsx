@@ -13,7 +13,7 @@ const FAQ: [string, string][] = [
   ["Etsy accepte les e-books créés avec l'IA ?", "Oui, à condition de l'indiquer dans la description de l'annonce. Movacash ajoute cette mention automatiquement dans la fiche et dans le PDF."],
   ["Si tout le monde utilise les mêmes idées, ça ne marche plus ?", "Chaque e-book est rédigé à partir de tes choix (public, ton, consignes) et de ta relecture. Deux personnes sur le même sujet obtiennent deux livres différents. Comme partout sur Etsy, l'exécution compte plus que l'idée."],
   ["Je ne sais pas écrire. C'est un problème ?", "Non. L'IA rédige, tu relis comme un lecteur exigeant : ce qui est flou, ce qui manque, ce que tu ajouterais. Tu peux régénérer un chapitre en un clic."],
-  ["Pourquoi autant de questions ?", "Un questionnaire de trois questions donnerait les mêmes idées à tout le monde. Ici on regarde ton temps, ton niveau, ce que tu refuses de faire, ce que tu connais déjà et la vie que tu vises, pour écarter ce qui ne te correspond pas et te proposer 3 idées réalistes, avec un plan de 30 jours."],
+  ["À quoi servent les questions ?", "On regarde ton temps, ton niveau, ce que tu connais déjà et ton style, pour écarter ce qui ne te correspond pas et te proposer 3 idées réalistes, avec un plan de 30 jours. Ça prend environ deux minutes."],
   ["Je peux arrêter quand je veux ?", "Oui, l'abonnement est sans engagement et se résilie depuis ton compte. Il reste actif jusqu'à la fin de la période payée. Il n'y a pas de remboursement d'une période entamée."],
 ];
 

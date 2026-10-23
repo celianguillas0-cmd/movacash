@@ -45,7 +45,7 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
   }
 
   if (phase === "analyse") {
-    const steps = ["Lecture de tes réponses", `Analyse des ${total} idées de la base`, "Filtrage selon ton temps, ton niveau et tes refus", "Rapprochement avec ton terrain et tes forces", "Comparaison potentiel / concurrence", "Sélection de tes 3 idées et de ton plan"];
+    const steps = ["Lecture de tes réponses", `Analyse des ${total} idées de la base`, "Filtrage selon ton temps et ton niveau", "Rapprochement avec ce que tu connais déjà", "Comparaison potentiel / concurrence", "Sélection de tes 3 idées et de ton plan"];
     return (
       <main className="wrap narrow analyse" style={{ marginInline: "auto" }}>
         <p className="eyebrow">Analyse</p>
