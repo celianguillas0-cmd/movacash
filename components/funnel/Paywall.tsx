@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
+import { eur } from "@/lib/config";
 
 type P = { id: string; name: string; monthly: number; annual: number; ebooks: number; features: string[]; highlight: boolean };
 
@@ -12,7 +13,7 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
   const [error, setError] = useState("");
   const sel = plans.find((p) => p.id === plan)!;
   const price = (p: P) => (annual ? p.annual : p.monthly);
-  const save = Math.round((1 - plans[0].annual / plans[0].monthly) * 100);
+  const save = Math.round((1 - plans[1].annual / plans[1].monthly) * 100);
 
   async function pay() {
     setError("");
@@ -40,8 +41,8 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
             {p.highlight && <span className="tag">Le plus choisi</span>}
             <h3>{p.name}</h3>
             <div>
-              <div className="price">{price(p)} €<small> / mois</small></div>
-              <div className="per">{annual ? `facturé ${price(p) * 12} € par an` : "facturé chaque mois, résiliable à tout moment"}</div>
+              <div className="price">{eur(price(p))} €<small> / mois</small></div>
+              <div className="per">{annual ? `facturé ${eur(Math.round(price(p) * 1200) / 100)} € par an` : "facturé chaque mois, résiliable à tout moment"}</div>
             </div>
             <div className="dim">Soit {(price(p) / p.ebooks).toFixed(2).replace(".", ",")} € par e-book</div>
             <ul>{p.features.map((f) => <li key={f}>{f}</li>)}</ul>
@@ -52,7 +53,7 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
       <div className="pay-box">
         <div className="pay-row">
           <span>Offre <b>{sel.name}</b> · {annual ? "annuelle" : "mensuelle"}</span>
-          <b style={{ fontSize: 20 }}>{annual ? price(sel) * 12 : price(sel)} € TTC</b>
+          <b style={{ fontSize: 20 }}>{eur(annual ? Math.round(price(sel) * 1200) / 100 : price(sel))} € TTC</b>
         </div>
         {loggedIn ? (
           <>

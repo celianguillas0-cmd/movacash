@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
-import { getPlan, isStripeConfigured } from "@/lib/config";
+import { eur, getPlan, isStripeConfigured } from "@/lib/config";
 import { getUsage, hasActiveSubscription } from "@/lib/subscription";
 import BillingActions from "./BillingActions";
 
@@ -20,7 +20,7 @@ export default async function Account() {
         <p className="font-semibold">Abonnement</p>
         {active ? (
           <>
-            <p>Offre {plan?.name} — {plan?.priceEur} € / mois {user.is_demo_sub ? "(démo, sans paiement)" : ""}</p>
+            <p>Offre {plan?.name} — {plan ? eur(plan.priceEur) : ""} € / mois {user.is_demo_sub ? "(démo, sans paiement)" : ""}</p>
             <p>{usage.used} / {usage.limit} e-books utilisés ce mois-ci</p>
             {user.current_period_end && <p>Période en cours jusqu'au {new Date(user.current_period_end * 1000).toLocaleDateString("fr-FR")}</p>}
           </>

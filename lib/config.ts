@@ -21,35 +21,38 @@ export const PLANS: Plan[] = [
   {
     id: "starter",
     name: "Starter",
-    priceEur: 19,
-    annualMonthlyEur: 15,
-    ebooksPerMonth: 10,
-    features: ["10 e-books par mois", "Base complète d'idées", "Export PDF A4, A5, US Letter", "Fiche Etsy + vérification"],
+    priceEur: 19.9,
+    annualMonthlyEur: 15.9,
+    ebooksPerMonth: 5,
+    features: ["5 e-books par mois", "Base complète d'idées", "Export PDF A4, A5, US Letter", "Fiche Etsy + vérification"],
     stripePriceEnv: "STRIPE_PRICE_STARTER",
     stripeAnnualPriceEnv: "STRIPE_PRICE_STARTER_ANNUAL",
   },
   {
     id: "pro",
     name: "Pro",
-    priceEur: 39,
-    annualMonthlyEur: 31,
-    ebooksPerMonth: 40,
+    priceEur: 39.9,
+    annualMonthlyEur: 31.9,
+    ebooksPerMonth: 20,
     highlight: true,
-    features: ["40 e-books par mois", "Tout Starter", "Visuels de fiche Etsy", "Régénération illimitée des chapitres"],
+    features: ["20 e-books par mois", "Tout Starter", "Visuels de fiche Etsy", "Régénération illimitée des chapitres"],
     stripePriceEnv: "STRIPE_PRICE_PRO",
     stripeAnnualPriceEnv: "STRIPE_PRICE_PRO_ANNUAL",
   },
   {
     id: "business",
     name: "Business",
-    priceEur: 79,
-    annualMonthlyEur: 63,
-    ebooksPerMonth: 150,
-    features: ["150 e-books par mois", "Tout Pro", "Idéal pour plusieurs boutiques", "Support prioritaire"],
+    priceEur: 79.9,
+    annualMonthlyEur: 63.9,
+    ebooksPerMonth: 50,
+    features: ["50 e-books par mois", "Tout Pro", "Idéal pour plusieurs boutiques"],
     stripePriceEnv: "STRIPE_PRICE_BUSINESS",
     stripeAnnualPriceEnv: "STRIPE_PRICE_BUSINESS_ANNUAL",
   },
 ];
+
+// Prix affiché à la française : 19,90 €
+export const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ","));
 
 export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((p) => p.id === id);
