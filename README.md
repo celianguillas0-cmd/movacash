@@ -43,7 +43,7 @@ La base SQLite (`data/movacash.db`) est créée et remplie automatiquement au pr
 
 ## Stripe
 
-1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 70 : modifiables dans `lib/config.ts`).
+1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 100 : modifiables dans `lib/config.ts`).
 2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS`.
 3. Webhook vers `https://votre-domaine/api/stripe/webhook` avec les événements `checkout.session.completed`, `customer.subscription.created|updated|deleted`, puis `STRIPE_WEBHOOK_SECRET`.
 4. Activer le portail client Stripe (résiliation, factures) dans le dashboard.
