@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import Bars from "@/components/funnel/Bars";
 import { getCurrentUser } from "@/lib/auth";
-import { countIdeas, explainIdea, getIdeasByIds, type QuizAnswers } from "@/lib/ideas";
+import { countIdeas, explainIdea, getIdeasByIds, terrainMatches, type QuizAnswers } from "@/lib/ideas";
 import { label } from "@/lib/quiz-questions";
 import { hasActiveSubscription } from "@/lib/subscription";
 
@@ -31,9 +31,10 @@ export default async function Results({ searchParams }: { searchParams: Promise<
   try {
     quiz = JSON.parse(user.quiz_json || "{}");
   } catch {}
-  const ideas = getIdeasByIds((quiz.ideaIds || []).map(Number).filter(Number.isFinite)).slice(0, 3);
+  const ideas = (await getIdeasByIds((quiz.ideaIds || []).map(Number).filter(Number.isFinite).slice(0, 3)));
   const unlocked = hasActiveSubscription(user);
   const a: QuizAnswers = quiz.answers || {};
+  const [terrain, total] = await Promise.all([terrainMatches(a), countIdeas()]);
   const name = user.name || a.name || "";
   const strengths = (Array.isArray(a.strengths) ? (a.strengths as string[]) : []).map((k) => STRENGTH[k]).filter(Boolean);
 
@@ -58,7 +59,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
           {welcome && <p className="pill" style={{ marginBottom: 14, color: "var(--ok)", background: "color-mix(in srgb, var(--ok) 15%, transparent)" }}>Abonnement activé</p>}
           <p className="eyebrow">Tes résultats</p>
           <h1 className="q-title" style={{ marginTop: 12 }}>{name ? `${name}, voici` : "Voici"} <em className="serif">tes 3 idées.</em></h1>
-          <p className="q-help">Sélectionnées parmi {countIdeas()} sujets selon tes réponses. Les indicateurs sont des estimations : vérifie toujours la demande en cherchant le sujet sur Etsy.</p>
+          <p className="q-help">Sélectionnées parmi {total} sujets selon tes réponses. Les indicateurs sont des estimations : vérifie toujours la demande en cherchant le sujet sur Etsy.</p>
         </div>
         <div className="profile">
           <p className="eyebrow">Ton profil</p>
@@ -85,7 +86,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
                     <div className="meter"><div className="l">Concurrence</div><Bars n={i.competition} /></div>
                     <div className="meter"><div className="l">Prix conseillé</div><div className="v">{i.price_min} – {i.price_max} €</div></div>
                   </div>
-                  <ul className="why">{explainIdea(i, a).map((r) => <li key={r}>{r}</li>)}</ul>
+                  <ul className="why">{explainIdea(i, a, terrain).map((r) => <li key={r}>{r}</li>)}</ul>
                   {unlocked && (
                     <div style={{ display: "flex", gap: 10, marginTop: 16, flexWrap: "wrap" }}>
                       <Link className="btn btn-accent btn-sm" href={`/app/nouveau?idea=${i.id}`}>Créer cet e-book →</Link>

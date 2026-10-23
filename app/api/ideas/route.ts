@@ -7,7 +7,7 @@ export async function GET(req: Request) {
   const sp = new URL(req.url).searchParams;
   const num = (k: string) => (sp.get(k) ? Number(sp.get(k)) : undefined);
   // Les visiteurs non connectés ne voient qu'un aperçu
-  const res = searchIdeas({
+  const res = await searchIdeas({
     q: sp.get("q") || undefined,
     category: sp.get("category") || undefined,
     difficulty: num("difficulty"),

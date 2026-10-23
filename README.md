@@ -16,11 +16,22 @@ Sans clés, l'application tourne en **mode démo** :
 - pas de `GEMINI_API_KEY` → les e-books contiennent un texte d'exemple (toute la chaîne est testable : plan, chapitres, PDF, fiche Etsy) ;
 - pas de `STRIPE_SECRET_KEY` → l'abonnement s'active sans paiement.
 
-La base SQLite (`data/movacash.db`) est créée et remplie automatiquement au premier lancement.
+La base (fichier SQLite `data/movacash.db` en local, Turso en production) est créée, migrée et remplie automatiquement au premier lancement.
+
+Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
+
+## Espace client
+
+- `/app` tableau de bord (quota du mois, e-books, idées suggérées), `/app/ebooks` tous les e-books, `/app/aide` FAQ.
+- `/app/abonnement` : offre actuelle et quota, changement d'offre (supérieure : immédiat, différence au prorata payée tout de suite ; inférieure : au prochain renouvellement, quota actuel conservé jusque-là), passage mensuel → annuel, résiliation en fin de période avec motif, réactivation, carte bancaire et factures (portail Stripe).
+- `/app/parametres` : prénom, nom d'auteur, langue et ton par défaut, changement d'e-mail et de mot de passe, déconnexion des autres appareils, export JSON des données, suppression du compte.
+- `/mot-de-passe` : lien de réinitialisation par e-mail (Resend), valable 1 heure.
+- Le quota compte les e-books créés dans le mois civil (table `generations`) : supprimer un e-book ne rend pas de crédit.
+- Sécurité : limitation des tentatives de connexion, d'inscription et de réinitialisation ; un changement de mot de passe déconnecte les autres sessions.
 
 ## Parcours
 
-1. `/` landing → `/quiz` (4 questions + thématiques) → idées personnalisées tirées de la base
+1. `/` landing → `/quiz` (questionnaire adaptatif + thématiques) → idées personnalisées tirées de la base
 2. `/inscription` (acceptation des CGV) → `/tarifs` (paywall, case de renonciation au droit de rétractation)
 3. `/app/idees` : recherche plein texte, filtres (catégorie, difficulté, potentiel, concurrence, sujets sensibles, favoris), tri
 4. `/app/nouveau` : sujet, public, langue (fr/en/es/de/it), ton, nombre de chapitres, consignes
@@ -43,10 +54,10 @@ La base SQLite (`data/movacash.db`) est créée et remplie automatiquement au pr
 
 ## Stripe
 
-1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 120 : modifiables dans `lib/config.ts`).
-2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS`.
-3. Webhook vers `https://votre-domaine/api/stripe/webhook` avec les événements `checkout.session.completed`, `customer.subscription.created|updated|deleted`, puis `STRIPE_WEBHOOK_SECRET`.
-4. Activer le portail client Stripe (résiliation, factures) dans le dashboard.
+1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 120 : modifiables dans `lib/config.ts`), et si voulu un prix annuel pour chacun.
+2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS` (et les `_ANNUAL`).
+3. Webhook vers `https://votre-domaine/api/stripe/webhook` avec les événements `checkout.session.completed`, `customer.subscription.created|updated|deleted`, `invoice.paid`, `invoice.payment_failed`, puis `STRIPE_WEBHOOK_SECRET`.
+4. Activer le portail client Stripe (moyen de paiement, factures, adresse). Changement d'offre et résiliation se font dans l'application.
 
 ## Gemini
 
@@ -54,8 +65,8 @@ La base SQLite (`data/movacash.db`) est créée et remplie automatiquement au pr
 
 ## Déploiement
 
-SQLite nécessite un disque persistant : VPS, Railway, Render ou Fly.io avec volume monté, `DATABASE_PATH` pointant dessus.
-Définir `AUTH_SECRET` (chaîne aléatoire longue) et `NEXT_PUBLIC_APP_URL`. Pour un hébergement serverless (Vercel), il faudra passer la base sur Postgres.
+Vercel + Turso : renseigner `TURSO_DATABASE_URL` et `TURSO_AUTH_TOKEN` (le client HTTP de Turso est utilisé, sans module natif), `AUTH_SECRET`, `NEXT_PUBLIC_APP_URL`, puis les clés Gemini, Stripe et Resend. Détails dans LANCEMENT.md.
+En local ou sur un serveur avec disque, sans variables Turso, la base est un fichier SQLite (`DATABASE_PATH`).
 
 ## À faire avant la mise en ligne
 

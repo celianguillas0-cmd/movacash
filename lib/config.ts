@@ -1,5 +1,7 @@
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Movacash";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+// Adresse de contact affichée dans l'aide (ex. support@ton-domaine.fr)
+export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "";
 
 export type PlanId = "starter" | "pro" | "business";
 

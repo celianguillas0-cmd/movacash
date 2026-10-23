@@ -4,6 +4,7 @@ import Paywall from "@/components/funnel/Paywall";
 import { PLANS, isStripeConfigured } from "@/lib/config";
 import { getCurrentUser } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
+import { annualAvailable } from "@/lib/stripe";
 import { countIdeas } from "@/lib/ideas";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +20,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
         <div className="pw-head">
           <p className="eyebrow">Ton atelier d'e-books</p>
           <h1>Débloque tes idées <em>et crée ton premier e-book ce soir.</em></h1>
-          <p>Accès immédiat à toute la base de {countIdeas()} idées, au générateur, à l'export PDF et au kit Etsy. Sans engagement.</p>
+          <p>Accès immédiat à toute la base de {await countIdeas()} idées, au générateur, à l'export PDF et au kit Etsy. Sans engagement.</p>
           {canceled && <p className="error" style={{ marginTop: 12 }}>Paiement annulé : tu n'as pas été débité.</p>}
           {!isStripeConfigured() && <p className="dim" style={{ marginTop: 12 }}>Mode démo : Stripe n'est pas encore branché, l'abonnement s'active sans paiement.</p>}
         </div>
@@ -27,6 +28,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
           plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: Boolean(p.highlight) }))}
           loggedIn={Boolean(user)}
           currentPlan={user && hasActiveSubscription(user) ? user.plan : null}
+          annualAvailable={annualAvailable()}
         />
         <div className="trust"><span>Accès immédiat</span><span>Sans engagement</span><span>Tes e-books t'appartiennent</span><span>Paiement Stripe</span></div>
         <section className="narrow" style={{ margin: "56px auto 0" }}>

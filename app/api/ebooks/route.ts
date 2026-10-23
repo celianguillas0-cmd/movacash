@@ -24,10 +24,10 @@ export async function POST(req: Request) {
   return withUser(async (user) => {
     const parsed = schema.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
-    const allowed = canCreateEbook(user);
+    const allowed = await canCreateEbook(user);
     if (!allowed.ok) return fail(allowed.reason, 402);
     const d = parsed.data;
-    const idea = d.ideaId ? getIdea(d.ideaId) : undefined;
+    const idea = d.ideaId ? await getIdea(d.ideaId) : undefined;
     const brief = {
       topic: d.topic,
       audience: d.audience,
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
       format: idea?.format || "Guide complet",
     };
     const outline = await generateOutline(brief);
-    const id = createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !isGeminiConfigured());
+    const id = await createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !isGeminiConfigured());
     return ok({ id });
   });
 }

@@ -9,7 +9,7 @@ type Ctx = { params: Promise<{ id: string }> };
 export async function GET(req: Request, { params }: Ctx) {
   const { id } = await params;
   return withUser(async (user) => {
-    const data = getEbook(Number(id), user.id);
+    const data = await getEbook(Number(id), user.id);
     if (!data) return fail("Introuvable", 404);
     if (data.chapters.some((c) => !c.content_md)) return fail("Tous les chapitres doivent être générés avant l'export", 409);
     const sizeParam = new URL(req.url).searchParams.get("size")?.toUpperCase();

@@ -1,4 +1,4 @@
-import { getDb } from "./db";
+import { all, batch, one, run } from "./db";
 import type { EbookBrief, Outline } from "./generator";
 import type { EtsyKit } from "./etsy";
 import { PALETTES } from "./covers";
@@ -49,57 +49,46 @@ export function defaultCover(seed: string): CoverSettings {
   return { style: (["moderne", "elegant", "bold"] as const)[h % 3], ...p };
 }
 
-export function createEbook(userId: number, ideaId: number | null, brief: EbookBrief, outline: Outline, authorName: string, isDemo: boolean) {
-  const db = getDb();
-  const tx = db.transaction(() => {
-    const r = db
-      .prepare(
-        `INSERT INTO ebooks (user_id, idea_id, title, subtitle, topic, audience, language, tone, author_name, sensitive, status, promise, cover_json, is_demo)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'generating', ?, ?, ?)`
-      )
-      .run(
-        userId,
-        ideaId,
-        outline.title,
-        outline.subtitle,
-        brief.topic,
-        brief.audience,
-        brief.language,
-        brief.tone,
-        authorName,
-        brief.sensitive,
-        outline.promise,
-        JSON.stringify(defaultCover(outline.title)),
-        isDemo ? 1 : 0
-      );
-    const id = Number(r.lastInsertRowid);
-    const ins = db.prepare("INSERT INTO chapters (ebook_id, idx, title, summary, key_points) VALUES (?, ?, ?, ?, ?)");
-    outline.chapters.forEach((c, i) => ins.run(id, i, c.title, c.summary || "", JSON.stringify(c.keyPoints || [])));
-    return id;
-  });
-  return tx();
+export async function createEbook(userId: number, ideaId: number | null, brief: EbookBrief, outline: Outline, authorName: string, isDemo: boolean) {
+  // Tout dans une transaction : l'e-book, ses chapitres et la génération comptée dans le quota
+  const latest = "(SELECT MAX(id) FROM ebooks WHERE user_id = ?)";
+  const res = await batch([
+    {
+      sql: `INSERT INTO ebooks (user_id, idea_id, title, subtitle, topic, audience, language, tone, author_name, sensitive, status, promise, cover_json, is_demo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'generating', ?, ?, ?)`,
+      args: [userId, ideaId, outline.title, outline.subtitle, brief.topic, brief.audience, brief.language, brief.tone, authorName, brief.sensitive,
+        outline.promise, JSON.stringify(defaultCover(outline.title)), isDemo ? 1 : 0],
+    },
+    ...outline.chapters.map((c, i) => ({
+      sql: `INSERT INTO chapters (ebook_id, idx, title, summary, key_points) VALUES (${latest}, ?, ?, ?, ?)`,
+      args: [userId, i, c.title, c.summary || "", JSON.stringify(c.keyPoints || [])],
+    })),
+    { sql: `INSERT INTO generations (user_id, ebook_id) VALUES (?, ${latest})`, args: [userId, userId] },
+    { sql: `SELECT ${latest} AS id`, args: [userId] },
+  ]);
+  return Number(res[res.length - 1].rows[0].id);
 }
 
-export function getEbook(id: number, userId: number) {
-  const db = getDb();
-  const ebook = db.prepare("SELECT * FROM ebooks WHERE id = ? AND user_id = ?").get(id, userId) as EbookRow | undefined;
+export async function getEbook(id: number, userId: number) {
+  const ebook = await one<EbookRow>("SELECT * FROM ebooks WHERE id = ? AND user_id = ?", [id, userId]);
   if (!ebook) return null;
-  const chapters = db.prepare("SELECT * FROM chapters WHERE ebook_id = ? ORDER BY idx").all(id) as ChapterRow[];
+  const chapters = await all<ChapterRow>("SELECT * FROM chapters WHERE ebook_id = ? ORDER BY idx", [id]);
   return { ebook, chapters };
 }
 
+export type EbookListItem = Pick<EbookRow, "id" | "title" | "subtitle" | "status" | "created_at" | "cover_json" | "is_demo"> & {
+  chapters_total: number;
+  chapters_done: number;
+};
+
 export function listEbooks(userId: number) {
-  return getDb()
-    .prepare(
-      `SELECT e.id, e.title, e.subtitle, e.status, e.created_at, e.cover_json, e.is_demo,
-        (SELECT COUNT(*) FROM chapters c WHERE c.ebook_id = e.id) AS chapters_total,
-        (SELECT COUNT(*) FROM chapters c WHERE c.ebook_id = e.id AND c.status = 'done') AS chapters_done
-       FROM ebooks e WHERE e.user_id = ? ORDER BY e.created_at DESC`
-    )
-    .all(userId) as (Pick<EbookRow, "id" | "title" | "subtitle" | "status" | "created_at" | "cover_json" | "is_demo"> & {
-    chapters_total: number;
-    chapters_done: number;
-  })[];
+  return all<EbookListItem>(
+    `SELECT e.id, e.title, e.subtitle, e.status, e.created_at, e.cover_json, e.is_demo,
+      (SELECT COUNT(*) FROM chapters c WHERE c.ebook_id = e.id) AS chapters_total,
+      (SELECT COUNT(*) FROM chapters c WHERE c.ebook_id = e.id AND c.status = 'done') AS chapters_done
+     FROM ebooks e WHERE e.user_id = ? ORDER BY e.created_at DESC, e.id DESC`,
+    [userId]
+  );
 }
 
 export function briefFromEbook(e: EbookRow, chapterCount: number): EbookBrief {
@@ -124,12 +113,13 @@ export function outlineFromRows(e: EbookRow, chapters: ChapterRow[]): Outline {
   };
 }
 
-export function refreshStatus(ebookId: number) {
-  const db = getDb();
-  const { pending } = db
-    .prepare("SELECT COUNT(*) AS pending FROM chapters WHERE ebook_id = ? AND status != 'done'")
-    .get(ebookId) as { pending: number };
-  db.prepare("UPDATE ebooks SET status = ?, updated_at = unixepoch() WHERE id = ?").run(pending ? "generating" : "ready", ebookId);
+export async function refreshStatus(ebookId: number) {
+  await run(
+    `UPDATE ebooks SET updated_at = unixepoch(),
+       status = CASE WHEN EXISTS (SELECT 1 FROM chapters WHERE ebook_id = ? AND status != 'done') THEN 'generating' ELSE 'ready' END
+     WHERE id = ?`,
+    [ebookId, ebookId]
+  );
 }
 
 export function parseEtsy(e: EbookRow): EtsyKit | null {

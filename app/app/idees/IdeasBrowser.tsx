@@ -70,8 +70,8 @@ export default function IdeasBrowser({ categories }: { categories: Cat[] }) {
           <option value="2">Concurrence ≤ 2</option>
           <option value="3">Concurrence ≤ 3</option>
         </select>
-        <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" checked={f.favorites === "1"} onChange={(e) => set("favorites", e.target.checked ? "1" : "")} /> Mes favoris
+        <label className="flex items-center gap-2 text-sm text-slate-700">
+          <input type="checkbox" className="accent-[#a5d8ff]" checked={f.favorites === "1"} onChange={(e) => set("favorites", e.target.checked ? "1" : "")} /> Mes favoris
         </label>
         <p className="muted self-center md:col-span-3">{data ? `${data.total} idée(s)` : "Chargement…"}</p>
       </div>
@@ -81,9 +81,9 @@ export default function IdeasBrowser({ categories }: { categories: Cat[] }) {
           <div key={i.id} className="card flex flex-col">
             <div className="flex items-start justify-between gap-2">
               <p className="text-xs text-slate-500">{i.emoji} {i.category_name}</p>
-              <button onClick={() => toggleFav(i.id)} className="text-lg leading-none" title="Favori">{i.is_favorite ? "★" : "☆"}</button>
+              <button onClick={() => toggleFav(i.id)} className={`text-lg leading-none ${i.is_favorite ? "text-brand-600" : "text-slate-400 hover:text-slate-700"}`} title="Favori" aria-label={i.is_favorite ? "Retirer des favoris" : "Ajouter aux favoris"}>{i.is_favorite ? "★" : "☆"}</button>
             </div>
-            <p className="mt-1 font-medium">{i.title}</p>
+            <p className="mt-1 font-semibold text-slate-900">{i.title}</p>
             <p className="muted mt-1">Pour : {i.audience}</p>
             <div className="mt-3 grid grid-cols-2 gap-1 text-xs text-slate-600">
               <span>Potentiel <span className="text-brand-600">{dots(i.demand)}</span></span>
@@ -106,7 +106,7 @@ export default function IdeasBrowser({ categories }: { categories: Cat[] }) {
       {data && data.pages > 1 && (
         <div className="mt-6 flex items-center justify-center gap-2">
           <button className="btn-secondary" disabled={f.page <= 1} onClick={() => set("page", f.page - 1)}>←</button>
-          <span className="text-sm">Page {f.page} / {data.pages}</span>
+          <span className="text-sm text-slate-600">Page {f.page} / {data.pages}</span>
           <button className="btn-secondary" disabled={f.page >= data.pages} onClick={() => set("page", f.page + 1)}>→</button>
         </div>
       )}

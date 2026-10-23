@@ -11,8 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.15",
     "bcryptjs": "3.0.3",
-    "better-sqlite3": "12.4.1",
     "jose": "6.1.0",
     "next": "15.5.28",
     "pdfkit": "0.17.2",
@@ -22,7 +22,6 @@
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "7.6.13",
     "@types/node": "22.18.0",
     "@types/pdfkit": "0.17.3",
     "@types/react": "19.1.13",

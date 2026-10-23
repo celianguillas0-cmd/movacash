@@ -13,11 +13,11 @@ export default function Privacy() {
       <h2>Finalités et bases légales</h2>
       <p>Exécution du contrat (fourniture du service, facturation), obligations légales (comptabilité), intérêt légitime (sécurité, amélioration du service).</p>
       <h2>Sous-traitants</h2>
-      <p>Hébergeur [nom] ; Stripe (paiement) ; Google (API Gemini) qui reçoit les consignes de génération que vous saisissez. N'y indiquez pas de données personnelles sensibles.</p>
+      <p>Vercel Inc. (hébergement du site) ; Turso / ChiselStrike (base de données) ; Stripe (paiement) ; Resend (envoi des e-mails de compte) ; Google (API Gemini) qui reçoit les consignes de génération que vous saisissez. N'y indiquez pas de données personnelles sensibles.</p>
       <h2>Durée de conservation</h2>
       <p>Pendant la durée du compte, puis [durée] ; données de facturation : 10 ans.</p>
       <h2>Vos droits</h2>
-      <p>Accès, rectification, effacement, portabilité, opposition : écrivez à [email]. Vous pouvez saisir la CNIL (cnil.fr).</p>
+      <p>Accès, rectification, effacement, portabilité, opposition : écrivez à [email]. Depuis votre espace (« Paramètres »), vous pouvez aussi modifier vos informations, télécharger toutes vos données (format JSON) et supprimer votre compte vous-même. Vous pouvez saisir la CNIL (cnil.fr).</p>
       <h2>Cookies</h2>
       <p>Un unique cookie technique de session est utilisé pour vous garder connecté. Aucun cookie publicitaire n'est déposé par défaut.</p>
     </LegalPage>

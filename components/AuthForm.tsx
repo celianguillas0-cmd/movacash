@@ -60,10 +60,10 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
           </label>
         )}
         <label htmlFor="f-email">E-mail
-          <input id="f-email" type="email" required placeholder="toi@exemple.fr" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <input id="f-email" type="email" required autoComplete="email" placeholder="toi@exemple.fr" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
         </label>
         <label htmlFor="f-pass">Mot de passe
-          <input id="f-pass" type="password" required minLength={mode === "signup" ? 8 : 1} placeholder={mode === "signup" ? "8 caractères minimum" : ""} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
+          <input id="f-pass" type="password" required autoComplete={mode === "signup" ? "new-password" : "current-password"} minLength={mode === "signup" ? 8 : 1} placeholder={mode === "signup" ? "8 caractères minimum" : ""} value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} />
         </label>
         {mode === "signup" && (
           <label className="check" htmlFor="f-cgv">
@@ -72,6 +72,9 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
               J'accepte les <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>CGV</Link> et la <Link href="/confidentialite" target="_blank" style={{ textDecoration: "underline" }}>politique de confidentialité</Link>, et je comprends qu'aucun revenu n'est garanti.
             </span>
           </label>
+        )}
+        {mode === "login" && (
+          <p className="dim" style={{ textAlign: "right", marginTop: -6 }}><Link href="/mot-de-passe" style={{ textDecoration: "underline" }}>Mot de passe oublié ?</Link></p>
         )}
         {error && <p className="error">{error}</p>}
         <button className="btn btn-accent btn-lg" disabled={loading || (mode === "signup" && !form.acceptTerms)}>

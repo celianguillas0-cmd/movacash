@@ -5,7 +5,7 @@ import { eur } from "@/lib/config";
 
 type P = { id: string; name: string; monthly: number; annual: number; ebooks: number; features: string[]; highlight: boolean };
 
-export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; loggedIn: boolean; currentPlan: string | null }) {
+export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable = true }: { plans: P[]; loggedIn: boolean; currentPlan: string | null; annualAvailable?: boolean }) {
   const [annual, setAnnual] = useState(false);
   const [plan, setPlan] = useState(plans.find((p) => p.highlight)?.id || plans[0].id);
   const [waiver, setWaiver] = useState(false);
@@ -29,12 +29,12 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
 
   return (
     <>
-      <div style={{ textAlign: "center" }}>
+      {annualAvailable && <div style={{ textAlign: "center" }}>
         <div className="toggle" role="tablist">
           <button type="button" className={annual ? "" : "on"} onClick={() => setAnnual(false)}>Mensuel</button>
           <button type="button" className={annual ? "on" : ""} onClick={() => setAnnual(true)}>Annuel<span className="save">−{save} %</span></button>
         </div>
-      </div>
+      </div>}
       <div className="plans">
         {plans.map((p) => (
           <button type="button" key={p.id} className={`plan ${p.id === plan ? "selected" : ""}`} onClick={() => setPlan(p.id)}>
@@ -55,7 +55,14 @@ export default function Paywall({ plans, loggedIn, currentPlan }: { plans: P[]; 
           <span>Offre <b>{sel.name}</b> · {annual ? "annuelle" : "mensuelle"}</span>
           <b style={{ fontSize: 20 }}>{eur(annual ? Math.round(price(sel) * 1200) / 100 : price(sel))} €</b>
         </div>
-        {loggedIn ? (
+        {currentPlan ? (
+          <>
+            <p className="dim">Tu es déjà abonné(e). Le changement d'offre se fait depuis ton espace : offre supérieure tout de suite (différence au prorata), offre inférieure au prochain renouvellement.</p>
+            <Link className="btn btn-accent btn-lg" href={`/app/abonnement?plan=${plan}${annual ? "&annual=1" : ""}`}>
+              {currentPlan === plan ? "Gérer mon abonnement →" : `Passer à ${sel.name} →`}
+            </Link>
+          </>
+        ) : loggedIn ? (
           <>
             <label className="check" htmlFor="waiver">
               <input id="waiver" type="checkbox" checked={waiver} onChange={(e) => setWaiver(e.target.checked)} />

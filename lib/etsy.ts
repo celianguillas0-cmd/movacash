@@ -74,7 +74,7 @@ const HYPE = /(garanti|guaranteed|100 ?%|miracle|guéri|guérir|cure|perdez \d+ 
 export function checkEtsyCompliance(kit: EtsyKit, opts: { sensitive: string | null; language: string }): ComplianceIssue[] {
   const issues: ComplianceIssue[] = [];
   if (kit.title.length > 140) issues.push({ level: "error", message: `Titre trop long (${kit.title.length}/140 caractères).` });
-  if (kit.tags.length !== 13) issues.push({ level: "warning", message: `Etsy autorise 13 tags : vous en avez ${kit.tags.length}.` });
+  if (kit.tags.length !== 13) issues.push({ level: "warning", message: `Etsy autorise 13 tags : tu en as ${kit.tags.length}.` });
   const longTags = kit.tags.filter((t) => t.length > 20);
   if (longTags.length) issues.push({ level: "error", message: `Tags de plus de 20 caractères : ${longTags.join(", ")}` });
   const lower = (kit.title + " " + kit.description).toLowerCase();
@@ -84,21 +84,21 @@ export function checkEtsyCompliance(kit: EtsyKit, opts: { sensitive: string | nu
   if (HYPE.test(lower)) issues.push({ level: "error", message: "Promesse excessive détectée (résultat garanti, guérison, gain d'argent…). Etsy interdit les allégations trompeuses ou médicales." });
   const brands = BRANDS.filter((b) => new RegExp(`\\b${b}\\b`, "i").test(lower));
   if (brands.length && !/(non affilié|not affiliated|no afiliad|nicht verbunden|non affiliat)/i.test(kit.description))
-    issues.push({ level: "warning", message: `Marques citées (${brands.join(", ")}) : n'utilisez pas leurs logos et précisez que le guide n'est pas affilié à ces marques.` });
+    issues.push({ level: "warning", message: `Marques citées (${brands.join(", ")}) : n'utilise pas leurs logos et précise que le guide n'est pas affilié à ces marques.` });
   if (opts.sensitive && !/(ne remplace|not replace|ne constitue pas|is not|informati)/i.test(kit.description))
-    issues.push({ level: "warning", message: "Sujet sensible : ajoutez dans la description que le guide est informatif et ne remplace pas un professionnel." });
+    issues.push({ level: "warning", message: "Sujet sensible : ajoute dans la description que le guide est informatif et ne remplace pas un professionnel." });
   if (!/(pdf|téléchargement|download|numérique|digital)/i.test(kit.description))
-    issues.push({ level: "warning", message: "Précisez qu'il s'agit d'un produit numérique (PDF à télécharger, aucun envoi physique)." });
-  if (!issues.length) issues.push({ level: "ok", message: "Aucun problème détecté. Relisez quand même la fiche avant publication." });
+    issues.push({ level: "warning", message: "Précise qu'il s'agit d'un produit numérique (PDF à télécharger, aucun envoi physique)." });
+  if (!issues.length) issues.push({ level: "ok", message: "Aucun problème détecté. Relis quand même la fiche avant publication." });
   return issues;
 }
 
 export const ETSY_CHECKLIST = [
-  "Relisez et personnalisez l'e-book (exemples, anecdotes, votre touche) : c'est ce qui fait sa valeur et ce qui le distingue des autres.",
-  "Indiquez dans la description que le contenu a été créé avec l'aide de l'IA (règles de créativité Etsy, catégorie « Designed by »).",
-  "Ne revendez pas un fichier tel quel venu d'ailleurs (PLR, packs revendus) : seul votre contenu créé avec vos choix est autorisé.",
+  "Relis et personnalise l'e-book (exemples, anecdotes, ta touche) : c'est ce qui fait sa valeur et ce qui le distingue des autres.",
+  "Indique dans la description que le contenu a été créé avec l'aide de l'IA (règles de créativité Etsy, catégorie « Designed by »).",
+  "Ne revends pas un fichier tel quel venu d'ailleurs (PLR, packs revendus) : seul ton contenu, créé avec tes choix, est autorisé.",
   "Sur les sujets santé, nutrition, argent : aucune promesse de résultat, aucune allégation médicale, et un avertissement visible.",
-  "N'utilisez pas les logos des marques citées (TikTok, Vinted, Canva…) et ne laissez pas croire à un partenariat.",
-  "Précisez le format : PDF numérique, nombre de pages, aucun envoi physique.",
-  "Proposez un prix cohérent avec la longueur et la qualité réelle du guide.",
+  "N'utilise pas les logos des marques citées (TikTok, Vinted, Canva…) et ne laissez pas croire à un partenariat.",
+  "Précise le format : PDF numérique, nombre de pages, aucun envoi physique.",
+  "Propose un prix cohérent avec la longueur et la qualité réelle du guide.",
 ];

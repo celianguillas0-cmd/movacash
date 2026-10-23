@@ -34,6 +34,7 @@ export default function NewEbookForm({ idea, defaultAuthor, defaults = {} }: { i
       return setError(data.error || "Erreur");
     }
     router.push(`/app/ebooks/${data.id}?autostart=1`);
+    router.refresh(); // met à jour le compteur du quota dans la barre latérale
   }
 
   return (
@@ -88,7 +89,7 @@ export default function NewEbookForm({ idea, defaultAuthor, defaults = {} }: { i
             <option value="finance">Argent, investissement</option>
             <option value="legal">Juridique, administratif</option>
           </select>
-          <p className="muted mt-1">Ajoute un avertissement dans le PDF et rend l'IA plus prudente.</p>
+          <p className="mt-1 text-xs text-slate-500">Ajoute un avertissement dans le PDF et rend l'IA plus prudente.</p>
         </div>
       </div>
       <div>
@@ -96,7 +97,7 @@ export default function NewEbookForm({ idea, defaultAuthor, defaults = {} }: { i
         <textarea className="input min-h-24" value={f.extras} onChange={(e) => setF({ ...f, extras: e.target.value })} placeholder="Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…" />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <button className="btn-primary" disabled={loading}>{loading ? "Création du plan…" : "Générer le plan et les chapitres"}</button>
+      <button className="btn-primary" disabled={loading}>{loading ? "Création du plan… (environ 20 secondes)" : "Générer le plan et les chapitres"}</button>
     </form>
   );
 }

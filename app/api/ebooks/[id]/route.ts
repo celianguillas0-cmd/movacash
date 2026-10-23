@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { getDb } from "@/lib/db";
+import { batch } from "@/lib/db";
 import { fail, ok, withUser } from "@/lib/api";
 import { getEbook } from "@/lib/ebooks";
 
@@ -7,8 +7,8 @@ type Ctx = { params: Promise<{ id: string }> };
 
 export async function GET(_req: Request, { params }: Ctx) {
   const { id } = await params;
-  return withUser((user) => {
-    const data = getEbook(Number(id), user.id);
+  return withUser(async (user) => {
+    const data = await getEbook(Number(id), user.id);
     return data ? ok(data) : fail("Introuvable", 404);
   });
 }
@@ -31,22 +31,28 @@ export async function PATCH(req: Request, { params }: Ctx) {
   return withUser(async (user) => {
     const parsed = patch.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail("Données invalides");
-    if (!getEbook(Number(id), user.id)) return fail("Introuvable", 404);
+    if (!(await getEbook(Number(id), user.id))) return fail("Introuvable", 404);
     const d = parsed.data;
-    const db = getDb();
-    if (d.title !== undefined) db.prepare("UPDATE ebooks SET title = ? WHERE id = ?").run(d.title, id);
-    if (d.subtitle !== undefined) db.prepare("UPDATE ebooks SET subtitle = ? WHERE id = ?").run(d.subtitle, id);
-    if (d.author_name !== undefined) db.prepare("UPDATE ebooks SET author_name = ? WHERE id = ?").run(d.author_name, id);
-    if (d.cover) db.prepare("UPDATE ebooks SET cover_json = ? WHERE id = ?").run(JSON.stringify(d.cover), id);
-    db.prepare("UPDATE ebooks SET updated_at = unixepoch() WHERE id = ?").run(id);
+    const eid = Number(id);
+    await batch([
+      ...(d.title !== undefined ? [{ sql: "UPDATE ebooks SET title = ? WHERE id = ?", args: [d.title, eid] }] : []),
+      ...(d.subtitle !== undefined ? [{ sql: "UPDATE ebooks SET subtitle = ? WHERE id = ?", args: [d.subtitle, eid] }] : []),
+      ...(d.author_name !== undefined ? [{ sql: "UPDATE ebooks SET author_name = ? WHERE id = ?", args: [d.author_name, eid] }] : []),
+      ...(d.cover ? [{ sql: "UPDATE ebooks SET cover_json = ? WHERE id = ?", args: [JSON.stringify(d.cover), eid] }] : []),
+      { sql: "UPDATE ebooks SET updated_at = unixepoch() WHERE id = ?", args: [eid] },
+    ]);
     return ok();
   });
 }
 
 export async function DELETE(_req: Request, { params }: Ctx) {
   const { id } = await params;
-  return withUser((user) => {
-    getDb().prepare("DELETE FROM ebooks WHERE id = ? AND user_id = ?").run(Number(id), user.id);
+  return withUser(async (user) => {
+    const args = [Number(id), user.id];
+    await batch([
+      { sql: "DELETE FROM chapters WHERE ebook_id = (SELECT id FROM ebooks WHERE id = ? AND user_id = ?)", args },
+      { sql: "DELETE FROM ebooks WHERE id = ? AND user_id = ?", args },
+    ]);
     return ok();
   });
 }

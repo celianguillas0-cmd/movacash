@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  serverExternalPackages: ["better-sqlite3", "pdfkit"],
+  serverExternalPackages: ["@libsql/client", "libsql", "pdfkit"],
   outputFileTracingIncludes: { "/api/**/*": ["./fonts/**/*"] },
 };
 export default nextConfig;

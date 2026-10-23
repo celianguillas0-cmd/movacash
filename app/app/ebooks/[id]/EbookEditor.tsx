@@ -59,7 +59,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
         await fetch(`/api/ebooks/${id}/etsy`, { method: "POST" });
         await load();
       } catch (e) {
-        setError((e as Error).message + " — vous pouvez relancer la génération.");
+        setError((e as Error).message + " Tu peux relancer la génération, les chapitres déjà rédigés sont conservés.");
       } finally {
         setRunning(false);
         setCurrent(null);
@@ -89,8 +89,8 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
     <div className="max-w-5xl">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="h1">{ebook.title}</h1>
-          <p className="text-slate-600">{ebook.subtitle}</p>
+          <h1 className="font-display text-3xl uppercase leading-none tracking-wide text-slate-900 md:text-4xl">{ebook.title}</h1>
+          <p className="mt-2 text-slate-600">{ebook.subtitle}</p>
           <p className="muted mt-1">
             {done}/{chapters.length} chapitres · {words.toLocaleString("fr-FR")} mots · ~{Math.max(1, Math.round(words / 380) + 3)} pages A4
             {ebook.is_demo ? " · contenu de démo" : ""}
@@ -115,7 +115,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
           </div>
           <p className="mt-2 text-sm">
             {running
-              ? `Rédaction du chapitre ${(current ?? 0) + 1} / ${chapters.length}… Gardez cette page ouverte (environ 30 à 60 secondes par chapitre).`
+              ? `Rédaction du chapitre ${(current ?? 0) + 1} / ${chapters.length}… Garde cette page ouverte (environ 30 à 60 secondes par chapitre).`
               : `${chapters.length - done} chapitre(s) restant(s) à générer.`}
           </p>
           {!running && <button className="btn-primary mt-3" onClick={() => generateAll(chapters)}>Générer les chapitres restants</button>}
@@ -123,9 +123,9 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
         </div>
       )}
 
-      <div className="mt-6 flex gap-1 border-b border-slate-200">
+      <div className="mt-6 flex gap-1 overflow-x-auto border-b border-slate-200">
         {([["contenu", "Contenu"], ["couverture", "Couverture"], ["etsy", "Fiche Etsy"], ["export", "Export PDF"]] as const).map(([k, l]) => (
-          <button key={k} onClick={() => setTab(k)} className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${tab === k ? "border-brand-600 text-brand-700" : "border-transparent text-slate-500"}`}>
+          <button key={k} onClick={() => setTab(k)} className={`-mb-px shrink-0 border-b-2 px-4 py-2 text-sm font-medium ${tab === k ? "border-brand-600 text-brand-700" : "border-transparent text-slate-500 hover:text-slate-800"}`}>
             {l}
           </button>
         ))}
@@ -174,8 +174,8 @@ function ContentTab({ ebook, chapters, running, onRegenerate, onSaved }: { ebook
           Enregistrer
         </button>
       </div>
-      <p className="rounded-lg bg-blue-50 p-3 text-sm text-blue-900">
-        Relisez chaque chapitre et ajoutez votre touche (exemples, expérience, conseils). Un guide relu et personnalisé obtient de meilleurs avis, et vous restez responsable de ce que vous vendez.
+      <p className="notice-info">
+        Relis chaque chapitre et ajoute ta touche (exemples, expérience, conseils). Un guide relu et personnalisé obtient de meilleurs avis, et tu restes responsable de ce que tu vends.
       </p>
       {chapters.map((c) => (
         <div key={c.id} className="card">
@@ -243,7 +243,7 @@ function CoverTab({ ebook, cover, onSaved }: { ebook: Ebook; cover: Cover; onSav
           <p className="label">Palette</p>
           <div className="flex flex-wrap gap-2">
             {PALETTES.map((p) => (
-              <button key={p.color} onClick={() => setC({ ...c, ...p })} className={`h-10 w-10 rounded-full border-4 ${c.color === p.color ? "border-brand-600" : "border-white"} shadow`} style={{ background: `linear-gradient(135deg, ${p.color} 60%, ${p.accent} 60%)` }} />
+              <button key={p.color} onClick={() => setC({ ...c, ...p })} className={`h-10 w-10 rounded-full border-4 ${c.color === p.color ? "border-brand-600" : "border-slate-200"} shadow`} style={{ background: `linear-gradient(135deg, ${p.color} 60%, ${p.accent} 60%)` }} />
             ))}
           </div>
         </div>
@@ -288,7 +288,7 @@ function EtsyTab({ ebook, chapters, cover, ready, onSaved }: { ebook: Ebook; cha
   if (!kit)
     return (
       <div className="card">
-        <p className="text-sm">{ready ? "Générez la fiche produit Etsy de cet e-book." : "La fiche Etsy sera générée automatiquement une fois tous les chapitres rédigés."}</p>
+        <p className="text-sm">{ready ? "Génère la fiche produit Etsy de cet e-book." : "La fiche Etsy sera générée automatiquement une fois tous les chapitres rédigés."}</p>
         <button className="btn-primary mt-3" disabled={loading || !ready} onClick={generate}>{loading ? "Génération…" : "Générer la fiche Etsy"}</button>
       </div>
     );
@@ -369,7 +369,7 @@ function EtsyTab({ ebook, chapters, cover, ready, onSaved }: { ebook: Ebook; cha
             {images.map((src, i) => (
               <a key={i} href={src} download={`etsy-${ebook.id}-${i + 1}.png`} className="block">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt={`Visuel ${i + 1}`} className="rounded border" />
+                <img src={src} alt={`Visuel ${i + 1}`} className="rounded border border-slate-200" />
                 <span className="text-xs text-brand-700">Télécharger</span>
               </a>
             ))}
@@ -393,7 +393,7 @@ function ExportTab({ ebook, ready }: { ebook: Ebook; ready: boolean }) {
       <p className="text-sm">
         Le PDF contient la couverture, une page de droits avec la mention IA{ebook.sensitive ? " et l'avertissement adapté au sujet" : ""}, le sommaire, tous les chapitres et la pagination.
       </p>
-      {!ready && <p className="text-sm text-amber-700">Générez tous les chapitres avant d'exporter.</p>}
+      {!ready && <p className="text-sm text-amber-700">Génère tous les chapitres avant d'exporter.</p>}
       <div className="flex flex-wrap gap-2">
         {[["A4", "A4 (Europe, impression)"], ["A5", "A5 (lecture sur mobile)"], ["LETTER", "US Letter (clients US)"]].map(([s, l]) => (
           <a key={s} className={`btn-primary ${ready ? "" : "pointer-events-none opacity-50"}`} href={`/api/ebooks/${ebook.id}/pdf?size=${s}`}>
@@ -401,7 +401,7 @@ function ExportTab({ ebook, ready }: { ebook: Ebook; ready: boolean }) {
           </a>
         ))}
       </div>
-      <p className="muted">Sur Etsy, ajoutez le PDF comme fichier numérique de l'annonce (20 Mo max par fichier).</p>
+      <p className="muted">Sur Etsy, ajoute le PDF comme fichier numérique de l'annonce (20 Mo max par fichier).</p>
     </div>
   );
 }

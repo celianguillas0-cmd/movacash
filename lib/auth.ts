@@ -1,7 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
-import { getDb } from "./db";
+import crypto from "node:crypto";
+import { one } from "./db";
 
 export const SESSION_COOKIE = "mc_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
@@ -27,7 +29,18 @@ export interface User {
   is_demo_sub: number;
   quiz_json: string | null;
   created_at: number;
+  billing_interval: "month" | "year";
+  cancel_at_period_end: number;
+  quota_plan: string | null;
+  quota_plan_until: number | null;
+  session_version: number;
+  author_name: string;
+  default_language: string | null;
+  default_tone: string | null;
+  email_tips: number;
 }
+
+export const sha256 = (s: string) => crypto.createHash("sha256").update(s).digest("hex");
 
 export async function hashPassword(pw: string) {
   return bcrypt.hash(pw, 10);
@@ -38,7 +51,9 @@ export async function verifyPassword(pw: string, hash: string) {
 }
 
 export async function createSession(userId: number) {
-  const token = await new SignJWT({ uid: userId })
+  // La version de session invalide les anciennes connexions (changement de mot de passe, « déconnecter partout »)
+  const u = await one<{ session_version: number }>("SELECT session_version FROM users WHERE id = ?", [userId]);
+  const token = await new SignJWT({ uid: userId, sv: u?.session_version ?? 1 })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(`${MAX_AGE}s`)
@@ -64,14 +79,25 @@ export async function getCurrentUser(): Promise<User | null> {
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, getSecret());
-    const uid = Number(payload.uid);
-    const user = getDb().prepare("SELECT * FROM users WHERE id = ?").get(uid) as User | undefined;
-    return user ?? null;
+    const user = await getUserById(Number(payload.uid));
+    if (!user || Number(payload.sv ?? 1) !== user.session_version) return null;
+    return user;
   } catch {
     return null;
   }
 }
 
 export function getUserById(id: number) {
-  return getDb().prepare("SELECT * FROM users WHERE id = ?").get(id) as User | undefined;
+  return one<User>("SELECT * FROM users WHERE id = ?", [id]);
+}
+
+export function getUserByEmail(email: string) {
+  return one<User & { password_hash: string }>("SELECT * FROM users WHERE email = ?", [email.trim().toLowerCase()]);
+}
+
+// Pour les pages de l'espace client : renvoie vers la connexion si la session a expiré
+export async function requireUser() {
+  const user = await getCurrentUser();
+  if (!user) redirect("/connexion");
+  return user;
 }

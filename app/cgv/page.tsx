@@ -15,18 +15,23 @@ export default function CGV() {
 
       <h2>4. Offres et prix</h2>
       <ul>
-        {PLANS.map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € par mois (TVA non applicable, art. 293 B du CGI), {p.ebooksPerMonth} e-books par mois civil.</li>)}
+        {PLANS.map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € par mois, ou {eur(Math.round(p.annualMonthlyEur * 1200) / 100)} € par an en facturation annuelle (TVA non applicable, art. 293 B du CGI), {p.ebooksPerMonth} e-books par mois civil.</li>)}
       </ul>
-      <p>Les quotas non utilisés ne sont pas reportés. Les prix peuvent évoluer ; tout changement est notifié au moins 30 jours avant son application à un abonnement en cours.</p>
+      <p>Chaque nouvel e-book est décompté du quota au moment de la création de son plan ; la régénération d'un chapitre n'est pas décomptée et la suppression d'un e-book ne restitue pas de crédit. Le quota est remis à zéro le 1er de chaque mois civil, y compris en facturation annuelle. Les quotas non utilisés ne sont pas reportés. Les prix peuvent évoluer ; tout changement est notifié au moins 30 jours avant son application à un abonnement en cours.</p>
 
       <h2>5. Souscription, paiement et renouvellement</h2>
-      <p>L'abonnement est mensuel, payable d'avance par carte bancaire via le prestataire Stripe, et renouvelé automatiquement chaque mois jusqu'à résiliation.</p>
+      <p>L'abonnement est mensuel ou annuel, payable d'avance par carte bancaire via le prestataire Stripe, et renouvelé automatiquement pour une période identique jusqu'à résiliation. En cas d'échec de paiement, de nouvelles tentatives sont effectuées pendant quelques jours ; à défaut de régularisation, l'accès est suspendu.</p>
+
+      <h2>5 bis. Changement d'offre</h2>
+      <p>L'utilisateur peut changer d'offre à tout moment depuis son espace (« Abonnement »). Le passage à une offre supérieure, ou d'une facturation mensuelle à annuelle, prend effet immédiatement : le montant dû est calculé au prorata du temps restant sur la période en cours et prélevé immédiatement, et le nouveau quota est disponible sans délai. Le passage à une offre inférieure prend effet au renouvellement suivant, sans remboursement ; le quota de l'offre précédente reste acquis jusqu'à cette date. Le passage d'une facturation annuelle à mensuelle s'effectue à l'échéance annuelle.</p>
 
       <h2>6. Droit de rétractation</h2>
       <p>Le service et les contenus numériques générés sont fournis immédiatement après la souscription. Conformément à l'article L221-28 du Code de la consommation, l'utilisateur consommateur qui demande expressément l'exécution immédiate du service et reconnaît perdre son droit de rétractation ne peut plus l'exercer. Cet accord est recueilli par une case à cocher avant le paiement.</p>
 
       <h2>7. Résiliation et absence de remboursement</h2>
-      <p>L'utilisateur peut résilier à tout moment depuis son espace (« Mon compte »). La résiliation prend effet à la fin de la période mensuelle en cours, déjà payée ; l'accès est maintenu jusqu'à cette date. Aucun remboursement, total ou au prorata, n'est effectué pour la période entamée, y compris lorsque l'utilisateur n'a pas utilisé le service ou n'a pas rentabilisé son abonnement, sauf disposition légale impérative contraire ou défaillance du service imputable à l'Éditeur.</p>
+      <p>L'utilisateur peut résilier à tout moment depuis son espace (« Abonnement »). La résiliation prend effet à la fin de la période en cours (mensuelle ou annuelle), déjà payée ; l'utilisateur peut revenir sur sa résiliation jusqu'à cette date ; l'accès est maintenu jusqu'à cette date. Aucun remboursement, total ou au prorata, n'est effectué pour la période entamée, y compris lorsque l'utilisateur n'a pas utilisé le service ou n'a pas rentabilisé son abonnement, sauf disposition légale impérative contraire ou défaillance du service imputable à l'Éditeur.</p>
+
+      <p>L'utilisateur peut supprimer son compte à tout moment depuis « Paramètres ». La suppression entraîne l'arrêt immédiat de l'abonnement, sans remboursement de la période en cours, et l'effacement définitif des contenus associés au compte.</p>
 
       <h2>8. Contenus générés et responsabilité de l'utilisateur</h2>
       <p>Sous réserve des conditions du fournisseur d'IA, l'utilisateur peut exploiter commercialement les contenus qu'il génère. Les contenus produits par l'IA peuvent contenir des erreurs ou des imprécisions : l'utilisateur s'engage à les relire, les vérifier et les corriger avant toute diffusion, et il est seul responsable de leur publication et de leur vente, notamment du respect des règles des plateformes (dont l'obligation de signaler l'usage de l'IA sur Etsy), du droit de la consommation et des droits des tiers. Sur les sujets de santé, de nutrition, de finances ou de droit, l'utilisateur s'interdit toute allégation trompeuse ou médicale.</p>

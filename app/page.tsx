@@ -17,12 +17,12 @@ const FAQ: [string, string][] = [
   ["Je peux arrêter quand je veux ?", "Oui, l'abonnement est sans engagement et se résilie depuis ton compte. Il reste actif jusqu'à la fin de la période payée. Il n'y a pas de remboursement d'une période entamée."],
 ];
 
-export default function Home() {
-  const total = countIdeas();
-  const best = searchIdeas({ sort: "opportunity", pageSize: 60 }).items;
+export default async function Home() {
+  const total = await countIdeas();
+  const best = (await searchIdeas({ sort: "opportunity", pageSize: 60 })).items;
   const top = best[0];
   const sample = [...best].sort(() => Math.random() - 0.5).slice(0, 12);
-  const wall = searchIdeas({ sort: "random", pageSize: 40 }).items;
+  const wall = (await searchIdeas({ sort: "random", pageSize: 40 })).items;
   return (
     <div className="mc">
       <FunnelNav />

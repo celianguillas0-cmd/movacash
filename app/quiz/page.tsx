@@ -6,12 +6,12 @@ import { getCurrentUser } from "@/lib/auth";
 export const dynamic = "force-dynamic";
 
 export default async function QuizPage() {
-  const user = await getCurrentUser();
+  const [user, categories, total] = await Promise.all([getCurrentUser(), listCategories(), countIdeas()]);
   return (
     <div className="mc has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
-      <Survey categories={listCategories().map((c) => ({ slug: c.slug, name: c.name }))} total={countIdeas()} loggedIn={Boolean(user)} />
+      <Survey categories={categories.map((c) => ({ slug: c.slug, name: c.name }))} total={total} loggedIn={Boolean(user)} />
     </div>
   );
 }

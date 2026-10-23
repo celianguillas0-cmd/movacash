@@ -2,22 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: light; }
-body { @apply bg-slate-50 text-slate-900 antialiased; }
+:root { color-scheme: dark; }
+body { @apply bg-[#070708] font-sans text-slate-900 antialiased; }
 
+/* Composants de l'espace client (thème noir, accent bleu glacier) */
 @layer components {
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50; }
-  .btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
-  .btn-secondary { @apply btn border border-slate-300 bg-white text-slate-800 hover:bg-slate-100; }
-  .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100; }
-  .btn-danger { @apply btn border border-red-200 bg-white text-red-600 hover:bg-red-50; }
-  .card { @apply rounded-xl border border-slate-200 bg-white p-5 shadow-sm; }
-  .input { @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100; }
-  .label { @apply mb-1 block text-sm font-medium text-slate-700; }
-  .badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
-  .h1 { @apply text-2xl font-bold tracking-tight md:text-3xl; }
+  .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-45; }
+  .btn-primary { @apply btn text-[#06121c] hover:brightness-110; background: linear-gradient(180deg, #e8f5ff 0%, #a5d8ff 45%, #5f9fd1 100%); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 30px -14px #a5d8ff; }
+  .btn-secondary { @apply btn border border-slate-300 bg-slate-100 text-slate-900 hover:border-slate-400 hover:bg-slate-200; }
+  .btn-ghost { @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-900; }
+  .btn-danger { @apply btn border border-red-200 bg-transparent text-red-600 hover:bg-red-50; }
+  .card { @apply rounded-2xl border border-slate-200 bg-[#111114]/90 p-5; }
+  .input { @apply w-full rounded-xl border border-slate-300 bg-[#0b0b0d] px-3 py-2.5 text-sm text-slate-900 outline-none placeholder:text-slate-400 focus:border-brand-600 focus:ring-2 focus:ring-brand-100; }
+  .label { @apply mb-1.5 block text-sm font-medium text-slate-700; }
+  .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .h1 { @apply font-display text-3xl uppercase leading-none tracking-wide text-slate-900 md:text-4xl; }
+  .h2 { @apply font-display text-xl uppercase leading-none tracking-wide text-slate-900; }
   .muted { @apply text-sm text-slate-500; }
-  .prose-legal h2 { @apply mt-8 mb-2 text-lg font-semibold; }
+  .eyebrow-ws { @apply font-mono text-[11px] uppercase tracking-[.14em] text-brand-600; }
+  .glacier-text { background: linear-gradient(180deg, #e8f5ff 0%, #a5d8ff 45%, #5f9fd1 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .notice { @apply rounded-xl border px-4 py-3 text-sm; }
+  .notice-info { @apply notice border-brand-100 bg-brand-50 text-slate-800; }
+  .notice-ok { @apply notice border-green-100 bg-green-50 text-green-800; }
+  .notice-warn { @apply notice border-amber-100 bg-amber-50 text-amber-800; }
+  .notice-error { @apply notice border-red-200 bg-red-50 text-red-700; }
+  .prose-legal h2 { @apply mb-2 mt-8 text-lg font-semibold; }
   .prose-legal p, .prose-legal li { @apply mb-2 text-sm leading-relaxed text-slate-700; }
   .prose-legal ul { @apply list-disc pl-5; }
+  select.input { @apply pr-8; }
 }
+
+.ws-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; background:
+  radial-gradient(900px 480px at 85% -10%, rgba(165,216,255,.10), transparent 65%),
+  radial-gradient(700px 420px at -10% 110%, rgba(165,216,255,.05), transparent 60%), #070708; }
