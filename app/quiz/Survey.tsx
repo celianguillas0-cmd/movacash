@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { QUESTIONS, SECTIONS, resolve } from "@/lib/quiz-questions";
+import { QUESTIONS, SECTIONS, resolve, stepFrom } from "@/lib/quiz-questions";
 
 type Cat = { slug: string; name: string };
 
@@ -24,7 +24,8 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
 
   function next(a: Answers = answers) {
     setHint("");
-    if (step < QUESTIONS.length - 1) setStep(step + 1);
+    const n = stepFrom(step, 1, a);
+    if (n < QUESTIONS.length) setStep(n);
     else analyse(a);
   }
 
@@ -154,7 +155,7 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
 
       {hint && <p className="error" style={{ marginTop: 12 }}>{hint}</p>}
       <div className="q-actions">
-        <button type="button" className="btn btn-ghost btn-sm" disabled={step === 0} onClick={() => setStep(step - 1)}>← Retour</button>
+        <button type="button" className="btn btn-ghost btn-sm" disabled={step === 0} onClick={() => setStep(Math.max(0, stepFrom(step, -1, answers)))}>← Retour</button>
         {q.type && (
           <button
             type="button"

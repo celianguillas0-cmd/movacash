@@ -160,7 +160,7 @@ const arr = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typ
 function terrainMatches(a: QuizAnswers) {
   const ids = new Set<number>();
   const db = getDb();
-  for (const t of [str(a.job), str(a.passion), str(a.advice)]) {
+  for (const t of [(a.situation === "student" ? "" : str(a.job)), str(a.passion), str(a.advice)]) {
     const words = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4);
     for (const w of words.slice(0, 6)) {
       const rows = db.prepare("SELECT rowid AS id FROM ideas_fts WHERE ideas_fts MATCH ? LIMIT 60").all(`"${w}"*`) as { id: number }[];
@@ -218,7 +218,7 @@ export function explainIdea(i: Idea, a: QuizAnswers): string[] {
   const terrain = terrainMatches(a);
   const { parts, aud } = scoreParts(i, a, terrain);
   const out: string[] = [];
-  if (parts.terrain) out.push(`Proche de ce que tu connais déjà (${[str(a.job), str(a.passion), str(a.advice)].filter(Boolean).join(", ")}) : ta relecture apportera une vraie valeur.`);
+  if (parts.terrain) out.push(`Proche de ce que tu connais déjà (${[(a.situation === "student" ? "" : str(a.job)), str(a.passion), str(a.advice)].filter(Boolean).join(", ")}) : ta relecture apportera une vraie valeur.`);
   else if (arr(a.themes).includes(i.category_slug)) out.push(`Dans la thématique « ${i.category_name} » que tu as choisie.`);
   if (aud.length) out.push(`Vise ${aud.map((k) => AUD_LABEL[k]).join(" et ")}, un public que tu dis bien connaître.`);
   if (parts.format) out.push(`Format « ${i.format.toLowerCase()} », celui que tu préfères.`);

@@ -14,6 +14,7 @@ export type Question = {
   o?: Opt[];
   // Variante du libellé selon la réponse à une question précédente (ex. le métier selon la situation)
   dep?: string;
+  hideIf?: string[]; // valeurs de « dep » pour lesquelles la question n'est pas posée
   v?: Record<string, { t?: string; h?: string; ph?: string }>;
 };
 
@@ -25,10 +26,9 @@ export const QUESTIONS: Question[] = [
   { k: "age", s: "Toi", t: "Quel âge as-tu ?", o: [["18", "18 à 24 ans"], ["25", "25 à 34 ans"], ["35", "35 à 44 ans"], ["45", "45 à 54 ans"], ["55", "55 ans et plus"]] },
   { k: "situation", s: "Toi", t: "Quelle est ta situation aujourd'hui ?", o: [["employed", "Salarié(e)", "Je cherche une activité à côté"], ["student", "Étudiant(e)"], ["parent", "Parent au foyer"], ["freelance", "Indépendant(e) ou freelance"], ["searching", "En recherche d'emploi"], ["retired", "Retraité(e)"]] },
   {
-    k: "job", s: "Toi", type: "text", optional: true, dep: "situation",
+    k: "job", s: "Toi", type: "text", optional: true, dep: "situation", hideIf: ["student"],
     t: "Quel est ton métier ?", h: "Ton métier est souvent ton meilleur sujet : tu connais déjà le public et ses problèmes.", ph: "Ex. aide-soignante, commercial, prof de sport…",
     v: {
-      student: { t: "Qu'est-ce que tu étudies ?", h: "Tes études sont souvent un bon sujet : tu sais ce qui bloque les autres étudiants.", ph: "Ex. droit, STAPS, BTS commerce, médecine…" },
       parent: { t: "Quel métier faisais-tu avant ?", h: "Ton ancien métier, ou ton quotidien de parent, peut devenir ton meilleur sujet.", ph: "Ex. assistante RH, coiffeuse, ou « parent à plein temps »" },
       freelance: { t: "Quelle est ton activité ?", ph: "Ex. graphiste, coach sportif, photographe…" },
       searching: { t: "Quel était ton dernier métier ?", h: "Ton expérience passée est souvent ton meilleur sujet.", ph: "Ex. vendeuse, logisticien, secrétaire…" },
@@ -76,6 +76,15 @@ export function resolve(q: Question, answers: Record<string, unknown>): Question
   const key = q.dep ? answers[q.dep] : undefined;
   const v = typeof key === "string" ? q.v?.[key] : undefined;
   return v ? { ...q, ...v } : q;
+}
+
+export const isAsked = (q: Question, answers: Record<string, unknown>) => !(q.dep && q.hideIf?.includes(String(answers[q.dep])));
+
+// Prochaine (ou précédente) question réellement posée ; -1 ou QUESTIONS.length si aucune.
+export function stepFrom(i: number, dir: 1 | -1, answers: Record<string, unknown>) {
+  let j = i + dir;
+  while (j >= 0 && j < QUESTIONS.length && !isAsked(QUESTIONS[j], answers)) j += dir;
+  return j;
 }
 
 export const label = (k: string, v: string) => QUESTIONS.find((q) => q.k === k)?.o?.find((o) => o[0] === v)?.[1] ?? v;
