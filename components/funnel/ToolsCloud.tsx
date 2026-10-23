@@ -16,13 +16,11 @@ const LOGOS = [
 // Dispersion « en vrac » : [logo, x, y (0 à 1), taille px, rotation °, puis x, y, taille sur téléphone]. Les positions sont calculées
 // dans la zone intérieure du cadre, donc une icône n'est jamais coupée.
 const SPOTS: [number, number, number, number, number, number, number, number][] = [
-  [0, 0.02, 0.12, 96, -8, 0.04, 0.02, 80], [1, 0.16, 0.72, 88, 6, 0.92, 0.08, 72], [2, 0.30, 0.08, 80, 10, 0.45, 0.2, 68], [3, 0.43, 0.62, 104, -5, 0.06, 0.42, 84],
-  [4, 0.56, 0.10, 92, 7, 0.86, 0.4, 76], [5, 0.69, 0.70, 100, -9, 0.42, 0.64, 84], [6, 0.81, 0.12, 88, 5, 0.04, 0.92, 72], [7, 0.97, 0.64, 96, -6, 0.92, 0.96, 76],
-  [3, 0.09, 0.98, 60, 12, 0, 0, 0], [6, 0.27, 0.42, 56, -10, 0, 0, 0], [0, 0.55, 0.99, 56, 8, 0, 0, 0], [1, 0.60, 0.38, 60, -12, 0, 0, 0],
-  [4, 0.86, 0.99, 58, 10, 0, 0, 0], [2, 0.99, 0.04, 56, -6, 0, 0, 0],
+  [0, 0.04, 0.20, 58, -8, 0.08, 0.05, 58], [1, 0.18, 0.76, 58, 6, 0.86, 0.12, 58], [2, 0.32, 0.30, 58, 10, 0.46, 0.26, 58], [3, 0.46, 0.82, 58, -5, 0.12, 0.46, 58],
+  [4, 0.60, 0.16, 58, 7, 0.82, 0.50, 58], [5, 0.73, 0.62, 58, -9, 0.46, 0.70, 58], [6, 0.86, 0.24, 58, 5, 0.10, 0.92, 58], [7, 0.96, 0.84, 58, -6, 0.88, 0.94, 58],
 ];
 
-const RADIUS = 190;
+const RADIUS = 150;
 // Écarte les icônes proches du pointeur, sans jamais les faire sortir du cadre
 function fleeFrom(box: HTMLElement, x: number, y: number) {
   const b = box.getBoundingClientRect();
@@ -32,7 +30,7 @@ function fleeFrom(box: HTMLElement, x: number, y: number) {
     const left = r.left - odx, top = r.top - ody;
     const vx = left + r.width / 2 - x, vy = top + r.height / 2 - y;
     const d = Math.hypot(vx, vy) || 1;
-    const push = d < RADIUS ? ((RADIUS - d) / RADIUS) * 110 : 0;
+    const push = d < RADIUS ? ((RADIUS - d) / RADIUS) * 80 : 0;
     const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
     const dx = clamp((vx / d) * push, b.left + 8 - left, b.right - 8 - (left + r.width));
     const dy = clamp((vy / d) * push, b.top + 8 - top, b.bottom - 8 - (top + r.height));
