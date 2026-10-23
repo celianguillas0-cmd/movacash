@@ -471,3 +471,20 @@
 .mc .page-mock h4, .mc .page-mock b { color: #000 !important; }
 .mc .page-mock .k { color: #555 !important; }
 .mc .page-mock .q { background: #f0f0f0 !important; border-left-color: #000 !important; }
+
+/* 23/10 : icônes d'applis en couleur dans un cadre plus grand, jamais coupées */
+.mc .tools-cloud { height: 420px; border-radius: 32px; overflow: hidden; }
+.mc .tools-cloud .tool { position: absolute; display: grid; place-items: center; border-radius: 23%; opacity: 1 !important; color: #fff;
+  transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--r, 0deg));
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14), inset 0 1px 0 rgba(255,255,255,.3), 0 14px 30px -10px rgba(0,0,0,.85); }
+.mc .tools-cloud .tool svg { width: 56%; height: 56%; filter: none; }
+@media (max-width: 760px) {
+  .mc .tools-cloud { height: 460px; }
+  .mc .tools-cloud .tool { scale: .72; }
+  .mc .tools-cloud .tool:nth-child(n+9) { display: none; }
+}
+
+/* Positions : ordinateur (--p*) et téléphone (--q*), calculées dans la zone intérieure du cadre */
+.mc .tools-cloud .tool { --x: var(--px); --y: var(--py); --s: var(--ps); width: calc(var(--s) * 1px); height: calc(var(--s) * 1px);
+  left: calc((100% - var(--s) * 1px - 44px) * var(--x) + 22px); top: calc((100% - var(--s) * 1px - 44px) * var(--y) + 22px); }
+@media (max-width: 760px) { .mc .tools-cloud .tool { --x: var(--qx); --y: var(--qy); --s: var(--qs); scale: 1; } }
