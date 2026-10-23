@@ -494,3 +494,6 @@
 
 /* Logo AliExpress en toutes lettres : plus large dans son icône */
 .mc .tools-cloud .tool[title="AliExpress"] svg { width: 86%; height: 86%; }
+
+/* Mouvement doux, sans rebond */
+.mc .tools-cloud .tool { transition: transform .6s cubic-bezier(.22, 1, .36, 1); }

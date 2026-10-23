@@ -28,19 +28,21 @@ const SPOTS: [number, number, number, number, number, number, number, number][] 
 const RADIUS = 150;
 // Écarte les icônes proches du pointeur, sans jamais les faire sortir du cadre
 function fleeFrom(box: HTMLElement, x: number, y: number) {
+  // Position de repos lue dans la mise en page (offsetLeft/Top ignorent les transformations en cours) :
+  // le calcul ne dépend pas de l'animation, donc les icônes ne tremblent pas.
   const b = box.getBoundingClientRect();
+  const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
   for (const it of Array.from(box.querySelectorAll<HTMLElement>(".tool"))) {
-    const r = it.getBoundingClientRect();
-    const odx = Number(it.dataset.dx || 0), ody = Number(it.dataset.dy || 0);
-    const left = r.left - odx, top = r.top - ody;
-    const vx = left + r.width / 2 - x, vy = top + r.height / 2 - y;
-    const d = Math.hypot(vx, vy) || 1;
+    const w = it.offsetWidth, h = it.offsetHeight;
+    const left = it.offsetLeft, top = it.offsetTop;
+    const vx = b.left + left + w / 2 - x, vy = b.top + top + h / 2 - y;
+    const d = Math.hypot(vx, vy);
     const push = d < RADIUS ? ((RADIUS - d) / RADIUS) * 80 : 0;
-    const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
-    const dx = clamp((vx / d) * push, b.left + 8 - left, b.right - 8 - (left + r.width));
-    const dy = clamp((vy / d) * push, b.top + 8 - top, b.bottom - 8 - (top + r.height));
-    it.dataset.dx = String(dx);
-    it.dataset.dy = String(dy);
+    // Direction stable même quand le pointeur est pile sur l'icône : on ajoute une légère poussée vers l'extérieur du cadre
+    const ox = left + w / 2 - b.width / 2, oy = top + h / 2 - b.height / 2, o = Math.hypot(ox, oy) || 1;
+    const ux = vx + (ox / o) * 60, uy = vy + (oy / o) * 60, u = Math.hypot(ux, uy) || 1;
+    const dx = Math.round(clamp((ux / u) * push, 12 - left, b.width - 12 - left - w));
+    const dy = Math.round(clamp((uy / u) * push, 12 - top, b.height - 12 - top - h));
     it.style.setProperty("--dx", `${dx}px`);
     it.style.setProperty("--dy", `${dy}px`);
   }
