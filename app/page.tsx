@@ -30,8 +30,11 @@ export default async function Home() {
           <div className="wrap hero">
           <div className="hero-copy">
             <p className="kicker"><i aria-hidden="true" />L'atelier des e-books à vendre sur Etsy</p>
-            <h1 className="hero-title"><span className="l">Lance ton premier e‑book</span> <span className="soft"><span className="l">et décroche tes</span> <span className="l">premières ventes.</span></span></h1>
-            <TypedLead plain="Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et " bold="publie-le sur Etsy." />
+            <h1 className="hero-title"><span className="l">Lance ton premier e‑book</span> <span className="soft"><span className="l">et obtiens un business</span> <span className="l">clé en main.</span></span></h1>
+            <TypedLead
+              plain="Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et "
+              endings={["publie-le sur Etsy.", "mets-le en vente dès ce soir.", "ouvre ta boutique dès aujourd'hui.", "fixe toi-même ton prix."]}
+            />
             <div className="ctas">
               <Link className="btn btn-white btn-lg" href="/quiz">Créer mon premier e-book <span aria-hidden="true">→</span></Link>
             </div>
