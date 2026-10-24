@@ -26,7 +26,7 @@ export default async function Home() {
       <main>
         <section className="wrap hero">
           <div className="hero-copy">
-            <h1>Crée des e-books utiles et <em>vends-les sur Etsy.</em></h1>
+            <h1 className="hero-lines"><span>Trouve une idée.</span><span>Crée ton e-book.</span><span>Vends-le sur Etsy.</span></h1>
             <p className="lead">
               Choisis une idée, l'IA rédige un guide d'environ 50 pages, tu le relis et tu le publies avec sa fiche Etsy.
             </p>
@@ -35,13 +35,11 @@ export default async function Home() {
               <Link className="btn btn-ghost btn-lg" href="/tarifs">Voir les tarifs</Link>
             </div>
             <p className="fine-line">Questionnaire de quelques minutes. Aucun revenu garanti : tes ventes dépendent de ton travail.</p>
-            <div className="tools-section" aria-label="Outils">
-              <p className="tools-title">Les outils qui peuvent t'être utiles</p>
-              <ToolsCloud />
-            </div>
           </div>
-          <div className="hero-visual" aria-hidden="true">
-            <PhoneDemo />
+          <div className="hero-visual">
+            <ToolsCloud>
+              <PhoneDemo />
+            </ToolsCloud>
           </div>
         </section>
 

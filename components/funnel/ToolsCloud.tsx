@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
 // Icônes d'applis aux couleurs des marques (tracés Simple Icons, CC0 ; Whop en texte faute de tracé officiel). Les marques restent la propriété de leurs détenteurs.
 const LOGOS = [
@@ -19,13 +19,13 @@ const LOGOS = [
   { name: "Google Slides", bg: "#fff", svg: "<path d=\"M16.09 15.273H7.91v-4.637h8.18v4.637zm1.728-8.523h2.91v15.614c0 .904-.733 1.636-1.637 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.068v6.75h3.841zm-.363 2.523H6.545v7.363h10.91V9.273zm-2.728-5.979V6h6.001l-6-6v3.294z\" fill=\"#F4B400\"/>" },
 ];
 
-// Dispersion « en vrac » : [logo, x, y (0 à 1), taille px, rotation °, puis x, y, taille sur téléphone]. Les positions sont calculées
-// dans la zone intérieure du cadre, donc une icône n'est jamais coupée.
+// Logos « en vrac » autour du téléphone : [logo, x, y (0 à 1), taille px, rotation °, puis x, y, taille sur téléphone].
+// Ordinateur : 7 à gauche et 7 à droite du téléphone. Téléphone : 2 rangées au-dessus et 2 en dessous.
 const SPOTS: [number, number, number, number, number, number, number, number][] = [
-  [0, 0.00, 0.02, 58, -8, 0.06, 0.02, 58], [2, 0.25, 0.08, 58, 10, 0.92, 0.02, 58], [4, 0.50, 0.00, 58, 7, 0.54, 0.28, 58], [9, 0.75, 0.06, 58, -7, 0.12, 0.74, 58],
-  [12, 1.00, 0.03, 58, 9, 0.26, 0.98, 58], [7, 0.12, 0.52, 58, -6, 0.48, 0.48, 58], [11, 0.37, 0.46, 58, -10, 0.94, 0.76, 58], [3, 0.63, 0.54, 58, -5, 0.10, 0.26, 58],
-  [13, 0.88, 0.48, 58, -8, 0.74, 0.96, 58], [5, 0.00, 0.97, 58, -9, 0.94, 0.24, 58], [1, 0.25, 1.00, 58, 6, 0.50, 0.06, 58], [8, 0.50, 0.93, 58, 8, 0.90, 0.52, 58],
-  [10, 0.75, 0.99, 58, 6, 0.52, 0.72, 58], [6, 1.00, 0.95, 58, 5, 0.04, 0.50, 58],
+  [0, 0.10, 0.00, 58, -8, 0.00, 0.00, 58], [2, 0.00, 0.17, 58, 10, 0.33, 0.00, 58], [4, 0.12, 0.33, 58, 7, 0.67, 0.00, 58], [9, 0.02, 0.50, 58, -7, 1.00, 0.00, 58],
+  [12, 0.07, 0.67, 58, 9, 0.17, 0.10, 58], [7, 0.00, 0.83, 58, -6, 0.50, 0.10, 58], [11, 0.02, 1.00, 58, -10, 0.83, 0.10, 58], [3, 1.00, 0.00, 58, -5, 0.00, 0.90, 58],
+  [13, 0.97, 0.17, 58, -8, 0.33, 0.90, 58], [5, 0.90, 0.33, 58, -9, 0.67, 0.90, 58], [1, 0.98, 0.50, 58, 6, 1.00, 0.90, 58], [8, 0.88, 0.67, 58, 8, 0.17, 1.00, 58],
+  [10, 1.00, 0.83, 58, 6, 0.50, 1.00, 58], [6, 0.94, 1.00, 58, 5, 0.83, 1.00, 58],
 ];
 
 const RADIUS = 150;
@@ -51,7 +51,8 @@ function fleeFrom(box: HTMLElement, x: number, y: number) {
   }
 }
 
-export default function ToolsCloud() {
+// Le téléphone (children) est posé au centre ; les logos fuient le pointeur sans sortir de la zone.
+export default function ToolsCloud({ children }: { children?: ReactNode }) {
   const box = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -76,18 +77,21 @@ export default function ToolsCloud() {
   }, []);
 
   return (
-    <div className="tools-cloud" ref={box} aria-label={LOGOS.map((l) => l.name).join(", ")} role="img">
+    <div className="tools-cloud" ref={box}>
+      {children}
       {SPOTS.map(([i, x, y, s, r, mx, my, ms], k) => (
         <span
           key={k}
           className="tool"
           title={LOGOS[i].name}
+          aria-hidden="true"
           style={{
             background: LOGOS[i].bg,
             ["--px" as string]: x, ["--py" as string]: y, ["--ps" as string]: s,
             ["--qx" as string]: mx, ["--qy" as string]: my, ["--qs" as string]: ms,
             ["--r" as string]: `${r}deg`,
-          }}          dangerouslySetInnerHTML={{ __html: `<svg viewBox="0 0 24 24" aria-hidden="true">${LOGOS[i].svg}</svg>` }}
+          }}
+          dangerouslySetInnerHTML={{ __html: `<svg viewBox="0 0 24 24" aria-hidden="true">${LOGOS[i].svg}</svg>` }}
         />
       ))}
     </div>

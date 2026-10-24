@@ -66,15 +66,16 @@
 @media (max-width: 560px) { .mc .nav-links .link.hide-sm { display: none; } .mc .nav-links .link { padding: 8px 4px; } }
 
 /* Hero */
-.mc .hero { padding-block: 40px 48px; display: grid; grid-template-columns: 1.25fr .75fr; gap: 48px; align-items: center; }
-.mc .hero h1 { font-size: clamp(34px, 4.4vw, 52px); line-height: 1.08; font-weight: 800; letter-spacing: -.035em; }
-.mc .hero .lead { font-size: 17px; color: var(--muted); max-width: 56ch; margin-top: 14px; }
+.mc .hero { padding-block: 24px 40px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: center; }
+.mc .hero h1 { font-size: clamp(34px, 4.6vw, 56px); line-height: 1.08; font-weight: 800; letter-spacing: -.035em; }
+.mc .hero-lines span { display: block; white-space: nowrap; }
+.mc .hero .lead { font-size: 17px; color: var(--muted); max-width: 44ch; margin-top: 18px; }
 .mc .hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
 .mc .hero .fine-line { margin-top: 10px; color: var(--dim); font-size: 13px; }
-.mc .hero-visual { position: relative; padding: 24px 0; }
-.mc .hero-visual::before { content: ""; position: absolute; inset: 8% 6%; border-radius: 32px; background: #ecfdf5; z-index: 0; }
-.mc .hero-visual .phone { position: relative; z-index: 1; }
-@media (max-width: 860px) { .mc .hero { grid-template-columns: 1fr; padding-block: 44px 32px; gap: 32px; } }
+.mc .hero-visual { position: relative; min-width: 0; }
+/* Téléphone incliné vers la droite, au centre des logos */
+.mc .hero-visual .phone { position: absolute; left: 50%; top: 50%; width: 270px; margin: 0; transform: translate(-50%, -50%) rotate(8deg); z-index: 1; }
+@media (max-width: 860px) { .mc .hero { grid-template-columns: 1fr; padding-block: 32px 24px; gap: 8px; } .mc .hero-visual .phone { width: 250px; } }
 
 
 /* Téléphone de démonstration : garde ses couleurs (barre et coche vertes, couverture brique) */
@@ -160,18 +161,16 @@
 .mc footer a { text-decoration: none; }
 .mc footer a:hover { color: var(--fg); }
 
-/* Cadre des outils : icônes d'applis en vrac qui s'écartent quand la souris approche, jamais coupées */
-.mc .tools-section { margin-top: 26px; min-width: 0; }
-.mc .tools-title { margin-bottom: 10px; color: var(--fg); font-size: 14px; font-weight: 600; }
-.mc .tools-cloud { position: relative; height: 260px; border: 1px solid var(--line); border-radius: 24px; background: var(--bg-2); overflow: hidden; touch-action: pan-y; }
-.mc .tools-cloud .tool { --x: var(--px); --y: var(--py); --s: var(--ps); position: absolute; display: grid; place-items: center; border-radius: 23%; color: #fff;
+/* Logos des outils autour du téléphone : icônes d'applis qui s'écartent quand la souris approche, sans sortir de la zone */
+.mc .tools-cloud { position: relative; height: 640px; touch-action: pan-y; }
+.mc .tools-cloud .tool { --x: var(--px); --y: var(--py); --s: var(--ps); position: absolute; display: grid; place-items: center; border-radius: 23%; color: #fff; z-index: 2;
   width: calc(var(--s) * 1px); height: calc(var(--s) * 1px);
   left: calc((100% - var(--s) * 1px - 44px) * var(--x) + 22px); top: calc((100% - var(--s) * 1px - 44px) * var(--y) + 22px);
   transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--r, 0deg)); transition: transform .6s cubic-bezier(.22, 1, .36, 1); will-change: transform;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 8px 18px -8px rgba(16, 24, 40, .35); }
 .mc .tools-cloud .tool svg { width: 56%; height: 56%; display: block; }
 .mc .tools-cloud .tool[title="AliExpress"] svg { width: 86%; height: 86%; }
-@media (max-width: 760px) { .mc .tools-cloud { height: 600px; } .mc .tools-cloud .tool { --x: var(--qx); --y: var(--qy); --s: var(--qs); } }
+@media (max-width: 860px) { .mc .tools-cloud { height: 870px; max-width: 420px; margin: 0 auto; } .mc .tools-cloud .tool { --x: var(--qx); --y: var(--qy); --s: var(--qs); } }
 
 /* Questionnaire */
 .mc.has-photo { background: var(--bg-2); }
