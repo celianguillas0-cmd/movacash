@@ -53,10 +53,10 @@ export const SLIDER = {
   pas: 50,
   defaut: 300,
   paliers: [
-    { jusqua: 300, mot: "Premier pas", note: "Un objectif de départ raisonnable : quelques ventes par semaine suffisent." },
-    { jusqua: 1000, mot: "Motivant", note: "Il faudra sans doute plusieurs e-books et un peu de régularité sur Etsy et Pinterest." },
+    { jusqua: 300, mot: "Premier pas", note: "Un objectif de départ : le bon niveau pour apprendre avec ton premier e-book." },
+    { jusqua: 1000, mot: "Motivant", note: "Ça demande en général plusieurs e-books et de la régularité sur Etsy et Pinterest." },
     { jusqua: 2000, mot: "Ambitieux", note: "Ça demande un vrai catalogue et du temps. Vise-le comme une étape, pas comme un point de départ." },
-    { jusqua: Infinity, mot: "Très ambitieux", note: "Certains vendeurs y arrivent, mais c'est rare au début et rien n'est garanti. Commence par le premier palier." },
+    { jusqua: Infinity, mot: "Très ambitieux", note: "C'est un objectif de long terme, sans aucune garantie. Garde-le en tête, mais commence par le premier palier." },
   ],
 };
 
@@ -66,25 +66,27 @@ export const LEVIERS = [
     question: "Es-tu prêt à publier sur Pinterest ?",
     detail: "Des épingles qui renvoient vers ta fiche Etsy. Pas besoin de montrer ton visage.",
     libelle: "Pinterest",
-    part: 0.25,
+    action: "Épingler ton e-book sur Pinterest",
   },
   {
     id: "catalogue",
     question: "Es-tu prêt à créer plusieurs e-books ?",
     detail: "Un deuxième ou un troisième guide sur le même thème, pour que chaque acheteur en découvre d'autres.",
     libelle: "Tes autres e-books",
-    part: 0.15,
+    action: "Créer d'autres e-books sur ton thème",
   },
 ];
 
-export const ETAPES_CALCUL = ["Lecture de tes réponses", "Choix de ta niche", "Calcul des ventes nécessaires", "Assemblage de ta simulation"];
+export const TEMPS: Record<string, string> = { "15": "15 minutes", "30": "30 minutes", "60": "1 heure", "120": "2 heures" };
+
+export const ETAPES_CALCUL = ["Lecture de tes réponses", "Ton temps et ton rythme", "Calcul des ventes nécessaires", "Préparation de ton diagnostic"];
 
 export const PARCOURS = [
-  { titre: "Tes 3 idées", texte: "Trois sujets choisis à partir de tes réponses et de ce qui se cherche sur Etsy." },
+  { titre: "Tes 3 idées", texte: "Trois sujets choisis dans notre base d'idées à partir de tes réponses." },
   { titre: "Ton e-book", texte: "Movacash écrit le plan, les chapitres et les exemples. Tu relis et tu ajustes." },
   { titre: "Ta couverture et ton PDF", texte: "Une mise en page propre, prête à mettre en vente." },
-  { titre: "Ta fiche Etsy", texte: "Titre, description et 13 tags préparés pour être trouvé." },
-  { titre: "Ton plan de 30 jours", texte: "Quoi faire chaque semaine pour publier et te faire connaître." },
+  { titre: "Ta fiche Etsy", texte: "Titre, description et 13 tags préparés pour ta fiche." },
+  { titre: "Ton plan de 30 jours", texte: "Quoi faire chaque semaine pour publier et te faire connaître, à ton rythme." },
 ];
 
 const debutant = (a: Answers) => a.anciennete === "jamais";
@@ -113,7 +115,7 @@ export const STEPS: Step[] = [
     titre: "As-tu déjà vendu des produits numériques ?",
     options: [
       { id: "jamais", label: "Jamais", note: "C'est le bon moment pour commencer : tu n'as aucune mauvaise habitude à défaire." },
-      { id: "debut", label: "Oui, depuis moins d'un an", note: "Tu as déjà fait le plus dur : te lancer. Maintenant, c'est la méthode qui fait la différence." },
+      { id: "debut", label: "Oui, depuis moins d'un an", note: "Tu as déjà fait le plus dur : te lancer. On t'aide à structurer la suite." },
       { id: "experience", label: "Oui, depuis plus d'un an", note: "Tu connais le terrain. On t'aide à produire plus vite, sans baisser la qualité." },
     ],
   },
@@ -127,10 +129,10 @@ export const STEPS: Step[] = [
     kicker: "Où tu en es",
     titre: "Combien te rapportent tes ventes en ligne aujourd'hui ?",
     options: [
-      { id: "rien", label: "Rien pour l'instant", note: "Pas de souci, on part de zéro ensemble. Le premier e-book est souvent le déclic." },
-      { id: "moins100", label: "Moins de 100 € par mois", note: "Des gens ont déjà payé pour ce que tu fais : c'est la meilleure preuve que tu peux recommencer." },
-      { id: "100-1000", label: "100 à 1 000 € par mois", note: "Tu as une base solide. Un catalogue plus large peut t'aider à la rendre plus régulière." },
-      { id: "plus1000", label: "Plus de 1 000 € par mois", note: "Tu sais vendre. Movacash te fait gagner du temps sur la création de nouveaux produits." },
+      { id: "rien", label: "Rien pour l'instant", note: "Pas de souci, on part de zéro ensemble, avec un premier e-book." },
+      { id: "moins100", label: "Moins de 100 € par mois", note: "Des gens ont déjà payé pour ce que tu fais : c'est une bonne base pour continuer." },
+      { id: "100-1000", label: "100 à 1 000 € par mois", note: "Tu as une base solide. On t'aide à élargir ton catalogue." },
+      { id: "plus1000", label: "Plus de 1 000 € par mois", note: "Tu sais vendre. Movacash t'aide à créer de nouveaux produits plus vite." },
     ],
   },
   {
@@ -192,7 +194,7 @@ export const STEPS: Step[] = [
       { id: "methode", label: "Je ne sais pas par où commencer", note: "C'est exactement ce que Movacash règle : un sujet, un e-book, une fiche Etsy, dans le bon ordre." },
       { id: "temps", label: "Je manque de temps", note: "L'IA écrit le premier jet. Ton temps passe dans la relecture, pas devant la page blanche." },
       { id: "sujet", label: "Je ne sais pas quoi vendre", note: "On part de tes réponses pour te proposer trois sujets qui te ressemblent." },
-      { id: "peur", label: "J'ai peur que ça ne marche pas", note: "C'est normal. Commence petit, avec un seul e-book : tu verras vite si ça te plaît." },
+      { id: "peur", label: "J'ai peur que ça ne marche pas", note: "C'est normal, et personne ne peut te le garantir. Commence petit, avec un seul e-book, pour voir si ça te plaît." },
     ],
   },
   {
@@ -240,8 +242,8 @@ export const STEPS: Step[] = [
     id: "idees",
     illustration: "ampoule",
     kicker: "L'idée",
-    titre: "Trouve un sujet qui se vend.",
-    sous: "On part de ce que les acheteurs cherchent déjà sur Etsy et de ce que tu connais. Ton sujet, c'est la rencontre des deux.",
+    titre: "Trouve ton sujet.",
+    sous: "On croise ce que tu connais avec notre base d'idées d'e-books pensées pour Etsy. Ton sujet, c'est la rencontre des deux.",
     cta: "Suivant",
   },
   {
@@ -258,8 +260,8 @@ export const STEPS: Step[] = [
     id: "quotidien",
     illustration: "chemin",
     kicker: "L'objectif",
-    titre: "Change ton quotidien.",
-    sous: "Un e-book en vente peut devenir un revenu qui ne dépend pas de tes heures. À toi de jouer.",
+    titre: "Fais le premier pas.",
+    sous: "Un e-book en vente, c'est le début d'un projet à toi. La suite dépend de ton sujet, de ta relecture et de ta régularité.",
     cta: "Continuer",
   },
 
@@ -317,7 +319,7 @@ export const STEPS: Step[] = [
       {
         id: "ventes",
         label: "Faire mes premières ventes",
-        note: "On te donne tout pour publier vite. Les ventes dépendent du sujet et de ta régularité : on t'aide à mettre les chances de ton côté.",
+        note: "On te donne les outils pour publier. Les ventes, personne ne peut te les garantir : elles dépendent du sujet et de ta régularité.",
       },
     ],
   },
@@ -340,7 +342,7 @@ export const STEPS: Step[] = [
     kicker: "Ton horloge",
     titre: "Quand veux-tu publier ton premier e-book ?",
     options: [
-      { id: "aujourdhui", label: "Aujourd'hui", note: "C'est possible : compte une à deux heures pour générer, relire et publier." },
+      { id: "aujourdhui", label: "Aujourd'hui", note: "C'est possible si tu prends le temps de bien relire avant de publier." },
       { id: "semaine", label: "Cette semaine" },
       { id: "mois", label: "Ce mois-ci" },
       { id: "tranquille", label: "Je prends mon temps" },
@@ -353,8 +355,8 @@ export const STEPS: Step[] = [
     titre: "Tu préfères écrire pour qui ?",
     notesVisibles: true,
     options: [
-      { id: "particuliers", label: "Des particuliers", note: "Loisirs, maison, famille, bien-être : beaucoup de recherches et des prix doux." },
-      { id: "pros", label: "Des professionnels", note: "Métiers, indépendants, petites entreprises : moins de volume, des guides souvent mieux payés." },
+      { id: "particuliers", label: "Des particuliers", note: "Loisirs, maison, famille, bien-être : des guides pratiques du quotidien." },
+      { id: "pros", label: "Des professionnels", note: "Métiers, indépendants, petites entreprises : des guides plus techniques." },
     ],
   },
   {
@@ -372,8 +374,8 @@ export const STEPS: Step[] = [
     type: "message",
     id: "methode",
     kicker: "Ce qui te sépare de tout ça",
-    titre: "La seule chose qui te manque, c'est une méthode claire et les bons outils.",
-    sous: "Pas besoin d'être écrivain ni d'y passer tes nuits. Il te faut un sujet, un bon outil et de la régularité.",
+    titre: "Ce qui te manque peut-être, c'est une méthode claire et les bons outils.",
+    sous: "Pas besoin d'être écrivain. Il te faut un sujet, un bon outil et de la régularité. Le résultat, lui, dépend de toi.",
     cta: "Voir les formules",
   },
   { type: "serment", id: "serment" },

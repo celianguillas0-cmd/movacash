@@ -9,11 +9,11 @@ import { countIdeas, searchIdeas } from "@/lib/ideas";
 export const dynamic = "force-dynamic";
 
 const FAQ: [string, string][] = [
-  ["Est-ce que je vais vraiment gagner de l'argent ?", "Peut-être, mais rien n'est garanti. Les e-books se vendent souvent entre 5 et 10 € sur Etsy. Ce qui fait la différence : des sujets précis, une vraie relecture, des fiches soignées et de la régularité. Beaucoup de boutiques mettent plusieurs semaines avant leur première vente."],
+  ["Est-ce que je vais vraiment gagner de l'argent ?", "Personne ne peut te le garantir, et nous non plus. Ce qui met les chances de ton côté : un sujet précis, une vraie relecture, une fiche soignée et de la régularité. Les premières ventes peuvent prendre du temps, ou ne pas venir."],
   ["Etsy accepte les e-books créés avec l'IA ?", "Oui, à condition de l'indiquer dans la description de l'annonce. Movacash ajoute cette mention automatiquement dans la fiche et dans le PDF."],
   ["Si tout le monde utilise les mêmes idées, ça ne marche plus ?", "Chaque e-book est rédigé à partir de tes choix (public, ton, consignes) et de ta relecture. Deux personnes sur le même sujet obtiennent deux livres différents. Comme partout sur Etsy, l'exécution compte plus que l'idée."],
   ["Je ne sais pas écrire. C'est un problème ?", "Non. L'IA rédige, tu relis comme un lecteur exigeant : ce qui est flou, ce qui manque, ce que tu ajouterais. Tu peux régénérer un chapitre en un clic."],
-  ["À quoi servent les questions ?", "On regarde ton temps, ton niveau, ce que tu connais déjà et ton style, pour écarter ce qui ne te correspond pas et te proposer 3 idées réalistes, avec un plan de 30 jours. Ça prend environ deux minutes."],
+  ["À quoi servent les questions ?", "On regarde ton temps, ton niveau, ce que tu connais déjà et ton style, pour écarter ce qui ne te correspond pas et te proposer 3 idées réalistes, avec un plan de 30 jours."],
   ["Je peux arrêter quand je veux ?", "Oui, l'abonnement est sans engagement et se résilie depuis ton compte. Il reste actif jusqu'à la fin de la période payée. Il n'y a pas de remboursement d'une période entamée."],
 ];
 
@@ -52,12 +52,12 @@ export default async function Home() {
         <section className="wrap section" id="how">
           <div className="section-head">
             <p className="eyebrow">Comment ça marche</p>
-            <h2>De l'idée au PDF vendable, <em>en une soirée.</em></h2>
+            <h2>De l'idée au PDF prêt à vendre, <em>étape par étape.</em></h2>
             <p>Tu restes l'auteur : l'outil fait le gros du travail, tu apportes la relecture et ta touche.</p>
           </div>
           <div className="steps">
             {[
-              ["Choisis un sujet", `${total} idées classées par potentiel, concurrence et prix conseillé. Musculation, Vinted, vidéos IA, budget, chiots…`],
+              ["Choisis un sujet", `${total} idées classées par potentiel, concurrence et prix conseillé (nos estimations). Musculation, Vinted, vidéos IA, budget, chiots…`],
               ["Génère l'e-book", "Plan détaillé puis chapitres de 2 000 mots : méthodes, exemples, exercices, check-lists, plan d'action."],
               ["Relis et personnalise", "Modifie chaque chapitre, régénère ce qui ne te plaît pas, choisis ta couverture."],
               ["Publie sur Etsy", "PDF A4, A5 ou US Letter, titre, 13 tags, description et visuels de fiche. Tu fixes ton prix."],
@@ -74,8 +74,8 @@ export default async function Home() {
         <section className="wrap section" style={{ paddingTop: 0 }}>
           <div className="section-head">
             <p className="eyebrow">La base d'idées</p>
-            <h2>{total} formations qui <em>ont un public.</em></h2>
-            <p>Sans API, sans attente : la base est déjà là, avec un prix conseillé pour chaque sujet. Un aperçu :</p>
+            <h2>{total} idées de formations <em>pensées pour Etsy.</em></h2>
+            <p>Sans API, sans attente : la base est déjà là, avec un prix conseillé (estimé) pour chaque sujet. Un aperçu :</p>
           </div>
           <div className="ideas-wall">
             {sample.map((i) => (
@@ -132,7 +132,7 @@ export default async function Home() {
               <h3>Il fait</h3>
               <ul>
                 <li>Te faire gagner des heures de rédaction et de mise en page.</li>
-                <li>Te proposer des sujets qui ont un public.</li>
+                <li>Te proposer des sujets adaptés à Etsy et à ton profil.</li>
                 <li>Produire des guides utiles que tu peux vendre au prix que tu choisis.</li>
                 <li>Respecter les règles Etsy sur l'IA.</li>
               </ul>

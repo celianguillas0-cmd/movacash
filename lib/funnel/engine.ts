@@ -1,7 +1,7 @@
 // Moteur du sondage public, sans React : il écrit le HTML de chaque étape dans un conteneur.
 // Le même fichier sert à l'appli (app/quiz/Funnel.tsx) et à la maquette interactive (compilé en script autonome).
 
-import { ETAPES_CALCUL, LEVIERS, PARCOURS, PRIX_EBOOK, SLIDER, STEPS, scoringAnswers, type Answers, type Step } from "./steps";
+import { ETAPES_CALCUL, LEVIERS, TEMPS, PARCOURS, PRIX_EBOOK, SLIDER, STEPS, scoringAnswers, type Answers, type Step } from "./steps";
 
 export type FunnelPlan = { id: string; name: string; price: number; ebooks: number; features: string[]; highlight?: boolean };
 
@@ -220,8 +220,8 @@ export function mountFunnel(cfg: FunnelConfig) {
   function showExplication() {
     const points = [
       ["Tu le crées une seule fois", "Pas de stock, pas d'envoi : le même fichier peut se vendre autant de fois qu'il trouve preneur."],
-      ["Etsy t'amène les visiteurs", "Les acheteurs y tapent déjà « planner », « guide » ou « recettes » : ta fiche apparaît dans leurs recherches."],
-      ["Tu fixes ton prix", "Ce type d'e-book se vend souvent entre 5 et 15 €. C'est toi qui décides."],
+      ["Etsy a déjà des acheteurs", "Ils y tapent « planner », « guide » ou « recettes ». Une fiche bien rédigée peut apparaître dans leurs recherches."],
+      ["Tu fixes ton prix", "C'est toi qui décides combien coûte ton e-book."],
     ];
     render(`${barre()}${retour()}<section class="stage explication" data-reveal><p class="stage-kicker">En trente secondes</p><h1 class="stage-title stage-title-q machine">Un e-book à vendre, c'est quoi ?</h1><p class="saas-chapo">Un guide en PDF sur un sujet que des gens cherchent. Tu le crées avec Movacash, tu le mets en vente sur Etsy, et chaque acheteur le télécharge tout seul.</p><ol class="saas-points">${points
       .map(([t, p], n) => `<li style="--retard:${n * 90}ms"><span class="saas-num">${n + 1}</span><div><h2>${t}</h2><p>${p}</p></div></li>`)
@@ -258,7 +258,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showChargement() {
-    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">Calcul en cours</p><h1 class="stage-title stage-title-q">On prépare ta simulation.</h1><p class="stage-lede">Encore deux questions pendant que ça tourne.</p><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol><div class="popup" id="popup" hidden><div class="popup-carte" role="dialog" aria-modal="true" aria-labelledby="popup-q"><p class="popup-question" id="popup-q"></p><p class="popup-detail" id="popup-d"></p><div class="popup-actions"><button class="btn" data-action="levier" data-v="non">Non</button><button class="btn btn-primary" data-action="levier" data-v="oui">Oui</button></div></div></div></section>`);
+    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">Calcul en cours</p><h1 class="stage-title stage-title-q">On prépare ton diagnostic.</h1><p class="stage-lede">Encore deux questions pendant que ça tourne.</p><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol><div class="popup" id="popup" hidden><div class="popup-carte" role="dialog" aria-modal="true" aria-labelledby="popup-q"><p class="popup-question" id="popup-q"></p><p class="popup-detail" id="popup-d"></p><div class="popup-actions"><button class="btn" data-action="levier" data-v="non">Non</button><button class="btn btn-primary" data-action="levier" data-v="oui">Oui</button></div></div></div></section>`);
     const anneau = root.querySelector<SVGCircleElement>("#c-anneau")!;
     const pct = root.querySelector<HTMLElement>("#c-pct")!;
     const etapes = [...root.querySelectorAll(".calcul-etape")];
@@ -315,24 +315,26 @@ export function mountFunnel(cfg: FunnelConfig) {
     timers.push(window.setTimeout(avancer, 60));
   }
 
-  function simulation() {
+  function diagnostic() {
     const objectif = Number(answers.revenu ?? SLIDER.defaut);
-    const sources = [{ libelle: "Ton premier e-book sur Etsy", part: 0.6 }, ...LEVIERS.filter((l) => answers[l.id] === "oui").map((l) => ({ libelle: l.libelle, part: l.part }))];
-    const total = sources.reduce((s, x) => s + x.part, 0);
-    const lignes = sources.map((x) => ({ libelle: x.libelle, montant: Math.max(10, Math.round((objectif * x.part) / total / 10) * 10) }));
-    return { objectif, lignes, ventes: ventes(objectif) };
+    const actions = [
+      { libelle: "Publier ton premier e-book sur Etsy", detail: "Un sujet précis, relu avec soin." },
+      ...LEVIERS.filter((l) => answers[l.id] === "oui").map((l) => ({ libelle: l.action, detail: l.detail })),
+      { libelle: "Rester régulier", detail: answers.time ? `${TEMPS[String(answers.time)] || "Un peu de temps"} par jour, chaque semaine.` : "Un peu chaque semaine." },
+    ];
+    return { objectif, actions, ventes: ventes(objectif) };
   }
   function showSimulation() {
-    const { objectif, lignes, ventes: nb } = simulation();
-    render(`${barre()}${retour()}<section class="stage projection" data-reveal><div class="proj-carte"><p class="proj-grand">Ta simulation</p><p class="proj-montant"><span>${euros(objectif)}</span></p><p class="proj-sous">par mois, si tu atteins ton objectif</p><div class="proj-barre">${lignes
-      .map((l, n) => `<span class="seg seg-${n}" style="flex:${(l.montant / objectif).toFixed(3)}"></span>`)
-      .join("")}</div><div class="proj-chiffres"><div><b>${nb}</b><span>ventes par mois</span></div><div><b>${PRIX_EBOOK} €</b><span>par e-book</span></div><div><b>${Math.ceil(nb / 30)}</b><span>par jour environ</span></div></div></div><div class="proj-lignes">${lignes
-      .map((l, n) => `<div class="proj-ligne"><i class="pastille pastille-${n}"></i><span class="proj-nom">${esc(l.libelle)}</span><span class="proj-plage">${euros(l.montant)}</span></div>`)
-      .join("")}</div><p class="hypothese">Calcul fait à partir de ton objectif, pas une promesse. Tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>${bouton("Continuer")}</section>`);
+    const { objectif, actions, ventes: nb } = diagnostic();
+    render(`${barre()}${retour()}<section class="stage projection" data-reveal><div class="proj-carte"><p class="proj-grand">Ton potentiel</p><p class="proj-montant"><span>${euros(objectif)}</span></p><p class="proj-sous">par mois : c'est l'objectif que tu as choisi</p><div class="proj-barre">${actions
+      .map((_, n) => `<span class="seg seg-${Math.min(n, 2)}" style="flex:1"></span>`)
+      .join("")}</div><div class="proj-chiffres"><div><b>${nb}</b><span>ventes par mois</span></div><div><b>${PRIX_EBOOK} €</b><span>si tu vends à ce prix</span></div><div><b>${Math.ceil(nb / 30)}</b><span>par jour environ</span></div></div></div><p class="proj-intro">Pour t'en approcher, voilà ce qu'il faudrait faire&nbsp;:</p><div class="proj-lignes">${actions
+      .map((l, n) => `<div class="proj-ligne"><i class="pastille pastille-${Math.min(n, 2)}"></i><span class="proj-nom">${esc(l.libelle)}<small>${esc(l.detail)}</small></span></div>`)
+      .join("")}</div><p class="hypothese">Simple calcul à partir de ton objectif, pas une promesse ni une prévision. Tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>${bouton("Continuer")}</section>`);
   }
 
   function showBarriere() {
-    render(`${barre()}${retour()}<section class="stage stage-center barriere" data-reveal><p class="stage-kicker">Ce qui te manque</p><h1 class="stage-title stage-title-q">Il te manque une méthode<br/><em>et les bons outils.</em></h1><p class="barriere-reponse">Bonne nouvelle : c'est exactement ce que Movacash te donne.</p>${bouton("Continuer")}</section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center barriere" data-reveal><p class="stage-kicker">Ce qui te manque</p><h1 class="stage-title stage-title-q">Il te manque une méthode<br/><em>et les bons outils.</em></h1><p class="barriere-reponse">Movacash te donne les outils. L'action, c'est toi.</p>${bouton("Continuer")}</section>`);
   }
 
   function showMessage(s: Step) {
@@ -370,7 +372,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showObjectif() {
-    render(`${barre()}${retour()}<section class="stage stage-center objectif" data-reveal><p class="stage-kicker">Ton cap</p><h1 class="stage-title stage-title-q">Ton objectif est clair.<br/><em>On t'aide à t'en approcher.</em></h1>${bouton("Continuer")}</section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center objectif" data-reveal><p class="stage-kicker">Ton cap</p><h1 class="stage-title stage-title-q">Ton objectif est clair.<br/><em>Reste à passer à l'action.</em></h1>${bouton("Continuer")}</section>`);
   }
 
   function showParcours() {
@@ -441,7 +443,7 @@ export function mountFunnel(cfg: FunnelConfig) {
     ];
     const faq = [
       ["Que se passe-t-il si je résilie ?", "Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi."],
-      ["Je peux vendre les e-books au prix que je veux ?", "Oui. Les e-books de ce type se vendent souvent entre 5 et 15 € sur Etsy, mais c'est toi qui décides."],
+      ["Je peux vendre les e-books au prix que je veux ?", "Oui, c'est toi qui fixes ton prix sur Etsy."],
       ["Et si je ne fais aucune vente ?", "C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter, relis bien et publie régulièrement."],
       ["Le quota d'e-books se renouvelle quand ?", "Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés."],
     ];

@@ -6,7 +6,7 @@ export default function FunnelFooter() {
       <div className="wrap">
         <div>
           <span className="logo" style={{ fontSize: 20 }}>Mova<span>cash</span></span>
-          <p style={{ marginTop: 6 }}>Le radar des formations qui se vendent. Non affilié à Etsy. Aucun revenu garanti.</p>
+          <p style={{ marginTop: 6 }}>L'atelier des e-books à vendre sur Etsy. Non affilié à Etsy. Aucun revenu garanti.</p>
         </div>
         <div className="links">
           <Link href="/cgv">CGV</Link>

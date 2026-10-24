@@ -233,6 +233,8 @@
 .tf .pastille { width: 8px; height: 8px; border-radius: 2px; flex: 0 0 auto; }
 .tf .proj-nom { flex: 1; font-weight: 600; font-size: 16px; }
 .tf .proj-plage { font-family: "Bricolage Grotesque", sans-serif; font-size: clamp(19px, 3.4vw, 24px); font-weight: 700; letter-spacing: -0.03em; white-space: nowrap; }
+.tf .proj-nom small { display: block; font-weight: 400; font-size: 14px; color: var(--text-2); margin-top: 2px; }
+.tf .proj-intro { margin: 22px 0 10px; font-weight: 600; }
 .tf .hypothese { margin-top: 14px; font-size: 14.5px; color: var(--text-2); }
 .tf .projection .btn { margin-top: 16px; }
 
