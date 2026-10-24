@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const STEPS = ["Analyse du sujet", "Plan détaillé", "Chapitre 1 · Introduction", "Chapitre 2 · Trouver les bons articles", "Chapitre 3 · Photos qui vendent", "Chapitre 4 · Fixer ses prix", "Chapitre 5 · Plan d'action 30 jours", "Mise en page du PDF", "Fiche Etsy"];
+const STEPS = ["Analyse du sujet", "Plan détaillé", "Rédaction des chapitres", "Exemples et exercices", "Couverture et mise en page", "Fiche Etsy et 13 tags"];
 const TICKS = 260; // ~13 s pour aller de 0 à 100 %
 const R = 70, C = 2 * Math.PI * R;
 
-// Téléphone de la landing : tout l'écran montre un e-book en cours de génération (cercle qui tourne, pas de fausses ventes).
+// Téléphone de la landing : un chargement qui tourne et la liste de ce que Movacash génère, sans sujet précis (pas de fausses ventes).
 export default function PhoneDemo() {
   const [t, setT] = useState(0);
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function PhoneDemo() {
   const p = Math.min(t / TICKS, 1);
   const pct = Math.round(p * 100);
   const done = p >= 1;
-  const step = STEPS[Math.min(STEPS.length - 1, Math.floor(p * STEPS.length))];
+  const cur = done ? STEPS.length : Math.floor(p * STEPS.length);
 
   return (
     <div className="phone" aria-hidden="true">
@@ -32,8 +32,13 @@ export default function PhoneDemo() {
             <div className="gen-center">{done ? <span className="gen-check">✓</span> : <><b>{pct}</b><small>%</small></>}</div>
           </div>
           <div className="gen-title">{done ? "Ton e-book est prêt" : "Génération en cours…"}</div>
-          <div className="gen-book">Vinted : de zéro à tes premières ventes</div>
-          <div className="gen-step">{done ? "PDF 48 pages · fiche Etsy incluse" : step}</div>
+          <ul className="gen-todo">
+            {STEPS.map((label, k) => (
+              <li key={label} className={k < cur ? "ok" : k === cur ? "now" : ""}>
+                <span className="ic">{k < cur ? "✓" : ""}</span>{label}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
