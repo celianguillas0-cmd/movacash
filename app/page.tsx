@@ -21,46 +21,46 @@ export default async function Home() {
   const best = (await searchIdeas({ sort: "opportunity", pageSize: 60 })).items;
   const top = best[0];
   const sample = [...best].sort(() => Math.random() - 0.5).slice(0, 12);
-  const wall = (await searchIdeas({ sort: "random", pageSize: 40 })).items;
   return (
     <div className="mc">
       <FunnelNav />
       <main>
-        <section className="hero-bw">
-          <div className="hero-photo" aria-hidden="true" />
-          <div className="hero-wall" aria-hidden="true">
-            {wall.map((i, k) => (
-              <div className="wall-cover" key={i.id} style={{ ["--r" as string]: `${(k % 5) - 2}deg` }}><span>GUIDE</span><b>{i.title}</b></div>
-            ))}
+        <section className="wrap hero">
+          <div className="hero-copy">
+            <span className="badge-pill"><b>{total}</b> idées de formations à vendre sur Etsy</span>
+            <h1>Crée des e-books utiles et <em>vends-les sur Etsy.</em></h1>
+            <p className="lead">
+              Choisis une idée, l'IA rédige un guide d'environ 50 pages, tu le relis et tu le publies avec sa fiche Etsy.
+            </p>
+            <div className="ctas">
+              <Link className="btn btn-accent btn-lg" href="/quiz">Trouver mes 3 idées</Link>
+              <Link className="btn btn-ghost btn-lg" href="/tarifs">Voir les tarifs</Link>
+            </div>
+            <p className="fine-line">Questionnaire de quelques minutes. Aucun revenu garanti : tes ventes dépendent de ton travail.</p>
+            {top && (
+              <div className="top-card">
+                <span className="rank">#1</span>
+                <div className="top-mid"><span className="k">Meilleure opportunité de la base</span><b>{top.title}</b><span className="s">{top.category_name}</span></div>
+                <div className="top-price"><b>{top.price_min}–{top.price_max} €</b><span>prix conseillé</span></div>
+              </div>
+            )}
           </div>
-          <div className="wrap hero">
-            <div className="hero-copy">
-              <h1 className="hero-title"><span>Trouve.</span><span>Crée.</span><span className="chrome-text">Vends sur Etsy.</span></h1>
-              <p className="lead">
-                Chaque e-book est un produit que tu peux vendre.<br />Choisis une idée parmi {total}, l'IA rédige un guide de 50 pages, tu le relis et tu le publies.
-              </p>
-              {top && (
-                <div className="top-card">
-                  <div className="laurel"><b>#1</b></div>
-                  <div className="top-mid"><span className="k">Meilleure opportunité de la base</span><b>{top.title}</b><span className="s">{top.category_name}</span></div>
-                  <div className="top-price"><b>{top.price_min}–{top.price_max}</b><span>€ conseillés</span></div>
-                </div>
-              )}
-              <Link className="btn btn-chrome btn-xl" href="/quiz">Trouver mes 3 idées <span aria-hidden="true">→</span></Link>
-              <p className="fine-line"><span aria-hidden="true">◇</span> Questionnaire de quelques minutes · aucun revenu garanti, tes ventes dépendent de ton travail</p>
-            </div>
-            <div className="hero-visual" aria-hidden="true">
-              <div className="float-tile t1"><b>{total}</b><span>idées de<br />formations</span></div>
-              <div className="float-tile t2"><b>50</b><span>pages<br />par e-book</span></div>
-              <div className="float-tile t3"><b>13</b><span>tags Etsy<br />générés</span></div>
-              <div className="float-tile t4"><b>PDF</b><span>A4 · A5<br />US Letter</span></div>
-              <PhoneDemo tilt />
-            </div>
+          <div className="hero-visual" aria-hidden="true">
+            <PhoneDemo />
+          </div>
+        </section>
+
+        <section className="wrap" aria-label="Chiffres clés">
+          <div className="stats">
+            <div><b>{total}</b><span>idées de formations</span></div>
+            <div><b>~50</b><span>pages par e-book</span></div>
+            <div><b>13</b><span>tags Etsy générés</span></div>
+            <div><b>PDF</b><span>A4, A5 ou US Letter</span></div>
           </div>
         </section>
 
         <section className="wrap tools-section" aria-label="Outils">
-          <p className="eyebrow tools-title">Les outils qui peuvent t'être utiles</p>
+          <p className="tools-title">Les outils qui peuvent t'être utiles</p>
           <ToolsCloud />
         </section>
 
@@ -78,7 +78,7 @@ export default async function Home() {
               ["Publie sur Etsy", "PDF A4, A5 ou US Letter, titre, 13 tags, description et visuels de fiche. Tu fixes ton prix."],
             ].map(([t, d], i) => (
               <div className="step" key={t}>
-                <span className="n">Étape {i + 1}</span>
+                <span className="n">{i + 1}</span>
                 <h3>{t}</h3>
                 <p>{d}</p>
               </div>
@@ -180,9 +180,9 @@ export default async function Home() {
         </section>
 
         <section className="wrap final">
-          <p className="eyebrow">Quelques minutes</p>
           <h2>Trouve tes 3 premières idées <em>d'e-books.</em></h2>
-          <Link className="btn btn-accent btn-lg" href="/quiz">Commencer le questionnaire →</Link>
+          <p className="sub-final">Un questionnaire de quelques minutes, puis 3 idées adaptées à ton profil.</p>
+          <Link className="btn btn-accent btn-lg" href="/quiz">Commencer le questionnaire</Link>
         </section>
       </main>
       <FunnelFooter />

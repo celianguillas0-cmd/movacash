@@ -46,11 +46,11 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
         </div>
         <div className="card">
           <p className="text-sm text-slate-600">E-books créés</p>
-          <p className="mt-1 font-display text-4xl text-slate-900">{ebooks.length}</p>
+          <p className="mt-1 text-3xl font-extrabold text-slate-900">{ebooks.length}</p>
         </div>
         <div className="card">
           <p className="text-sm text-slate-600">Prêts à vendre</p>
-          <p className="mt-1 font-display text-4xl glacier-text">{ready}</p>
+          <p className="mt-1 text-3xl font-extrabold text-brand-600">{ready}</p>
         </div>
       </section>
 

@@ -89,7 +89,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
     <div className="max-w-5xl">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-3xl uppercase leading-none tracking-wide text-slate-900 md:text-4xl">{ebook.title}</h1>
+          <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 md:text-3xl">{ebook.title}</h1>
           <p className="mt-2 text-slate-600">{ebook.subtitle}</p>
           <p className="muted mt-1">
             {done}/{chapters.length} chapitres · {words.toLocaleString("fr-FR")} mots · ~{Math.max(1, Math.round(words / 380) + 3)} pages A4

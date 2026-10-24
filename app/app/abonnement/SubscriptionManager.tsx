@@ -138,7 +138,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
             {statusBadge}
             {sub.demo && <span className="badge bg-slate-100 text-slate-500">mode démo, sans paiement</span>}
           </div>
-          <p className="font-display text-4xl uppercase text-slate-900">{current.name}</p>
+          <p className="text-3xl font-extrabold text-slate-900">{current.name}</p>
           <p className="text-sm text-slate-700">
             {price} · {current.ebooks} e-books par mois
           </p>
@@ -155,7 +155,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
             <button className="btn-primary" disabled={busy} onClick={() => portal("payment_method_update")}>Mettre à jour ma carte</button>
           )}
         </div>
-        <div className="rounded-xl border border-slate-200 bg-white/[0.02] p-4">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
           <QuotaMeter used={usage.used} limit={usage.limit} />
           <p className="mt-3 text-xs text-slate-500">Le quota repart à zéro le {new Date(usage.resetsOn).toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}. Les e-books non utilisés ne sont pas reportés.</p>
         </div>
@@ -182,11 +182,11 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
             return (
               <div key={p.id} className={`card flex flex-col ${isCurrent ? "border-brand-600 ring-1 ring-brand-600" : ""}`}>
                 <div className="flex items-center justify-between">
-                  <p className="font-display text-2xl uppercase">{p.name}</p>
+                  <p className="text-xl font-bold">{p.name}</p>
                   {isCurrent && <span className="badge bg-brand-50 text-brand-700">Ton offre</span>}
                 </div>
                 <p className="mt-2 text-sm text-slate-700">
-                  <span className="font-display text-3xl text-slate-900">{eur(annual ? p.annual : p.monthly)} €</span> / mois
+                  <span className="text-3xl font-extrabold text-slate-900">{eur(annual ? p.annual : p.monthly)} €</span> / mois
                 </p>
                 <p className="text-xs text-slate-500">{annual ? `soit ${eur(yearly(p))} € par an` : "sans engagement"}</p>
                 <ul className="mt-4 flex-1 space-y-1.5 text-sm text-slate-600">

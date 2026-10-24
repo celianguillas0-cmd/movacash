@@ -22,8 +22,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const live = state === "active" || state === "canceling" || state === "past_due";
   return (
     <div className="min-h-screen md:flex">
-      <div className="ws-bg" aria-hidden="true" />
-      <aside className="sticky top-0 z-20 border-b border-slate-200 bg-black/60 backdrop-blur-md md:h-screen md:w-64 md:shrink-0 md:border-b-0 md:border-r">
+      <aside className="sticky top-0 z-20 border-b border-slate-200 bg-white md:h-screen md:w-64 md:shrink-0 md:border-b-0 md:border-r">
         <div className="flex h-full flex-col">
           <div className="flex items-center justify-between px-5 pb-3 pt-4 md:pb-6 md:pt-6">
             <Logo />
