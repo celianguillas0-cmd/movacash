@@ -14,10 +14,10 @@ const LOGOS = [
 ];
 
 // Logos « en vrac » autour du téléphone : [logo, x, y (0 à 1), taille px, rotation °, puis x, y, taille sur téléphone].
-// Ordinateur : 4 à gauche et 4 à droite du téléphone. Téléphone : une rangée au-dessus et une en dessous.
+// Ordinateur : 4 à gauche et 4 à droite du téléphone. Téléphone : 4 au-dessus et 4 en dessous, en quinconce.
 const SPOTS: [number, number, number, number, number, number, number, number][] = [
-  [1, 0.06, 0.03, 58, 10, 0.00, 0.00, 58], [3, 0.10, 0.36, 58, 7, 0.33, 0.00, 58], [6, 0.02, 0.66, 58, 9, 0.67, 0.00, 58], [4, 0.00, 0.97, 58, 8, 1.00, 0.00, 58],
-  [2, 1.00, 0.10, 58, -5, 0.00, 1.00, 58], [7, 0.93, 0.37, 58, -8, 0.33, 1.00, 58], [0, 0.97, 0.63, 58, 6, 0.67, 1.00, 58], [5, 0.94, 0.90, 58, 6, 1.00, 1.00, 58],
+  [1, 0.17, 0.00, 58, -12, 0.02, 0.08, 58], [3, 0.00, 0.24, 58, 8, 0.30, 0.00, 58], [6, 0.10, 0.60, 58, -6, 0.63, 0.06, 58], [4, 0.01, 0.90, 58, 14, 0.97, 0.13, 58],
+  [2, 1.00, 0.10, 58, 10, 0.03, 0.89, 58], [7, 0.95, 0.42, 58, -14, 0.36, 0.96, 58], [0, 0.90, 0.68, 58, 7, 0.66, 1.00, 58], [5, 0.86, 0.98, 58, -9, 0.98, 0.95, 58],
 ];
 
 const RADIUS = 150;
