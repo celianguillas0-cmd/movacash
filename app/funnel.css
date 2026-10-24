@@ -513,3 +513,29 @@
 
 /* 14 icônes : 5 rangées sur téléphone */
 @media (max-width: 760px) { .mc .tools-cloud { height: 600px; } }
+
+/* ================= 24/10 : SaaS sobre. Titres et boutons en noir et blanc, jamais de bleu ;
+   un peu de couleur douce seulement là où elle informe (états, e-books, tuiles du téléphone) ================= */
+.mc { --ok: #4ade80; --warn: #fbbf24; --danger: #f87171; }
+/* Tuiles autour du téléphone : verre sombre légèrement teinté */
+.mc .float-tile.t1 { --tint: 251, 146, 60; }
+.mc .float-tile.t2 { --tint: 244, 114, 182; }
+.mc .float-tile.t3 { --tint: 74, 222, 128; }
+.mc .float-tile.t4 { --tint: 248, 113, 113; }
+.mc .float-tile { background: rgba(var(--tint), .35) !important; }
+.mc .float-tile b, .mc .float-tile span { background: linear-gradient(150deg, rgba(var(--tint), .22), rgba(12,12,13,.82) 70%) !important; }
+.mc .float-tile b { -webkit-background-clip: border-box !important; background-clip: border-box !important; color: #fff !important; -webkit-text-fill-color: #fff; }
+/* Mini-couverture d'e-book dans le téléphone : une vraie couverture, en couleur douce */
+.mc .mini-cover { background: linear-gradient(160deg, #9a3412, #431407) !important; border-color: rgba(255,255,255,.25) !important; }
+.mc .mini-cover .k, .mc .mini-cover .h { color: #fff !important; }
+.mc .ok-green { color: var(--ok) !important; }
+/* États */
+.mc .analyse li.done .dot { background: var(--ok) !important; border-color: var(--ok) !important; color: #000 !important; }
+.mc .st.ok, .mc .checks .ok { color: var(--ok) !important; }
+.mc .checks .w { color: var(--warn) !important; }
+.mc .toggle .save, .mc .toggle button.on .save { color: #16a34a !important; }
+.mc .toggle button:not(.on) .save { color: var(--ok) !important; }
+.mc .pill-ok { background: rgba(74,222,128,.12) !important; color: #86efac !important; border-color: rgba(74,222,128,.28) !important; }
+.mc .pill-warn, .mc .sub-note.warn { background: rgba(251,191,36,.10) !important; color: #fcd34d !important; border-color: rgba(251,191,36,.28) !important; }
+.mc .btn-danger { color: #fca5a5 !important; border-color: rgba(248,113,113,.35) !important; }
+.mc .set.danger { border-color: rgba(248,113,113,.3) !important; }
