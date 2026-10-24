@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export default async function QuizPage() {
   const [user, categories, total] = await Promise.all([getCurrentUser(), listCategories(), countIdeas()]);
   return (
-    <div className="mc has-photo">
+    <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <Survey categories={categories.map((c) => ({ slug: c.slug, name: c.name }))} total={total} loggedIn={Boolean(user)} />

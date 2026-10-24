@@ -353,3 +353,14 @@
 }
 /* Sous-titre tapé : hauteur fixe pour que la page ne bouge pas quand la fin change */
 .mc .typed { min-height: 4.8em; }
+/* Questionnaire sombre */
+.mc.dark.has-photo { background: var(--bg); }
+.mc.dark .opt, .mc.dark .textin { background: var(--bg-2); border-color: var(--line); color: var(--fg); }
+.mc.dark .opt:hover { border-color: var(--line-2); }
+.mc.dark .opt.on { background: rgba(255, 255, 255, .08); border-color: #fff; box-shadow: 0 0 0 1px #fff; }
+.mc.dark .opt .tick { background: transparent; border-color: var(--line-2); }
+.mc.dark .opt.on .tick { background: #fff; border-color: #fff; color: #09090b; }
+.mc.dark .textin::placeholder { color: var(--dim); }
+.mc.dark .textin:focus { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); }
+.mc.dark .progress { background: rgba(255, 255, 255, .1); }
+.mc.dark .analyse li.done .dot { color: #09090b; }
