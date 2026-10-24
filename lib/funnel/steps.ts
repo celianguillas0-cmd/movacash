@@ -36,7 +36,7 @@ export type Step = {
   confirmer?: boolean;
   notesVisibles?: boolean;
   apresChoix?: string;
-  libre?: { placeholder: string };
+  libre?: { placeholder: string; label?: string };
   placeholder?: string;
   optional?: boolean;
   max?: number;
@@ -267,7 +267,7 @@ export const STEPS: Step[] = [
 
   { type: "compte", id: "compte" },
 
-  { type: "themes", id: "themes", kicker: "Ton terrain", titre: "Quelles thématiques t'attirent ?", aide: "Jusqu'à 4 choix.", max: 4 },
+  { type: "themes", id: "themes", kicker: "Ton terrain", titre: "Quelles thématiques t'attirent ?", aide: "Jusqu'à 4 choix.", max: 4, libre: { placeholder: "Ex : la couture, l'apiculture, la photo…", label: "Autre domaine (précise-le)" } },
   {
     type: "multi",
     id: "frustrations",

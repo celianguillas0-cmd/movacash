@@ -13,12 +13,14 @@ const LINKS: [href: string, label: string, icon: string][] = [
   ["/app/aide", "Aide", "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"],
 ];
 
-export default function WsNav() {
+const ADMIN_LINK: [string, string, string] = ["/app/admin", "Admin", "M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"];
+
+export default function WsNav({ admin = false }: { admin?: boolean }) {
   const path = usePathname();
   const active = (href: string) => (href === "/app" ? path === "/app" : path.startsWith(href));
   return (
     <nav className="flex gap-1 overflow-x-auto px-3 pb-3 [scrollbar-width:none] md:flex-col md:overflow-visible md:pb-0">
-      {LINKS.map(([href, label, d]) => (
+      {(admin ? [...LINKS, ADMIN_LINK] : LINKS).map(([href, label, d]) => (
         <Link
           key={href}
           href={href}

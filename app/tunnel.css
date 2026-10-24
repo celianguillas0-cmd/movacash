@@ -362,3 +362,4 @@
   .tf .stage { transition: none; opacity: 1; transform: none; }
   .tf .illu-grande, .tf .saas-points li, .tf .etape, .tf .note-tiroir { animation: none; }
 }
+.tf .options-grille > .option-autre { grid-column: 1 / -1; }

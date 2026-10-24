@@ -60,5 +60,9 @@ export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((p) => p.id === id);
 }
 
+// Seul ce compte voit l'onglet Admin (thématiques proposées dans le sondage).
+export const ADMIN_EMAIL = "celianguillas0@gmail.com";
+export const isAdmin = (email?: string | null) => (email || "").trim().toLowerCase() === ADMIN_EMAIL;
+
 export const isGeminiConfigured = () => Boolean(process.env.GEMINI_API_KEY);
 export const isStripeConfigured = () => Boolean(process.env.STRIPE_SECRET_KEY);

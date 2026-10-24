@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
-import { getPlan, isGeminiConfigured } from "@/lib/config";
+import { getPlan, isAdmin, isGeminiConfigured } from "@/lib/config";
 import { getUsage, subState } from "@/lib/subscription";
 import { usingDemoDatabase } from "@/lib/db";
 import LogoutButton from "@/components/LogoutButton";
@@ -28,7 +28,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <Logo />
             <span className="md:hidden"><LogoutButton /></span>
           </div>
-          <WsNav />
+          <WsNav admin={isAdmin(user.email)} />
           <div className="mt-auto hidden space-y-4 p-4 md:block">
             {live ? (
               <div className="card space-y-3 p-4">

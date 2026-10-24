@@ -188,7 +188,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   function optionLibre(s: Step, multi: boolean) {
     const texte = String(answers[s.id + "_libre"] || "").trim();
     const choisie = multi ? ((answers[s.id] as string[]) || []).includes(AUTRE) : answers[s.id] === AUTRE;
-    return `<button class="option option-autre ${multi ? "option-check" : ""} ${choisie ? "selected" : ""}" data-action="${multi && choisie ? "retirer-libre" : "ouvrir-libre"}">${multi ? `<span class="option-tick" aria-hidden="true"></span>` : ""}<span class="option-label">${choisie && texte ? esc(texte) : "Ma réponse n'est pas dans la liste"}</span><span class="option-detail">${choisie ? (multi ? "Cliquer pour retirer" : "Modifier ma réponse") : "Écris-la toi-même"}</span></button>`;
+    return `<button class="option option-autre ${multi ? "option-check" : ""} ${choisie ? "selected" : ""}" data-action="${multi && choisie ? "retirer-libre" : "ouvrir-libre"}">${multi ? `<span class="option-tick" aria-hidden="true"></span>` : ""}<span class="option-label">${choisie && texte ? esc(texte) : esc(s.libre?.label || "Ma réponse n'est pas dans la liste")}</span><span class="option-detail">${choisie ? (multi ? "Cliquer pour retirer" : "Modifier ma réponse") : "Écris-la toi-même"}</span></button>`;
   }
   function panneauLibre(s: Step, multi: boolean) {
     return `<div class="libre"><input class="libre-input" id="libre-input" type="text" maxlength="120" value="${esc(answers[s.id + "_libre"] || "")}" placeholder="${esc(s.libre?.placeholder)}"/><div class="libre-actions"><button class="btn btn-primary" data-action="valider-libre" data-multi="${multi ? "1" : ""}">Valider ma réponse</button><button class="btn-ghost" data-action="fermer-libre">Annuler</button></div></div>`;
