@@ -1,12 +1,12 @@
 import type { Config } from "tailwindcss";
 
-// Espace client en thème clair : palette Tailwind par défaut, une seule couleur d'accent (émeraude).
+// Espace client en thème clair : palette Tailwind par défaut, accent noir (pas de vert).
 export default {
   content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        brand: { 50: "#ecfdf5", 100: "#d1fae5", 500: "#10b981", 600: "#047857", 700: "#065f46", 900: "#064e3b" },
+        brand: { 50: "#f3f4f6", 100: "#e5e7eb", 500: "#374151", 600: "#111827", 700: "#000000", 900: "#000000" },
       },
       fontFamily: {
         display: ["Inter", "Segoe UI", "system-ui", "sans-serif"],

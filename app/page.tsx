@@ -19,7 +19,6 @@ const FAQ: [string, string][] = [
 export default async function Home() {
   const total = await countIdeas();
   const best = (await searchIdeas({ sort: "opportunity", pageSize: 60 })).items;
-  const top = best[0];
   const sample = [...best].sort(() => Math.random() - 0.5).slice(0, 12);
   return (
     <div className="mc">
@@ -27,7 +26,6 @@ export default async function Home() {
       <main>
         <section className="wrap hero">
           <div className="hero-copy">
-            <span className="badge-pill"><b>{total}</b> idées de formations à vendre sur Etsy</span>
             <h1>Crée des e-books utiles et <em>vends-les sur Etsy.</em></h1>
             <p className="lead">
               Choisis une idée, l'IA rédige un guide d'environ 50 pages, tu le relis et tu le publies avec sa fiche Etsy.
@@ -37,31 +35,14 @@ export default async function Home() {
               <Link className="btn btn-ghost btn-lg" href="/tarifs">Voir les tarifs</Link>
             </div>
             <p className="fine-line">Questionnaire de quelques minutes. Aucun revenu garanti : tes ventes dépendent de ton travail.</p>
-            {top && (
-              <div className="top-card">
-                <span className="rank">#1</span>
-                <div className="top-mid"><span className="k">Meilleure opportunité de la base</span><b>{top.title}</b><span className="s">{top.category_name}</span></div>
-                <div className="top-price"><b>{top.price_min}–{top.price_max} €</b><span>prix conseillé</span></div>
-              </div>
-            )}
+            <div className="tools-section" aria-label="Outils">
+              <p className="tools-title">Les outils qui peuvent t'être utiles</p>
+              <ToolsCloud />
+            </div>
           </div>
           <div className="hero-visual" aria-hidden="true">
             <PhoneDemo />
           </div>
-        </section>
-
-        <section className="wrap" aria-label="Chiffres clés">
-          <div className="stats">
-            <div><b>{total}</b><span>idées de formations</span></div>
-            <div><b>~50</b><span>pages par e-book</span></div>
-            <div><b>13</b><span>tags Etsy générés</span></div>
-            <div><b>PDF</b><span>A4, A5 ou US Letter</span></div>
-          </div>
-        </section>
-
-        <section className="wrap tools-section" aria-label="Outils">
-          <p className="tools-title">Les outils qui peuvent t'être utiles</p>
-          <ToolsCloud />
         </section>
 
         <section className="wrap section" id="how">
