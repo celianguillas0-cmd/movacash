@@ -364,3 +364,13 @@
 .mc.dark .textin:focus { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); }
 .mc.dark .progress { background: rgba(255, 255, 255, .1); }
 .mc.dark .analyse li.done .dot { color: #09090b; }
+
+/* Questionnaire : en-tête minimal (logo + retour) et barre de progression pleine largeur en haut */
+.mc .nav.nav-min .wrap, .mc .q-top { max-width: 1260px; }
+.mc .nav.nav-min .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 86px; padding-block: 0; }
+.mc .nav-min .back-home { background: none; border: 0; padding: 0; font: inherit; font-size: 15px; color: var(--muted); cursor: pointer; }
+.mc .nav-min .back-home:hover { color: var(--fg); }
+.mc .q-top { padding-top: 56px; }
+.mc .q-top .progress { height: 4px; }
+.mc.has-photo .q-top + main.survey { min-height: calc(100svh - 146px); justify-content: flex-start; padding-top: 64px; }
+@media (max-width: 560px) { .mc .nav.nav-min .wrap { min-height: 64px; } .mc .q-top { padding-top: 28px; } .mc.has-photo .q-top + main.survey { padding-top: 36px; } }

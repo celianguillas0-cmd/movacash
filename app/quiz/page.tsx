@@ -10,7 +10,7 @@ export default async function QuizPage() {
   return (
     <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
-      <FunnelNav />
+      <FunnelNav minimal />
       <Survey categories={categories.map((c) => ({ slug: c.slug, name: c.name }))} total={total} loggedIn={Boolean(user)} />
     </div>
   );

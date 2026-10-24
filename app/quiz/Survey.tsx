@@ -64,8 +64,11 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
   const total_ = QUESTIONS.length;
   const value = answers[q.k];
   return (
-    <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
+    <>
+    <div className="wrap q-top">
       <div className="progress"><i style={{ width: `${((step + 1) / total_) * 100}%` }} /></div>
+    </div>
+    <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
       <div className="q-meta">
         <span className="eyebrow">{q.s}</span>
         <span className="dim">Partie {SECTIONS.indexOf(q.s) + 1} / {SECTIONS.length} · environ {Math.max(1, Math.round(((total_ - step) * 8) / 60))} min</span>
@@ -171,5 +174,6 @@ export default function Survey({ categories, total, loggedIn }: { categories: Ca
         )}
       </div>
     </main>
+    </>
   );
 }
