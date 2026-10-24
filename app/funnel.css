@@ -328,21 +328,21 @@
 .mc .gen-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
 .mc .gen-ring circle { fill: none; }
 .mc .gen-ring .track { stroke: rgba(127, 127, 127, .2); stroke-width: 10; }
-.mc .gen-ring .arc { stroke: #22c55e; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset .1s linear; }
+.mc .gen-ring .arc { stroke: #a855f7; stroke-width: 10; stroke-linecap: round; transition: stroke-dashoffset .1s linear; }
 .mc .gen-ring .spinner { animation: spin 1.1s linear infinite; }
 .mc .gen-ring .spinner circle { stroke: currentColor; opacity: .55; stroke-width: 3; stroke-linecap: round; }
 .mc .gen-center { position: absolute; inset: 0; display: flex; align-items: baseline; justify-content: center; padding-top: 52px; }
 .mc .gen-center b { font-size: 38px; font-weight: 800; letter-spacing: -.03em; font-variant-numeric: tabular-nums; line-height: 1; }
 .mc .gen-center small { font-size: 18px; font-weight: 700; margin-left: 2px; color: var(--dim); }
-.mc .gen-check { font-size: 54px; line-height: 1; margin-top: -8px; color: #22c55e; font-weight: 800; }
+.mc .gen-check { font-size: 54px; line-height: 1; margin-top: -8px; color: #a855f7; font-weight: 800; }
 .mc .gen-title { font-size: 16px; font-weight: 700; }
 .mc .gen-todo { list-style: none; margin: 10px 0 0; padding: 0; width: 100%; display: grid; gap: 7px; text-align: left; }
 .mc .gen-todo li { display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--dim); border: 1px solid rgba(127, 127, 127, .18); border-radius: 10px; padding: 8px 10px; transition: color .3s, border-color .3s; }
 .mc .gen-todo li .ic { width: 16px; height: 16px; border-radius: 99px; border: 1.5px solid rgba(127, 127, 127, .45); flex: none; display: grid; place-items: center; font-size: 10px; font-weight: 800; color: #0b0b0c; }
 .mc .gen-todo li.ok { color: var(--muted); }
-.mc .gen-todo li.ok .ic { background: #22c55e; border-color: #22c55e; }
+.mc .gen-todo li.ok .ic { background: #a855f7; border-color: #a855f7; }
 .mc .gen-todo li.now { color: var(--fg); font-weight: 600; border-color: rgba(127, 127, 127, .4); }
-.mc .gen-todo li.now .ic { border-color: rgba(127, 127, 127, .35); border-top-color: #22c55e; animation: spin .8s linear infinite; }
+.mc .gen-todo li.now .ic { border-color: rgba(127, 127, 127, .35); border-top-color: #a855f7; animation: spin .8s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .mc .gen-ring .spinner { animation: none; } }
 .mc .gen-todo li { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 860px) {
