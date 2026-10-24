@@ -384,11 +384,11 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showSerment() {
-    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">Ta promesse</p><h1 class="stage-title stage-title-q">Avant d'aller plus loin,<br/><em>fais-toi une promesse.</em></h1><blockquote class="serment-texte">« Je me promets d'aller au bout de mon premier e-book, de le relire avec soin et de le mettre en vente. »</blockquote><button class="empreinte" id="empreinte" aria-label="Rester appuyé pour signer"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">Reste appuyé pour signer</p></section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">Ta promesse</p><h1 class="stage-title stage-title-q">Avant d'aller plus loin,<br/><em>fais-toi une promesse.</em></h1><blockquote class="serment-texte">« Je me promets d'aller au bout de mon premier e-book, de le relire avec soin et de le mettre en vente. »</blockquote><button class="empreinte" id="empreinte" aria-label="Rester appuyé pour signer"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">Reste appuyé une dizaine de secondes pour signer</p></section>`);
     const btn = root.querySelector<HTMLButtonElement>("#empreinte")!;
     const jauge = root.querySelector<SVGCircleElement>("#e-jauge")!;
     const remplie = root.querySelector<HTMLElement>("#e-remplie")!;
-    const DUREE = 1300;
+    const DUREE = 10000;
     let debut = 0;
     let raf = 0;
     let signe = false;
@@ -399,6 +399,8 @@ export function mountFunnel(cfg: FunnelConfig) {
     const tic = (t: number) => {
       const k = Math.min(1, (t - debut) / DUREE);
       peindre(k);
+      const aide = root.querySelector("#e-aide");
+      if (aide && k < 1) aide.textContent = `Garde le doigt appuyé… ${Math.ceil((DUREE * (1 - k)) / 1000)} s`;
       if (k >= 1) {
         signe = true;
         btn.classList.add("empreinte-signee");
@@ -420,6 +422,8 @@ export function mountFunnel(cfg: FunnelConfig) {
       btn.classList.remove("empreinte-active");
       cancelAnimationFrame(raf);
       peindre(0);
+      const aide = root.querySelector("#e-aide");
+      if (aide) aide.textContent = "Reste appuyé une dizaine de secondes pour signer";
     };
     btn.addEventListener("pointerdown", appui);
     ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, lacher));
