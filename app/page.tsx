@@ -3,6 +3,8 @@ import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import PhoneDemo from "@/components/funnel/PhoneDemo";
 import ToolsCloud from "@/components/funnel/ToolsCloud";
+import Constellation from "@/components/funnel/Constellation";
+import TypedLead from "@/components/funnel/TypedLead";
 import { countIdeas, searchIdeas } from "@/lib/ideas";
 
 export const dynamic = "force-dynamic";
@@ -21,25 +23,27 @@ export default async function Home() {
   const best = (await searchIdeas({ sort: "opportunity", pageSize: 60 })).items;
   const sample = [...best].sort(() => Math.random() - 0.5).slice(0, 12);
   return (
-    <div className="mc">
+    <div className="mc dark">
       <FunnelNav />
       <main>
-        <section className="wrap hero">
+        <section className="hero-band">
+          <Constellation />
+          <div className="wrap hero">
           <div className="hero-copy">
-            <h1 className="hero-lines"><span>Trouve une idée.</span><span>Crée ton e-book.</span><span>Vends-le sur Etsy.</span></h1>
-            <p className="lead">
-              Choisis une idée, l'IA rédige un guide d'environ 50 pages, tu le relis et tu le publies avec sa fiche Etsy.
-            </p>
+            <p className="kicker"><i aria-hidden="true" />L'atelier des e-books à vendre sur Etsy</p>
+            <h1 className="hero-title"><span className="l">Lance ton premier e‑book</span> <span className="soft"><span className="l">et décroche tes</span> <span className="l">premières ventes.</span></span></h1>
+            <TypedLead plain="Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et " bold="publie-le sur Etsy." />
             <div className="ctas">
-              <Link className="btn btn-accent btn-lg" href="/quiz">Trouver mes 3 idées</Link>
-              <Link className="btn btn-ghost btn-lg" href="/tarifs">Voir les tarifs</Link>
+              <Link className="btn btn-white btn-lg" href="/quiz">Créer mon premier e-book <span aria-hidden="true">→</span></Link>
             </div>
-            <p className="fine-line">Questionnaire de quelques minutes. Aucun revenu garanti : tes ventes dépendent de ton travail.</p>
+            <p className="fine-line">Aucun revenu garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>
           </div>
           <div className="hero-visual">
             <ToolsCloud>
               <PhoneDemo />
             </ToolsCloud>
+            <p className="illus">Illustration</p>
+          </div>
           </div>
         </section>
 

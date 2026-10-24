@@ -10,7 +10,7 @@ export default async function FunnelNav() {
         <nav className="nav-links">
           <Link className="link hide-sm" href="/#faq">Questions</Link>
           <Link className="link hide-sm" href="/tarifs">Tarifs</Link>
-          <Link className="link" href={user ? "/app" : "/connexion"}>{user ? "Mon atelier" : "Se connecter"}</Link>
+          <Link className="link link-login" href={user ? "/app" : "/connexion"}>{user ? "Mon atelier" : "Se connecter"}</Link>
           <Link className="btn btn-accent btn-sm" href="/quiz">Créer mes e-books</Link>
         </nav>
       </div>
