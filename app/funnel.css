@@ -321,3 +321,18 @@
 .mc.dark .nav .wrap { max-width: 1240px; }
 .mc.dark .page-mock .k { color: #6b7280; } .mc.dark .page-mock .q { background: #f3f4f6; border-left-color: #111827; }
 @media (min-width: 861px) { .mc .hero-band .hero-copy { align-self: start; padding-top: 56px; } }
+/* Génération en cours dans le téléphone */
+.mc .p-head { display: flex; align-items: center; gap: 8px; }
+.mc .p-head .t { flex: 1; }
+.mc .p-pct { font-size: 12px; font-variant-numeric: tabular-nums; }
+.mc .p-dot { width: 12px; height: 12px; border-radius: 99px; flex: none; }
+.mc .p-dot.spin { border: 2px solid rgba(127, 127, 127, .35); border-top-color: #22c55e; animation: spin .8s linear infinite; }
+.mc .p-dot.ok { background: #22c55e; }
+.mc .p-ch b { font-weight: 600; font-size: 11.5px; color: #22c55e; }
+.mc .p-ch.now span { color: var(--fg); font-weight: 600; }
+.mc .p-ch.now b { color: var(--dim); font-weight: 500; }
+.mc .p-write { flex: 1; min-height: 0; overflow: hidden; }
+.mc .p-write .k { font-family: var(--mono); font-size: 9.5px; letter-spacing: .12em; color: var(--dim); }
+.mc .p-write p { margin-top: 6px; font-size: 12.5px; line-height: 1.55; }
+.mc .p-write .t { margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .mc .p-dot.spin { animation: none; } }
