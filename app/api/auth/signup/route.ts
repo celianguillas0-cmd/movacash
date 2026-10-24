@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { run } from "@/lib/db";
+import { one } from "@/lib/db";
 import { createSession, getUserByEmail, hashPassword } from "@/lib/auth";
 import { fail, ok } from "@/lib/api";
 import { clientIp, rateLimit } from "@/lib/ratelimit";
@@ -19,12 +19,12 @@ export async function POST(req: Request) {
   const { email, password, name, quiz } = parsed.data;
   if (await getUserByEmail(email)) return fail("Un compte existe déjà avec cet e-mail. Connecte-toi ou utilise « Mot de passe oublié ».", 409);
   const quizJson = quiz ? JSON.stringify(quiz) : null;
-  const r = await run("INSERT INTO users (email, name, password_hash, quiz_json) VALUES (?, ?, ?, ?)", [
+  const r = await one<{ id: number }>("INSERT INTO users (email, name, password_hash, quiz_json) VALUES (?, ?, ?, ?) RETURNING id", [
     email.toLowerCase(),
     name,
     await hashPassword(password),
     quizJson && quizJson.length < 8000 ? quizJson : null,
   ]);
-  await createSession(r.lastId);
+  await createSession(r!.id);
   return ok({ ok: true });
 }

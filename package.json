@@ -11,7 +11,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@libsql/client": "^0.15.15",
+    "@electric-sql/pglite": "0.5.8",
+    "@neondatabase/serverless": "1.0.2",
     "bcryptjs": "3.0.3",
     "jose": "6.1.0",
     "next": "15.5.28",

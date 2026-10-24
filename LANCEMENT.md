@@ -2,24 +2,24 @@
 
 Tout fonctionne déjà en mode démo. Pour le lancement, il reste à brancher 5 services et à coller leurs clés dans Vercel (Settings → Environment Variables). Ne colle jamais une clé dans une conversation.
 
-## 1. Base de données : Turso (gratuit au démarrage)
+## 1. Base de données : Neon, directement dans Vercel (gratuit au démarrage)
 
-1. Crée un compte sur turso.tech, puis une base (région la plus proche : Paris ou Francfort).
-2. Récupère l'URL de la base (commence par `libsql://`) et crée un jeton (« Create token »).
-3. Dans Vercel : `TURSO_DATABASE_URL` = l'URL, `TURSO_AUTH_TOKEN` = le jeton.
+1. Dans ton projet Vercel : onglet **Storage** → **Create Database** → **Neon** (Serverless Postgres) → région **Frankfurt** (la plus proche) → plan gratuit → **Create**.
+2. À l'étape suivante, laisse le projet Movacash coché et clique **Connect**. Vercel ajoute tout seul la variable `DATABASE_URL` : aucune clé à copier.
+3. Onglet **Deployments** → sur le dernier déploiement, menu **⋯** → **Redeploy**.
 
-Les tables et les 537 idées sont créées automatiquement à la première visite du site.
+Les tables et les 537 idées sont créées automatiquement à la première visite du site. Sans base branchée, le site s'affiche quand même en démonstration, mais les comptes sont effacés régulièrement (un bandeau le signale dans l'espace client).
 
 ## 2. Site : Vercel
 
 1. Crée le projet sur ton compte Vercel Pro (indépendant de tes autres projets).
 2. Variables à ajouter :
-   - `AUTH_SECRET` : une longue chaîne aléatoire (au moins 32 caractères, par exemple générée par un gestionnaire de mots de passe).
+   - `AUTH_SECRET` (conseillé) : une longue chaîne aléatoire (au moins 32 caractères, par exemple générée par un gestionnaire de mots de passe).
    - `NEXT_PUBLIC_APP_URL` : l'adresse finale du site, par exemple `https://movacash.fr` (sans / à la fin).
    - `SUPPORT_EMAIL` : l'adresse de contact affichée dans la page Aide.
 3. Branche ton nom de domaine (Settings → Domains).
 
-Le code doit arriver dans Vercel par un dépôt GitHub (le plus simple) : je peux le préparer quand tu seras prêt.
+Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification poussée sur `main` est redéployée automatiquement.
 
 ## 3. Génération : Gemini
 

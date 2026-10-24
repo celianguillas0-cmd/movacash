@@ -5,7 +5,7 @@ export async function POST(_req: Request, { params }: { params: Promise<{ id: st
   const { id } = await params;
   return withUser(async (user) => {
     const r = await run("DELETE FROM favorites WHERE user_id = ? AND idea_id = ?", [user.id, Number(id)]);
-    if (!r.changes) await run("INSERT OR IGNORE INTO favorites (user_id, idea_id) VALUES (?, ?)", [user.id, Number(id)]);
+    if (!r.changes) await run("INSERT INTO favorites (user_id, idea_id) VALUES (?, ?) ON CONFLICT DO NOTHING", [user.id, Number(id)]);
     return ok({ favorite: !r.changes });
   });
 }

@@ -5,7 +5,7 @@ export async function rateLimit(key: string, max: number, windowSec: number) {
   const now = Math.floor(Date.now() / 1000);
   const row = await one<{ count: number; reset_at: number }>("SELECT count, reset_at FROM rate_limits WHERE key = ?", [key]);
   if (!row || row.reset_at <= now) {
-    await run("INSERT OR REPLACE INTO rate_limits (key, count, reset_at) VALUES (?, 1, ?)", [key, now + windowSec]);
+    await run("INSERT INTO rate_limits (key, count, reset_at) VALUES (?, 1, ?) ON CONFLICT (key) DO UPDATE SET count = 1, reset_at = EXCLUDED.reset_at", [key, now + windowSec]);
     return true;
   }
   if (row.count >= max) return false;

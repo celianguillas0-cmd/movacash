@@ -1,20 +1,33 @@
-import type { Client, InArgs, InStatement } from "@libsql/client";
-import fs from "node:fs";
 import path from "node:path";
+import fs from "node:fs";
 import { buildSeed } from "./ideas-seed";
 
-// En production (Vercel) : base Turso via TURSO_DATABASE_URL + TURSO_AUTH_TOKEN.
-// En local : fichier SQLite (DATABASE_PATH, par défaut ./data/movacash.db).
-const LOCAL_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), "data", "movacash.db");
+// Base Postgres.
+// En production (Vercel) : Neon, branché depuis Vercel → Storage, qui fournit DATABASE_URL tout seul.
+// Sans DATABASE_URL : PGlite, un Postgres embarqué (dossier ./data/pglite en local ; en mémoire sur Vercel,
+// pour que le site s'affiche en mode démo avant que la base soit branchée, sans rien conserver).
+const DATABASE_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL || "";
+const LOCAL_DIR = process.env.DATABASE_PATH || path.join(process.cwd(), "data", "pglite");
+
+export type Args = unknown[] | Record<string, unknown>;
+export interface Statement { sql: string; args?: Args }
+type Result = { rows: Record<string, unknown>[]; rowCount: number };
+
+interface Driver {
+  query(sql: string, params: unknown[]): Promise<Result>;
+  transaction(stmts: { sql: string; params: unknown[] }[]): Promise<Result[]>;
+}
 
 declare global {
   // eslint-disable-next-line no-var
-  var __db: { ready: Promise<Client> } | undefined;
+  var __db: { ready: Promise<Driver> } | undefined;
 }
 
 const SCHEMA = [
+  // Équivalent de la fonction SQLite utilisée partout pour les dates (secondes depuis 1970)
+  `CREATE OR REPLACE FUNCTION unixepoch() RETURNS integer LANGUAGE sql STABLE AS $$ SELECT extract(epoch FROM now())::integer $$`,
   `CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
     name TEXT NOT NULL DEFAULT '',
     password_hash TEXT NOT NULL,
@@ -26,11 +39,11 @@ const SCHEMA = [
     is_demo_sub INTEGER NOT NULL DEFAULT 0,
     withdrawal_waiver_at INTEGER,
     quiz_json TEXT,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch())
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE TABLE IF NOT EXISTS categories (slug TEXT PRIMARY KEY, name TEXT NOT NULL, emoji TEXT NOT NULL DEFAULT '')`,
   `CREATE TABLE IF NOT EXISTS ideas (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     slug TEXT NOT NULL UNIQUE,
     title TEXT NOT NULL,
     category_slug TEXT NOT NULL REFERENCES categories(slug),
@@ -43,19 +56,19 @@ const SCHEMA = [
     price_min INTEGER NOT NULL DEFAULT 5,
     price_max INTEGER NOT NULL DEFAULT 10,
     sensitive TEXT,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch())
+    search_text TEXT NOT NULL DEFAULT '',
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE INDEX IF NOT EXISTS ideas_category ON ideas(category_slug)`,
   `CREATE INDEX IF NOT EXISTS ideas_demand ON ideas(demand DESC, competition ASC)`,
-  `CREATE VIRTUAL TABLE IF NOT EXISTS ideas_fts USING fts5(title, audience, keywords, category, content='', tokenize='unicode61 remove_diacritics 2')`,
   `CREATE TABLE IF NOT EXISTS favorites (
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     idea_id INTEGER NOT NULL REFERENCES ideas(id) ON DELETE CASCADE,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch()),
+    created_at INTEGER NOT NULL DEFAULT unixepoch(),
     PRIMARY KEY (user_id, idea_id)
   )`,
   `CREATE TABLE IF NOT EXISTS ebooks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     idea_id INTEGER REFERENCES ideas(id) ON DELETE SET NULL,
     title TEXT NOT NULL,
@@ -71,12 +84,12 @@ const SCHEMA = [
     cover_json TEXT NOT NULL DEFAULT '{}',
     etsy_json TEXT,
     is_demo INTEGER NOT NULL DEFAULT 0,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch()),
-    updated_at INTEGER NOT NULL DEFAULT (unixepoch())
+    created_at INTEGER NOT NULL DEFAULT unixepoch(),
+    updated_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE INDEX IF NOT EXISTS ebooks_user ON ebooks(user_id, created_at DESC)`,
   `CREATE TABLE IF NOT EXISTS chapters (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     ebook_id INTEGER NOT NULL REFERENCES ebooks(id) ON DELETE CASCADE,
     idx INTEGER NOT NULL,
     title TEXT NOT NULL,
@@ -88,10 +101,10 @@ const SCHEMA = [
   )`,
   // Génération comptée au moment de la création : supprimer un e-book ne rend pas de crédit
   `CREATE TABLE IF NOT EXISTS generations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     ebook_id INTEGER,
-    created_at INTEGER NOT NULL DEFAULT (unixepoch())
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE INDEX IF NOT EXISTS generations_user ON generations(user_id, created_at)`,
   `CREATE TABLE IF NOT EXISTS password_resets (
@@ -101,17 +114,17 @@ const SCHEMA = [
     used_at INTEGER
   )`,
   `CREATE TABLE IF NOT EXISTS cancellations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id SERIAL PRIMARY KEY,
     user_id INTEGER,
     plan TEXT,
     reason TEXT NOT NULL DEFAULT '',
     comment TEXT NOT NULL DEFAULT '',
-    created_at INTEGER NOT NULL DEFAULT (unixepoch())
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, reset_at INTEGER NOT NULL)`,
 ];
 
-// Colonnes ajoutées après la v1 (ALTER TABLE ignoré si la colonne existe déjà)
+// Colonnes ajoutées après la v1
 const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "billing_interval", "TEXT NOT NULL DEFAULT 'month'"],
   ["users", "cancel_at_period_end", "INTEGER NOT NULL DEFAULT 0"],
@@ -124,72 +137,109 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
 ];
 
-async function migrate(c: Client) {
-  await c.batch(SCHEMA, "write");
-  for (const [t, col, def] of COLUMNS) {
-    const cols = (await c.execute(`PRAGMA table_info(${t})`)).rows.map((r) => r.name);
-    if (!cols.includes(col)) await c.execute(`ALTER TABLE ${t} ADD COLUMN ${col} ${def}`);
-  }
-  // Les e-books créés avant l'existence de la table comptent dans le quota
-  await c.execute("INSERT INTO generations (user_id, ebook_id, created_at) SELECT user_id, id, created_at FROM ebooks WHERE id NOT IN (SELECT ebook_id FROM generations WHERE ebook_id IS NOT NULL)");
-  const n = Number((await c.execute("SELECT COUNT(*) AS n FROM ideas")).rows[0].n);
-  if (n === 0) await seedIdeas(c);
+// Texte de recherche d'une idée : minuscules, sans accents
+export function searchText(...parts: string[]) {
+  return parts.join(" ").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 }
 
-export async function seedIdeas(c: Client, { reset = false } = {}) {
+async function migrate(d: Driver) {
+  // Un verrou évite que deux instances créent les tables en même temps au premier démarrage
+  await d.transaction([
+    { sql: "SELECT pg_advisory_xact_lock(727200)", params: [] },
+    ...SCHEMA.map((sql) => ({ sql, params: [] })),
+    ...COLUMNS.map(([t, col, def]) => ({ sql: `ALTER TABLE ${t} ADD COLUMN IF NOT EXISTS ${col} ${def}`, params: [] })),
+  ]);
+  const n = Number((await d.query("SELECT COUNT(*) AS n FROM ideas", [])).rows[0].n);
+  if (n === 0) await seedIdeas(d);
+}
+
+export async function seedIdeas(d?: Driver, { reset = false } = {}) {
+  d ??= await getClient();
   const { categories, ideas } = buildSeed();
-  const stmts: InStatement[] = [];
-  if (reset)
-    stmts.push(
-      "INSERT INTO ideas_fts(ideas_fts) VALUES('delete-all')",
-      "DELETE FROM favorites",
-      "UPDATE ebooks SET idea_id = NULL",
-      "DELETE FROM ideas",
-      "DELETE FROM categories"
-    );
-  for (const cat of categories) stmts.push({ sql: "INSERT OR REPLACE INTO categories (slug, name, emoji) VALUES (?, ?, ?)", args: [cat.slug, cat.name, cat.emoji] });
-  await c.batch(stmts, "write");
+  const stmts: Statement[] = [];
+  if (reset) stmts.push({ sql: "DELETE FROM favorites" }, { sql: "UPDATE ebooks SET idea_id = NULL" }, { sql: "DELETE FROM ideas" }, { sql: "DELETE FROM categories" });
+  for (const c of categories)
+    stmts.push({ sql: "INSERT INTO categories (slug, name, emoji) VALUES (?, ?, ?) ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, emoji = EXCLUDED.emoji", args: [c.slug, c.name, c.emoji] });
   const catName = new Map(categories.map((x) => [x.slug, x.name]));
-  // Insertion par lots : l'idée puis son entrée de recherche (même rowid)
+  // Insertion par lots de 200 idées (une requête par lot)
   for (let k = 0; k < ideas.length; k += 200) {
-    const chunk: InStatement[] = [];
-    for (const i of ideas.slice(k, k + 200)) {
-      chunk.push({
-        sql: `INSERT OR IGNORE INTO ideas (slug, title, category_slug, audience, keywords, format, difficulty, demand, competition, price_min, price_max, sensitive)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [i.slug, i.title, i.categorySlug, i.audience, i.keywords, i.format, i.difficulty, i.demand, i.competition, i.priceMin, i.priceMax, i.sensitive],
-      });
-      chunk.push({
-        sql: `INSERT INTO ideas_fts (rowid, title, audience, keywords, category)
-              SELECT id, ?, ?, ?, ? FROM ideas WHERE slug = ? AND id NOT IN (SELECT rowid FROM ideas_fts WHERE rowid = ideas.id)`,
-        args: [i.title, i.audience, i.keywords, catName.get(i.categorySlug) || "", i.slug],
-      });
-    }
-    await c.batch(chunk, "write");
+    const chunk = ideas.slice(k, k + 200);
+    stmts.push({
+      sql: `INSERT INTO ideas (slug, title, category_slug, audience, keywords, format, difficulty, demand, competition, price_min, price_max, sensitive, search_text)
+            VALUES ${chunk.map(() => "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)").join(", ")} ON CONFLICT (slug) DO NOTHING`,
+      args: chunk.flatMap((i) => [i.slug, i.title, i.categorySlug, i.audience, i.keywords, i.format, i.difficulty, i.demand, i.competition, i.priceMin, i.priceMax, i.sensitive,
+        searchText(i.title, i.audience, i.keywords, catName.get(i.categorySlug) || "")]),
+    });
   }
+  await d.transaction(stmts.map(compile));
   return ideas.length;
 }
 
-// Turso : client HTTP pur JavaScript (aucun module natif à embarquer sur Vercel). Local : fichier SQLite.
-async function open(): Promise<Client> {
-  const url = process.env.TURSO_DATABASE_URL;
-  if (url) {
-    const { createClient } = await import("@libsql/client/web");
-    return createClient({ url, authToken: process.env.TURSO_AUTH_TOKEN });
+// « ? » et « @nom » (style SQLite) -> $1, $2… (Postgres). Les booléens deviennent 0/1 (colonnes INTEGER).
+function compile({ sql, args = [] }: Statement) {
+  const params: unknown[] = [];
+  const named = new Map<string, number>();
+  const val = (v: unknown) => (typeof v === "boolean" ? (v ? 1 : 0) : v === undefined ? null : v);
+  let out = "", inStr = false, pos = 0;
+  for (let i = 0; i < sql.length; i++) {
+    const ch = sql[i];
+    if (ch === "'") { inStr = !inStr; out += ch; continue; }
+    if (!inStr && ch === "?" && Array.isArray(args)) { params.push(val(args[pos++])); out += `$${params.length}`; continue; }
+    if (!inStr && ch === "@" && !Array.isArray(args)) {
+      const m = /^@([a-zA-Z_]\w*)/.exec(sql.slice(i));
+      if (m) {
+        if (!named.has(m[1])) { params.push(val(args[m[1]])); named.set(m[1], params.length); }
+        out += `$${named.get(m[1])}`;
+        i += m[0].length - 1;
+        continue;
+      }
+    }
+    out += ch;
   }
-  const { createClient } = await import("@libsql/client");
-  fs.mkdirSync(path.dirname(LOCAL_PATH), { recursive: true });
-  return createClient({ url: `file:${LOCAL_PATH}` });
+  return { sql: out, params };
+}
+
+async function open(): Promise<Driver> {
+  if (DATABASE_URL) {
+    const { neon, types } = await import("@neondatabase/serverless");
+    // COUNT(*) et les grands entiers arrivent en texte : on les veut en nombres
+    types.setTypeParser(20, (v: string) => parseInt(v, 10));
+    types.setTypeParser(1700, (v: string) => parseFloat(v));
+    const sql = neon(DATABASE_URL, { fullResults: true });
+    return {
+      query: async (text, params) => {
+        const r = await sql.query(text, params);
+        return { rows: r.rows as Record<string, unknown>[], rowCount: r.rowCount ?? 0 };
+      },
+      transaction: async (stmts) => {
+        const rs = await sql.transaction(stmts.map((s) => sql.query(s.sql, s.params)));
+        return rs.map((r) => ({ rows: r.rows as Record<string, unknown>[], rowCount: r.rowCount ?? 0 }));
+      },
+    };
+  }
+  const { PGlite } = await import("@electric-sql/pglite");
+  const onVercel = !!process.env.VERCEL;
+  if (!onVercel) fs.mkdirSync(path.dirname(LOCAL_DIR), { recursive: true });
+  const db = new PGlite(onVercel ? undefined : LOCAL_DIR, { parsers: { 20: (v: string) => parseInt(v, 10), 1700: (v: string) => parseFloat(v) } });
+  const wrap = (r: { rows: unknown[]; affectedRows?: number }) => ({ rows: r.rows as Record<string, unknown>[], rowCount: r.affectedRows ?? 0 });
+  return {
+    query: async (text, params) => wrap(await db.query(text, params)),
+    transaction: (stmts) => db.transaction(async (tx) => {
+      const out: Result[] = [];
+      for (const s of stmts) out.push(wrap(await tx.query(s.sql, s.params)));
+      return out;
+    }),
+  };
 }
 
 export async function getClient() {
   if (!global.__db) {
     const ready = (async () => {
-      const client = await open();
-      if (!process.env.TURSO_DATABASE_URL) await client.execute("PRAGMA journal_mode = WAL");
-      await client.execute("PRAGMA foreign_keys = ON");
-      await migrate(client);
-      return client;
+      const d = await open();
+      await migrate(d);
+      // Les e-books créés avant l'existence de la table comptent dans le quota
+      await d.query("INSERT INTO generations (user_id, ebook_id, created_at) SELECT user_id, id, created_at FROM ebooks WHERE id NOT IN (SELECT ebook_id FROM generations WHERE ebook_id IS NOT NULL)", []);
+      return d;
     })();
     global.__db = { ready };
     ready.catch(() => (global.__db = undefined));
@@ -197,21 +247,13 @@ export async function getClient() {
   return global.__db.ready;
 }
 
-type Args = InArgs;
-
-// Ligne SQL -> objet simple (les valeurs bigint éventuelles deviennent des nombres)
-function plain<T>(row: Record<string, unknown>, columns: string[]): T {
-  const o: Record<string, unknown> = {};
-  for (const c of columns) {
-    const v = row[c];
-    o[c] = typeof v === "bigint" ? Number(v) : v;
-  }
-  return o as T;
+export function usingDemoDatabase() {
+  return !DATABASE_URL && !!process.env.VERCEL;
 }
 
 export async function all<T>(sql: string, args: Args = []): Promise<T[]> {
-  const r = await (await getClient()).execute({ sql, args });
-  return r.rows.map((row) => plain<T>(row as unknown as Record<string, unknown>, r.columns));
+  const c = compile({ sql, args });
+  return (await (await getClient()).query(c.sql, c.params)).rows as T[];
 }
 
 export async function one<T>(sql: string, args: Args = []): Promise<T | undefined> {
@@ -219,11 +261,11 @@ export async function one<T>(sql: string, args: Args = []): Promise<T | undefine
 }
 
 export async function run(sql: string, args: Args = []) {
-  const r = await (await getClient()).execute({ sql, args });
-  return { changes: r.rowsAffected, lastId: r.lastInsertRowid === undefined ? 0 : Number(r.lastInsertRowid) };
+  const c = compile({ sql, args });
+  return { changes: (await (await getClient()).query(c.sql, c.params)).rowCount };
 }
 
 // Plusieurs écritures dans une même transaction
-export async function batch(stmts: InStatement[]) {
-  return (await getClient()).batch(stmts, "write");
+export async function batch(stmts: Statement[]) {
+  return (await getClient()).transaction(stmts.map(compile));
 }

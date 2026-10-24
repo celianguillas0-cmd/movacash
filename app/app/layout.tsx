@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { getPlan, isGeminiConfigured } from "@/lib/config";
 import { getUsage, subState } from "@/lib/subscription";
+import { usingDemoDatabase } from "@/lib/db";
 import LogoutButton from "@/components/LogoutButton";
 import WsNav from "@/components/ws/WsNav";
 import Logo from "@/components/ws/Logo";
@@ -65,6 +66,9 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             <p className="notice-warn">
               Ton abonnement est terminé. Tes e-books restent consultables et téléchargeables. <Link href="/tarifs" className="font-semibold underline">Reprendre un abonnement</Link>
             </p>
+          )}
+          {usingDemoDatabase() && (
+            <p className="notice-warn">Base de données pas encore branchée : ce site tourne en démonstration et les comptes sont effacés régulièrement. Ajoute une base Neon dans Vercel (Storage) pour tout conserver.</p>
           )}
           {!isGeminiConfigured() && (
             <p className="notice-info">Mode démo : la clé Gemini n'est pas encore configurée, les e-books générés contiennent un texte d'exemple.</p>

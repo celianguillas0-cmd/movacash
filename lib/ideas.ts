@@ -33,16 +33,15 @@ export interface IdeaQuery {
   pageSize?: number;
 }
 
-// Transforme une saisie libre en requête FTS5 sûre (préfixe sur chaque mot).
-function ftsQuery(q: string) {
+// Mots d'une saisie libre, en minuscules et sans accents (comparés au champ search_text des idées).
+function searchWords(q: string) {
   const words = q
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
     .split(/[^a-z0-9]+/)
     .filter((w) => w.length >= 2);
-  if (!words.length) return null;
-  return words.map((w) => `"${w}"*`).join(" ");
+  return words.slice(0, 8);
 }
 
 export async function searchIdeas(o: IdeaQuery) {
@@ -52,11 +51,10 @@ export async function searchIdeas(o: IdeaQuery) {
   const pageSize = Math.min(100, Math.max(1, o.pageSize || 24));
 
   if (o.q) {
-    const fq = ftsQuery(o.q);
-    if (fq) {
-      where.push("i.id IN (SELECT rowid FROM ideas_fts WHERE ideas_fts MATCH @fq)");
-      params.fq = fq;
-    }
+    searchWords(o.q).forEach((w, k) => {
+      where.push(`i.search_text LIKE @w${k}`);
+      params[`w${k}`] = `%${w}%`;
+    });
   }
   if (o.category) {
     where.push("i.category_slug = @category");
@@ -88,7 +86,7 @@ export async function searchIdeas(o: IdeaQuery) {
       demand: "i.demand DESC, i.competition ASC, i.title",
       competition: "i.competition ASC, i.demand DESC, i.title",
       price: "i.price_max DESC, i.title",
-      title: "i.title COLLATE NOCASE",
+      title: "lower(i.title)",
       random: "random()",
     }[o.sort || "opportunity"] || "i.title";
 
@@ -96,7 +94,7 @@ export async function searchIdeas(o: IdeaQuery) {
   const total = (await one<{ n: number }>(`SELECT COUNT(*) AS n FROM ideas i ${whereSql}`, params as never))?.n ?? 0;
   const items = await all<Idea>(
       `SELECT i.*, c.name AS category_name, c.emoji,
-        EXISTS(SELECT 1 FROM favorites f WHERE f.user_id = @uid AND f.idea_id = i.id) AS is_favorite
+        CASE WHEN EXISTS(SELECT 1 FROM favorites f WHERE f.user_id = @uid AND f.idea_id = i.id) THEN 1 ELSE 0 END AS is_favorite
        FROM ideas i JOIN categories c ON c.slug = i.category_slug
        ${whereSql} ORDER BY ${orderBy} LIMIT @limit OFFSET @offset`,
       { ...params, limit: pageSize, offset: (page - 1) * pageSize } as never
@@ -156,7 +154,7 @@ export async function terrainMatches(a: QuizAnswers) {
   for (const t of [(a.situation === "student" ? "" : str(a.job)), str(a.passion), str(a.advice)]) {
     const words = t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(/[^a-z0-9]+/).filter((w) => w.length >= 4);
     for (const w of words.slice(0, 6)) {
-      const rows = await all<{ id: number }>("SELECT rowid AS id FROM ideas_fts WHERE ideas_fts MATCH ? LIMIT 60", [`"${w}"*`]);
+      const rows = await all<{ id: number }>("SELECT id FROM ideas WHERE search_text LIKE ? LIMIT 60", [`%${w}%`]);
       rows.forEach((r) => ids.add(r.id));
     }
   }

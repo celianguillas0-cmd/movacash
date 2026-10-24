@@ -13,7 +13,7 @@ export default function Privacy() {
       <h2>Finalités et bases légales</h2>
       <p>Exécution du contrat (fourniture du service, facturation), obligations légales (comptabilité), intérêt légitime (sécurité, amélioration du service).</p>
       <h2>Sous-traitants</h2>
-      <p>Vercel Inc. (hébergement du site) ; Turso / ChiselStrike (base de données) ; Stripe (paiement) ; Resend (envoi des e-mails de compte) ; Google (API Gemini) qui reçoit les consignes de génération que vous saisissez. N'y indiquez pas de données personnelles sensibles.</p>
+      <p>Vercel Inc. (hébergement du site) ; Neon (base de données, hébergée par l'intermédiaire de Vercel) ; Stripe (paiement) ; Resend (envoi des e-mails de compte) ; Google (API Gemini) qui reçoit les consignes de génération que vous saisissez. N'y indiquez pas de données personnelles sensibles.</p>
       <h2>Durée de conservation</h2>
       <p>Pendant la durée du compte, puis [durée] ; données de facturation : 10 ans.</p>
       <h2>Vos droits</h2>

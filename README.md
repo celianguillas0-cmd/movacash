@@ -16,7 +16,7 @@ Sans clés, l'application tourne en **mode démo** :
 - pas de `GEMINI_API_KEY` → les e-books contiennent un texte d'exemple (toute la chaîne est testable : plan, chapitres, PDF, fiche Etsy) ;
 - pas de `STRIPE_SECRET_KEY` → l'abonnement s'active sans paiement.
 
-La base (fichier SQLite `data/movacash.db` en local, Turso en production) est créée, migrée et remplie automatiquement au premier lancement.
+La base Postgres (PGlite embarquée dans `data/pglite` en local, Neon en production) est créée, migrée et remplie automatiquement au premier lancement.
 
 Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
 
@@ -65,8 +65,8 @@ Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
 
 ## Déploiement
 
-Vercel + Turso : renseigner `TURSO_DATABASE_URL` et `TURSO_AUTH_TOKEN` (le client HTTP de Turso est utilisé, sans module natif), `AUTH_SECRET`, `NEXT_PUBLIC_APP_URL`, puis les clés Gemini, Stripe et Resend. Détails dans LANCEMENT.md.
-En local ou sur un serveur avec disque, sans variables Turso, la base est un fichier SQLite (`DATABASE_PATH`).
+Vercel + Neon : ajouter une base Neon depuis Vercel → Storage (elle remplit `DATABASE_URL`), puis `AUTH_SECRET`, `NEXT_PUBLIC_APP_URL` et les clés Gemini, Stripe et Resend. Détails dans LANCEMENT.md.
+Sans `DATABASE_URL`, la base est PGlite : un dossier local (`DATABASE_PATH`) en développement, ou en mémoire sur Vercel (démo, rien n'est conservé).
 
 ## À faire avant la mise en ligne
 

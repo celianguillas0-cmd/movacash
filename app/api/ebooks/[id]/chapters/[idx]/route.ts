@@ -45,7 +45,7 @@ export async function PATCH(req: Request, { params }: Ctx) {
     if (!data || !ch) return fail("Introuvable", 404);
     if (parsed.data.title !== undefined) await run("UPDATE chapters SET title = ? WHERE id = ?", [parsed.data.title, ch.id]);
     if (parsed.data.content_md !== undefined)
-      await run("UPDATE chapters SET content_md = ?, status = CASE WHEN ? != '' THEN 'done' ELSE status END WHERE id = ?", [parsed.data.content_md, parsed.data.content_md, ch.id]);
+      await run("UPDATE chapters SET content_md = ?, status = CASE WHEN ?::text != '' THEN 'done' ELSE status END WHERE id = ?", [parsed.data.content_md, parsed.data.content_md, ch.id]);
     await refreshStatus(data.ebook.id);
     return ok();
   });

@@ -11,7 +11,10 @@ const MAX_AGE = 60 * 60 * 24 * 30;
 export function getSecret() {
   const s = process.env.AUTH_SECRET;
   if (!s || s.length < 16) {
-    if (process.env.NODE_ENV === "production") throw new Error("AUTH_SECRET manquant ou trop court");
+    // Sans AUTH_SECRET : clé dérivée de l'adresse de la base (secrète elle aussi), sinon clé de développement
+    // (en production, seulement en mode démo sans base, où rien n'est conservé).
+    const db = process.env.DATABASE_URL || process.env.POSTGRES_URL;
+    if (db) return new TextEncoder().encode(sha256(`movacash-session:${db}`));
     return new TextEncoder().encode("dev-only-secret-change-me-please-123");
   }
   return new TextEncoder().encode(s);
