@@ -161,15 +161,9 @@
 .mc footer a { text-decoration: none; }
 .mc footer a:hover { color: var(--fg); }
 
-/* Logos des outils autour du téléphone : icônes d'applis qui s'écartent quand la souris approche, sans sortir de la zone */
-.mc .tools-cloud { position: relative; height: 640px; touch-action: pan-y; }
-.mc .tools-cloud .tool { --x: var(--px); --y: var(--py); --s: var(--ps); position: absolute; display: grid; place-items: center; border-radius: 23%; color: #fff; z-index: 2;
-  width: calc(var(--s) * 1px); height: calc(var(--s) * 1px);
-  left: calc((100% - var(--s) * 1px - 44px) * var(--x) + 22px); top: calc((100% - var(--s) * 1px - 44px) * var(--y) + 22px);
-  transform: translate(var(--dx, 0px), var(--dy, 0px)) rotate(var(--r, 0deg)); transition: transform .6s cubic-bezier(.22, 1, .36, 1); will-change: transform;
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .06), 0 8px 18px -8px rgba(16, 24, 40, .35); }
-.mc .tools-cloud .tool svg { width: 56%; height: 56%; display: block; }
-@media (max-width: 860px) { .mc .tools-cloud { height: 800px; max-width: 420px; margin: 0 auto; } .mc .tools-cloud .tool { --x: var(--qx); --y: var(--qy); --s: var(--qs); } }
+/* Zone du téléphone incliné */
+.mc .phone-stage { position: relative; height: 640px; }
+@media (max-width: 860px) { .mc .phone-stage { height: 600px; max-width: 420px; margin: 0 auto; } }
 
 /* Questionnaire */
 .mc.has-photo { background: var(--bg-2); }

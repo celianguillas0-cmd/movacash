@@ -2,7 +2,6 @@ import Link from "next/link";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import PhoneDemo from "@/components/funnel/PhoneDemo";
-import ToolsCloud from "@/components/funnel/ToolsCloud";
 import Constellation from "@/components/funnel/Constellation";
 import TypedLead from "@/components/funnel/TypedLead";
 import { countIdeas, searchIdeas } from "@/lib/ideas";
@@ -39,9 +38,9 @@ export default async function Home() {
             <p className="fine-line">Aucun revenu garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>
           </div>
           <div className="hero-visual">
-            <ToolsCloud>
+            <div className="phone-stage">
               <PhoneDemo />
-            </ToolsCloud>
+            </div>
             <p className="illus">Illustration</p>
           </div>
           </div>
