@@ -33,7 +33,7 @@ export default async function Home() {
             <h1 className="hero-title"><span className="l">Lance ton premier e‑book</span> <span className="soft"><span className="l">et obtiens un business</span> <span className="l">clé en main.</span></span></h1>
             <TypedLead
               plain="Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et "
-              endings={["publie-le sur Etsy.", "mets-le en vente dès ce soir.", "ouvre ta boutique dès aujourd'hui.", "fixe toi-même ton prix."]}
+              endings={["fais le premier pas vers ta liberté financière.", "commence à construire un revenu à côté.", "transforme ce que tu sais en source de revenus.", "donne-toi une vraie chance de gagner en ligne."]}
             />
             <div className="ctas">
               <Link className="btn btn-white btn-lg" href="/quiz">Créer mon premier e-book <span aria-hidden="true">→</span></Link>
