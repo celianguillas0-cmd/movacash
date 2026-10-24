@@ -326,3 +326,4 @@
 @media (max-width: 560px) { .mc .kicker { font-size: 10.5px; letter-spacing: .12em; } }
 .mc.dark .nav .wrap { max-width: 1240px; }
 .mc.dark .page-mock .k { color: #6b7280; } .mc.dark .page-mock .q { background: #f3f4f6; border-left-color: #111827; }
+@media (min-width: 861px) { .mc .hero-band .hero-copy { align-self: start; padding-top: 56px; } }
