@@ -74,7 +74,7 @@
 .mc .hero .fine-line { margin-top: 10px; color: var(--dim); font-size: 13px; }
 .mc .hero-visual { position: relative; min-width: 0; }
 /* Téléphone incliné vers la droite, au centre des logos */
-.mc .hero-visual .phone { position: absolute; left: 50%; top: 50%; width: 270px; margin: 0; transform: translate(-50%, -50%) rotate(8deg); z-index: 1; }
+.mc .hero-visual .phone { position: absolute; left: 50%; top: 50%; width: 270px; margin: 0; transform: translate(-50%, -50%); z-index: 1; }
 @media (max-width: 860px) { .mc .hero { grid-template-columns: 1fr; padding-block: 32px 24px; gap: 8px; } .mc .hero-visual .phone { width: 250px; } }
 
 
@@ -320,7 +320,7 @@
 @media (max-width: 560px) { .mc .kicker { font-size: 10.5px; letter-spacing: .12em; } }
 .mc.dark .nav .wrap { max-width: 1240px; }
 .mc.dark .page-mock .k { color: #6b7280; } .mc.dark .page-mock .q { background: #f3f4f6; border-left-color: #111827; }
-@media (min-width: 861px) { .mc .hero-band .hero-copy { align-self: start; padding-top: 56px; } }
+@media (min-width: 861px) { .mc .hero-band .hero-copy { align-self: center; } }
 /* Écran de génération plein écran dans le téléphone */
 .mc .gen-screen { padding: 16px 14px 22px; }
 .mc .gen-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 10px; }
@@ -374,3 +374,13 @@
 .mc .q-top .progress { height: 4px; }
 .mc.has-photo .q-top + main.survey { min-height: calc(100svh - 146px); justify-content: flex-start; padding-top: 64px; }
 @media (max-width: 560px) { .mc .nav.nav-min .wrap { min-height: 64px; } .mc .q-top { padding-top: 28px; } .mc.has-photo .q-top + main.survey { padding-top: 36px; } }
+
+/* Accueil façon TrendSaaS : téléphone droit qui flotte, titre plus grand sur trois lignes */
+.mc .hero-visual .phone { animation: phone-flotte 6s ease-in-out infinite; box-shadow: 0 0 0 1px rgba(255, 255, 255, .12), 0 50px 100px -30px rgba(0, 0, 0, .95), 0 0 80px -20px rgba(255, 255, 255, .08); }
+@keyframes phone-flotte { 0%, 100% { transform: translate(-50%, -50%); } 50% { transform: translate(-50%, calc(-50% - 14px)); } }
+@media (prefers-reduced-motion: reduce) { .mc .hero-visual .phone { animation: none; } }
+@media (min-width: 861px) {
+  .mc .hero-title { font-size: clamp(44px, 5.2vw, 76px); line-height: 1.02; }
+  .mc .hero-title .l { white-space: normal; }
+  .mc .hero-band .wrap.hero { min-height: calc(100vh - 66px); max-height: 900px; padding-block: 40px; }
+}
