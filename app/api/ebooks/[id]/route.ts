@@ -24,6 +24,8 @@ const patch = z.object({
       accent: z.string().regex(/^#[0-9a-fA-F]{6}$/),
     })
     .optional(),
+  // Choix de la miniature Etsy, gardés dans cover_json
+  thumb: z.object({ style: z.enum(["affiche", "epure", "magazine"]), palette: z.number().int().min(0).max(20) }).optional(),
 });
 
 export async function PATCH(req: Request, { params }: Ctx) {
@@ -31,14 +33,19 @@ export async function PATCH(req: Request, { params }: Ctx) {
   return withUser(async (user) => {
     const parsed = patch.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail("Données invalides");
-    if (!(await getEbook(Number(id), user.id))) return fail("Introuvable", 404);
+    const current = await getEbook(Number(id), user.id);
+    if (!current) return fail("Introuvable", 404);
     const d = parsed.data;
+    let cover: Record<string, unknown> = {};
+    try { cover = JSON.parse(current.ebook.cover_json || "{}"); } catch {}
+    if (d.cover) cover = { ...cover, ...d.cover };
+    if (d.thumb) cover = { ...cover, thumb: d.thumb.style, thumbPalette: d.thumb.palette };
     const eid = Number(id);
     await batch([
       ...(d.title !== undefined ? [{ sql: "UPDATE ebooks SET title = ? WHERE id = ?", args: [d.title, eid] }] : []),
       ...(d.subtitle !== undefined ? [{ sql: "UPDATE ebooks SET subtitle = ? WHERE id = ?", args: [d.subtitle, eid] }] : []),
       ...(d.author_name !== undefined ? [{ sql: "UPDATE ebooks SET author_name = ? WHERE id = ?", args: [d.author_name, eid] }] : []),
-      ...(d.cover ? [{ sql: "UPDATE ebooks SET cover_json = ? WHERE id = ?", args: [JSON.stringify(d.cover), eid] }] : []),
+      ...(d.cover || d.thumb ? [{ sql: "UPDATE ebooks SET cover_json = ? WHERE id = ?", args: [JSON.stringify(cover), eid] }] : []),
       { sql: "UPDATE ebooks SET updated_at = unixepoch() WHERE id = ?", args: [eid] },
     ]);
     return ok();

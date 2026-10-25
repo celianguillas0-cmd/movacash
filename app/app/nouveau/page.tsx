@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import NewEbookForm from "./NewEbookForm";
 import { requireUser } from "@/lib/auth";
 import { getIdea } from "@/lib/ideas";
@@ -7,6 +8,8 @@ import { canCreateEbook, getUsage } from "@/lib/subscription";
 export default async function NewEbook({ searchParams }: { searchParams: Promise<{ idea?: string }> }) {
   const user = await requireUser();
   const { idea: ideaId } = await searchParams;
+  // Depuis une idée : on passe par les questions de l'atelier
+  if (ideaId && /^\d+$/.test(ideaId)) redirect(`/app/creer/${ideaId}`);
   const [idea, allowed, usage] = await Promise.all([ideaId ? getIdea(Number(ideaId)) : undefined, canCreateEbook(user), getUsage(user)]);
   let quiz: { answers?: Record<string, unknown> } = {};
   try {
@@ -20,8 +23,8 @@ export default async function NewEbook({ searchParams }: { searchParams: Promise
   };
   return (
     <div className="max-w-3xl">
-      <p className="eyebrow-ws">Atelier</p>
-      <h1 className="h1 mt-2">Nouvel e-book</h1>
+      <p className="at-kicker">Ton atelier</p>
+      <h1 className="at-titre">Sujet libre.</h1>
       <p className="muted mt-2">
         L'IA rédige d'abord un plan, puis chaque chapitre (1800 à 2500 mots). Compte quelques minutes. Tu pourras ensuite tout relire et modifier.
         {allowed.ok && ` Il te reste ${usage.remaining} e-book${usage.remaining > 1 ? "s" : ""} ce mois-ci.`}

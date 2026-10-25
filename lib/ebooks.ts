@@ -73,7 +73,8 @@ export async function getEbook(id: number, userId: number) {
   const ebook = await one<EbookRow>("SELECT * FROM ebooks WHERE id = ? AND user_id = ?", [id, userId]);
   if (!ebook) return null;
   const chapters = await all<ChapterRow>("SELECT * FROM chapters WHERE ebook_id = ? ORDER BY idx", [id]);
-  return { ebook, chapters };
+  const photo = await one<{ tries: number }>("SELECT tries FROM ebook_photos WHERE ebook_id = ?", [id]);
+  return { ebook, chapters, photoTries: Number(photo?.tries ?? 0) };
 }
 
 export type EbookListItem = Pick<EbookRow, "id" | "title" | "subtitle" | "status" | "created_at" | "cover_json" | "is_demo"> & {

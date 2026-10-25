@@ -60,3 +60,20 @@ export function parseJsonLoose<T>(text: string): T {
     throw new GeminiError("Réponse JSON invalide de Gemini");
   }
 }
+
+// Photo réaliste pour la miniature Etsy (Imagen 4 Fast, environ 0,02 $ l'image). Le texte est posé ensuite par la mise en page.
+export async function imagenPhoto(prompt: string): Promise<{ mime: string; b64: string }> {
+  const key = process.env.GEMINI_API_KEY;
+  if (!key) throw new GeminiError("GEMINI_API_KEY non configurée");
+  const model = process.env.IMAGEN_MODEL || "imagen-4.0-fast-generate-001";
+  const res = await fetch(`${API}/${model}:predict`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+    body: JSON.stringify({ instances: [{ prompt }], parameters: { sampleCount: 1, aspectRatio: "4:3", personGeneration: "allow_adult" } }),
+  });
+  if (!res.ok) throw new GeminiError(`Erreur Imagen : ${res.status} ${(await res.text().catch(() => "")).slice(0, 300)}`);
+  const data = await res.json();
+  const p = data.predictions?.[0];
+  if (!p?.bytesBase64Encoded) throw new GeminiError("Aucune image renvoyée (sujet refusé par le filtre ?)");
+  return { mime: p.mimeType || "image/png", b64: p.bytesBase64Encoded };
+}

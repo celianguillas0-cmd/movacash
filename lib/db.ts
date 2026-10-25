@@ -122,6 +122,23 @@ const SCHEMA = [
     created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
   `CREATE TABLE IF NOT EXISTS rate_limits (key TEXT PRIMARY KEY, count INTEGER NOT NULL, reset_at INTEGER NOT NULL)`,
+  // Photo de la miniature Etsy (une par e-book, régénérable deux fois)
+  `CREATE TABLE IF NOT EXISTS ebook_photos (
+    ebook_id INTEGER PRIMARY KEY REFERENCES ebooks(id) ON DELETE CASCADE,
+    mime TEXT NOT NULL DEFAULT 'image/jpeg',
+    data TEXT NOT NULL,
+    tries INTEGER NOT NULL DEFAULT 1,
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
+  )`,
+  // Avis laissés depuis Paramètres, visibles dans l'onglet Admin
+  `CREATE TABLE IF NOT EXISTS feedback (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+    email TEXT NOT NULL DEFAULT '',
+    note INTEGER,
+    message TEXT NOT NULL,
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
+  )`,
 ];
 
 // Colonnes ajoutées après la v1
@@ -134,6 +151,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "author_name", "TEXT NOT NULL DEFAULT ''"],
   ["users", "default_language", "TEXT"],
   ["users", "default_tone", "TEXT"],
+  ["users", "my_idea_id", "INTEGER"], // « Mon idée » : la première idée trouvée dans l'atelier, ou celle choisie ensuite
   ["users", "real_mode", "INTEGER NOT NULL DEFAULT 0"], // admin : 1 = vraies générations ; par défaut, mode tournage (écran de génération sans appel à l'API)
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
 ];

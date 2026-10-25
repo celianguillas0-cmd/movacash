@@ -4,6 +4,7 @@ import { PLANS, getPlan, isStripeConfigured } from "@/lib/config";
 import { annualAvailable, listInvoices, paymentMethod, type InvoiceView } from "@/lib/stripe";
 import { getUsage, quotaPlan, subState } from "@/lib/subscription";
 import SubscriptionManager from "./SubscriptionManager";
+import AtHead from "@/components/ws/AtHead";
 
 export const dynamic = "force-dynamic";
 
@@ -27,8 +28,8 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
 
   if (state === "none" || state === "ended")
     return (
-      <div className="max-w-3xl space-y-6">
-        <h1 className="h1">Abonnement</h1>
+      <div className="space-y-6">
+        <AtHead name={user.name} title="Ta formule." />
         <div className="card space-y-3">
           <p className="text-sm text-slate-700">
             {state === "ended" ? `Ton abonnement ${plan?.name ?? ""} est terminé.` : "Tu n'as pas encore d'abonnement."} Tes e-books déjà créés restent consultables et téléchargeables.
@@ -40,11 +41,10 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
     );
 
   return (
-    <div className="max-w-4xl space-y-8">
-      <div>
-        <h1 className="h1">Abonnement</h1>
-        <p className="muted mt-2">Change d'offre, mets à jour ta carte ou résilie, quand tu veux. Sans engagement.</p>
-      </div>
+    <div className="space-y-8">
+      <AtHead name={user.name} title="Ta formule.">
+        <p className="at-dim" style={{ marginTop: 10 }}>Change de formule, mets à jour ta carte ou résilie quand tu veux. Sans engagement.</p>
+      </AtHead>
       <SubscriptionManager
         plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features }))}
         sub={{

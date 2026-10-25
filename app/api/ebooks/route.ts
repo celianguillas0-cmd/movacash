@@ -3,6 +3,7 @@ import { fail, ok, withUser } from "@/lib/api";
 import { canCreateEbook } from "@/lib/subscription";
 import { generateOutline } from "@/lib/generator";
 import { createEbook } from "@/lib/ebooks";
+import { one, run } from "@/lib/db";
 import { getIdea } from "@/lib/ideas";
 import { isFilmMode, isGeminiConfigured } from "@/lib/config";
 
@@ -18,6 +19,7 @@ const schema = z.object({
   extras: z.string().max(1000).default(""),
   authorName: z.string().max(100).default(""),
   sensitive: z.enum(["health", "finance", "legal"]).nullable().optional(),
+  thumb: z.enum(["affiche", "epure", "magazine"]).optional(),
 });
 
 export async function POST(req: Request) {
@@ -41,6 +43,12 @@ export async function POST(req: Request) {
     const film = isFilmMode(user);
     const outline = await generateOutline(brief, film);
     const id = await createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !film && !isGeminiConfigured(), film);
+    if (d.thumb) {
+      const row = await one<{ cover_json: string }>("SELECT cover_json FROM ebooks WHERE id = ?", [id]);
+      let cover: Record<string, unknown> = {};
+      try { cover = JSON.parse(row?.cover_json || "{}"); } catch {}
+      await run("UPDATE ebooks SET cover_json = ? WHERE id = ?", [JSON.stringify({ ...cover, thumb: d.thumb }), id]);
+    }
     return ok({ id });
   });
 }

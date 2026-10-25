@@ -7,20 +7,25 @@ import { PALETTES } from "@/lib/covers";
 import { checkEtsyCompliance, ETSY_CHECKLIST, type EtsyKit } from "@/lib/etsy";
 import { wordCount } from "@/lib/markdown";
 import { renderListingImages } from "@/lib/listing-images";
+import Miniature from "@/components/at/Miniature";
+import type { ThumbStyle } from "@/lib/miniature";
 
 type Chapter = { id: number; idx: number; title: string; summary: string; content_md: string; status: string };
 type Ebook = {
   id: number; title: string; subtitle: string; topic: string; audience: string; language: string; author_name: string;
   sensitive: string | null; status: string; promise: string; cover_json: string; etsy_json: string | null; is_demo: number;
 };
-type Cover = { style: "moderne" | "elegant" | "bold"; color: string; accent: string };
+type Cover = { style: "moderne" | "elegant" | "bold"; color: string; accent: string; thumb?: ThumbStyle; thumbPalette?: number };
+type Phase = "chapitres" | "etsy" | "photo" | null;
 
 export default function EbookEditor({ id, autostart }: { id: number; autostart: boolean }) {
   const router = useRouter();
   const [ebook, setEbook] = useState<Ebook | null>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
-  const [tab, setTab] = useState<"contenu" | "couverture" | "etsy" | "export">("contenu");
+  const [tab, setTab] = useState<"contenu" | "miniature" | "couverture" | "etsy" | "export">("contenu");
   const [running, setRunning] = useState(false);
+  const [phase, setPhase] = useState<Phase>(null);
+  const [photoTries, setPhotoTries] = useState(0);
   const [current, setCurrent] = useState<number | null>(null);
   const [error, setError] = useState("");
   const started = useRef(false);
@@ -31,7 +36,8 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
     const d = await r.json();
     setEbook(d.ebook);
     setChapters(d.chapters);
-    return d as { ebook: Ebook; chapters: Chapter[] };
+    setPhotoTries(d.photoTries || 0);
+    return d as { ebook: Ebook; chapters: Chapter[]; photoTries: number };
   }, [id]);
 
   const generateChapter = useCallback(
@@ -54,15 +60,22 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
       setRunning(true);
       setError("");
       try {
+        setPhase("chapitres");
         for (const c of list.filter((c) => c.status !== "done")) await generateChapter(c.idx);
-        // Kit Etsy généré automatiquement à la fin
+        // Fiche Etsy puis photo de la miniature, générées automatiquement à la fin
+        setPhase("etsy");
         await fetch(`/api/ebooks/${id}/etsy`, { method: "POST" });
+        setPhase("photo");
+        const d = await load();
+        if (d && !d.photoTries) await fetch(`/api/ebooks/${id}/photo`, { method: "POST" }).catch(() => null);
         await load();
+        setTab("miniature");
       } catch (e) {
         setError((e as Error).message + " Tu peux relancer la génération, les chapitres déjà rédigés sont conservés.");
       } finally {
         setRunning(false);
         setCurrent(null);
+        setPhase(null);
       }
     },
     [generateChapter, id, load]
@@ -108,23 +121,20 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
         </button>
       </div>
 
-      {(running || !ready) && (
+      {running && phase && (
+        <GenerationScreen chapters={chapters} current={current} phase={phase} />
+      )}
+      {!running && !ready && (
         <div className="card mt-4">
-          <div className="h-2 w-full rounded-full bg-slate-200">
-            <div className="h-2 rounded-full bg-brand-600 transition-all" style={{ width: `${(done / chapters.length) * 100}%` }} />
-          </div>
-          <p className="mt-2 text-sm">
-            {running
-              ? `Rédaction du chapitre ${(current ?? 0) + 1} / ${chapters.length}… Garde cette page ouverte (environ 30 à 60 secondes par chapitre).`
-              : `${chapters.length - done} chapitre(s) restant(s) à générer.`}
-          </p>
-          {!running && <button className="btn-primary mt-3" onClick={() => generateAll(chapters)}>Générer les chapitres restants</button>}
+          <p className="text-sm">{chapters.length - done} chapitre(s) restant(s) à générer.</p>
+          <button className="btn-primary mt-3" onClick={() => generateAll(chapters)}>Générer les chapitres restants</button>
           {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
         </div>
       )}
+      {!running && ready && error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
       <div className="mt-6 flex gap-1 overflow-x-auto border-b border-slate-200">
-        {([["contenu", "Contenu"], ["couverture", "Couverture"], ["etsy", "Fiche Etsy"], ["export", "Export PDF"]] as const).map(([k, l]) => (
+        {([["contenu", "Contenu"], ["miniature", "Miniature Etsy"], ["etsy", "Fiche Etsy"], ["couverture", "Couverture du PDF"], ["export", "Export PDF"]] as const).map(([k, l]) => (
           <button key={k} onClick={() => setTab(k)} className={`-mb-px shrink-0 border-b-2 px-4 py-2 text-sm font-medium ${tab === k ? "border-brand-600 text-brand-700" : "border-transparent text-slate-500 hover:text-slate-800"}`}>
             {l}
           </button>
@@ -139,9 +149,63 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
             try { await generateChapter(idx); } catch (e) { setError((e as Error).message); } finally { setRunning(false); setCurrent(null); }
           }} onSaved={load} />
         )}
+        {tab === "miniature" && (
+          ready ? (
+            <Miniature
+              ebookId={ebook.id} title={ebook.title} subtitle={ebook.subtitle} language={ebook.language} chapters={chapters.length}
+              pages={ebook.is_demo || words < 2000 ? Math.max(10, chapters.length * 5) : Math.max(10, Math.round(words / 380) + 3)}
+              initialStyle={cover.thumb} initialPalette={cover.thumbPalette} photoTries={photoTries}
+              toc={chapters.map((c) => c.title.replace(/^(introduction|conclusion)\s*:\s*/i, ""))}
+            />
+          ) : <div className="card"><p className="text-sm">La miniature se prépare une fois l&apos;e-book rédigé.</p></div>
+        )}
         {tab === "couverture" && <CoverTab ebook={ebook} cover={cover} onSaved={load} />}
         {tab === "etsy" && <EtsyTab ebook={ebook} chapters={chapters} cover={cover} ready={ready} onSaved={load} />}
         {tab === "export" && <ExportTab ebook={ebook} ready={ready} />}
+      </div>
+    </div>
+  );
+}
+
+const PHRASES: Record<Exclude<Phase, null>, string> = {
+  chapitres: "Rédaction de ton e-book",
+  etsy: "Préparation de ta fiche Etsy",
+  photo: "Création de ta miniature",
+};
+
+// Écran de génération façon atelier : anneau de progression et étapes cochées une à une.
+function GenerationScreen({ chapters, current, phase }: { chapters: Chapter[]; current: number | null; phase: Exclude<Phase, null> }) {
+  const done = chapters.filter((c) => c.status === "done").length;
+  const total = chapters.length + 3;
+  const finished = 1 + done + (phase === "photo" ? 1 : 0);
+  const pct = Math.min(99, Math.round((finished / total) * 100));
+  const r = 84, len = 2 * Math.PI * r;
+  const steps: { label: string; state: "ok" | "now" | "" }[] = [
+    { label: "Plan de l'e-book", state: "ok" },
+    ...chapters.map((c) => ({
+      label: `Chapitre ${c.idx + 1} · ${c.title}`,
+      state: (c.status === "done" ? "ok" : c.idx === current ? "now" : "") as "ok" | "now" | "",
+    })),
+    { label: "Fiche Etsy (titre, tags, description)", state: phase === "etsy" ? "now" : phase === "photo" ? "ok" : "" },
+    { label: "Miniature Etsy", state: phase === "photo" ? "now" : "" },
+  ];
+  return (
+    <div className="at-gen mt-4" role="status" aria-live="polite">
+      <div className="at-anneau">
+        <svg viewBox="0 0 190 190" aria-hidden="true">
+          <circle className="fond" cx="95" cy="95" r={r} />
+          <circle className="trait" cx="95" cy="95" r={r} strokeDasharray={len} strokeDashoffset={len * (1 - pct / 100)} />
+        </svg>
+        <p><span>{pct}<small>%</small></span></p>
+      </div>
+      <div>
+        <h2>{PHRASES[phase]}…</h2>
+        <div className="at-gen-etapes">
+          {steps.map((s, k) => (
+            <div key={k} className={`at-gen-etape ${s.state}`}><i />{s.label}</div>
+          ))}
+        </div>
+        <p className="at-gen-note">Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.</p>
       </div>
     </div>
   );

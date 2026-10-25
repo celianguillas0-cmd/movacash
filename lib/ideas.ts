@@ -218,3 +218,88 @@ export function explainIdea(i: Idea, a: QuizAnswers, terrain: Set<number>): stri
 export async function getIdeasByIds(ids: number[]) {
   return (await Promise.all(ids.map((id) => getIdea(id)))).filter(Boolean) as Idea[];
 }
+
+// ---------- Atelier « Trouver mon idée » ----------
+
+export type PublicCible = "tous" | "particuliers" | "pros" | "parents";
+const PRO_RE = /pro\b|pros\b|professionn|entrepreneur|entreprise|freelance|indépendant|auto-entrepreneur|commerçant|manager|salarié|recruteur|artisan|coach|thérapeute|vendeur/i;
+const DIFF = ["Simple", "Moyenne", "Exigeante"];
+const DIFF_NOTE = ["peu de recherche", "un peu de recherche", "relecture soignée"];
+
+export interface FoundIdea {
+  id: number;
+  title: string;
+  audience: string;
+  format: string;
+  category: string;
+  emoji: string;
+  compat: number;
+  price: string;
+  demand: number;
+  competition: number;
+  difficulty: number;
+  demandLabel: string;
+  competitionLabel: string;
+  difficultyLabel: string;
+  difficultyNote: string;
+  why: string;
+  reasons: string[];
+  sensitive: string | null;
+}
+
+export function describeIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, compat: number): FoundIdea {
+  const reasons = explainIdea(i, a, terrain).filter((r) => !r.startsWith("Avec "));
+  const personnel = reasons.find((r) => !r.startsWith("Demande estimée") && !r.startsWith("Sujet sensible"));
+  const why = personnel || `${i.audience} : un public précis, ${i.competition <= 2 ? "avec peu de concurrence sur Etsy" : "qui cherche des guides concrets"}.`;
+  return {
+    id: i.id,
+    title: i.title,
+    audience: i.audience,
+    format: i.format,
+    category: i.category_name,
+    emoji: i.emoji,
+    compat,
+    price: `${i.price_min} à ${i.price_max} €`,
+    demand: i.demand,
+    competition: i.competition,
+    difficulty: i.difficulty,
+    demandLabel: LEVEL[i.demand - 1] || "moyenne",
+    competitionLabel: COMP[i.competition - 1] || "moyenne",
+    difficultyLabel: DIFF[i.difficulty - 1] || "Moyenne",
+    difficultyNote: DIFF_NOTE[i.difficulty - 1] || "",
+    why: why.replace(/^./, (c) => c.toLowerCase()),
+    reasons,
+    sensitive: i.sensitive,
+  };
+}
+
+// Idées classées selon les réponses au sondage, un sujet facultatif et un public facultatif. Aucune API : tout vient de la base.
+export async function findIdeasForUser(a: QuizAnswers, q: string, cible: PublicCible, limit = 12) {
+  const terrain = await terrainMatches(a);
+  let pool: Idea[];
+  if (q.trim()) {
+    pool = (await searchIdeas({ q, pageSize: 100, sensitive: a.sensitive === "no" ? "none" : "all" })).items as Idea[];
+  } else {
+    const themes = arr(a.themes).filter((t) => t !== "autre").slice(0, 6);
+    const where = [themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "1=1"];
+    if (a.sensitive === "no") where.push("i.sensitive IS NULL");
+    pool = await all<Idea>(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug WHERE ${where.join(" AND ")}`, themes);
+  }
+  const hay = (i: Idea) => `${i.title} ${i.audience} ${i.keywords}`;
+  if (cible === "pros") pool = pool.filter((i) => PRO_RE.test(hay(i)));
+  if (cible === "particuliers") pool = pool.filter((i) => !PRO_RE.test(hay(i)));
+  if (cible === "parents") pool = pool.filter((i) => AUDIENCE_RE.parents.test(hay(i)));
+  const scored = pool
+    .map((i) => ({ i, s: Object.values(scoreParts(i, a, terrain).parts).reduce((x, y) => x + y, 0) }))
+    .sort((x, y) => y.s - x.s || x.i.title.localeCompare(y.i.title));
+  // Une idée par catégorie d'abord, pour varier, puis le reste
+  const picks: typeof scored = [];
+  const cats = new Set<string>();
+  for (const x of scored) if (picks.length < limit && !cats.has(x.i.category_slug)) { picks.push(x); cats.add(x.i.category_slug); }
+  for (const x of scored) if (picks.length < limit && !picks.includes(x)) picks.push(x);
+  picks.sort((x, y) => y.s - x.s);
+  const max = picks[0]?.s ?? 0;
+  const min = picks[picks.length - 1]?.s ?? 0;
+  const ideas = picks.map((x, k) => describeIdea(x.i, a, terrain, Math.round(72 + (24 * (x.s - min)) / (max - min || 1)) - (k === 0 ? 0 : Math.min(k, 1))));
+  return { total: scored.length, ideas };
+}

@@ -1,4 +1,8 @@
+import Link from "next/link";
 import { requireUser } from "@/lib/auth";
+import { getPlan } from "@/lib/config";
+import AtHead from "@/components/ws/AtHead";
+import FeedbackForm from "@/components/at/FeedbackForm";
 import Settings from "./Settings";
 
 export const dynamic = "force-dynamic";
@@ -9,24 +13,48 @@ export default async function SettingsPage() {
   try {
     quizTone = JSON.parse(user.quiz_json || "{}").answers?.tone ?? null;
   } catch {}
+  const hasSub = ["active", "trialing", "past_due"].includes(user.sub_status);
+  const plan = getPlan(user.plan);
   return (
-    <div className="max-w-3xl space-y-8">
-      <div>
-        <h1 className="h1">Paramètres</h1>
-        <p className="muted mt-2">Ton profil, tes préférences d'écriture, la sécurité de ton compte et tes données.</p>
+    <div>
+      <AtHead name={user.name} title="Paramètres." />
+      <section className="at-table">
+        <div><span>Adresse e-mail</span><b>{user.email}</b></div>
+        <div><span>Formule</span><b>{hasSub && plan ? plan.name : "Aucune"}</b></div>
+        <div><span>Compte créé le</span><b>{new Date(user.created_at * 1000).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}</b></div>
+        <Link href="/app/abonnement">Gérer mon abonnement</Link>
+      </section>
+
+      <div style={{ marginTop: 14 }}>
+        <Link href="/app/abonnement" className="at-ligne">
+          <span className="at-ligne-ic" aria-hidden="true">€</span>
+          <span><b>Facturation</b><small>Ta formule, ta carte, tes factures</small></span>
+        </Link>
+        <Link href="/app/support" className="at-ligne">
+          <span className="at-ligne-ic" aria-hidden="true">?</span>
+          <span><b>Support</b><small>Une question ? On te répond par e-mail</small></span>
+        </Link>
       </div>
-      <Settings
-        user={{
-          email: user.email,
-          name: user.name,
-          author_name: user.author_name,
-          default_language: user.default_language,
-          default_tone: user.default_tone ?? quizTone,
-          email_tips: Boolean(user.email_tips),
-          created_at: user.created_at,
-          hasSub: ["active", "trialing", "past_due"].includes(user.sub_status),
-        }}
-      />
+
+      <section className="at-carte" style={{ marginTop: 22 }}>
+        <p className="at-kicker">Ton avis</p>
+        <FeedbackForm />
+      </section>
+
+      <div style={{ marginTop: 22 }} className="space-y-8">
+        <Settings
+          user={{
+            email: user.email,
+            name: user.name,
+            author_name: user.author_name,
+            default_language: user.default_language,
+            default_tone: user.default_tone ?? quizTone,
+            email_tips: Boolean(user.email_tips),
+            created_at: user.created_at,
+            hasSub,
+          }}
+        />
+      </div>
     </div>
   );
 }

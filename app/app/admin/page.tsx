@@ -49,13 +49,15 @@ export default async function AdminPage() {
     e.n += 1;
     libres.set(k, e);
   }
+  const avis = await all<{ id: number; email: string; note: number | null; message: string; created_at: number }>("SELECT id, email, note, message, created_at FROM feedback ORDER BY id DESC LIMIT 100");
   const top = [...libres.values()].sort((a, b) => b.n - a.n);
   const cats = [...choisies.entries()].sort((a, b) => b[1] - a[1]);
 
   return (
-    <div className="max-w-4xl space-y-8">
+    <div className="space-y-8">
       <div>
-        <h1 className="h2 text-3xl">Admin</h1>
+        <p className="at-kicker">Ton atelier</p>
+        <h1 className="at-titre">Admin.</h1>
         <p className="muted mt-2">Visible uniquement par toi. {repondants} personne{repondants > 1 ? "s ont" : " a"} répondu à la question des thématiques.</p>
       </div>
 
@@ -94,6 +96,23 @@ export default async function AdminPage() {
           </ul>
         ) : (
           <p className="mt-4 text-sm text-slate-500">Pas encore de réponses.</p>
+        )}
+      </section>
+
+      <section className="card p-6">
+        <h2 className="text-lg font-bold text-slate-900">Avis des utilisateurs</h2>
+        <p className="muted mt-1 text-sm">Envoyés depuis Paramètres, rubrique « Ton avis ». Les 100 derniers.</p>
+        {avis.length ? (
+          <ul className="mt-4 space-y-3 text-sm">
+            {avis.map((a) => (
+              <li key={a.id} className="border-t border-slate-100 pt-3">
+                <p className="text-slate-500">{new Date(a.created_at * 1000).toLocaleDateString("fr-FR")} · {a.email}{a.note ? ` · ${a.note}/5` : ""}</p>
+                <p className="mt-1 whitespace-pre-line text-slate-900">{a.message}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-4 text-sm text-slate-500">Pas encore d&apos;avis.</p>
         )}
       </section>
     </div>
