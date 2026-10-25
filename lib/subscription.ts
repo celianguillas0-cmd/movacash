@@ -1,6 +1,7 @@
 import { one } from "./db";
 import { getPlan, PLANS, type Plan } from "./config";
 import type { User } from "./auth";
+import { makeT, type T } from "./i18n/t";
 
 const now = () => Math.floor(Date.now() / 1000);
 const DAY = 86400;
@@ -54,14 +55,16 @@ export async function getUsage(user: User) {
   return { used, limit, remaining: Math.max(0, limit - used), resetsOn: nextMonthStart() };
 }
 
-export async function canCreateEbook(user: User): Promise<{ ok: true } | { ok: false; reason: string }> {
-  if (!hasActiveSubscription(user)) return { ok: false, reason: "Un abonnement actif est nécessaire pour générer des e-books." };
+export async function canCreateEbook(user: User, t: T = makeT({})): Promise<{ ok: true } | { ok: false; reason: string }> {
+  if (!hasActiveSubscription(user)) return { ok: false, reason: t("Un abonnement actif est nécessaire pour générer des e-books.") };
   const u = await getUsage(user);
   if (u.remaining <= 0) {
     const better = PLANS.find((p) => p.ebooksPerMonth > u.limit);
     return {
       ok: false,
-      reason: `Quota du mois atteint (${u.limit} e-books). Il se renouvelle le 1er du mois${better ? `, ou passe à l'offre ${better.name} (${better.ebooksPerMonth} e-books par mois) depuis la page Abonnement` : ""}.`,
+      reason: better
+        ? t("Quota du mois atteint ({n} e-books). Il se renouvelle le 1er du mois, ou passe à l'offre {plan} ({m} e-books par mois) depuis la page Abonnement.", { n: u.limit, plan: better.name, m: better.ebooksPerMonth })
+        : t("Quota du mois atteint ({n} e-books). Il se renouvelle le 1er du mois.", { n: u.limit }),
     };
   }
   return { ok: true };

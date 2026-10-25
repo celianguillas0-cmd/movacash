@@ -130,6 +130,15 @@ const SCHEMA = [
     tries INTEGER NOT NULL DEFAULT 1,
     created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
+  // Traductions des idées de la base (faites par Gemini une fois, puis gardées)
+  `CREATE TABLE IF NOT EXISTS idea_i18n (
+    idea_id INTEGER NOT NULL REFERENCES ideas(id) ON DELETE CASCADE,
+    locale TEXT NOT NULL,
+    title TEXT NOT NULL,
+    audience TEXT NOT NULL DEFAULT '',
+    format TEXT NOT NULL DEFAULT '',
+    PRIMARY KEY (idea_id, locale)
+  )`,
   // Coût estimé de chaque appel Gemini / Imagen (onglet Admin)
   `CREATE TABLE IF NOT EXISTS api_usage (
     id SERIAL PRIMARY KEY,
@@ -164,6 +173,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "my_idea_id", "INTEGER"], // « Mon idée » : la première idée trouvée dans l'atelier, ou celle choisie ensuite
   ["users", "real_mode", "INTEGER NOT NULL DEFAULT 0"], // admin : 1 = vraies générations ; par défaut, mode tournage (écran de génération sans appel à l'API)
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
+  ["idea_i18n", "search_text", "TEXT NOT NULL DEFAULT ''"], // titre et public traduits, en minuscules sans accents
   ["users", "banned", "INTEGER NOT NULL DEFAULT 0"], // compte suspendu depuis l'onglet Admin : plus de connexion ni de génération
   ["users", "quota_override", "INTEGER"], // limite d'e-books par mois fixée à la main par l'admin (remplace celle de la formule)
   ["api_usage", "user_id", "INTEGER"],
@@ -189,7 +199,7 @@ export async function seedIdeas(d?: Driver, { reset = false } = {}) {
   d ??= await getClient();
   const { categories, ideas } = buildSeed();
   const stmts: Statement[] = [];
-  if (reset) stmts.push({ sql: "DELETE FROM favorites" }, { sql: "UPDATE ebooks SET idea_id = NULL" }, { sql: "DELETE FROM ideas" }, { sql: "DELETE FROM categories" });
+  if (reset) stmts.push({ sql: "DELETE FROM favorites" }, { sql: "DELETE FROM idea_i18n" }, { sql: "UPDATE ebooks SET idea_id = NULL" }, { sql: "DELETE FROM ideas" }, { sql: "DELETE FROM categories" });
   for (const c of categories)
     stmts.push({ sql: "INSERT INTO categories (slug, name, emoji) VALUES (?, ?, ?) ON CONFLICT (slug) DO UPDATE SET name = EXCLUDED.name, emoji = EXCLUDED.emoji", args: [c.slug, c.name, c.emoji] });
   const catName = new Map(categories.map((x) => [x.slug, x.name]));

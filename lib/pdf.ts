@@ -23,6 +23,29 @@ const LABELS: Record<string, { chapter: string; toc: string; rights: string; gui
   es: { chapter: "Capítulo", toc: "Índice", rights: "Todos los derechos reservados. Documento para uso personal: prohibida su reproducción, reventa o difusión sin autorización del autor.", guide: "GUÍA PRÁCTICA", by: "por" },
   de: { chapter: "Kapitel", toc: "Inhalt", rights: "Alle Rechte vorbehalten. Nur für den persönlichen Gebrauch: Vervielfältigung, Weiterverkauf oder Verbreitung ohne Genehmigung des Autors ist untersagt.", guide: "PRAXISRATGEBER", by: "von" },
   it: { chapter: "Capitolo", toc: "Indice", rights: "Tutti i diritti riservati. Documento per uso personale: è vietata la riproduzione, rivendita o diffusione senza autorizzazione dell'autore.", guide: "GUIDA PRATICA", by: "di" },
+  pt: { chapter: "Capítulo", toc: "Índice", rights: "Todos os direitos reservados. Documento para uso pessoal: é proibida a reprodução, revenda ou distribuição sem autorização do autor.", guide: "GUIA PRÁTICO", by: "por" },
+  nl: { chapter: "Hoofdstuk", toc: "Inhoud", rights: "Alle rechten voorbehouden. Alleen voor persoonlijk gebruik: verveelvoudiging, doorverkoop of verspreiding zonder toestemming van de auteur is verboden.", guide: "PRAKTISCHE GIDS", by: "door" },
+  pl: { chapter: "Rozdział", toc: "Spis treści", rights: "Wszelkie prawa zastrzeżone. Dokument do użytku osobistego: kopiowanie, odsprzedaż lub rozpowszechnianie bez zgody autora jest zabronione.", guide: "PRAKTYCZNY PORADNIK", by: "autor:" },
+  ro: { chapter: "Capitolul", toc: "Cuprins", rights: "Toate drepturile rezervate. Document pentru uz personal: reproducerea, revânzarea sau distribuirea fără acordul autorului sunt interzise.", guide: "GHID PRACTIC", by: "de" },
+  cs: { chapter: "Kapitola", toc: "Obsah", rights: "Všechna práva vyhrazena. Dokument je určen pro osobní potřebu: kopírování, další prodej nebo šíření bez souhlasu autora je zakázáno.", guide: "PRAKTICKÝ PRŮVODCE", by: "autor:" },
+  sk: { chapter: "Kapitola", toc: "Obsah", rights: "Všetky práva vyhradené. Dokument je určený na osobné použitie: kopírovanie, ďalší predaj alebo šírenie bez súhlasu autora je zakázané.", guide: "PRAKTICKÝ SPRIEVODCA", by: "autor:" },
+  hu: { chapter: "Fejezet", toc: "Tartalom", rights: "Minden jog fenntartva. Kizárólag személyes használatra: a szerző engedélye nélküli másolás, továbbértékesítés vagy terjesztés tilos.", guide: "GYAKORLATI ÚTMUTATÓ", by: "szerző:" },
+  sv: { chapter: "Kapitel", toc: "Innehåll", rights: "Alla rättigheter förbehållna. Endast för personligt bruk: kopiering, vidareförsäljning eller spridning utan författarens tillstånd är förbjuden.", guide: "PRAKTISK GUIDE", by: "av" },
+  da: { chapter: "Kapitel", toc: "Indhold", rights: "Alle rettigheder forbeholdes. Kun til personlig brug: kopiering, videresalg eller distribution uden forfatterens tilladelse er forbudt.", guide: "PRAKTISK GUIDE", by: "af" },
+  fi: { chapter: "Luku", toc: "Sisällys", rights: "Kaikki oikeudet pidätetään. Vain henkilökohtaiseen käyttöön: kopiointi, jälleenmyynti tai levittäminen ilman kirjoittajan lupaa on kielletty.", guide: "KÄYTÄNNÖN OPAS", by: "kirjoittanut" },
+  el: { chapter: "Κεφάλαιο", toc: "Περιεχόμενα", rights: "Με την επιφύλαξη παντός δικαιώματος. Για προσωπική χρήση μόνο: απαγορεύεται η αναπαραγωγή, μεταπώληση ή διανομή χωρίς άδεια του συγγραφέα.", guide: "ΠΡΑΚΤΙΚΟΣ ΟΔΗΓΟΣ", by: "από" },
+  bg: { chapter: "Глава", toc: "Съдържание", rights: "Всички права запазени. Само за лична употреба: възпроизвеждането, препродажбата или разпространението без разрешение на автора са забранени.", guide: "ПРАКТИЧЕСКО РЪКОВОДСТВО", by: "от" },
+  hr: { chapter: "Poglavlje", toc: "Sadržaj", rights: "Sva prava pridržana. Samo za osobnu upotrebu: umnožavanje, preprodaja ili distribucija bez dopuštenja autora su zabranjeni.", guide: "PRAKTIČNI VODIČ", by: "autor:" },
+  sl: { chapter: "Poglavje", toc: "Kazalo", rights: "Vse pravice pridržane. Samo za osebno uporabo: razmnoževanje, nadaljnja prodaja ali razširjanje brez dovoljenja avtorja so prepovedani.", guide: "PRAKTIČNI VODNIK", by: "avtor:" },
+  et: { chapter: "Peatükk", toc: "Sisukord", rights: "Kõik õigused kaitstud. Ainult isiklikuks kasutamiseks: paljundamine, edasimüük või levitamine ilma autori loata on keelatud.", guide: "PRAKTILINE JUHEND", by: "autor:" },
+  lv: { chapter: "Nodaļa", toc: "Saturs", rights: "Visas tiesības aizsargātas. Tikai personiskai lietošanai: pavairošana, tālākpārdošana vai izplatīšana bez autora atļaujas ir aizliegta.", guide: "PRAKTISKS CEĻVEDIS", by: "autors:" },
+  lt: { chapter: "Skyrius", toc: "Turinys", rights: "Visos teisės saugomos. Tik asmeniniam naudojimui: kopijuoti, perparduoti ar platinti be autoriaus leidimo draudžiama.", guide: "PRAKTINIS VADOVAS", by: "autorius:" },
+};
+
+const DISCLAIMER_TITLE: Record<string, string> = {
+  fr: "Avertissement", en: "Disclaimer", de: "Hinweis", es: "Aviso", it: "Avvertenza", pt: "Aviso", nl: "Disclaimer", pl: "Zastrzeżenie",
+  ro: "Avertisment", cs: "Upozornění", sk: "Upozornenie", hu: "Figyelmeztetés", sv: "Ansvarsfriskrivning", da: "Ansvarsfraskrivelse", fi: "Vastuuvapaus",
+  el: "Αποποίηση ευθύνης", bg: "Отказ от отговорност", hr: "Napomena", sl: "Opozorilo", et: "Vastutuse välistamine", lv: "Atruna", lt: "Atsakomybės apribojimas",
 };
 
 const clean = (s: string) => s.replace(/\p{Extended_Pictographic}|️|‍/gu, "").replace(/[ \t]+/g, " ");
@@ -47,7 +70,10 @@ export async function renderEbookPdf(ebook: EbookRow, chapters: ChapterRow[], si
     autoFirstPage: false,
     info: { Title: clean(ebook.title), Author: ebook.author_name || "", Subject: clean(ebook.subtitle) },
   });
-  for (const [k, v] of Object.entries(F)) doc.registerFont(k, v);
+  // Caladea n'a pas de grec ni de cyrillique : ces langues prennent Inter à la place.
+  const noSerif = ebook.language === "el" || ebook.language === "bg";
+  const fonts = noSerif ? { ...F, serif: F.regular, serifBold: F.bold, serifItalic: F.italic } : F;
+  for (const [k, v] of Object.entries(fonts)) doc.registerFont(k, v);
 
   const serifBody = cover.style === "elegant";
   const body = serifBody ? "serif" : "regular";
@@ -80,7 +106,7 @@ export async function renderEbookPdf(ebook: EbookRow, chapters: ChapterRow[], si
   doc.moveDown(0.6).text(aiDisclosure(ebook.language), { width: W, align: "justify" });
   const disc = disclaimerFor(ebook.sensitive, ebook.language);
   if (disc) {
-    doc.moveDown(1.2).font(bodyBold).fontSize(10).fillColor(text).text(ebook.language === "fr" ? "Avertissement" : "Disclaimer");
+    doc.moveDown(1.2).font(bodyBold).fontSize(10).fillColor(text).text(DISCLAIMER_TITLE[ebook.language] || "Disclaimer");
     doc.moveDown(0.3).font(body).fontSize(9.5).fillColor(muted).text(disc, { width: W, align: "justify" });
   }
 

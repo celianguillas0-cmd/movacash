@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { drawThumb, loadThumbFonts, THUMB_PALETTES, type ThumbStyle } from "@/lib/miniature";
+import { useT } from "@/lib/i18n/client";
+import { tk } from "@/lib/i18n/t";
 
 const STYLES: { id: ThumbStyle; nom: string; desc: string }[] = [
-  { id: "affiche", nom: "Affiche", desc: "Couverture posée comme un vrai livre" },
-  { id: "epure", nom: "Épurée", desc: "Titre élégant, photo sur le côté" },
-  { id: "magazine", nom: "Magazine", desc: "Photo pleine page, titre dessus" },
+  { id: "affiche", nom: tk("Affiche"), desc: tk("Couverture posée comme un vrai livre") },
+  { id: "epure", nom: tk("Épurée"), desc: tk("Titre élégant, photo sur le côté") },
+  { id: "magazine", nom: tk("Magazine"), desc: tk("Photo pleine page, titre dessus") },
 ];
 
 interface Props {
@@ -22,6 +24,7 @@ interface Props {
 }
 
 export default function Miniature(p: Props) {
+  const t = useT();
   const canvas = useRef<HTMLCanvasElement>(null);
   const [style, setStyle] = useState<ThumbStyle>(p.initialStyle || "affiche");
   const [palette, setPalette] = useState(p.initialPalette ?? p.ebookId % THUMB_PALETTES.length);
@@ -62,7 +65,7 @@ export default function Miniature(p: Props) {
     const r = await fetch(`/api/ebooks/${p.ebookId}/photo`, { method: "POST" });
     const d = await r.json().catch(() => ({}));
     setLoading(false);
-    if (!r.ok) return setError(d.error || "La photo n'a pas pu être générée. Réessaie dans un instant.");
+    if (!r.ok) return setError(t(d.error || "La photo n'a pas pu être générée. Réessaie dans un instant."));
     if (d.photo) setTries(d.tries);
   }
 
@@ -79,37 +82,37 @@ export default function Miniature(p: Props) {
   return (
     <div className="at-mini">
       <div>
-        <canvas ref={canvas} width={2000} height={1500} aria-label="Aperçu de la miniature Etsy" />
-        <p className="at-gen-note">2000 × 1500 px, le format conseillé par Etsy pour la première image de l'annonce.</p>
+        <canvas ref={canvas} width={2000} height={1500} aria-label={t("Aperçu de la miniature Etsy")} />
+        <p className="at-gen-note">{t("2000 × 1500 px, le format conseillé par Etsy pour la première image de l'annonce.")}</p>
       </div>
       <div className="at-styles">
-        <p className="at-kicker">Mise en page</p>
+        <p className="at-kicker">{t("Mise en page")}</p>
         {STYLES.map((s) => (
           <button key={s.id} type="button" className="at-cible" aria-pressed={style === s.id} onClick={() => choose({ style: s.id })}>
-            <b>{s.nom}</b>
-            <small>{s.desc}</small>
+            <b>{t(s.nom)}</b>
+            <small>{t(s.desc)}</small>
           </button>
         ))}
-        <p className="at-kicker" style={{ marginTop: 10 }}>Couleurs</p>
+        <p className="at-kicker" style={{ marginTop: 10 }}>{t("Couleurs")}</p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {THUMB_PALETTES.map((c, k) => (
             <button
               key={c.name}
               type="button"
-              title={c.name}
-              aria-label={c.name}
+              title={t(c.name)}
+              aria-label={t(c.name)}
               aria-pressed={palette === k}
               onClick={() => choose({ palette: k })}
               style={{ width: 34, height: 34, borderRadius: 10, border: palette === k ? "2px solid #fff" : "1px solid rgba(255,255,255,.18)", background: `linear-gradient(135deg, ${c.ink} 50%, ${c.band} 50%)`, cursor: "pointer" }}
             />
           ))}
         </div>
-        <button type="button" className="at-btn" style={{ marginTop: 12 }} onClick={download}>Télécharger la miniature</button>
+        <button type="button" className="at-btn" style={{ marginTop: 12 }} onClick={download}>{t("Télécharger la miniature")}</button>
         <button type="button" className="at-btn-sec" disabled={loading || left === 0} onClick={newPhoto}>
-          {loading ? "Photo en cours…" : tries ? `Nouvelle photo (${left} restante${left > 1 ? "s" : ""})` : "Générer la photo"}
+          {loading ? t("Photo en cours…") : tries ? (left > 1 ? t("Nouvelle photo ({n} restantes)", { n: left }) : t("Nouvelle photo ({n} restante)", { n: left })) : t("Générer la photo")}
         </button>
         {error && <p className="at-gen-note" style={{ color: "#f0a3a3" }}>{error}</p>}
-        {!photo && !loading && <p className="at-gen-note">Sans photo, la miniature utilise un fond aux couleurs choisies.</p>}
+        {!photo && !loading && <p className="at-gen-note">{t("Sans photo, la miniature utilise un fond aux couleurs choisies.")}</p>}
       </div>
     </div>
   );

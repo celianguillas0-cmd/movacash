@@ -4,6 +4,7 @@ import { fail, ok, withUser } from "@/lib/api";
 import { APP_URL } from "@/lib/config";
 import { activateDemoSubscription, annualAvailable, getStripe, priceIdFor } from "@/lib/stripe";
 import { hasActiveSubscription } from "@/lib/subscription";
+import { canPayFromHere } from "@/lib/i18n/server";
 
 const schema = z.object({
   plan: z.enum(["starter", "pro", "business"]),
@@ -17,6 +18,8 @@ export async function POST(req: Request) {
     const parsed = schema.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
     const { plan, annual } = parsed.data;
+    // Ventes limitées aux pays où la micro-entreprise peut vendre sans immatriculation à la TVA locale
+    if (!(await canPayFromHere())) return fail("L'abonnement n'est pas encore disponible dans ton pays.", 403);
     if (annual && !annualAvailable()) return fail("La formule annuelle n'est pas encore disponible.");
     // Déjà abonné : on change d'offre depuis « Mon abonnement » (pas de second abonnement en parallèle)
     if (hasActiveSubscription(user)) return ok({ url: `/app/abonnement?plan=${plan}${annual ? "&annual=1" : ""}` });

@@ -2,17 +2,20 @@
 // Principe : une vraie mise en page de graphiste (typo, filets, bandeaux, photo réelle), jamais d'effets « IA »
 // (pas de doré, pas de 3D, pas de chiffres géants, pas de badges).
 
+import { contentLang } from "./content-langs";
+import { tk } from "./i18n/t";
+
 export type ThumbStyle = "affiche" | "epure" | "magazine";
 
 export interface ThumbPalette { name: string; paper: string; ink: string; band: string; dark: string }
 
 export const THUMB_PALETTES: ThumbPalette[] = [
-  { name: "Encre marine", paper: "#f3efe6", ink: "#1d2c4c", band: "#d39b3a", dark: "#141c30" },
-  { name: "Terre cuite", paper: "#f6efe6", ink: "#8a3b1f", band: "#c8643b", dark: "#2b1d16" },
-  { name: "Forêt", paper: "#f2ecdd", ink: "#23432f", band: "#4f7a4a", dark: "#17241b" },
-  { name: "Prune", paper: "#f7f0ea", ink: "#4a2340", band: "#c2577a", dark: "#241221" },
-  { name: "Océan", paper: "#eef2f1", ink: "#0f4c5c", band: "#e07a5f", dark: "#0b2a33" },
-  { name: "Encre noire", paper: "#f4f1ea", ink: "#1b1b1b", band: "#d1462f", dark: "#111111" },
+  { name: tk("Encre marine"), paper: "#f3efe6", ink: "#1d2c4c", band: "#d39b3a", dark: "#141c30" },
+  { name: tk("Terre cuite"), paper: "#f6efe6", ink: "#8a3b1f", band: "#c8643b", dark: "#2b1d16" },
+  { name: tk("Forêt"), paper: "#f2ecdd", ink: "#23432f", band: "#4f7a4a", dark: "#17241b" },
+  { name: tk("Prune"), paper: "#f7f0ea", ink: "#4a2340", band: "#c2577a", dark: "#241221" },
+  { name: tk("Océan"), paper: "#eef2f1", ink: "#0f4c5c", band: "#e07a5f", dark: "#0b2a33" },
+  { name: tk("Encre noire"), paper: "#f4f1ea", ink: "#1b1b1b", band: "#d1462f", dark: "#111111" },
 ];
 
 export interface ThumbInput {
@@ -30,15 +33,8 @@ export interface ThumbInput {
 
 const W = 2000, H = 1500;
 
-const WORDS: Record<string, { kicker: string; chap: string; pages: string; pdf: string; toc: string }> = {
-  fr: { kicker: "Le guide complet", chap: "chapitres", pages: "pages", pdf: "PDF à télécharger", toc: "Au sommaire" },
-  en: { kicker: "The complete guide", chap: "chapters", pages: "pages", pdf: "Instant PDF download", toc: "Inside" },
-  es: { kicker: "La guía completa", chap: "capítulos", pages: "páginas", pdf: "PDF descargable", toc: "Contenido" },
-  de: { kicker: "Der komplette Leitfaden", chap: "Kapitel", pages: "Seiten", pdf: "PDF zum Download", toc: "Inhalt" },
-  it: { kicker: "La guida completa", chap: "capitoli", pages: "pagine", pdf: "PDF scaricabile", toc: "Contenuti" },
-};
 
-const words = (lang: string) => WORDS[(lang || "fr").slice(0, 2).toLowerCase()] || WORDS.fr;
+const words = (lang: string) => contentLang((lang || "fr").slice(0, 2).toLowerCase()).thumb;
 const features = (i: ThumbInput) => {
   const w = words(i.language);
   return [`${i.chapters} ${w.chap}`, `${i.pages} ${w.pages}`, w.pdf];

@@ -5,12 +5,15 @@ import { annualAvailable, listInvoices, paymentMethod, type InvoiceView } from "
 import { getUsage, quotaPlan, subState } from "@/lib/subscription";
 import SubscriptionManager from "./SubscriptionManager";
 import AtHead from "@/components/ws/AtHead";
+import { getT } from "@/lib/i18n/server";
+import { fmtEur, type T } from "@/lib/i18n/t";
 
 export const dynamic = "force-dynamic";
 
 export default async function SubscriptionPage({ searchParams }: { searchParams: Promise<{ plan?: string; annual?: string }> }) {
   const user = await requireUser();
   const sp = await searchParams;
+  const { t, locale } = await getT();
   const state = subState(user);
   const usage = await getUsage(user);
   let invoices: InvoiceView[] = [];
@@ -29,21 +32,21 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
   if (state === "none" || state === "ended")
     return (
       <div className="space-y-6">
-        <AtHead name={user.name} title="Ta formule." />
+        <AtHead name={user.name} title={t("Ta formule.")} />
         <div className="card space-y-3">
           <p className="text-sm text-slate-700">
-            {state === "ended" ? `Ton abonnement ${plan?.name ?? ""} est terminé.` : "Tu n'as pas encore d'abonnement."} Tes e-books déjà créés restent consultables et téléchargeables.
+            {state === "ended" ? t("Ton abonnement {plan} est terminé.", { plan: plan?.name ?? "" }) : t("Tu n'as pas encore d'abonnement.")} {t("Tes e-books déjà créés restent consultables et téléchargeables.")}
           </p>
-          <Link href="/tarifs" className="btn-primary">{state === "ended" ? "Reprendre un abonnement" : "Voir les offres"}</Link>
+          <Link href="/tarifs" className="btn-primary">{state === "ended" ? t("Reprendre un abonnement") : t("Voir les offres")}</Link>
         </div>
-        {invoices.length > 0 && <InvoiceTable invoices={invoices} />}
+        {invoices.length > 0 && <InvoiceTable invoices={invoices} t={t} locale={locale} />}
       </div>
     );
 
   return (
     <div className="space-y-8">
-      <AtHead name={user.name} title="Ta formule.">
-        <p className="at-dim" style={{ marginTop: 10 }}>Change de formule, mets à jour ta carte ou résilie quand tu veux. Sans engagement.</p>
+      <AtHead name={user.name} title={t("Ta formule.")}>
+        <p className="at-dim" style={{ marginTop: 10 }}>{t("Change de formule, mets à jour ta carte ou résilie quand tu veux. Sans engagement.")}</p>
       </AtHead>
       <SubscriptionManager
         plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features }))}
@@ -62,30 +65,30 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
         annualAvailable={annualAvailable()}
         preselect={sp.plan ? { plan: sp.plan, annual: sp.annual === "1" } : null}
       />
-      {stripeError && <p className="notice-warn">Impossible de charger les factures pour le moment ({stripeError}).</p>}
-      {invoices.length > 0 && <InvoiceTable invoices={invoices} />}
+      {stripeError && <p className="notice-warn">{t("Impossible de charger les factures pour le moment ({erreur}).", { erreur: stripeError })}</p>}
+      {invoices.length > 0 && <InvoiceTable invoices={invoices} t={t} locale={locale} />}
     </div>
   );
 }
 
-function InvoiceTable({ invoices }: { invoices: InvoiceView[] }) {
-  const STATUS: Record<string, string> = { paid: "Payée", open: "À régler", void: "Annulée", uncollectible: "Impayée" };
+function InvoiceTable({ invoices, t, locale }: { invoices: InvoiceView[]; t: T; locale: string }) {
+  const STATUS: Record<string, string> = { paid: t("Payée"), open: t("À régler"), void: t("Annulée"), uncollectible: t("Impayée") };
   return (
     <section className="card overflow-x-auto p-0">
-      <h2 className="h2 px-5 pt-5">Factures</h2>
+      <h2 className="h2 px-5 pt-5">{t("Factures")}</h2>
       <table className="mt-4 w-full min-w-[520px] text-sm">
         <thead className="text-left text-xs uppercase tracking-wider text-slate-500">
-          <tr className="border-b border-slate-200"><th className="px-5 py-2 font-medium">Date</th><th className="py-2 font-medium">Numéro</th><th className="py-2 font-medium">Montant</th><th className="py-2 font-medium">Statut</th><th className="px-5 py-2" /></tr>
+          <tr className="border-b border-slate-200"><th className="px-5 py-2 font-medium">{t("Date")}</th><th className="py-2 font-medium">{t("Numéro")}</th><th className="py-2 font-medium">{t("Montant")}</th><th className="py-2 font-medium">{t("Statut")}</th><th className="px-5 py-2" /></tr>
         </thead>
         <tbody>
           {invoices.map((i) => (
             <tr key={i.id} className="border-b border-slate-200 last:border-0">
-              <td className="px-5 py-3">{new Date(i.date * 1000).toLocaleDateString("fr-FR")}</td>
+              <td className="px-5 py-3">{new Date(i.date * 1000).toLocaleDateString(locale)}</td>
               <td className="py-3 text-slate-600">{i.number ?? "—"}</td>
-              <td className="py-3">{i.amount.toFixed(2).replace(".", ",")} €</td>
+              <td className="py-3">{fmtEur(i.amount, locale)}</td>
               <td className="py-3"><span className={`badge ${i.status === "paid" ? "bg-green-100 text-green-800" : i.status === "open" ? "bg-amber-100 text-amber-800" : "bg-slate-100 text-slate-600"}`}>{STATUS[i.status ?? ""] ?? i.status}</span></td>
               <td className="px-5 py-3 text-right">
-                {i.status === "open" && i.url ? <a className="text-brand-700 underline" href={i.url}>Régler</a> : i.pdf ? <a className="text-brand-700 underline" href={i.pdf}>PDF</a> : null}
+                {i.status === "open" && i.url ? <a className="text-brand-700 underline" href={i.url}>{t("Régler")}</a> : i.pdf ? <a className="text-brand-700 underline" href={i.pdf}>PDF</a> : null}
               </td>
             </tr>
           ))}

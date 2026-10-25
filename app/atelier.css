@@ -251,6 +251,8 @@
 .mf-btn:hover { background: #4b5160; }
 .mf-btn:disabled { background: #b9bdc6; cursor: not-allowed; box-shadow: none; }
 .mf-cartes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: min(700px, 100%); margin: 34px auto 0; text-align: left; }
+.mf-autre { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 18px auto 0; width: min(700px, 100%); color: #8a909b; font-size: 14px; }
+.mf-autre select { max-width: 240px; }
 .mf-carte { position: relative; border: 1px solid #dfe2e7; border-radius: 16px; background: #fff; padding: 18px 18px 16px; cursor: pointer; font: inherit; color: inherit; text-align: left; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
 .mf-carte:hover { border-color: #b9bdc6; transform: translateY(-1px); }
 .mf-carte[aria-pressed="true"] { border-color: #111318; box-shadow: 0 0 0 1px #111318; }

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { mountFunnel, type FunnelPlan } from "@/lib/funnel/engine";
+import { useLocale, useT } from "@/lib/i18n/client";
 
 async function post(url: string, body: unknown) {
   const res = await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
@@ -10,6 +11,8 @@ async function post(url: string, body: unknown) {
 
 export default function Funnel({ categories, plans, user, demo }: { categories: { slug: string; name: string }[]; plans: FunnelPlan[]; user: { name?: string } | null; demo: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
+  const t = useT();
+  const locale = useLocale();
 
   useEffect(() => {
     if (!ref.current) return;
@@ -19,10 +22,12 @@ export default function Funnel({ categories, plans, user, demo }: { categories: 
       plans,
       user,
       demo,
+      t,
+      locale,
       api: {
         async signup({ name, email, password, answers }) {
           const r = await post("/api/auth/signup", { name, email, password, acceptTerms: true, quiz: { answers } });
-          return { ok: r.ok, error: r.data.error };
+          return { ok: r.ok, error: r.data.error ? t(r.data.error) : undefined };
         },
         async saveQuiz(answers) {
           const r = await post("/api/quiz", { answers });
@@ -32,7 +37,7 @@ export default function Funnel({ categories, plans, user, demo }: { categories: 
         },
         async checkout(plan) {
           const r = await post("/api/billing/checkout", { plan, annual: false, waiver: true });
-          return r.ok ? { url: r.data.url } : { error: r.data.error };
+          return r.ok ? { url: r.data.url } : { error: r.data.error ? t(r.data.error) : undefined };
         },
       },
     });

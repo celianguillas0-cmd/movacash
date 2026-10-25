@@ -1,7 +1,8 @@
 // Moteur du sondage public, sans React : il écrit le HTML de chaque étape dans un conteneur.
 // Le même fichier sert à l'appli (app/quiz/Funnel.tsx) et à la maquette interactive (compilé en script autonome).
 
-import { ETAPES_CALCUL, LEVIERS, TEMPS, PARCOURS, PRIX_EBOOK, SLIDER, STEPS, scoringAnswers, type Answers, type Step } from "./steps";
+import { ETAPES_CALCUL as ETAPES_FR, LEVIERS as LEVIERS_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
+import { fmtEur, type T } from "../i18n/t";
 
 export type FunnelPlan = { id: string; name: string; price: number; ebooks: number; features: string[]; highlight?: boolean };
 
@@ -18,15 +19,33 @@ export type FunnelConfig = {
     checkout: (plan: string) => Promise<{ url?: string; error?: string }>;
   };
   onUrl?: (url: string) => void;
+  // Traduction (le français sert de clé) et langue des montants
+  t?: T;
+  locale?: string;
 };
+
+// Textes des étapes passés dans la traduction
+function localizeStep(s: Step, tr: T): Step {
+  const f = (x?: string) => (x ? tr(x) : x);
+  return {
+    ...s,
+    kicker: f(s.kicker),
+    titre: f(s.titre),
+    aide: f(s.aide),
+    placeholder: f(s.placeholder),
+    sous: f(s.sous),
+    cta: f(s.cta),
+    apresChoix: f(s.apresChoix),
+    libre: s.libre ? { placeholder: tr(s.libre.placeholder), label: f(s.libre.label) } : undefined,
+    options: s.options?.map((o) => ({ ...o, label: tr(o.label), detail: f(o.detail), note: f(o.note) })),
+  };
+}
 
 const AUTRE = "autre";
 const VITESSE_FRAPPE = 46; // lettres par seconde
 
 const esc = (s: unknown) =>
   String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c] as string);
-const euros = (n: number) => `${Math.round(n).toLocaleString("fr-FR")} €`;
-const prix = (n: number) => `${n.toFixed(2).replace(".", ",")} €`;
 const fleche = `<span class="btn-arrow">→</span>`;
 
 // Illustrations dessinées pour Movacash
@@ -64,6 +83,16 @@ const EMPREINTE = `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" st
 
 export function mountFunnel(cfg: FunnelConfig) {
   const root = cfg.root;
+  const tr: T = cfg.t || ((x) => x);
+  const loc = cfg.locale || "fr";
+  const euros = (n: number) => fmtEur(Math.round(n), loc);
+  const prix = (n: number) => new Intl.NumberFormat(loc, { style: "currency", currency: "EUR", minimumFractionDigits: 2 }).format(n);
+  const STEPS = STEPS_FR.map((x) => localizeStep(x, tr));
+  const SLIDER = { ...SLIDER_FR, paliers: SLIDER_FR.paliers.map((p) => ({ ...p, mot: tr(p.mot), note: tr(p.note) })) };
+  const LEVIERS = LEVIERS_FR.map((l) => ({ ...l, question: tr(l.question), detail: tr(l.detail), libelle: tr(l.libelle), action: tr(l.action) }));
+  const TEMPS: Record<string, string> = Object.fromEntries(Object.entries(TEMPS_FR).map(([k, v]) => [k, tr(v)]));
+  const ETAPES_CALCUL = ETAPES_FR.map((x) => tr(x));
+  const PARCOURS = PARCOURS_FR.map((e) => ({ titre: tr(e.titre), texte: tr(e.texte) }));
   const KEY = cfg.storageKey || "mc_funnel";
   let user = cfg.user;
   let answers: Answers = {};
@@ -124,8 +153,8 @@ export function mountFunnel(cfg: FunnelConfig) {
     const n = Math.max(0, vis.indexOf(step));
     return Math.round(((n + 1) / vis.length) * 100);
   }
-  const barre = () => `<div class="progress"><div class="progress-track" role="progressbar" aria-valuenow="${progression()}" aria-valuemin="0" aria-valuemax="100" aria-label="Avancement du sondage"><div class="progress-fill" style="width:${progression()}%"></div></div></div>`;
-  const retour = () => (suivant(step, -1) >= 0 ? `<p class="retour-haut"><button class="btn-ghost" data-action="back">← Question précédente</button></p>` : "");
+  const barre = () => `<div class="progress"><div class="progress-track" role="progressbar" aria-valuenow="${progression()}" aria-valuemin="0" aria-valuemax="100" aria-label="${tr("Avancement du sondage")}"><div class="progress-fill" style="width:${progression()}%"></div></div></div>`;
+  const retour = () => (suivant(step, -1) >= 0 ? `<p class="retour-haut"><button class="btn-ghost" data-action="back">← ${tr("Question précédente")}</button></p>` : "");
   const tete = (s: Step) => `<p class="stage-kicker">${esc(s.kicker)}</p><h1 class="stage-title stage-title-q machine">${esc(s.titre)}</h1>${s.aide ? `<p class="stage-lede">${esc(s.aide)}</p>` : ""}`;
   const bouton = (label: string, action = "next", extra = "") => `<button class="btn btn-primary btn-lg" data-action="${action}" ${extra}>${label} ${fleche}</button>`;
   const prenom = () => esc((user?.name || "").trim());
@@ -182,16 +211,16 @@ export function mountFunnel(cfg: FunnelConfig) {
       })
       .join("");
     const continuer = (s.confirmer && a) || (s.notesVisibles && a) || (noteAffichee && a);
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="choix"><div class="options ${s.compact ? "options-compact" : ""}">${cartes}</div>${s.libre ? optionLibre(s, false) : ""}${s.libre && libreOuvert ? panneauLibre(s, false) : ""}</div>${continuer ? bouton("Continuer") : ""}</section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="choix"><div class="options ${s.compact ? "options-compact" : ""}">${cartes}</div>${s.libre ? optionLibre(s, false) : ""}${s.libre && libreOuvert ? panneauLibre(s, false) : ""}</div>${continuer ? bouton(tr("Continuer")) : ""}</section>`);
   }
 
   function optionLibre(s: Step, multi: boolean) {
     const texte = String(answers[s.id + "_libre"] || "").trim();
     const choisie = multi ? ((answers[s.id] as string[]) || []).includes(AUTRE) : answers[s.id] === AUTRE;
-    return `<button class="option option-autre ${multi ? "option-check" : ""} ${choisie ? "selected" : ""}" data-action="${multi && choisie ? "retirer-libre" : "ouvrir-libre"}">${multi ? `<span class="option-tick" aria-hidden="true"></span>` : ""}<span class="option-label">${choisie && texte ? esc(texte) : esc(s.libre?.label || "Ma réponse n'est pas dans la liste")}</span><span class="option-detail">${choisie ? (multi ? "Cliquer pour retirer" : "Modifier ma réponse") : "Écris-la toi-même"}</span></button>`;
+    return `<button class="option option-autre ${multi ? "option-check" : ""} ${choisie ? "selected" : ""}" data-action="${multi && choisie ? "retirer-libre" : "ouvrir-libre"}">${multi ? `<span class="option-tick" aria-hidden="true"></span>` : ""}<span class="option-label">${choisie && texte ? esc(texte) : esc(s.libre?.label || tr("Ma réponse n'est pas dans la liste"))}</span><span class="option-detail">${choisie ? (multi ? tr("Cliquer pour retirer") : tr("Modifier ma réponse")) : tr("Écris-la toi-même")}</span></button>`;
   }
   function panneauLibre(s: Step, multi: boolean) {
-    return `<div class="libre"><input class="libre-input" id="libre-input" type="text" maxlength="120" value="${esc(answers[s.id + "_libre"] || "")}" placeholder="${esc(s.libre?.placeholder)}"/><div class="libre-actions"><button class="btn btn-primary" data-action="valider-libre" data-multi="${multi ? "1" : ""}">Valider ma réponse</button><button class="btn-ghost" data-action="fermer-libre">Annuler</button></div></div>`;
+    return `<div class="libre"><input class="libre-input" id="libre-input" type="text" maxlength="120" value="${esc(answers[s.id + "_libre"] || "")}" placeholder="${esc(s.libre?.placeholder)}"/><div class="libre-actions"><button class="btn btn-primary" data-action="valider-libre" data-multi="${multi ? "1" : ""}">${tr("Valider ma réponse")}</button><button class="btn-ghost" data-action="fermer-libre">${tr("Annuler")}</button></div></div>`;
   }
 
   function showMulti(s: Step, themes = false) {
@@ -201,11 +230,11 @@ export function mountFunnel(cfg: FunnelConfig) {
       .map((o) => `<button class="option option-check ${sel.includes(o.id) ? "selected" : ""}" data-action="toggle" data-v="${o.id}"><span class="option-tick" aria-hidden="true"></span><span class="option-label">${esc(o.label)}</span></button>`)
       .join("");
     const n = sel.length;
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="options ${themes ? "options-grille" : ""}">${cartes}${s.libre ? optionLibre(s, true) : ""}</div>${s.libre && libreOuvert ? panneauLibre(s, true) : ""}<button class="btn btn-primary" data-action="next" ${n ? "" : "disabled"}>${n ? `Continuer (${n} coché${n > 1 ? "s" : ""})` : "Coche au moins une réponse"} ${fleche}</button></section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="options ${themes ? "options-grille" : ""}">${cartes}${s.libre ? optionLibre(s, true) : ""}</div>${s.libre && libreOuvert ? panneauLibre(s, true) : ""}<button class="btn btn-primary" data-action="next" ${n ? "" : "disabled"}>${n ? (n > 1 ? tr("Continuer ({n} cochés)", { n }) : tr("Continuer (1 coché)")) : tr("Coche au moins une réponse")} ${fleche}</button></section>`);
   }
 
   function showPreuve() {
-    render(`${barre()}${retour()}<section class="stage stage-center preuve" data-reveal><p class="stage-kicker">Tu n'es pas seul</p><p class="preuve-avant">Sur Etsy, il y a près de</p><p class="compteur"><span id="compteur">0</span><span class="compteur-unite"> millions</span></p><p class="preuve-apres">d'acheteurs actifs, qui cherchent chaque jour des guides, des planners et des fiches pratiques.</p><p class="preuve-note">Source : chiffres publiés par Etsy (2024).</p>${bouton("Continuer")}</section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center preuve" data-reveal><p class="stage-kicker">${tr("Tu n'es pas seul")}</p><p class="preuve-avant">${tr("Sur Etsy, il y a près de")}</p><p class="compteur"><span id="compteur">0</span><span class="compteur-unite"> ${tr("millions")}</span></p><p class="preuve-apres">${tr("d'acheteurs actifs, qui cherchent chaque jour des guides, des planners et des fiches pratiques.")}</p><p class="preuve-note">${tr("Source : chiffres publiés par Etsy (2024).")}</p>${bouton(tr("Continuer"))}</section>`);
     const el = root.querySelector<HTMLElement>("#compteur");
     const debut = performance.now();
     const tic = (t: number) => {
@@ -219,17 +248,17 @@ export function mountFunnel(cfg: FunnelConfig) {
 
   function showExplication() {
     const points = [
-      ["Tu le crées une seule fois", "Pas de stock, pas d'envoi : le même fichier peut se vendre autant de fois qu'il trouve preneur."],
-      ["Etsy a déjà des acheteurs", "Ils y tapent « planner », « guide » ou « recettes ». Une fiche bien rédigée peut apparaître dans leurs recherches."],
-      ["Tu fixes ton prix", "C'est toi qui décides combien coûte ton e-book."],
+      [tr("Tu le crées une seule fois"), tr("Pas de stock, pas d'envoi : le même fichier peut se vendre autant de fois qu'il trouve preneur.")],
+      [tr("Etsy a déjà des acheteurs"), tr("Ils y tapent « planner », « guide » ou « recettes ». Une fiche bien rédigée peut apparaître dans leurs recherches.")],
+      [tr("Tu fixes ton prix"), tr("C'est toi qui décides combien coûte ton e-book.")],
     ];
-    render(`${barre()}${retour()}<section class="stage explication" data-reveal><p class="stage-kicker">En trente secondes</p><h1 class="stage-title stage-title-q machine">Un e-book à vendre, c'est quoi ?</h1><p class="saas-chapo">Un guide en PDF sur un sujet que des gens cherchent. Tu le crées avec Movacash, tu le mets en vente sur Etsy, et chaque acheteur le télécharge tout seul.</p><ol class="saas-points">${points
+    render(`${barre()}${retour()}<section class="stage explication" data-reveal><p class="stage-kicker">${tr("En trente secondes")}</p><h1 class="stage-title stage-title-q machine">${tr("Un e-book à vendre, c'est quoi ?")}</h1><p class="saas-chapo">${tr("Un guide en PDF sur un sujet que des gens cherchent. Tu le crées avec Movacash, tu le mets en vente sur Etsy, et chaque acheteur le télécharge tout seul.")}</p><ol class="saas-points">${points
       .map(([t, p], n) => `<li style="--retard:${n * 90}ms"><span class="saas-num">${n + 1}</span><div><h2>${t}</h2><p>${p}</p></div></li>`)
-      .join("")}</ol>${bouton("Compris")}</section>`);
+      .join("")}</ol>${bouton(tr("Compris"))}</section>`);
   }
 
   function showUrl(s: Step) {
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="url-champ"><input class="free-text url-input" id="url-input" type="text" inputmode="url" autocomplete="url" maxlength="200" placeholder="${esc(s.placeholder)}" value="${esc(answers[s.id] || "")}"/></div><div class="text-actions">${bouton("Continuer", "save-url")}<button class="btn-ghost" data-action="next">Passer cette étape</button></div></section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="url-champ"><input class="free-text url-input" id="url-input" type="text" inputmode="url" autocomplete="url" maxlength="200" placeholder="${esc(s.placeholder)}" value="${esc(answers[s.id] || "")}"/></div><div class="text-actions">${bouton(tr("Continuer"), "save-url")}<button class="btn-ghost" data-action="next">${tr("Passer cette étape")}</button></div></section>`);
     root.querySelector<HTMLInputElement>("#url-input")?.focus();
   }
 
@@ -241,10 +270,11 @@ export function mountFunnel(cfg: FunnelConfig) {
 
   const palier = (v: number) => SLIDER.paliers.find((p) => v <= p.jusqua) || SLIDER.paliers[SLIDER.paliers.length - 1];
   const ventes = (v: number) => Math.ceil(v / PRIX_EBOOK);
+  const calcul = (v: number) => tr("À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.", { prix: euros(PRIX_EBOOK), n: ventes(v) });
   function showSlider(s: Step) {
     const v = Number(answers[s.id] ?? SLIDER.defaut);
     const part = ((v - SLIDER.min) / (SLIDER.max - SLIDER.min)) * 100;
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="curseur"><div class="curseur-tete"><span class="curseur-montant" id="c-montant">${euros(v)}</span><span class="curseur-palier" id="c-palier">${palier(v).mot}</span></div><input class="curseur-rail" id="c-rail" type="range" min="${SLIDER.min}" max="${SLIDER.max}" step="${SLIDER.pas}" value="${v}" aria-label="${esc(s.titre)}" style="--part:${part.toFixed(1)}%"/><div class="curseur-bornes"><span>${euros(SLIDER.min)}<em>premier pas</em></span><span>${euros(SLIDER.max)}<em>ambitieux</em></span></div><p class="curseur-note" id="c-note">${palier(v).note}</p><p class="curseur-calcul" id="c-calcul">À ${PRIX_EBOOK} € l'e-book, ça représente <strong>${ventes(v)} ventes</strong> par mois.</p></div>${bouton("Continuer", "valider-curseur")}</section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="curseur"><div class="curseur-tete"><span class="curseur-montant" id="c-montant">${euros(v)}</span><span class="curseur-palier" id="c-palier">${palier(v).mot}</span></div><input class="curseur-rail" id="c-rail" type="range" min="${SLIDER.min}" max="${SLIDER.max}" step="${SLIDER.pas}" value="${v}" aria-label="${esc(s.titre)}" style="--part:${part.toFixed(1)}%"/><div class="curseur-bornes"><span>${euros(SLIDER.min)}<em>${tr("premier pas")}</em></span><span>${euros(SLIDER.max)}<em>${tr("ambitieux")}</em></span></div><p class="curseur-note" id="c-note">${palier(v).note}</p><p class="curseur-calcul" id="c-calcul">${calcul(v)}</p></div>${bouton(tr("Continuer"), "valider-curseur")}</section>`);
     const rail = root.querySelector<HTMLInputElement>("#c-rail")!;
     rail.addEventListener("input", () => {
       const x = Number(rail.value);
@@ -253,12 +283,12 @@ export function mountFunnel(cfg: FunnelConfig) {
       root.querySelector("#c-montant")!.textContent = euros(x);
       root.querySelector("#c-palier")!.textContent = palier(x).mot;
       root.querySelector("#c-note")!.textContent = palier(x).note;
-      root.querySelector("#c-calcul")!.innerHTML = `À ${PRIX_EBOOK} € l'e-book, ça représente <strong>${ventes(x)} ventes</strong> par mois.`;
+      root.querySelector("#c-calcul")!.innerHTML = calcul(x);
     });
   }
 
   function showChargement() {
-    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">Calcul en cours</p><h1 class="stage-title stage-title-q">On prépare ton diagnostic.</h1><p class="stage-lede">Encore deux questions pendant que ça tourne.</p><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol><div class="popup" id="popup" hidden><div class="popup-carte" role="dialog" aria-modal="true" aria-labelledby="popup-q"><p class="popup-question" id="popup-q"></p><p class="popup-detail" id="popup-d"></p><div class="popup-actions"><button class="btn" data-action="levier" data-v="non">Non</button><button class="btn btn-primary" data-action="levier" data-v="oui">Oui</button></div></div></div></section>`);
+    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">${tr("Calcul en cours")}</p><h1 class="stage-title stage-title-q">${tr("On prépare ton diagnostic.")}</h1><p class="stage-lede">${tr("Encore deux questions pendant que ça tourne.")}</p><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol><div class="popup" id="popup" hidden><div class="popup-carte" role="dialog" aria-modal="true" aria-labelledby="popup-q"><p class="popup-question" id="popup-q"></p><p class="popup-detail" id="popup-d"></p><div class="popup-actions"><button class="btn" data-action="levier" data-v="non">${tr("Non")}</button><button class="btn btn-primary" data-action="levier" data-v="oui">${tr("Oui")}</button></div></div></div></section>`);
     const anneau = root.querySelector<SVGCircleElement>("#c-anneau")!;
     const pct = root.querySelector<HTMLElement>("#c-pct")!;
     const etapes = [...root.querySelectorAll(".calcul-etape")];
@@ -318,31 +348,31 @@ export function mountFunnel(cfg: FunnelConfig) {
   function diagnostic() {
     const objectif = Number(answers.revenu ?? SLIDER.defaut);
     const actions = [
-      { libelle: "Publier ton premier e-book sur Etsy", detail: "Un sujet précis, relu avec soin." },
+      { libelle: tr("Publier ton premier e-book sur Etsy"), detail: tr("Un sujet précis, relu avec soin.") },
       ...LEVIERS.filter((l) => answers[l.id] === "oui").map((l) => ({ libelle: l.action, detail: l.detail })),
-      { libelle: "Rester régulier", detail: answers.time ? `${TEMPS[String(answers.time)] || "Un peu de temps"} par jour, chaque semaine.` : "Un peu chaque semaine." },
+      { libelle: tr("Rester régulier"), detail: answers.time ? tr("{temps} par jour, chaque semaine.", { temps: TEMPS[String(answers.time)] || tr("Un peu de temps") }) : tr("Un peu chaque semaine.") },
     ];
     return { objectif, actions, ventes: ventes(objectif) };
   }
   function showSimulation() {
     const { objectif, actions, ventes: nb } = diagnostic();
-    render(`${barre()}${retour()}<section class="stage projection" data-reveal><div class="proj-carte"><p class="proj-grand">Ton potentiel</p><p class="proj-montant"><span>${euros(objectif)}</span></p><p class="proj-sous">par mois : c'est l'objectif que tu as choisi</p><div class="proj-barre">${actions
+    render(`${barre()}${retour()}<section class="stage projection" data-reveal><div class="proj-carte"><p class="proj-grand">${tr("Ton potentiel")}</p><p class="proj-montant"><span>${euros(objectif)}</span></p><p class="proj-sous">${tr("par mois : c'est l'objectif que tu as choisi")}</p><div class="proj-barre">${actions
       .map((_, n) => `<span class="seg seg-${Math.min(n, 2)}" style="flex:1"></span>`)
-      .join("")}</div><div class="proj-chiffres"><div><b>${nb}</b><span>ventes par mois</span></div><div><b>${PRIX_EBOOK} €</b><span>si tu vends à ce prix</span></div><div><b>${Math.ceil(nb / 30)}</b><span>par jour environ</span></div></div></div><p class="proj-intro">Pour t'en approcher, voilà ce qu'il faudrait faire&nbsp;:</p><div class="proj-lignes">${actions
+      .join("")}</div><div class="proj-chiffres"><div><b>${nb}</b><span>${tr("ventes par mois")}</span></div><div><b>${euros(PRIX_EBOOK)}</b><span>${tr("si tu vends à ce prix")}</span></div><div><b>${Math.ceil(nb / 30)}</b><span>${tr("par jour environ")}</span></div></div></div><p class="proj-intro">${tr("Pour t'en approcher, voilà ce qu'il faudrait faire :")}</p><div class="proj-lignes">${actions
       .map((l, n) => `<div class="proj-ligne"><i class="pastille pastille-${Math.min(n, 2)}"></i><span class="proj-nom">${esc(l.libelle)}<small>${esc(l.detail)}</small></span></div>`)
-      .join("")}</div><p class="hypothese">Simple calcul à partir de ton objectif, pas une promesse ni une prévision. Tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>${bouton("Continuer")}</section>`);
+      .join("")}</div><p class="hypothese">${tr("Simple calcul à partir de ton objectif, pas une promesse ni une prévision. Tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p>${bouton(tr("Continuer"))}</section>`);
   }
 
   function showBarriere() {
-    render(`${barre()}${retour()}<section class="stage stage-center barriere" data-reveal><p class="stage-kicker">Ce qui te manque</p><h1 class="stage-title stage-title-q">Il te manque une méthode<br/><em>et les bons outils.</em></h1><p class="barriere-reponse">Movacash te donne les outils. L'action, c'est toi.</p>${bouton("Continuer")}</section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center barriere" data-reveal><p class="stage-kicker">${tr("Ce qui te manque")}</p><h1 class="stage-title stage-title-q">${tr("Il te manque une méthode")}<br/><em>${tr("et les bons outils.")}</em></h1><p class="barriere-reponse">${tr("Movacash te donne les outils. L'action, c'est toi.")}</p>${bouton(tr("Continuer"))}</section>`);
   }
 
   function showMessage(s: Step) {
-    render(`${barre()}${retour()}<section class="stage message ${s.illustration ? "message-illu" : "message-texte"}" data-reveal>${s.illustration ? `<div class="illu-grande" aria-hidden="true">${ILLUS[s.illustration]}</div>` : ""}<p class="stage-kicker">${esc(s.kicker)}</p><h1 class="stage-title stage-title-q machine">${esc(s.titre)}</h1>${s.sous ? `<p class="stage-lede">${esc(s.sous)}</p>` : ""}${bouton(esc(s.cta || "Continuer"))}</section>`);
+    render(`${barre()}${retour()}<section class="stage message ${s.illustration ? "message-illu" : "message-texte"}" data-reveal>${s.illustration ? `<div class="illu-grande" aria-hidden="true">${ILLUS[s.illustration]}</div>` : ""}<p class="stage-kicker">${esc(s.kicker)}</p><h1 class="stage-title stage-title-q machine">${esc(s.titre)}</h1>${s.sous ? `<p class="stage-lede">${esc(s.sous)}</p>` : ""}${bouton(esc(s.cta || tr("Continuer")))}</section>`);
   }
 
   function showCompte(erreur = "", valeurs: { name?: string; email?: string; password?: string; cgv?: boolean } = {}) {
-    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">Crée ton compte<br/><em>pour débloquer tes résultats.</em></h1><form class="account-form" id="signup-form" novalidate><label class="field"><span>Prénom</span><input name="name" type="text" autocomplete="given-name" placeholder="Camille" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>E-mail</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="camille@exemple.fr" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>Mot de passe</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="8 caractères minimum" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>J'accepte les <a href="/cgv" target="_blank" rel="noopener">CGV</a> et la <a href="/confidentialite" target="_blank" rel="noopener">politique de confidentialité</a>, et je comprends qu'aucun revenu n'est garanti.</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">Continuer ${fleche}</button><p class="form-note">Tes réponses sont enregistrées dans ton compte. Pas de revente de données.</p></form></section>`);
+    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">${tr("Crée ton compte")}<br/><em>${tr("pour débloquer tes résultats.")}</em></h1><form class="account-form" id="signup-form" novalidate><label class="field"><span>${tr("Prénom")}</span><input name="name" type="text" autocomplete="given-name" placeholder="${tr("Camille")}" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>${tr("E-mail")}</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="${tr("camille@exemple.fr")}" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>${tr("Mot de passe")}</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="${tr("8 caractères minimum")}" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>${tr("J'accepte les")} <a href="/cgv" target="_blank" rel="noopener">${tr("CGV")}</a> ${tr("et la")} <a href="/confidentialite" target="_blank" rel="noopener">${tr("politique de confidentialité")}</a>${tr(", et je comprends qu'aucun revenu n'est garanti.")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">${tr("Continuer")} ${fleche}</button><p class="form-note">${tr("Tes réponses sont enregistrées dans ton compte. Pas de revente de données.")}</p></form></section>`);
     const form = root.querySelector<HTMLFormElement>("#signup-form")!;
     if (valeurs.password) (form.elements.namedItem("password") as HTMLInputElement).value = valeurs.password;
     if (valeurs.cgv) (form.elements.namedItem("cgv") as HTMLInputElement).checked = true;
@@ -353,38 +383,38 @@ export function mountFunnel(cfg: FunnelConfig) {
       const email = String(d.get("email") || "").trim();
       const password = String(d.get("password") || "");
       const garder = { name, email, password, cgv: Boolean(d.get("cgv")) };
-      if (!name) return showCompte("Indique ton prénom.", garder);
-      if (!/^\S+@\S+\.\S+$/.test(email)) return showCompte("Adresse e-mail invalide.", garder);
-      if (password.length < 8) return showCompte("Mot de passe : 8 caractères minimum.", garder);
-      if (!d.get("cgv")) return showCompte("Coche la case pour accepter les CGV.", garder);
+      if (!name) return showCompte(tr("Indique ton prénom."), garder);
+      if (!/^\S+@\S+\.\S+$/.test(email)) return showCompte(tr("Adresse e-mail invalide."), garder);
+      if (password.length < 8) return showCompte(tr("Mot de passe : 8 caractères minimum."), garder);
+      if (!d.get("cgv")) return showCompte(tr("Coche la case pour accepter les CGV."), garder);
       const btn = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
       btn.disabled = true;
-      btn.firstChild!.textContent = "Création du compte… ";
+      btn.firstChild!.textContent = tr("Création du compte…") + " ";
       const r = await cfg.api.signup({ name, email, password, answers: scoringAnswers(answers, name) }).catch(() => ({ ok: false, error: "" }));
-      if (!r.ok) return showCompte(r.error || "Une erreur est survenue, réessaie.", garder);
+      if (!r.ok) return showCompte(r.error ? tr(r.error) : tr("Une erreur est survenue, réessaie."), garder);
       user = { name };
       next();
     });
   }
 
   function showText(s: Step) {
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<textarea class="free-text" id="free-text" rows="3" maxlength="320" placeholder="${esc(s.placeholder)}">${esc(answers[s.id] || "")}</textarea><div class="text-actions"><button class="btn btn-primary" data-action="save-text">Valider ${fleche}</button>${s.optional ? `<button class="btn-ghost" data-action="next">Passer cette étape</button>` : ""}</div></section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<textarea class="free-text" id="free-text" rows="3" maxlength="320" placeholder="${esc(s.placeholder)}">${esc(answers[s.id] || "")}</textarea><div class="text-actions"><button class="btn btn-primary" data-action="save-text">${tr("Valider")} ${fleche}</button>${s.optional ? `<button class="btn-ghost" data-action="next">${tr("Passer cette étape")}</button>` : ""}</div></section>`);
   }
 
   function showObjectif() {
-    render(`${barre()}${retour()}<section class="stage stage-center objectif" data-reveal><p class="stage-kicker">Ton cap</p><h1 class="stage-title stage-title-q">Ton objectif est clair.<br/><em>Reste à passer à l'action.</em></h1>${bouton("Continuer")}</section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center objectif" data-reveal><p class="stage-kicker">${tr("Ton cap")}</p><h1 class="stage-title stage-title-q">${tr("Ton objectif est clair.")}<br/><em>${tr("Reste à passer à l'action.")}</em></h1>${bouton(tr("Continuer"))}</section>`);
   }
 
   function showParcours() {
     envoyerQuiz();
     const p = prenom();
-    render(`${barre()}${retour()}<section class="stage parcours" data-reveal><p class="stage-kicker">Ce qu'on fait maintenant</p><h1 class="stage-title stage-title-q">${p ? `${p}, voilà` : "Voilà"} comment on t'amène <em>à ton premier e-book en vente.</em></h1><ol class="etapes">${PARCOURS.map(
+    render(`${barre()}${retour()}<section class="stage parcours" data-reveal><p class="stage-kicker">${tr("Ce qu'on fait maintenant")}</p><h1 class="stage-title stage-title-q">${p ? tr("{prenom}, voilà comment on t'amène", { prenom: p }) : tr("Voilà comment on t'amène")} <em>${tr("à ton premier e-book en vente.")}</em></h1><ol class="etapes">${PARCOURS.map(
       (e, n) => `<li class="etape" style="--retard:${n * 80}ms"><span class="etape-num">${String(n + 1).padStart(2, "0")}</span><div class="etape-corps"><h2>${esc(e.titre)}</h2><p>${esc(e.texte)}</p></div></li>`,
-    ).join("")}</ol>${bouton("Continuer")}</section>`);
+    ).join("")}</ol>${bouton(tr("Continuer"))}</section>`);
   }
 
   function showSerment() {
-    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">Ta promesse</p><h1 class="stage-title stage-title-q">Avant d'aller plus loin,<br/><em>fais-toi une promesse.</em></h1><blockquote class="serment-texte">« Je me promets d'aller au bout de mon premier e-book, de le relire avec soin et de le mettre en vente. »</blockquote><button class="empreinte" id="empreinte" aria-label="Rester appuyé pour signer"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">Reste appuyé une dizaine de secondes pour signer</p></section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">${tr("Ta promesse")}</p><h1 class="stage-title stage-title-q">${tr("Avant d'aller plus loin,")}<br/><em>${tr("fais-toi une promesse.")}</em></h1><blockquote class="serment-texte">${tr("« Je me promets d'aller au bout de mon premier e-book, de le relire avec soin et de le mettre en vente. »")}</blockquote><button class="empreinte" id="empreinte" aria-label="${tr("Rester appuyé pour signer")}"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">${tr("Reste appuyé une dizaine de secondes pour signer")}</p></section>`);
     const btn = root.querySelector<HTMLButtonElement>("#empreinte")!;
     const jauge = root.querySelector<SVGCircleElement>("#e-jauge")!;
     const remplie = root.querySelector<HTMLElement>("#e-remplie")!;
@@ -400,11 +430,11 @@ export function mountFunnel(cfg: FunnelConfig) {
       const k = Math.min(1, (t - debut) / DUREE);
       peindre(k);
       const aide = root.querySelector("#e-aide");
-      if (aide && k < 1) aide.textContent = `Garde le doigt appuyé… ${Math.ceil((DUREE * (1 - k)) / 1000)} s`;
+      if (aide && k < 1) aide.textContent = tr("Garde le doigt appuyé… {n} s", { n: Math.ceil((DUREE * (1 - k)) / 1000) });
       if (k >= 1) {
         signe = true;
         btn.classList.add("empreinte-signee");
-        root.querySelector("#e-aide")!.textContent = "Signé";
+        root.querySelector("#e-aide")!.textContent = tr("Signé");
         timers.push(window.setTimeout(next, 650));
         return;
       }
@@ -423,7 +453,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       cancelAnimationFrame(raf);
       peindre(0);
       const aide = root.querySelector("#e-aide");
-      if (aide) aide.textContent = "Reste appuyé une dizaine de secondes pour signer";
+      if (aide) aide.textContent = tr("Reste appuyé une dizaine de secondes pour signer");
     };
     btn.addEventListener("pointerdown", appui);
     ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, lacher));
@@ -439,26 +469,26 @@ export function mountFunnel(cfg: FunnelConfig) {
     if (!planChoisi) planChoisi = (plans.find((p) => p.highlight) || plans[0]).id;
     const plan = plans.find((p) => p.id === planChoisi) || plans[0];
     const avantages = [
-      "Des idées d'e-books triées selon tes réponses",
-      "Le générateur : plan, chapitres, exemples et couverture",
-      "L'export PDF prêt à vendre (A4, A5, US Letter)",
-      "La fiche Etsy : titre, description et 13 tags",
-      "Ton plan de 30 jours pour publier et te faire connaître",
+      tr("Des idées d'e-books triées selon tes réponses"),
+      tr("Le générateur : plan, chapitres, exemples et couverture"),
+      tr("L'export PDF prêt à vendre (A4, A5, US Letter)"),
+      tr("La fiche Etsy : titre, description, 13 tags et miniature"),
+      tr("Ton plan de 30 jours pour publier et te faire connaître"),
     ];
     const faq = [
-      ["Que se passe-t-il si je résilie ?", "Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi."],
-      ["Je peux vendre les e-books au prix que je veux ?", "Oui, c'est toi qui fixes ton prix sur Etsy."],
-      ["Et si je ne fais aucune vente ?", "C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter, relis bien et publie régulièrement."],
-      ["Le quota d'e-books se renouvelle quand ?", "Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés."],
+      [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
+      [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
+      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter, relis bien et publie régulièrement.")],
+      [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés.")],
     ];
-    render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">Sans engagement</p><p class="garantie-texte">Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.</p></div></div><h1 class="stage-title stage-title-q">Choisis ton plan.</h1><div class="plans">${plans
+    render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">${tr("Sans engagement")}</p><p class="garantie-texte">${tr("Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.")}</p></div></div><h1 class="stage-title stage-title-q">${tr("Choisis ton plan.")}</h1><div class="plans">${plans
       .map(
         (p) =>
-          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">Recommandé</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${p.ebooks} e-books par mois · ${prix(p.price)} / mois</span></span><span class="plan-jour"><strong>${prix(p.price / p.ebooks)}</strong><em>par e-book</em></span></button>`,
+          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${tr("{n} e-books par mois · {prix} / mois", { n: p.ebooks, prix: prix(p.price) })}</span></span><span class="plan-jour"><strong>${prix(p.price / p.ebooks)}</strong><em>${tr("par e-book")}</em></span></button>`,
       )
-      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>Je demande l'accès immédiat au service et je renonce à mon droit de rétractation de 14 jours (art. L221-28 du Code de la consommation).</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">Débloquer mon atelier · ${prix(plan.price)} / mois</button><p class="plan-securite">Paiement sécurisé par Stripe</p>${cfg.demo ? `<p class="plan-demo">Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">Ce que tu débloques</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">Questions fréquentes</h2><div class="faq">${faq
+      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je renonce à mon droit de rétractation de 14 jours (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Débloquer mon atelier · {prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
       .map(([q, r]) => `<details><summary>${q}</summary><p>${r}</p></details>`)
-      .join("")}</div></section><p class="resultats-mention">Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p></section>`);
+      .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p></section>`);
   }
 
   function envoyerQuiz() {

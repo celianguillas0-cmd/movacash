@@ -1,11 +1,12 @@
 import { z } from "zod";
+import { CONTENT_LANG_CODES } from "@/lib/content-langs";
 import { run } from "@/lib/db";
 import { fail, ok, withUser } from "@/lib/api";
 
 const schema = z.object({
   name: z.string().trim().max(100),
   author_name: z.string().trim().max(100),
-  default_language: z.enum(["fr", "en", "es", "de", "it"]).nullable(),
+  default_language: z.enum(CONTENT_LANG_CODES).nullable(),
   default_tone: z.enum(["pedagogique", "motivant", "expert", "convivial"]).nullable(),
   email_tips: z.boolean(),
 });

@@ -1,3 +1,4 @@
+import { tk } from "./i18n/t";
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Movacash";
 export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 // Adresse de contact affichée dans l'aide (ex. support@ton-domaine.fr)
@@ -26,7 +27,7 @@ export const PLANS: Plan[] = [
     priceEur: 19.9,
     annualMonthlyEur: 15.9,
     ebooksPerMonth: 20,
-    features: ["20 e-books par mois", "Base complète d'idées", "Export PDF A4, A5, US Letter", "Fiche Etsy + vérification"],
+    features: [tk("20 e-books par mois"), tk("Base complète d'idées"), tk("Export PDF A4, A5, US Letter"), tk("Fiche Etsy + vérification")],
     stripePriceEnv: "STRIPE_PRICE_STARTER",
     stripeAnnualPriceEnv: "STRIPE_PRICE_STARTER_ANNUAL",
   },
@@ -37,7 +38,7 @@ export const PLANS: Plan[] = [
     annualMonthlyEur: 31.9,
     ebooksPerMonth: 50,
     highlight: true,
-    features: ["50 e-books par mois", "Tout Starter", "Visuels de fiche Etsy", "Régénération illimitée des chapitres"],
+    features: [tk("50 e-books par mois"), tk("Tout Starter"), tk("Miniature Etsy avec photo"), tk("Régénération illimitée des chapitres")],
     stripePriceEnv: "STRIPE_PRICE_PRO",
     stripeAnnualPriceEnv: "STRIPE_PRICE_PRO_ANNUAL",
   },
@@ -47,7 +48,7 @@ export const PLANS: Plan[] = [
     priceEur: 79.9,
     annualMonthlyEur: 63.9,
     ebooksPerMonth: 120,
-    features: ["120 e-books par mois", "Tout Pro", "Idéal pour plusieurs boutiques"],
+    features: [tk("120 e-books par mois"), tk("Tout Pro"), tk("Idéal pour plusieurs boutiques")],
     stripePriceEnv: "STRIPE_PRICE_BUSINESS",
     stripeAnnualPriceEnv: "STRIPE_PRICE_BUSINESS_ANNUAL",
   },

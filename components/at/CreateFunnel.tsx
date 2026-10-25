@@ -2,6 +2,9 @@
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useLocale, useT } from "@/lib/i18n/client";
+import { fmtEur, tk } from "@/lib/i18n/t";
+import { LOCALES } from "@/lib/i18n/locales";
 
 type Idea = { id: number; title: string; audience: string; sensitive: string | null; priceMin: number; priceMax: number };
 type Choix = { id: string; titre: string; detail: string; pastille?: string };
@@ -16,33 +19,35 @@ const ICONES: Record<string, string> = {
 };
 
 const LECTEURS: Choix[] = [
-  { id: "debutant", titre: "Grand débutant", detail: "il part de zéro" },
-  { id: "bases", titre: "A déjà essayé", detail: "il connaît les bases" },
-  { id: "passionne", titre: "Passionné", detail: "il veut progresser vite" },
-  { id: "pro", titre: "Professionnel", detail: "il s'en sert au travail" },
+  { id: "debutant", titre: tk("Grand débutant"), detail: tk("il part de zéro") },
+  { id: "bases", titre: tk("A déjà essayé"), detail: tk("il connaît les bases") },
+  { id: "passionne", titre: tk("Passionné"), detail: tk("il veut progresser vite") },
+  { id: "pro", titre: tk("Professionnel"), detail: tk("il s'en sert au travail") },
 ];
 const TONS: Choix[] = [
-  { id: "pedagogique", titre: "Pédagogique", detail: "explique pas à pas" },
-  { id: "motivant", titre: "Motivant", detail: "donne envie d'agir" },
-  { id: "expert", titre: "Expert", detail: "va au fond des choses" },
-  { id: "convivial", titre: "Convivial", detail: "comme un ami qui conseille" },
+  { id: "pedagogique", titre: tk("Pédagogique"), detail: tk("explique pas à pas") },
+  { id: "motivant", titre: tk("Motivant"), detail: tk("donne envie d'agir") },
+  { id: "expert", titre: tk("Expert"), detail: tk("va au fond des choses") },
+  { id: "convivial", titre: tk("Convivial"), detail: tk("comme un ami qui conseille") },
 ];
 const LONGUEURS: Choix[] = [
-  { id: "7", titre: "Essentiel", detail: "7 chapitres, environ 40 pages" },
-  { id: "9", titre: "Complet", detail: "9 chapitres, environ 50 pages" },
-  { id: "12", titre: "Approfondi", detail: "12 chapitres, environ 65 pages" },
+  { id: "7", titre: tk("Essentiel"), detail: tk("7 chapitres, environ 40 pages") },
+  { id: "9", titre: tk("Complet"), detail: tk("9 chapitres, environ 50 pages") },
+  { id: "12", titre: tk("Approfondi"), detail: tk("12 chapitres, environ 65 pages") },
 ];
-const LANGUES: Choix[] = [
-  { id: "fr", titre: "Français", detail: "Etsy France, Belgique, Suisse, Canada", pastille: "FR" },
-  { id: "en", titre: "Anglais", detail: "le plus grand marché d'Etsy", pastille: "EN" },
-  { id: "es", titre: "Espagnol", detail: "Espagne et Amérique latine", pastille: "ES" },
-  { id: "de", titre: "Allemand", detail: "Allemagne, Autriche, Suisse", pastille: "DE" },
-  { id: "it", titre: "Italien", detail: "Italie", pastille: "IT" },
-];
+// Marchés présentés en premier ; les autres langues du site restent proposées dans la liste.
+const MARCHES: Record<string, string> = {
+  fr: tk("Etsy France, Belgique, Suisse, Canada"),
+  en: tk("le plus grand marché d'Etsy"),
+  de: tk("Allemagne, Autriche, Suisse"),
+  es: tk("Espagne"),
+  it: tk("Italie"),
+  nl: tk("Pays-Bas, Belgique"),
+};
 const MINIATURES: Choix[] = [
-  { id: "affiche", titre: "Affiche", detail: "gros titre, photo du sujet, bandeau d'atouts" },
-  { id: "epure", titre: "Épurée", detail: "typographie élégante, beaucoup d'espace" },
-  { id: "magazine", titre: "Magazine", detail: "photo pleine page, titre en surimpression" },
+  { id: "affiche", titre: tk("Affiche"), detail: tk("gros titre, photo du sujet, bandeau d'atouts") },
+  { id: "epure", titre: tk("Épurée"), detail: tk("typographie élégante, beaucoup d'espace") },
+  { id: "magazine", titre: tk("Magazine"), detail: tk("photo pleine page, titre en surimpression") },
 ];
 const APERCUS: Record<string, string> = {
   affiche: "linear-gradient(180deg,#f6f1e7 0 18%,#8a3b1f 18% 26%,#f6f1e7 26% 40%,#c9a98a 40% 86%,#2b1d16 86%)",
@@ -52,6 +57,13 @@ const APERCUS: Record<string, string> = {
 
 export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; author: string; defaults: { tone?: string; language?: string } }) {
   const router = useRouter();
+  const t = useT();
+  const locale = useLocale();
+  const nomLangue = (code: string) => LOCALES.find((l) => l.code === code)?.nom || code;
+  // La langue du client d'abord, puis les grands marchés d'Etsy
+  const premieres = Array.from(new Set([locale, "en", "fr", "de", "es", "it"])).slice(0, 6);
+  const LANGUES: Choix[] = premieres.map((code) => ({ id: code, titre: nomLangue(code), detail: MARCHES[code] || "", pastille: code.toUpperCase() }));
+  const autres = LOCALES.filter((l) => !premieres.includes(l.code));
   const prix = Math.round((idea.priceMin + idea.priceMax) / 2);
   const [step, setStep] = useState(0);
   const [objectif, setObjectif] = useState(0);
@@ -60,12 +72,12 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
   const [erreur, setErreur] = useState("");
 
   const ETAPES = [
-    { cle: "objectif", ic: "cible", kicker: "Ton objectif", t1: "Combien veux-tu", t2: "gagner par mois ?" },
-    { cle: "lecteur", ic: "lecteur", kicker: "Ton lecteur", t1: "Pour qui tu", t2: "écris ce guide ?", choix: LECTEURS },
-    { cle: "tone", ic: "ton", kicker: "Ta voix", t1: "Sur quel ton", t2: "tu veux lui parler ?", choix: TONS },
-    { cle: "chapters", ic: "livre", kicker: "Ta longueur", t1: "Quelle taille", t2: "pour ton e-book ?", choix: LONGUEURS },
-    { cle: "language", ic: "langue", kicker: "Ton marché", t1: "Dans quelle langue", t2: "tu veux le vendre ?", choix: LANGUES },
-    { cle: "thumb", ic: "image", kicker: "Ta miniature", t1: "Quel style pour", t2: "ta miniature Etsy ?", choix: MINIATURES },
+    { cle: "objectif", ic: "cible", kicker: t("Ton objectif"), t1: t("Combien veux-tu"), t2: t("gagner par mois ?") },
+    { cle: "lecteur", ic: "lecteur", kicker: t("Ton lecteur"), t1: t("Pour qui tu"), t2: t("écris ce guide ?"), choix: LECTEURS },
+    { cle: "tone", ic: "ton", kicker: t("Ta voix"), t1: t("Sur quel ton"), t2: t("tu veux lui parler ?"), choix: TONS },
+    { cle: "chapters", ic: "livre", kicker: t("Ta longueur"), t1: t("Quelle taille"), t2: t("pour ton e-book ?"), choix: LONGUEURS },
+    { cle: "language", ic: "langue", kicker: t("Ton marché"), t1: t("Dans quelle langue"), t2: t("tu veux le vendre ?"), choix: LANGUES },
+    { cle: "thumb", ic: "image", kicker: t("Ta miniature"), t1: t("Quel style pour"), t2: t("ta miniature Etsy ?"), choix: MINIATURES },
   ];
   const e = ETAPES[step];
 
@@ -79,9 +91,9 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
       body: JSON.stringify({
         ideaId: idea.id,
         topic: idea.title,
-        audience: `${idea.audience}${lecteur ? ` (${lecteur.titre.toLowerCase()} : ${lecteur.detail})` : ""}`.slice(0, 200),
+        audience: `${idea.audience}${lecteur ? ` (${t(lecteur.titre).toLowerCase()} : ${t(lecteur.detail)})` : ""}`.slice(0, 200),
         tone: vals.tone || "pedagogique",
-        language: vals.language || "fr",
+        language: vals.language || locale,
         chapters: Number(vals.chapters || 9),
         authorName: author,
         sensitive: idea.sensitive,
@@ -91,11 +103,11 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     const d = await res.json().catch(() => ({}));
     if (!res.ok) {
       setEnvoi(false);
-      return setErreur(d.error || "La génération n'a pas pu démarrer. Réessaie.");
+      return setErreur(t(d.error || "La génération n'a pas pu démarrer. Réessaie."));
     }
     router.push(`/app/ebooks/${d.id}?autostart=1`);
     router.refresh();
-  }, [author, idea, router]);
+  }, [author, idea, router, t, locale]);
 
   const choisir = useCallback((id: string) => {
     const vals = { ...r, [e.cle]: id };
@@ -121,14 +133,14 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
       <header className="mf-head">
         <div className="at-wrap">
           <Link href="/app" className="at-brand">Mova<span>cash</span></Link>
-          <Link href="/app/mon-idee" className="mf-quitter">← Retour à l&apos;atelier</Link>
+          <Link href="/app/mon-idee" className="mf-quitter">← {t("Retour à l'atelier")}</Link>
         </div>
       </header>
       <div className="at-wrap">
         <div className="mf-barre">
           <div className="mf-retour">
-            <button className="mf-rond" aria-label="Étape précédente" onClick={() => (step ? setStep(step - 1) : router.push("/app/mon-idee"))}>←</button>
-            <span className="mf-chip">Pour <b>{idea.title}</b></span>
+            <button className="mf-rond" aria-label={t("Étape précédente")} onClick={() => (step ? setStep(step - 1) : router.push("/app/mon-idee"))}>←</button>
+            <span className="mf-chip">{t("Pour")} <b>{idea.title}</b></span>
           </div>
           <span className="mf-compteur"><b>{String(step + 1).padStart(2, "0")}</b> / 06</span>
         </div>
@@ -142,14 +154,14 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
 
           {step === 0 ? (
             <>
-              <p className="mf-montant">{objectif.toLocaleString("fr-FR")} €</p>
+              <p className="mf-montant">{fmtEur(objectif, locale)}</p>
               <p className="mf-soit">
-                soit <b>{Math.ceil(objectif / prix)} vente{Math.ceil(objectif / prix) > 1 ? "s" : ""}</b> par mois à {prix} €, le prix conseillé pour ce sujet
+                {t("soit")} <b>{Math.ceil(objectif / prix) > 1 ? t("{n} ventes", { n: Math.ceil(objectif / prix) }) : t("{n} vente", { n: Math.ceil(objectif / prix) })}</b> {t("par mois à {prix}, le prix conseillé pour ce sujet", { prix: fmtEur(prix, locale) })}
               </p>
-              <input className="mf-rail" type="range" min={0} max={3000} step={50} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label="Objectif mensuel" />
-              <div className="mf-bornes"><span>0 €</span><span>3 000 €</span></div>
-              <button className="mf-btn" disabled={objectif === 0} onClick={() => setStep(1)}>Lancer mon e-book <span aria-hidden="true">→</span></button>
-              <p className="mf-soit" style={{ fontSize: 13, color: "#8a909b", marginTop: 16 }}>C&apos;est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.</p>
+              <input className="mf-rail" type="range" min={0} max={3000} step={50} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} />
+              <div className="mf-bornes"><span>{fmtEur(0, locale)}</span><span>{fmtEur(3000, locale)}</span></div>
+              <button className="mf-btn" disabled={objectif === 0} onClick={() => setStep(1)}>{t("Lancer mon e-book")} <span aria-hidden="true">→</span></button>
+              <p className="mf-soit" style={{ fontSize: 13, color: "#8a909b", marginTop: 16 }}>{t("C'est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p>
             </>
           ) : (
             <>
@@ -158,16 +170,25 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
                   <button key={c.id} className="mf-carte" aria-pressed={r[e.cle] === c.id} onClick={() => (step === ETAPES.length - 1 ? setR({ ...r, thumb: c.id }) : choisir(c.id))}>
                     <span className="mf-touche">{k + 1}</span>
                     {c.pastille && <span className="mf-pastille" style={{ fontFamily: "'Spline Sans Mono', monospace", fontSize: 13, color: "#6b7280" }}>{c.pastille}</span>}
-                    <b>{c.titre}</b>
-                    <small>{c.detail}</small>
+                    <b>{e.cle === "language" ? c.titre : t(c.titre)}</b>
+                    {c.detail && <small>{t(c.detail)}</small>}
                     {e.cle === "thumb" && <div className="mf-apercu" style={{ background: APERCUS[c.id] }} aria-hidden="true" />}
                   </button>
                 ))}
               </div>
+              {e.cle === "language" && (
+                <label className="mf-autre">
+                  <span>{t("Autre langue")}</span>
+                  <select className="input" value={autres.some((l) => l.code === r.language) ? r.language : ""} onChange={(ev) => ev.target.value && choisir(ev.target.value)}>
+                    <option value="">{t("Choisir…")}</option>
+                    {autres.map((l) => <option key={l.code} value={l.code}>{l.nom}</option>)}
+                  </select>
+                </label>
+              )}
               {step === ETAPES.length - 1 && (
                 <>
                   <button className="mf-btn" disabled={!r.thumb || envoi} onClick={() => generer(r)}>
-                    {envoi ? "Préparation du plan…" : "Générer mon e-book"} <span aria-hidden="true">→</span>
+                    {envoi ? t("Préparation du plan…") : t("Générer mon e-book")} <span aria-hidden="true">→</span>
                   </button>
                   {erreur && <p className="mf-erreur">{erreur}</p>}
                 </>

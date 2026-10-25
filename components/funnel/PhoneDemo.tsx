@@ -1,12 +1,15 @@
 "use client";
 import { useEffect, useState } from "react";
+import { useT } from "@/lib/i18n/client";
+import { tk } from "@/lib/i18n/t";
 
-const STEPS = ["Analyse du sujet", "Plan détaillé", "Rédaction des chapitres", "Exemples et exercices", "Couverture et mise en page", "Fiche Etsy et 13 tags"];
+const STEPS = [tk("Analyse du sujet"), tk("Plan détaillé"), tk("Rédaction des chapitres"), tk("Exemples et exercices"), tk("Couverture et mise en page"), tk("Fiche Etsy et 13 tags")];
 const TICKS = 260; // ~13 s pour aller de 0 à 100 %
 const R = 70, C = 2 * Math.PI * R;
 
 // Téléphone de la landing : un chargement qui tourne et la liste de ce que Movacash génère, sans sujet précis (pas de fausses ventes).
 export default function PhoneDemo() {
+  const tr = useT();
   const [t, setT] = useState(0);
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setT(Math.round(TICKS * 0.62)); return; }
@@ -31,11 +34,11 @@ export default function PhoneDemo() {
             {!done && <svg className="spinner" viewBox="0 0 160 160"><circle cx="80" cy="80" r={R + 12} strokeDasharray={`${C * 0.18} ${C}`} /></svg>}
             <div className="gen-center">{done ? <span className="gen-check">✓</span> : <><b>{pct}</b><small>%</small></>}</div>
           </div>
-          <div className="gen-title">{done ? "Ton e-book est prêt" : "Génération en cours…"}</div>
+          <div className="gen-title">{done ? tr("Ton e-book est prêt") : tr("Génération en cours…")}</div>
           <ul className="gen-todo">
             {STEPS.map((label, k) => (
               <li key={label} className={k < cur ? "ok" : k === cur ? "now" : ""}>
-                <span className="ic">{k < cur ? "✓" : ""}</span>{label}
+                <span className="ic">{k < cur ? "✓" : ""}</span>{tr(label)}
               </li>
             ))}
           </ul>

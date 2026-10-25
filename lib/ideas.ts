@@ -1,4 +1,7 @@
 import { all, one } from "./db";
+import { tk, type T } from "./i18n/t";
+
+const ID: T = (s, v) => (v ? Object.entries(v).reduce((acc, [k, x]) => acc.split(`{${k}}`).join(String(x)), s) : s);
 
 export interface Idea {
   id: number;
@@ -31,17 +34,19 @@ export interface IdeaQuery {
   userId?: number;
   page?: number;
   pageSize?: number;
+  // Langue du visiteur : la recherche porte aussi sur les traductions des idées
+  locale?: string;
 }
 
 // Mots d'une saisie libre, en minuscules et sans accents (comparés au champ search_text des idées).
-function searchWords(q: string) {
+export function searchWords(q: string, max = 8) {
   const words = q
     .normalize("NFD")
     .replace(/[̀-ͯ]/g, "")
     .toLowerCase()
-    .split(/[^a-z0-9]+/)
+    .split(/[^\p{L}\p{N}]+/u)
     .filter((w) => w.length >= 2);
-  return words.slice(0, 8);
+  return words.slice(0, max);
 }
 
 export async function searchIdeas(o: IdeaQuery) {
@@ -52,10 +57,15 @@ export async function searchIdeas(o: IdeaQuery) {
 
   if (o.q) {
     searchWords(o.q).forEach((w, k) => {
-      where.push(`i.search_text LIKE @w${k}`);
+      where.push(
+        o.locale && o.locale !== "fr"
+          ? `(i.search_text LIKE @w${k} OR EXISTS (SELECT 1 FROM idea_i18n x WHERE x.idea_id = i.id AND x.locale = @locale AND x.search_text LIKE @w${k}))`
+          : `i.search_text LIKE @w${k}`
+      );
       params[`w${k}`] = `%${w}%`;
     });
   }
+  if (o.q && o.locale) params.locale = o.locale;
   if (o.category) {
     where.push("i.category_slug = @category");
     params.category = o.category;
@@ -195,23 +205,23 @@ export async function pickIdeasForQuiz(a: QuizAnswers, limit = 3): Promise<Idea[
   return picks;
 }
 
-const AUD_LABEL: Record<string, string> = { parents: "les parents", students: "les étudiants", sport: "les sportifs", workers: "les salariés pressés", entrepreneurs: "les entrepreneurs", seniors: "les seniors", pets: "les propriétaires d'animaux", beginners: "les débutants" };
-const LEVEL = ["très faible", "faible", "moyenne", "bonne", "forte"];
-const COMP = ["très faible", "faible", "moyenne", "élevée", "très élevée"];
-const TIME: Record<string, string> = { "15": "15 minutes par jour", "30": "30 minutes par jour", "60": "1 heure par jour", "120": "plus de 2 heures par jour" };
-const DAYS: Record<string, string> = { "15": "deux à trois semaines", "30": "une à deux semaines", "60": "quelques jours", "120": "deux ou trois jours" };
+const AUD_LABEL: Record<string, string> = { parents: tk("les parents"), students: tk("les étudiants"), sport: tk("les sportifs"), workers: tk("les salariés pressés"), entrepreneurs: tk("les entrepreneurs"), seniors: tk("les seniors"), pets: tk("les propriétaires d'animaux"), beginners: tk("les débutants") };
+const LEVEL = [tk("très faible"), tk("faible"), tk("moyenne"), tk("bonne"), tk("forte")];
+const COMP = [tk("très faible"), tk("faible"), tk("moyenne"), tk("élevée"), tk("très élevée")];
+const TIME: Record<string, string> = { "15": tk("15 minutes par jour"), "30": tk("30 minutes par jour"), "60": tk("1 heure par jour"), "120": tk("plus de 2 heures par jour") };
+const DAYS: Record<string, string> = { "15": tk("deux à trois semaines"), "30": tk("une à deux semaines"), "60": tk("quelques jours"), "120": tk("deux ou trois jours") };
 
 // Pourquoi cette idée correspond aux réponses (phrases courtes, sans promesse de résultat).
-export function explainIdea(i: Idea, a: QuizAnswers, terrain: Set<number>): string[] {
+export function explainIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, t: T = ID): string[] {
   const { parts, aud } = scoreParts(i, a, terrain);
   const out: string[] = [];
-  if (parts.terrain) out.push(`Proche de ce que tu connais déjà (${[(a.situation === "student" ? "" : str(a.job)), str(a.passion), str(a.advice)].filter(Boolean).join(", ")}) : ta relecture apportera une vraie valeur.`);
-  else if (arr(a.themes).includes(i.category_slug)) out.push(`Dans la thématique « ${i.category_name} » que tu as choisie.`);
-  if (aud.length) out.push(`Vise ${aud.map((k) => AUD_LABEL[k]).join(" et ")}, un public que tu dis bien connaître.`);
-  if (parts.format) out.push(`Format « ${i.format.toLowerCase()} », celui que tu préfères.`);
-  out.push(`Demande estimée ${LEVEL[i.demand - 1]}, concurrence ${COMP[i.competition - 1]}.`);
-  out.push(`Avec ${TIME[str(a.time)] || "un peu de temps chaque jour"}, compte ${DAYS[str(a.time)] || "une à deux semaines"} pour relire et publier.`);
-  if (i.sensitive) out.push("Sujet sensible : un avertissement est ajouté automatiquement au PDF et à la fiche.");
+  if (parts.terrain) out.push(t("Proche de ce que tu connais déjà ({sujets}) : ta relecture apportera une vraie valeur.", { sujets: [(a.situation === "student" ? "" : str(a.job)), str(a.passion), str(a.advice)].filter(Boolean).join(", ") }));
+  else if (arr(a.themes).includes(i.category_slug)) out.push(t("Dans la thématique « {theme} » que tu as choisie.", { theme: t(i.category_name) }));
+  if (aud.length) out.push(t("Vise {public}, un public que tu dis bien connaître.", { public: aud.map((k) => t(AUD_LABEL[k])).join(t(" et ")) }));
+  if (parts.format) out.push(t("Format « {format} », celui que tu préfères.", { format: i.format.toLowerCase() }));
+  out.push(t("Demande estimée {demande}, concurrence {concurrence}.", { demande: t(LEVEL[i.demand - 1]), concurrence: t(COMP[i.competition - 1]) }));
+  out.push(t("Avec {temps}, compte {duree} pour relire et publier.", { temps: t(TIME[str(a.time)] || "un peu de temps chaque jour"), duree: t(DAYS[str(a.time)] || "une à deux semaines") }));
+  if (i.sensitive) out.push(t("Sujet sensible : un avertissement est ajouté automatiquement au PDF et à la fiche."));
   return out;
 }
 
@@ -223,8 +233,8 @@ export async function getIdeasByIds(ids: number[]) {
 
 export type PublicCible = "tous" | "particuliers" | "pros" | "parents";
 const PRO_RE = /pro\b|pros\b|professionn|entrepreneur|entreprise|freelance|indépendant|auto-entrepreneur|commerçant|manager|salarié|recruteur|artisan|coach|thérapeute|vendeur/i;
-const DIFF = ["Simple", "Moyenne", "Exigeante"];
-const DIFF_NOTE = ["peu de recherche", "un peu de recherche", "relecture soignée"];
+const DIFF = [tk("Simple"), tk("Moyenne"), tk("Exigeante")];
+const DIFF_NOTE = [tk("peu de recherche"), tk("un peu de recherche"), tk("relecture soignée")];
 
 export interface FoundIdea {
   id: number;
@@ -247,26 +257,27 @@ export interface FoundIdea {
   sensitive: string | null;
 }
 
-export function describeIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, compat: number): FoundIdea {
-  const reasons = explainIdea(i, a, terrain).filter((r) => !r.startsWith("Avec "));
-  const personnel = reasons.find((r) => !r.startsWith("Demande estimée") && !r.startsWith("Sujet sensible"));
-  const why = personnel || `${i.audience} : un public précis, ${i.competition <= 2 ? "avec peu de concurrence sur Etsy" : "qui cherche des guides concrets"}.`;
+export function describeIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, compat: number, t: T = ID): FoundIdea {
+  const reasons = explainIdea(i, a, terrain, t).filter((_, k, all) => k !== all.length - (i.sensitive ? 2 : 1));
+  const generic = new Set([t("Demande estimée {demande}, concurrence {concurrence}.", { demande: t(LEVEL[i.demand - 1]), concurrence: t(COMP[i.competition - 1]) })]);
+  const personnel = reasons.find((r) => !generic.has(r) && !(i.sensitive && r === reasons[reasons.length - 1]));
+  const why = personnel || t("{public} : un public précis, {suite}.", { public: i.audience, suite: i.competition <= 2 ? t("avec peu de concurrence sur Etsy") : t("qui cherche des guides concrets") });
   return {
     id: i.id,
     title: i.title,
     audience: i.audience,
     format: i.format,
-    category: i.category_name,
+    category: t(i.category_name),
     emoji: i.emoji,
     compat,
-    price: `${i.price_min} à ${i.price_max} €`,
+    price: t("{min} à {max} €", { min: i.price_min, max: i.price_max }),
     demand: i.demand,
     competition: i.competition,
     difficulty: i.difficulty,
-    demandLabel: LEVEL[i.demand - 1] || "moyenne",
-    competitionLabel: COMP[i.competition - 1] || "moyenne",
-    difficultyLabel: DIFF[i.difficulty - 1] || "Moyenne",
-    difficultyNote: DIFF_NOTE[i.difficulty - 1] || "",
+    demandLabel: t(LEVEL[i.demand - 1] || "moyenne"),
+    competitionLabel: t(COMP[i.competition - 1] || "moyenne"),
+    difficultyLabel: t(DIFF[i.difficulty - 1] || "Moyenne"),
+    difficultyNote: t(DIFF_NOTE[i.difficulty - 1] || ""),
     why: why.replace(/^./, (c) => c.toLowerCase()),
     reasons,
     sensitive: i.sensitive,
@@ -274,11 +285,11 @@ export function describeIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, comp
 }
 
 // Idées classées selon les réponses au sondage, un sujet facultatif et un public facultatif. Aucune API : tout vient de la base.
-export async function findIdeasForUser(a: QuizAnswers, q: string, cible: PublicCible, limit = 12) {
+export async function findIdeasForUser(a: QuizAnswers, q: string, cible: PublicCible, limit = 12, opts: { t?: T; locale?: string } = {}) {
   const terrain = await terrainMatches(a);
   let pool: Idea[];
   if (q.trim()) {
-    pool = (await searchIdeas({ q, pageSize: 100, sensitive: a.sensitive === "no" ? "none" : "all" })).items as Idea[];
+    pool = (await searchIdeas({ q, pageSize: 100, sensitive: a.sensitive === "no" ? "none" : "all", locale: opts.locale })).items as Idea[];
   } else {
     const themes = arr(a.themes).filter((t) => t !== "autre").slice(0, 6);
     const where = [themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "1=1"];
@@ -300,6 +311,9 @@ export async function findIdeasForUser(a: QuizAnswers, q: string, cible: PublicC
   picks.sort((x, y) => y.s - x.s);
   const max = picks[0]?.s ?? 0;
   const min = picks[picks.length - 1]?.s ?? 0;
-  const ideas = picks.map((x, k) => describeIdea(x.i, a, terrain, Math.round(72 + (24 * (x.s - min)) / (max - min || 1)) - (k === 0 ? 0 : Math.min(k, 1))));
-  return { total: scored.length, ideas };
+  return {
+    total: scored.length,
+    picks: picks.map((x, k) => ({ idea: x.i, compat: Math.round(72 + (24 * (x.s - min)) / (max - min || 1)) - (k === 0 ? 0 : Math.min(k, 1)) })),
+    describe: (i: Idea, compat: number) => describeIdea(i, a, terrain, compat, opts.t),
+  };
 }
