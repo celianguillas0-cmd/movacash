@@ -31,8 +31,8 @@ Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification pouss�
 
 1. Catalogue de produits : crée **un seul produit** « Movacash » avec **trois prix récurrents** en EUR :
    - 4,90 € toutes les semaines (5 e-books par semaine)
-   - 14,90 € tous les mois (20 e-books par mois)
-   - 40 € tous les 3 mois (60 e-books par trimestre) : choisis « Personnalisé », tous les 3 mois
+   - 19,90 € tous les mois (20 e-books par mois)
+   - 50 € tous les 3 mois (60 e-books par trimestre) : choisis « Personnalisé », tous les 3 mois
 2. Copie chaque identifiant de prix (`price_...`) dans Vercel : `STRIPE_PRICE_SEMAINE`, `STRIPE_PRICE_MOIS`, `STRIPE_PRICE_TRIMESTRE`.
 3. Développeurs → Clés API : `STRIPE_SECRET_KEY` (commence par `sk_live_` en production, `sk_test_` pour tester).
 4. Développeurs → Webhooks → Ajouter un endpoint : `https://ton-domaine/api/stripe/webhook`, événements :

@@ -37,7 +37,7 @@ export const PLANS: Plan[] = [
   {
     id: "mois",
     name: tk("Mensuel"),
-    priceEur: 14.9,
+    priceEur: 19.9,
     ebooks: 20,
     periodDays: 30,
     stripeInterval: { interval: "month", count: 1 },
@@ -50,7 +50,7 @@ export const PLANS: Plan[] = [
   {
     id: "trimestre",
     name: tk("Trimestriel"),
-    priceEur: 40,
+    priceEur: 50,
     ebooks: 60,
     periodDays: 91,
     stripeInterval: { interval: "month", count: 3 },
