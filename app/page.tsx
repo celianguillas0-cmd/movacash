@@ -33,7 +33,7 @@ export default async function Home() {
           <div className="wrap hero">
           <div className="hero-copy">
             <p className="kicker"><i aria-hidden="true" />{t("L'atelier des e-books à vendre sur Etsy")}</p>
-            <h1 className="hero-title"><span className="l">{t("Crée ton premier business")}</span> <span className="soft"><span className="l">{t("dès aujourd'hui.")}</span></span></h1>
+            <h1 className="hero-title"><span className="l">{t("Crée ton premier business")}</span> <span className="soft"><span className="l">{t("dès maintenant.")}</span></span></h1>
             <TypedLead
               plain={t("Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et ")}
               endings={[t("trouve tes premiers acheteurs."), t("commence à construire un revenu à côté."), t("transforme ce que tu sais en source de revenus."), t("donne-toi une vraie chance de gagner en ligne.")]}

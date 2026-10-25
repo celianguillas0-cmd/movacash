@@ -22,7 +22,7 @@ export default async function OgImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column", fontSize: 76, fontWeight: 700, lineHeight: 1.08, letterSpacing: -2 }}>
           <span>{t("Crée ton premier business")}</span>
-          <span style={{ color: "#8a8a8a" }}>{t("dès aujourd'hui.")}</span>
+          <span style={{ color: "#8a8a8a" }}>{t("dès maintenant.")}</span>
         </div>
         <div style={{ fontSize: 30, color: "#bdbdbd" }}>{t("Créez des e-books de qualité à vendre sur Etsy")}</div>
       </div>
