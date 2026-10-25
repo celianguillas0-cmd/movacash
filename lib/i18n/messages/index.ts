@@ -8,6 +8,7 @@ import el from "./el.json";
 import en from "./en.json";
 import es from "./es.json";
 import fi from "./fi.json";
+import hr from "./hr.json";
 import hu from "./hu.json";
 import it from "./it.json";
 import nl from "./nl.json";
@@ -15,6 +16,7 @@ import pl from "./pl.json";
 import pt from "./pt.json";
 import ro from "./ro.json";
 import sk from "./sk.json";
+import sl from "./sl.json";
 import sv from "./sv.json";
 
-export const MESSAGES: Record<string, Dict> = { bg, cs, da, de, el, en, es, fi, hu, it, nl, pl, pt, ro, sk, sv };
+export const MESSAGES: Record<string, Dict> = { bg, cs, da, de, el, en, es, fi, hr, hu, it, nl, pl, pt, ro, sk, sl, sv };
