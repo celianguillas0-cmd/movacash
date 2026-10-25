@@ -54,7 +54,7 @@ export default async function Compte({ params }: { params: Promise<{ id: string 
         self={isAdmin(u.email)}
         banned={Boolean(u.banned)}
         quotaOverride={u.quota_override}
-        planLimit={plan?.ebooksPerMonth ?? 0}
+        planLimit={plan?.ebooks ?? 0}
         offered={Boolean(u.is_demo_sub) && (etat === "active" || etat === "canceling")}
         payingStripe={Boolean(u.stripe_subscription_id) && !u.is_demo_sub && ["active", "canceling", "past_due"].includes(etat)}
       />

@@ -166,6 +166,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "cancel_at_period_end", "INTEGER NOT NULL DEFAULT 0"],
   ["users", "quota_plan", "TEXT"], // offre dont le quota reste acquis jusqu'à quota_plan_until (après un passage à une offre inférieure)
   ["users", "quota_plan_until", "INTEGER"],
+  ["users", "current_period_start", "INTEGER"], // début de la période payée : le quota d'e-books se compte depuis cette date
   ["users", "session_version", "INTEGER NOT NULL DEFAULT 1"],
   ["users", "author_name", "TEXT NOT NULL DEFAULT ''"],
   ["users", "default_language", "TEXT"],

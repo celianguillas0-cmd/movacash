@@ -5,7 +5,7 @@ import { emailRenewalReminder } from "@/lib/notify";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Lancé chaque matin par Vercel (vercel.json). Abonnements annuels : rappel par e-mail entre 60 et 30 jours avant
+// Lancé chaque matin par Vercel (vercel.json). Abonnements trimestriels : rappel par e-mail entre 60 et 30 jours avant
 // la reconduction, une seule fois par période (art. L215-1 du Code de la consommation : au plus tôt 3 mois, au plus tard 1 mois avant).
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 
   const now = Math.floor(Date.now() / 1000);
   const users = await all<User>(
-    `SELECT * FROM users WHERE billing_interval = 'year' AND is_demo_sub = 0 AND cancel_at_period_end = 0
+    `SELECT * FROM users WHERE plan = 'trimestre' AND is_demo_sub = 0 AND cancel_at_period_end = 0
        AND sub_status IN ('active', 'trialing') AND current_period_end > ? AND current_period_end <= ?
        AND (renewal_reminded_for IS NULL OR renewal_reminded_for <> current_period_end)`,
     [now + 30 * 86400, now + 60 * 86400]

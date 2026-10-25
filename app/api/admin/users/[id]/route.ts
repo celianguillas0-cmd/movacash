@@ -1,3 +1,4 @@
+import { PLAN_IDS } from "@/lib/config";
 import { z } from "zod";
 import { run } from "@/lib/db";
 import { fail, ok, withUser } from "@/lib/api";
@@ -12,7 +13,7 @@ const schema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("unban") }),
   // null = revenir à la limite de la formule
   z.object({ action: z.literal("quota"), value: z.number().int().min(0).max(10000).nullable() }),
-  z.object({ action: z.literal("offer"), plan: z.enum(["starter", "pro", "business"]) }),
+  z.object({ action: z.literal("offer"), plan: z.enum(PLAN_IDS) }),
   z.object({ action: z.literal("unoffer") }),
 ]);
 

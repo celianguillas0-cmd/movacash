@@ -28,7 +28,8 @@ export async function POST(req: Request) {
   return withUser(async (user) => {
     const parsed = schema.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
-    const allowed = await canCreateEbook(user, (await getT()).t);
+    const { t: tt, locale: loc } = await getT();
+    const allowed = await canCreateEbook(user, tt, loc);
     if (!allowed.ok) return fail(allowed.reason, 402);
     const d = parsed.data;
     const idea = d.ideaId ? await getIdea(d.ideaId) : undefined;

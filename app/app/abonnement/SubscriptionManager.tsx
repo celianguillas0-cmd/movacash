@@ -5,20 +5,17 @@ import QuotaMeter from "@/components/ws/QuotaMeter";
 import Modal from "@/components/ws/Modal";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { fmtEur, tk, type T } from "@/lib/i18n/t";
+import type { PlanView as Plan } from "@/lib/planView";
 
-type Plan = { id: string; name: string; monthly: number; annual: number; ebooks: number; features: string[] };
 type Sub = {
   plan: string;
-  annual: boolean;
   state: "active" | "canceling" | "past_due";
   periodEnd: number | null;
   demo: boolean;
-  heldPlan: string | null;
-  heldUntil: number | null;
   card: string | null;
   hasPortal: boolean;
 };
-type Preview = { kind: "same" | "upgrade" | "downgrade" | "invalid"; dueNow: number | null; nextAmount: number; nextDate: number | null; message?: string };
+type Preview = { kind: "same" | "change" | "invalid"; dueNow: number | null; nextAmount: number; nextDate: number | null; message?: string };
 
 // Montants et dates au format de la langue du visiteur
 function useFormats() {
@@ -29,7 +26,6 @@ function useFormats() {
     locale,
   };
 }
-const yearly = (p: Plan) => Math.round(p.annual * 1200) / 100;
 
 const REASONS: [string, string][] = [
   ["price", tk("C'est trop cher pour moi")],
@@ -48,19 +44,18 @@ async function post(t: T, url: string, body?: unknown) {
   return d;
 }
 
-export default function SubscriptionManager({ plans, sub, usage, annualAvailable, preselect }: {
+export default function SubscriptionManager({ plans, features, sub, usage, preselect }: {
   plans: Plan[];
+  features: string[];
   sub: Sub;
   usage: { used: number; limit: number; resetsOn: string };
-  annualAvailable: boolean;
-  preselect: { plan: string; annual: boolean } | null;
+  preselect: string | null;
 }) {
   const router = useRouter();
   const t = useT();
   const { eur, date, locale } = useFormats();
   const current = plans.find((p) => p.id === sub.plan)!;
-  const [annual, setAnnual] = useState(sub.annual);
-  const [target, setTarget] = useState<{ plan: Plan; annual: boolean } | null>(null);
+  const [target, setTarget] = useState<Plan | null>(null);
   const [preview, setPreview] = useState<Preview | null>(null);
   const [cancelOpen, setCancelOpen] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -68,17 +63,17 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
   const [done, setDone] = useState("");
 
   useEffect(() => {
-    const p = preselect && plans.find((x) => x.id === preselect.plan);
-    if (p && (p.id !== sub.plan || preselect!.annual !== sub.annual)) openChange(p, preselect!.annual);
+    const p = preselect && plans.find((x) => x.id === preselect);
+    if (p && p.id !== sub.plan) openChange(p);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  async function openChange(plan: Plan, isAnnual: boolean) {
-    setTarget({ plan, annual: isAnnual });
+  async function openChange(plan: Plan) {
+    setTarget(plan);
     setPreview(null);
     setError("");
     try {
-      setPreview(await post(t, "/api/billing/preview", { plan: plan.id, annual: isAnnual }));
+      setPreview(await post(t, "/api/billing/preview", { plan: plan.id }));
     } catch (e) {
       setError((e as Error).message);
     }
@@ -89,12 +84,12 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
     setBusy(true);
     setError("");
     try {
-      const r = await post(t, "/api/billing/change", { plan: target.plan.id, annual: target.annual });
+      const r = await post(t, "/api/billing/change", { plan: target.id });
       if (r.payUrl) {
         window.location.href = r.payUrl;
         return;
       }
-      setDone(r.kind === "upgrade" ? t("Tu es passé(e) à l'offre {plan}. Ton nouveau quota est disponible tout de suite.", { plan: target.plan.name }) : t("C'est noté : l'offre {plan} prendra effet au prochain renouvellement.", { plan: target.plan.name }));
+      setDone(t("Tu es passé(e) à l'offre {plan}. Ton nouveau quota est disponible tout de suite.", { plan: target.name }));
       setTarget(null);
       router.refresh();
     } catch (e) {
@@ -129,7 +124,6 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
     }
   }
 
-  const price = sub.annual ? t("{prix} / an", { prix: eur(yearly(current)) }) : t("{prix} / mois", { prix: eur(current.monthly) });
   const statusBadge = {
     active: <span className="badge bg-green-100 text-green-800">{t("Actif")}</span>,
     canceling: <span className="badge bg-amber-100 text-amber-800">{t("Résilié, actif jusqu'au {date}", { date: date(sub.periodEnd) })}</span>,
@@ -151,14 +145,13 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
           </div>
           <p className="text-3xl font-extrabold text-slate-900">{current.name}</p>
           <p className="text-sm text-slate-700">
-            {price} · {t("{n} e-books par mois", { n: current.ebooks })}
+            {current.priceText} · {current.ebooksText}
           </p>
           <p className="text-sm text-slate-500">
             {sub.state === "canceling"
               ? t("Aucun nouveau prélèvement. Accès jusqu'au {date}.", { date: date(sub.periodEnd) })
               : t("Prochain renouvellement le {date}.", { date: date(sub.periodEnd) })}
           </p>
-          {sub.heldPlan && <p className="text-sm text-slate-500">{t("Tu gardes le quota de l'offre {plan} jusqu'au {date}.", { plan: sub.heldPlan, date: date(sub.heldUntil) })}</p>}
           {sub.state === "canceling" && (
             <button className="btn-primary" disabled={busy} onClick={resume}>{t("Réactiver mon abonnement")}</button>
           )}
@@ -172,49 +165,34 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
         </div>
       </section>
 
-      {/* Changer d'offre */}
+      {/* Changer de durée */}
       <section>
-        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <h2 className="h2">{t("Changer d'offre")}</h2>
-            <p className="muted mt-1">{t("Offre supérieure : effet immédiat, tu paies seulement la différence au prorata. Offre inférieure : effet au prochain renouvellement.")}</p>
-          </div>
-          {annualAvailable && !sub.annual && (
-            <div className="flex rounded-full border border-slate-300 bg-slate-100 p-1 text-sm" role="group" aria-label={t("Fréquence de facturation")}>
-              <button className={`rounded-full px-4 py-1.5 ${!annual ? "bg-slate-300 font-semibold text-slate-900" : "text-slate-600"}`} onClick={() => setAnnual(false)}>{t("Mensuel")}</button>
-              <button className={`rounded-full px-4 py-1.5 ${annual ? "bg-slate-300 font-semibold text-slate-900" : "text-slate-600"}`} onClick={() => setAnnual(true)}>{t("Annuel")} <span className="text-brand-700">−20 %</span></button>
-            </div>
-          )}
+        <div className="mb-4">
+          <h2 className="h2">{t("Changer de durée")}</h2>
+          <p className="muted mt-1">{t("Le changement prend effet tout de suite : une nouvelle période commence avec son quota complet, et le temps non utilisé de ta période actuelle est déduit du prix.")}</p>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           {plans.map((p) => {
-            const isCurrent = p.id === sub.plan && annual === sub.annual;
-            const up = p.ebooks > current.ebooks || (p.id === sub.plan && annual && !sub.annual);
+            const isCurrent = p.id === sub.plan;
             return (
               <div key={p.id} className={`card flex flex-col ${isCurrent ? "border-brand-600 ring-1 ring-brand-600" : ""}`}>
                 <div className="flex items-center justify-between">
                   <p className="text-xl font-bold">{p.name}</p>
                   {isCurrent && <span className="badge bg-brand-50 text-brand-700">{t("Ton offre")}</span>}
                 </div>
-                <p className="mt-2 text-sm text-slate-700">
-                  <span className="text-3xl font-extrabold text-slate-900">{eur(annual ? p.annual : p.monthly)}</span> {t("/ mois")}
-                </p>
-                <p className="text-xs text-slate-500">{annual ? t("soit {prix} par an", { prix: eur(yearly(p)) }) : t("sans engagement")}</p>
-                <ul className="mt-4 flex-1 space-y-1.5 text-sm text-slate-600">
-                  {p.features.map((f) => <li key={f}><span className="text-brand-600">✓</span> {t(f)}</li>)}
-                </ul>
-                <button
-                  className={`mt-5 ${up ? "btn-primary" : "btn-secondary"}`}
-                  disabled={isCurrent || busy || sub.state === "past_due"}
-                  onClick={() => openChange(p, annual)}
-                >
+                <p className="mt-2 text-2xl font-extrabold text-slate-900">{p.priceText}</p>
+                <p className="text-sm text-slate-600">{p.ebooksText}</p>
+                <p className="text-xs text-slate-500">{t("Soit {prix} par e-book", { prix: p.perEbook })}</p>
+                <button className={`mt-5 ${isCurrent ? "btn-secondary" : "btn-primary"}`} disabled={isCurrent || busy || sub.state === "past_due"} onClick={() => openChange(p)}>
                   {isCurrent ? t("Offre actuelle") : t("Passer à {plan}", { plan: p.name })}
                 </button>
               </div>
             );
           })}
         </div>
-        {sub.annual && <p className="muted mt-3">{t("Tu es en facturation annuelle. Pour repasser au mensuel, résilie : à la fin de ta période, tu pourras reprendre l'offre mensuelle de ton choix.")}</p>}
+        <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-600">
+          {features.map((f) => <li key={f}><span className="text-brand-600">✓</span> {f}</li>)}
+        </ul>
       </section>
 
       {/* Paiement */}
@@ -245,28 +223,21 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
       )}
 
       {target && (
-        <Modal onClose={() => !busy && setTarget(null)} title={target.annual && !sub.annual ? t("Passer à {plan} (annuel)", { plan: target.plan.name }) : t("Passer à {plan}", { plan: target.plan.name })}>
+        <Modal onClose={() => !busy && setTarget(null)} title={t("Passer à {plan}", { plan: target.name })}>
           {!preview && !error && <p className="text-sm text-slate-500">{t("Calcul du montant…")}</p>}
           {preview?.kind === "invalid" && <p className="text-sm text-slate-700">{preview.message && t(preview.message)}</p>}
-          {preview?.kind === "upgrade" && (
+          {preview?.kind === "change" && (
             <div className="space-y-2 text-sm text-slate-700">
-              <p>{t("Effet immédiat :")} <strong>{t("{n} e-books par mois", { n: target.plan.ebooks })}</strong> {t("dès maintenant.")}</p>
-              <p>{t("À payer aujourd'hui :")} <strong className="text-slate-900">{eur(preview.dueNow ?? 0)}</strong> {sub.demo ? t("(estimation, mode démo : rien n'est prélevé)") : t("(différence au prorata du temps restant)")}.</p>
-              <p>{target.annual ? t("Ensuite : {prix} par an", { prix: eur(preview.nextAmount) }) : t("Ensuite : {prix} par mois", { prix: eur(preview.nextAmount) })}{preview.nextDate ? " " + t("à partir du {date}", { date: date(preview.nextDate) }) : ""}.</p>
-            </div>
-          )}
-          {preview?.kind === "downgrade" && (
-            <div className="space-y-2 text-sm text-slate-700">
-              <p>{t("Rien à payer aujourd'hui, et pas de remboursement de la période en cours.")}</p>
-              <p>{t("Tu gardes ton quota actuel ({n} e-books par mois) jusqu'au {date}.", { n: current.ebooks, date: date(sub.periodEnd) })}</p>
-              <p>{target.annual ? t("Ensuite : {prix} par an pour {n} e-books par mois.", { prix: eur(preview.nextAmount), n: target.plan.ebooks }) : t("Ensuite : {prix} par mois pour {n} e-books par mois.", { prix: eur(preview.nextAmount), n: target.plan.ebooks })}</p>
+              <p>{t("Effet immédiat :")} <strong>{target.ebooksText}</strong>, {t("avec un quota neuf dès aujourd'hui.")}</p>
+              <p>{t("À payer aujourd'hui :")} <strong className="text-slate-900">{eur(preview.dueNow ?? 0)}</strong> {sub.demo ? t("(estimation, mode démo : rien n'est prélevé)") : t("(nouveau prix, moins le temps non utilisé de ta période actuelle)")}.</p>
+              <p>{t("Ensuite : {prix}, {renouvellement}", { prix: target.priceText, renouvellement: target.renewText })}{preview.nextDate ? ", " + t("à partir du {date}", { date: date(preview.nextDate) }) : ""}.</p>
             </div>
           )}
           {error && <p className="notice-error mt-3">{error}</p>}
           <div className="mt-6 flex flex-wrap justify-end gap-2">
             <button className="btn-ghost" disabled={busy} onClick={() => setTarget(null)}>{t("Annuler")}</button>
-            {preview && preview.kind !== "invalid" && preview.kind !== "same" && (
-              <button className="btn-primary" disabled={busy} onClick={confirmChange}>{busy ? t("Un instant…") : preview.kind === "upgrade" ? (preview.dueNow ? t("Confirmer et payer {prix}", { prix: eur(preview.dueNow) }) : t("Confirmer")) : t("Confirmer le changement")}</button>
+            {preview?.kind === "change" && (
+              <button className="btn-primary" disabled={busy} onClick={confirmChange}>{busy ? t("Un instant…") : preview.dueNow ? t("Confirmer et payer {prix}", { prix: eur(preview.dueNow) }) : t("Confirmer")}</button>
             )}
           </div>
         </Modal>
@@ -275,9 +246,9 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
       {cancelOpen && (
         <CancelModal
           sub={sub}
-          lower={plans.filter((p) => p.ebooks < current.ebooks)[0] ?? null}
+          lower={plans.filter((p) => p.price < current.price)[0] ?? null}
           onClose={() => setCancelOpen(false)}
-          onDowngrade={(p) => { setCancelOpen(false); openChange(p, sub.annual); }}
+          onDowngrade={(p) => { setCancelOpen(false); openChange(p); }}
           onDone={() => { setCancelOpen(false); setDone(t("Résiliation enregistrée. Tu gardes l'accès jusqu'au {date}, sans nouveau prélèvement.", { date: date(sub.periodEnd) })); router.refresh(); }}
         />
       )}
@@ -287,7 +258,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
 
 function CancelModal({ sub, lower, onClose, onDowngrade, onDone }: { sub: Sub; lower: Plan | null; onClose: () => void; onDowngrade: (p: Plan) => void; onDone: () => void }) {
   const t = useT();
-  const { eur, date } = useFormats();
+  const { date } = useFormats();
   const [reason, setReason] = useState("");
   const [comment, setComment] = useState("");
   const [busy, setBusy] = useState(false);
@@ -304,7 +275,7 @@ function CancelModal({ sub, lower, onClose, onDowngrade, onDone }: { sub: Sub; l
         </ul>
         {lower && (
           <div className="rounded-xl border border-brand-100 bg-brand-50 p-3">
-            <p>{t("Besoin de moins d'e-books ? Tu peux passer à {plan} ({n} e-books, {prix} par mois) au lieu d'arrêter.", { plan: lower.name, n: lower.ebooks, prix: eur(lower.monthly) })}</p>
+            <p>{t("Besoin de moins d'e-books ? Tu peux passer à l'offre {plan} ({quota}, {prix}) au lieu d'arrêter.", { plan: lower.name, quota: lower.ebooksText, prix: lower.priceText })}</p>
             <button className="btn-secondary mt-2" onClick={() => onDowngrade(lower)}>{t("Passer à {plan}", { plan: lower.name })}</button>
           </div>
         )}

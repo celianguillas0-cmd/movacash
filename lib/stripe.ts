@@ -10,77 +10,59 @@ export function getStripe() {
   return client;
 }
 
-export function priceIdFor(plan: PlanId, annual = false) {
-  const p = PLANS.find((x) => x.id === plan);
-  return p ? process.env[annual ? p.stripeAnnualPriceEnv : p.stripePriceEnv] || null : null;
+export function priceIdFor(plan: PlanId) {
+  const p = getPlan(plan);
+  return p ? process.env[p.stripePriceEnv] || null : null;
 }
 
-// Facturation annuelle proposée seulement si les 3 prix annuels existent (toujours en mode démo)
-export function annualAvailable() {
-  return !getStripe() || PLANS.every((p) => Boolean(process.env[p.stripeAnnualPriceEnv]));
-}
-
-export function planFromPriceId(priceId: string | null | undefined): { plan: PlanId; annual: boolean } | null {
+export function planFromPriceId(priceId: string | null | undefined): PlanId | null {
   if (!priceId) return null;
-  for (const p of PLANS) {
-    if (process.env[p.stripePriceEnv] === priceId) return { plan: p.id, annual: false };
-    if (process.env[p.stripeAnnualPriceEnv] === priceId) return { plan: p.id, annual: true };
-  }
-  return null;
+  return PLANS.find((p) => process.env[p.stripePriceEnv] === priceId)?.id ?? null;
 }
 
-const periodEndOf = (sub: Stripe.Subscription) => {
-  const item = sub.items.data[0] as unknown as { current_period_end?: number } | undefined;
-  // current_period_end est porté par l'item dans les versions récentes de l'API
-  return item?.current_period_end ?? (sub as unknown as { current_period_end?: number }).current_period_end ?? null;
+const periodOf = (sub: Stripe.Subscription) => {
+  // current_period_* est porté par l'item dans les versions récentes de l'API
+  const item = sub.items.data[0] as unknown as { current_period_start?: number; current_period_end?: number } | undefined;
+  const old = sub as unknown as { current_period_start?: number; current_period_end?: number };
+  return { start: item?.current_period_start ?? old.current_period_start ?? null, end: item?.current_period_end ?? old.current_period_end ?? null };
 };
 
 export async function applySubscription(userId: number, sub: Stripe.Subscription) {
   const item = sub.items.data[0];
-  const found = planFromPriceId(item?.price?.id);
-  const interval = item?.price?.recurring?.interval === "year" ? "year" : found?.annual ? "year" : "month";
+  const plan = planFromPriceId(item?.price?.id);
+  const { start, end } = periodOf(sub);
   const canceling = sub.cancel_at_period_end || Boolean(sub.cancel_at) ? 1 : 0;
   await run(
-    `UPDATE users SET plan = COALESCE(?, plan), sub_status = ?, current_period_end = ?, stripe_subscription_id = ?, stripe_customer_id = ?,
-       billing_interval = ?, cancel_at_period_end = ?, is_demo_sub = 0 WHERE id = ?`,
-    [found?.plan ?? null, sub.status, periodEndOf(sub), sub.id, typeof sub.customer === "string" ? sub.customer : sub.customer.id, interval, canceling, userId]
+    `UPDATE users SET plan = COALESCE(?, plan), sub_status = ?, current_period_start = ?, current_period_end = ?, stripe_subscription_id = ?, stripe_customer_id = ?,
+       billing_interval = COALESCE(?, billing_interval), cancel_at_period_end = ?, is_demo_sub = 0 WHERE id = ?`,
+    [plan, sub.status, start, end, sub.id, typeof sub.customer === "string" ? sub.customer : sub.customer.id, plan, canceling, userId]
   );
 }
 
 const now = () => Math.floor(Date.now() / 1000);
 
-export async function activateDemoSubscription(userId: number, plan: PlanId, annual = false) {
+export async function activateDemoSubscription(userId: number, plan: PlanId) {
   await run(
-    `UPDATE users SET plan = ?, sub_status = 'active', current_period_end = ?, billing_interval = ?, cancel_at_period_end = 0,
+    `UPDATE users SET plan = ?, sub_status = 'active', current_period_start = ?, current_period_end = ?, billing_interval = ?, cancel_at_period_end = 0,
        quota_plan = NULL, quota_plan_until = NULL, is_demo_sub = 1 WHERE id = ?`,
-    [plan, now() + (annual ? 365 : 30) * 86400, annual ? "year" : "month", userId]
+    [plan, now(), now() + getPlan(plan)!.periodDays * 86400, plan, userId]
   );
 }
 
 // ---------------------------------------------------------------------------
-// Changement d'offre
+// Changement de durée
 // ---------------------------------------------------------------------------
 
-export type ChangeKind = "same" | "upgrade" | "downgrade" | "invalid";
+export type ChangeKind = "same" | "change" | "invalid";
 
-// upgrade : effet immédiat, différence payée au prorata aujourd'hui.
-// downgrade : nouveau prix au prochain renouvellement, quota actuel conservé jusque-là, rien n'est remboursé.
-export function changeKind(user: User, plan: PlanId, annual: boolean): ChangeKind {
+// Tout changement prend effet tout de suite : une nouvelle période commence aujourd'hui, avec son quota complet.
+// Le temps non utilisé de la période en cours est déduit (prorata Stripe) ; un éventuel crédit sert aux prochains paiements, rien n'est remboursé.
+export function changeKind(user: User, plan: PlanId): ChangeKind {
   const cur = getPlan(user.plan);
   const next = getPlan(plan);
   if (!cur || !next) return "invalid";
-  const curAnnual = user.billing_interval === "year";
-  if (cur.id === next.id && curAnnual === annual) return "same";
-  // Annuel -> mensuel : Stripe facturerait tout de suite, on le fait plutôt en fin de période (résilier puis reprendre)
-  if (curAnnual && !annual) return "invalid";
-  if (annual && !curAnnual) return "upgrade";
-  return next.ebooksPerMonth > cur.ebooksPerMonth ? "upgrade" : "downgrade";
+  return cur.id === next.id ? "same" : "change";
 }
-
-const priceOf = (plan: PlanId, annual: boolean) => {
-  const p = getPlan(plan)!;
-  return annual ? Math.round(p.annualMonthlyEur * 1200) / 100 : p.priceEur;
-};
 
 export interface ChangePreview {
   kind: ChangeKind;
@@ -97,77 +79,61 @@ async function subItem(stripe: Stripe, user: User) {
   return { sub, item };
 }
 
-export async function previewChange(user: User, plan: PlanId, annual: boolean): Promise<ChangePreview> {
-  const kind = changeKind(user, plan, annual);
-  const nextAmount = priceOf(plan, annual);
-  const base = { kind, nextAmount, nextDate: user.current_period_end };
-  if (kind === "invalid")
-    return { ...base, dueNow: null, message: "Le passage de l'annuel au mensuel se fait à la fin de ta période annuelle : résilie, puis reprends l'offre mensuelle de ton choix à la date de fin." };
-  if (kind !== "upgrade") return { ...base, dueNow: null };
+export async function previewChange(user: User, plan: PlanId): Promise<ChangePreview> {
+  const kind = changeKind(user, plan);
+  const next = getPlan(plan)!;
+  const base = { kind, nextAmount: next.priceEur, nextDate: now() + next.periodDays * 86400 };
+  if (kind !== "change") return { ...base, dueNow: null, nextDate: user.current_period_end };
   const stripe = getStripe();
   if (!stripe || user.is_demo_sub || !user.stripe_subscription_id) {
     // Estimation : nouveau prix moins la part non utilisée de la période en cours
-    const cur = priceOf(user.plan as PlanId, user.billing_interval === "year");
-    const total = user.billing_interval === "year" ? 365 * 86400 : 30 * 86400;
+    const cur = getPlan(user.plan)!;
+    const start = user.current_period_start ?? (user.current_period_end ?? now()) - cur.periodDays * 86400;
+    const total = Math.max(1, (user.current_period_end ?? now()) - start);
     const left = Math.max(0, Math.min(1, ((user.current_period_end ?? now()) - now()) / total));
-    const intervalChange = annual !== (user.billing_interval === "year");
-    const due = intervalChange ? nextAmount - cur * left : (nextAmount - cur) * left;
-    return { ...base, dueNow: Math.max(0, Math.round(due * 100) / 100), nextDate: intervalChange ? now() + 365 * 86400 : user.current_period_end };
+    return { ...base, dueNow: Math.max(0, Math.round((next.priceEur - cur.priceEur * left) * 100) / 100) };
   }
-  const price = priceIdFor(plan, annual);
-  if (!price) throw new Error(`Prix Stripe non configuré pour l'offre ${plan}${annual ? " (annuelle)" : ""}`);
+  const price = priceIdFor(plan);
+  if (!price) throw new Error(`Prix Stripe non configuré pour l'offre ${plan}`);
   const { item } = await subItem(stripe, user);
   const inv = await stripe.invoices.createPreview({
     customer: user.stripe_customer_id!,
     subscription: user.stripe_subscription_id,
-    subscription_details: { items: [{ id: item.id, price }], proration_behavior: "always_invoice" },
+    subscription_details: { items: [{ id: item.id, price }], proration_behavior: "always_invoice", billing_cycle_anchor: "now" },
   });
-  return { ...base, dueNow: inv.amount_due / 100 };
+  return { ...base, dueNow: Math.max(0, inv.amount_due / 100) };
 }
 
-export async function changePlan(user: User, plan: PlanId, annual: boolean): Promise<{ kind: ChangeKind; payUrl?: string }> {
-  const kind = changeKind(user, plan, annual);
-  if (kind === "invalid" || kind === "same") throw new Error(kind === "same" ? "C'est déjà ton offre actuelle." : "Changement non disponible ici.");
+export async function changePlan(user: User, plan: PlanId): Promise<{ kind: ChangeKind; payUrl?: string }> {
+  const kind = changeKind(user, plan);
+  if (kind !== "change") throw new Error(kind === "same" ? "C'est déjà ton offre actuelle." : "Changement non disponible ici.");
   const stripe = getStripe();
 
   if (!stripe || user.is_demo_sub || !user.stripe_subscription_id) {
-    if (kind === "upgrade") {
-      const intervalChange = annual !== (user.billing_interval === "year");
-      await run(
-        `UPDATE users SET plan = ?, billing_interval = ?, cancel_at_period_end = 0, quota_plan = NULL, quota_plan_until = NULL,
-           current_period_end = CASE WHEN ? THEN ? ELSE current_period_end END WHERE id = ?`,
-        [plan, annual ? "year" : "month", intervalChange ? 1 : 0, now() + 365 * 86400, user.id]
-      );
-    } else {
-      await run("UPDATE users SET quota_plan = plan, quota_plan_until = current_period_end, plan = ?, cancel_at_period_end = 0 WHERE id = ?", [plan, user.id]);
-    }
+    await run(
+      `UPDATE users SET plan = ?, billing_interval = ?, cancel_at_period_end = 0, quota_plan = NULL, quota_plan_until = NULL,
+         current_period_start = ?, current_period_end = ? WHERE id = ?`,
+      [plan, plan, now(), now() + getPlan(plan)!.periodDays * 86400, user.id]
+    );
     return { kind };
   }
 
-  const price = priceIdFor(plan, annual);
-  if (!price) throw new Error(`Prix Stripe non configuré pour l'offre ${plan}${annual ? " (annuelle)" : ""}`);
+  const price = priceIdFor(plan);
+  if (!price) throw new Error(`Prix Stripe non configuré pour l'offre ${plan}`);
   const { item, sub: current } = await subItem(stripe, user);
   if (current.cancel_at_period_end || current.cancel_at) await stripe.subscriptions.update(current.id, { cancel_at_period_end: false });
-
-  if (kind === "upgrade") {
-    const sub = await stripe.subscriptions.update(current.id, {
-      items: [{ id: item.id, price }],
-      proration_behavior: "always_invoice",
-      // Si le paiement échoue, l'abonnement reste sur l'offre actuelle
-      payment_behavior: "pending_if_incomplete",
-      expand: ["latest_invoice"],
-    });
-    if (sub.pending_update) {
-      const inv = sub.latest_invoice as Stripe.Invoice | null;
-      return { kind, payUrl: inv?.hosted_invoice_url ?? undefined };
-    }
-    await applySubscription(user.id, sub);
-    await run("UPDATE users SET quota_plan = NULL, quota_plan_until = NULL WHERE id = ?", [user.id]);
-    return { kind };
+  const sub = await stripe.subscriptions.update(current.id, {
+    items: [{ id: item.id, price }],
+    proration_behavior: "always_invoice",
+    billing_cycle_anchor: "now",
+    // Si le paiement échoue, l'abonnement reste sur l'offre actuelle
+    payment_behavior: "pending_if_incomplete",
+    expand: ["latest_invoice"],
+  });
+  if (sub.pending_update) {
+    const inv = sub.latest_invoice as Stripe.Invoice | null;
+    return { kind, payUrl: inv?.hosted_invoice_url ?? undefined };
   }
-
-  const sub = await stripe.subscriptions.update(current.id, { items: [{ id: item.id, price }], proration_behavior: "none" });
-  await run("UPDATE users SET quota_plan = plan, quota_plan_until = current_period_end WHERE id = ?", [user.id]);
   await applySubscription(user.id, sub);
   return { kind };
 }

@@ -285,7 +285,7 @@
 .tf .empreinte-jauge { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
 .tf .empreinte-dessin, .tf .empreinte-remplie { position: absolute; inset: 26px; display: grid; place-items: center; pointer-events: none; }
 .tf .empreinte-dessin svg, .tf .empreinte-remplie svg { width: 100%; height: 100%; }
-.tf .empreinte-remplie { color: var(--text); clip-path: inset(100% 0 0 0); }
+.tf .empreinte-remplie { color: #fff; clip-path: inset(100% 0 0 0); filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35)); }
 .tf .empreinte-signee .empreinte-remplie { color: var(--accent); }
 .tf .serment-aide { margin-top: 18px; font-family: "Spline Sans Mono", monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-3); user-select: none; }
 

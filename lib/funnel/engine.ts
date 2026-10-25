@@ -4,7 +4,7 @@
 import { ETAPES_CALCUL as ETAPES_FR, LEVIERS as LEVIERS_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
 import { fmtEur, type T } from "../i18n/t";
 
-export type FunnelPlan = { id: string; name: string; price: number; ebooks: number; features: string[]; highlight?: boolean };
+export type FunnelPlan = { id: string; name: string; price: number; ebooks: number; priceText: string; ebooksText: string; perEbook: string; highlight?: boolean };
 
 export type FunnelConfig = {
   root: HTMLElement;
@@ -423,23 +423,26 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showSerment() {
-    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">${tr("Ta promesse")}</p><h1 class="stage-title stage-title-q">${tr("Avant d'aller plus loin,")}<br/><em>${tr("fais-toi une promesse.")}</em></h1><blockquote class="serment-texte">${tr("« Je me promets d'aller au bout de mon premier e-book et de le mettre en vente. »")}</blockquote><button class="empreinte" id="empreinte" aria-label="${tr("Rester appuyé pour signer")}"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">${tr("Reste appuyé une dizaine de secondes pour signer")}</p></section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">${tr("Ta promesse")}</p><h1 class="stage-title stage-title-q">${tr("Avant d'aller plus loin,")}<br/><em>${tr("fais-toi une promesse.")}</em></h1><blockquote class="serment-texte">${tr("« Je me promets d'aller au bout de mon premier e-book et de le mettre en vente. »")}</blockquote><button class="empreinte" id="empreinte" aria-label="${tr("Rester appuyé pour signer")}"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">${tr("Reste appuyé quelques secondes pour signer")}</p></section>`);
     const btn = root.querySelector<HTMLButtonElement>("#empreinte")!;
     const jauge = root.querySelector<SVGCircleElement>("#e-jauge")!;
     const remplie = root.querySelector<HTMLElement>("#e-remplie")!;
-    const DUREE = 10000;
+    const DUREE = 7000;
     let debut = 0;
     let raf = 0;
     let signe = false;
+    // Remplissage rapide au début (courbe douce) pour que l'empreinte se remplisse dès l'appui
+    const courbe = (k: number) => 1 - (1 - k) * (1 - k);
     const peindre = (k: number) => {
-      jauge.style.strokeDashoffset = String(100 - k * 100);
-      remplie.style.clipPath = `inset(${(100 - k * 100).toFixed(1)}% 0 0 0)`;
+      const v = courbe(k) * 100;
+      jauge.style.strokeDashoffset = String(100 - v);
+      remplie.style.clipPath = `inset(${(100 - v).toFixed(1)}% 0 0 0)`;
     };
     const tic = (t: number) => {
       const k = Math.min(1, (t - debut) / DUREE);
       peindre(k);
       const aide = root.querySelector("#e-aide");
-      if (aide && k < 1) aide.textContent = tr("Garde le doigt appuyé… {n} s", { n: Math.ceil((DUREE * (1 - k)) / 1000) });
+      if (aide && k < 1) aide.textContent = tr("Garde le doigt appuyé… {n} %", { n: Math.round(courbe(k) * 100) });
       if (k >= 1) {
         signe = true;
         btn.classList.add("empreinte-signee");
@@ -462,7 +465,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       cancelAnimationFrame(raf);
       peindre(0);
       const aide = root.querySelector("#e-aide");
-      if (aide) aide.textContent = tr("Reste appuyé une dizaine de secondes pour signer");
+      if (aide) aide.textContent = tr("Reste appuyé quelques secondes pour signer");
     };
     btn.addEventListener("pointerdown", appui);
     ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => btn.addEventListener(ev, lacher));
@@ -487,15 +490,15 @@ export function mountFunnel(cfg: FunnelConfig) {
     const faq = [
       [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
       [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
-      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter et publie régulièrement.")],
+      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Tu peux commencer à la semaine pour essayer, et publier régulièrement.")],
       [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés.")],
     ];
     render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">${tr("Sans engagement")}</p><p class="garantie-texte">${tr("Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.")}</p></div></div><h1 class="stage-title stage-title-q">${tr("Choisis ton plan.")}</h1><div class="plans">${plans
       .map(
         (p) =>
-          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${tr("{n} e-books par mois · {prix} / mois", { n: p.ebooks, prix: prix(p.price) })}</span></span><span class="plan-jour"><strong>${prix(p.price / p.ebooks)}</strong><em>${tr("par e-book")}</em></span></button>`,
+          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${esc(p.ebooksText)} · ${esc(p.priceText)}</span></span><span class="plan-jour"><strong>${esc(p.perEbook)}</strong><em>${tr("par e-book")}</em></span></button>`,
       )
-      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
+      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${esc(plan.priceText)}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
       .map(([q, r]) => `<details><summary>${q}</summary><p>${r}</p></details>`)
       .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p></section>`);
   }
