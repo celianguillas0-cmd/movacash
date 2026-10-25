@@ -31,3 +31,33 @@ body { @apply bg-slate-50 font-sans text-slate-900 antialiased; }
   .prose-legal ul { @apply list-disc pl-5; }
   select.input { @apply pr-8; }
 }
+
+/* Cases à cocher dessinées à la main : sur iPhone, accent-color blanc rendait la case cochée identique à la case vide. */
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  border: 1.5px solid rgba(140, 140, 150, 0.8);
+  border-radius: 6px;
+  background: transparent;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+input[type="checkbox"]::after {
+  content: "";
+  width: 11px;
+  height: 6px;
+  border-left: 2.5px solid var(--coche-trait, #fff);
+  border-bottom: 2.5px solid var(--coche-trait, #fff);
+  transform: translateY(-2px) rotate(-45deg) scale(0);
+  transition: transform 0.12s ease;
+}
+input[type="checkbox"]:checked { background: var(--coche-fond, #111); border-color: var(--coche-fond, #111); }
+input[type="checkbox"]:checked::after { transform: translateY(-2px) rotate(-45deg) scale(1); }
+input[type="checkbox"]:focus-visible { outline: 2px solid #7b68a6; outline-offset: 2px; }
+.tf, .at, .mc.dark { --coche-fond: #fff; --coche-trait: #0a0a0d; }

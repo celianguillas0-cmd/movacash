@@ -201,7 +201,7 @@
 .mc .form input[type=text], .mc .form input[type=email], .mc .form input[type=password] { background: #fff; border: 1px solid var(--line-2); border-radius: 10px; padding: 12px 14px; font-size: 15px; }
 .mc .form input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(17, 24, 39, .12); outline: none; }
 .mc .check { display: flex !important; gap: 10px; align-items: flex-start; font-size: 13.5px !important; font-weight: 400 !important; color: var(--muted) !important; }
-.mc .check input { margin-top: 3px; accent-color: var(--accent); }
+.mc .check input { margin-top: 0; }
 .mc .error { color: var(--danger); font-size: 14px; }
 
 /* Résultats */

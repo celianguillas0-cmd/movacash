@@ -257,7 +257,8 @@
 .tf .field span { font-family: "Spline Sans Mono", monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-3); }
 .tf .field input { padding: 13px 15px; border-radius: 10px; }
 .tf .case { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: var(--text-2); cursor: pointer; }
-.tf .case input { margin-top: 3px; width: 16px; height: 16px; accent-color: #fff; flex: 0 0 auto; }
+.tf .case input { margin-top: 0; }
+.tf .case { padding: 6px 0; }
 .tf .case a { text-decoration: underline; text-underline-offset: 3px; }
 .tf .form-error { border: 1px solid rgba(248, 113, 113, 0.35); background: rgba(248, 113, 113, 0.1); color: #fca5a5; border-radius: 10px; padding: 11px 14px; font-size: 14px; font-weight: 500; }
 .tf .form-note { font-size: 12.8px; color: var(--text-3); line-height: 1.55; text-align: center; }
