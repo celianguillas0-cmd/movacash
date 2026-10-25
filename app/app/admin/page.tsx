@@ -4,6 +4,7 @@ import { isAdmin } from "@/lib/config";
 import { all } from "@/lib/db";
 import { listCategories } from "@/lib/ideas";
 import FilmModeToggle from "./FilmModeToggle";
+import { usageSummary } from "@/lib/usage";
 
 export const dynamic = "force-dynamic";
 
@@ -49,6 +50,8 @@ export default async function AdminPage() {
     e.n += 1;
     libres.set(k, e);
   }
+  const depenses = await usageSummary();
+  const euros = (n: number) => `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
   const avis = await all<{ id: number; email: string; note: number | null; message: string; created_at: number }>("SELECT id, email, note, message, created_at FROM feedback ORDER BY id DESC LIMIT 100");
   const top = [...libres.values()].sort((a, b) => b.n - a.n);
   const cats = [...choisies.entries()].sort((a, b) => b[1] - a[1]);
@@ -62,6 +65,22 @@ export default async function AdminPage() {
       </div>
 
       <FilmModeToggle initial={!user.real_mode} />
+
+      <section className="card p-6">
+        <h2 className="text-lg font-bold text-slate-900">Dépenses API (Gemini + photos)</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <div><p className="muted text-sm">Ce mois-ci</p><p className="mt-1 text-3xl font-bold text-slate-900">{euros(depenses.month)}</p></div>
+          <div><p className="muted text-sm">Depuis le début</p><p className="mt-1 text-3xl font-bold text-slate-900">{euros(depenses.total)}</p></div>
+          <div>
+            <p className="muted text-sm">Par e-book ce mois-ci</p>
+            <p className="mt-1 text-3xl font-bold text-slate-900">{depenses.monthEbooks ? `${(depenses.month / depenses.monthEbooks).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 3 })} €` : "—"}</p>
+            <p className="muted mt-1 text-xs">{depenses.monthEbooks} e-book{depenses.monthEbooks > 1 ? "s" : ""} · {depenses.monthImages} photo{depenses.monthImages > 1 ? "s" : ""}</p>
+          </div>
+        </div>
+        <p className="muted mt-4 text-xs">
+          Estimation calculée à chaque appel avec les tarifs Google{depenses.since ? `, depuis le ${new Date(depenses.since * 1000).toLocaleDateString("fr-FR")}` : ""}. Le mode tournage ne coûte rien. Le solde exact reste celui de ta facturation Google Cloud.
+        </p>
+      </section>
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Domaines proposés en « Autre »</h2>

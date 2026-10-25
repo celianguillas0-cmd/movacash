@@ -1,4 +1,5 @@
 // Client minimal pour l'API Gemini (REST, sans SDK).
+import { recordImage, recordText } from "./usage";
 const API = process.env.GEMINI_API_BASE || "https://generativelanguage.googleapis.com/v1beta/models";
 
 export class GeminiError extends Error {}
@@ -40,6 +41,8 @@ export async function geminiGenerate(prompt: string, opts: GenOptions = {}): Pro
         .filter((p: { thought?: boolean }) => !p.thought)
         .map((p: { text?: string }) => p.text || "")
         .join("");
+      const u = data.usageMetadata || {};
+      await recordText(model, Number(u.promptTokenCount || 0), Number(u.candidatesTokenCount || 0) + Number(u.thoughtsTokenCount || 0));
       if (!text) throw new GeminiError(`Réponse vide de Gemini (${cand?.finishReason || data.promptFeedback?.blockReason || "inconnu"})`);
       return text;
     }
@@ -74,6 +77,7 @@ export async function imagenPhoto(prompt: string): Promise<{ mime: string; b64: 
   if (!res.ok) throw new GeminiError(`Erreur Imagen : ${res.status} ${(await res.text().catch(() => "")).slice(0, 300)}`);
   const data = await res.json();
   const p = data.predictions?.[0];
+  if (p?.bytesBase64Encoded) await recordImage(model);
   if (!p?.bytesBase64Encoded) throw new GeminiError("Aucune image renvoyée (sujet refusé par le filtre ?)");
   return { mime: p.mimeType || "image/png", b64: p.bytesBase64Encoded };
 }

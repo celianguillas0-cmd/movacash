@@ -130,6 +130,16 @@ const SCHEMA = [
     tries INTEGER NOT NULL DEFAULT 1,
     created_at INTEGER NOT NULL DEFAULT unixepoch()
   )`,
+  // Coût estimé de chaque appel Gemini / Imagen (onglet Admin)
+  `CREATE TABLE IF NOT EXISTS api_usage (
+    id SERIAL PRIMARY KEY,
+    kind TEXT NOT NULL,
+    model TEXT NOT NULL,
+    tokens_in INTEGER NOT NULL DEFAULT 0,
+    tokens_out INTEGER NOT NULL DEFAULT 0,
+    cost_eur DOUBLE PRECISION NOT NULL DEFAULT 0,
+    created_at INTEGER NOT NULL DEFAULT unixepoch()
+  )`,
   // Avis laissés depuis Paramètres, visibles dans l'onglet Admin
   `CREATE TABLE IF NOT EXISTS feedback (
     id SERIAL PRIMARY KEY,
