@@ -41,7 +41,7 @@ export interface User {
   default_language: string | null;
   default_tone: string | null;
   email_tips: number;
-  film_mode: number;
+  real_mode: number;
 }
 
 export const sha256 = (s: string) => crypto.createHash("sha256").update(s).digest("hex");

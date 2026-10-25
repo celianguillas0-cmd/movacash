@@ -59,7 +59,7 @@ export default async function AdminPage() {
         <p className="muted mt-2">Visible uniquement par toi. {repondants} personne{repondants > 1 ? "s ont" : " a"} répondu à la question des thématiques.</p>
       </div>
 
-      <FilmModeToggle initial={Boolean(user.film_mode)} />
+      <FilmModeToggle initial={!user.real_mode} />
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Domaines proposés en « Autre »</h2>

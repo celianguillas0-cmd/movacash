@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     if (!isAdmin(user.email)) return fail("Introuvable", 404);
     const body = await req.json().catch(() => ({}));
     const on = Boolean(body.on);
-    await run("UPDATE users SET film_mode = ? WHERE id = ?", [on ? 1 : 0, user.id]);
+    await run("UPDATE users SET real_mode = ? WHERE id = ?", [on ? 0 : 1, user.id]);
     return ok({ on });
   });
 }
