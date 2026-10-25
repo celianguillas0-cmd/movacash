@@ -11,5 +11,6 @@ import pl from "./pl.json";
 import pt from "./pt.json";
 import ro from "./ro.json";
 import sk from "./sk.json";
+import sv from "./sv.json";
 
-export const MESSAGES: Record<string, Dict> = { cs, de, en, es, hu, it, nl, pl, pt, ro, sk };
+export const MESSAGES: Record<string, Dict> = { cs, de, en, es, hu, it, nl, pl, pt, ro, sk, sv };
