@@ -177,6 +177,9 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "banned", "INTEGER NOT NULL DEFAULT 0"], // compte suspendu depuis l'onglet Admin : plus de connexion ni de génération
   ["users", "quota_override", "INTEGER"], // limite d'e-books par mois fixée à la main par l'admin (remplace celle de la formule)
   ["api_usage", "user_id", "INTEGER"],
+  ["users", "tips_consent", "INTEGER NOT NULL DEFAULT 0"], // remplace email_tips, qui était coché par défaut (un consentement doit être donné activement)
+  ["users", "locale", "TEXT"], // langue de l'interface au moment du paiement, pour les e-mails liés au contrat
+  ["users", "renewal_reminded_for", "INTEGER"], // fin de période annuelle pour laquelle le rappel de renouvellement (art. L215-1) a été envoyé
 ];
 
 // Texte de recherche d'une idée : minuscules, sans accents

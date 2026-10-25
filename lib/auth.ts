@@ -41,6 +41,9 @@ export interface User {
   default_language: string | null;
   default_tone: string | null;
   email_tips: number;
+  tips_consent: number; // conseils par e-mail : 0 par défaut, le client coche lui-même (consentement)
+  locale: string | null;
+  renewal_reminded_for: number | null;
   real_mode: number;
   my_idea_id: number | null;
   banned: number;

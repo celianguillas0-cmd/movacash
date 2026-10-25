@@ -86,7 +86,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
                   <div className="idea-top"><span className="eyebrow">{t("Idée {n}", { n: k + 1 })}</span><span className="dim">{t(i.category_name)}</span></div>
                   <h3>{i.title}</h3>
                   <div className="meters">
-                    <div className="meter"><div className="l">{t("Potentiel estimé")}</div><Bars n={i.demand} /></div>
+                    <div className="meter"><div className="l">{t("Demande")}</div><Bars n={i.demand} /></div>
                     <div className="meter"><div className="l">{t("Concurrence")}</div><Bars n={i.competition} /></div>
                     <div className="meter"><div className="l">{t("Prix conseillé")}</div><div className="v">{i.price_min} – {i.price_max} €</div></div>
                   </div>

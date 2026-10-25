@@ -36,7 +36,7 @@ export default async function Home() {
             <h1 className="hero-title"><span className="l">{t("Crée ton premier business")}</span> <span className="soft"><span className="l">{t("dès aujourd'hui.")}</span></span></h1>
             <TypedLead
               plain={t("Trouve l'idée de ton premier guide, laisse l'IA l'écrire avec toi et ")}
-              endings={[t("trouve tes premiers acheteurs."), t("fais le premier pas vers ta liberté financière."), t("commence à construire un revenu à côté."), t("transforme ce que tu sais en source de revenus."), t("donne-toi une vraie chance de gagner en ligne.")]}
+              endings={[t("trouve tes premiers acheteurs."), t("commence à construire un revenu à côté."), t("transforme ce que tu sais en source de revenus."), t("donne-toi une vraie chance de gagner en ligne.")]}
             />
             <div className="ctas">
               <Link className="btn btn-white btn-lg" href="/quiz">{t("Créer mon premier e-book")} <span aria-hidden="true">→</span></Link>

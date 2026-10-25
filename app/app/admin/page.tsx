@@ -6,6 +6,8 @@ import { listCategories } from "@/lib/ideas";
 import FilmModeToggle from "./FilmModeToggle";
 import AdminNav from "./AdminNav";
 import { usageSummary } from "@/lib/usage";
+import { missingLegal } from "@/lib/legal";
+import { isEmailConfigured } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -66,6 +68,17 @@ export default async function AdminPage() {
       </div>
 
       <AdminNav current="vue" />
+
+      {(missingLegal().length > 0 || !isEmailConfigured()) && (
+        <section className="card border-amber-300 p-6">
+          <h2 className="text-lg font-bold text-slate-900">À compléter avant d'ouvrir les ventes</h2>
+          <p className="muted mt-1 text-sm">Ces informations sont obligatoires sur un site qui vend aux particuliers. Ajoute-les dans Vercel (Settings → Environment Variables), puis redéploie.</p>
+          <ul className="mt-3 space-y-1 text-sm text-slate-800">
+            {missingLegal().map(([, env, label]) => <li key={env}>• {label} : variable <code>{env}</code></li>)}
+            {!isEmailConfigured() && <li>• Le service d'e-mails (Resend) : variables <code>RESEND_API_KEY</code> et <code>EMAIL_FROM</code>. Sans lui, les confirmations d'abonnement et de résiliation exigées par la loi ne partent pas.</li>}
+          </ul>
+        </section>
+      )}
 
       <FilmModeToggle initial={!user.real_mode} />
 

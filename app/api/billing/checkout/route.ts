@@ -4,7 +4,7 @@ import { fail, ok, withUser } from "@/lib/api";
 import { APP_URL } from "@/lib/config";
 import { activateDemoSubscription, annualAvailable, getStripe, priceIdFor } from "@/lib/stripe";
 import { hasActiveSubscription } from "@/lib/subscription";
-import { canPayFromHere } from "@/lib/i18n/server";
+import { canPayFromHere, getLocale } from "@/lib/i18n/server";
 
 const schema = z.object({
   plan: z.enum(["starter", "pro", "business"]),
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     if (annual && !annualAvailable()) return fail("La formule annuelle n'est pas encore disponible.");
     // Déjà abonné : on change d'offre depuis « Mon abonnement » (pas de second abonnement en parallèle)
     if (hasActiveSubscription(user)) return ok({ url: `/app/abonnement?plan=${plan}${annual ? "&annual=1" : ""}` });
-    await run("UPDATE users SET withdrawal_waiver_at = unixepoch() WHERE id = ?", [user.id]);
+    await run("UPDATE users SET withdrawal_waiver_at = unixepoch(), locale = ? WHERE id = ?", [await getLocale(), user.id]);
 
     const stripe = getStripe();
     if (!stripe) {
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       metadata: { userId: String(user.id), plan, withdrawalWaiver: "accepted" },
       subscription_data: { metadata: { userId: String(user.id), plan } },
       allow_promotion_codes: true,
-      locale: "fr",
+      locale: "auto",
       success_url: `${APP_URL}/resultats?welcome=1`,
       cancel_url: `${APP_URL}/tarifs?canceled=1`,
     });

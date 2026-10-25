@@ -1,6 +1,8 @@
 import type Stripe from "stripe";
 import { run } from "@/lib/db";
 import { applySubscription, getStripe, userIdForCustomer } from "@/lib/stripe";
+import { getUserById } from "@/lib/auth";
+import { emailSubscriptionConfirmed } from "@/lib/notify";
 
 export const runtime = "nodejs";
 
@@ -22,7 +24,12 @@ export async function POST(req: Request) {
       const s = event.data.object as Stripe.Checkout.Session;
       const userId = Number(s.client_reference_id || s.metadata?.userId);
       if (userId && s.customer) await run("UPDATE users SET stripe_customer_id = ? WHERE id = ?", [customerId(s.customer), userId]);
-      if (userId && s.subscription) await applySubscription(userId, await stripe.subscriptions.retrieve(String(s.subscription)));
+      if (userId && s.subscription) {
+        await applySubscription(userId, await stripe.subscriptions.retrieve(String(s.subscription)));
+        // Confirmation du contrat sur support durable (art. L221-13 du Code de la consommation)
+        const u = await getUserById(userId);
+        if (u) await emailSubscriptionConfirmed(u);
+      }
       break;
     }
     case "customer.subscription.created":

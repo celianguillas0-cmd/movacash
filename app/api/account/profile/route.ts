@@ -16,7 +16,7 @@ export async function PATCH(req: Request) {
     const parsed = schema.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
     const d = parsed.data;
-    await run("UPDATE users SET name = ?, author_name = ?, default_language = ?, default_tone = ?, email_tips = ? WHERE id = ?", [
+    await run("UPDATE users SET name = ?, author_name = ?, default_language = ?, default_tone = ?, tips_consent = ? WHERE id = ?", [
       d.name, d.author_name, d.default_language, d.default_tone, d.email_tips ? 1 : 0, user.id,
     ]);
     return ok();

@@ -70,7 +70,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
           <>
             <label className="check" htmlFor="waiver">
               <input id="waiver" type="checkbox" checked={waiver} onChange={(e) => setWaiver(e.target.checked)} />
-              <span>{t("Je demande l'accès immédiat au service et je renonce à mon droit de rétractation de 14 jours dès le début de l'exécution. J'ai lu les")} <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>{t("CGV")}</Link>.</span>
+              <span>{t("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les")} <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>{t("CGV")}</Link>.</span>
             </label>
             {error && <p className="error">{error}</p>}
             <button type="button" className="btn btn-accent btn-lg" disabled={!waiver || loading} onClick={pay}>

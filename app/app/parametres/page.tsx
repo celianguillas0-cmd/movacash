@@ -51,7 +51,7 @@ export default async function SettingsPage() {
             author_name: user.author_name,
             default_language: user.default_language,
             default_tone: user.default_tone ?? quizTone,
-            email_tips: Boolean(user.email_tips),
+            email_tips: Boolean(user.tips_consent),
             created_at: user.created_at,
             hasSub,
           }}

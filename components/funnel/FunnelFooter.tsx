@@ -17,6 +17,8 @@ export default async function FunnelFooter() {
           <Link href="/mentions-legales">{t("Mentions légales")}</Link>
           <Link href="/confidentialite">{t("Confidentialité")}</Link>
           <Link href="/avertissement-revenus">{t("Avertissement sur les revenus")}</Link>
+          {/* Accès direct à la résiliation exigé par la loi (art. L215-1-1 du Code de la consommation) */}
+          <Link href="/app/abonnement">{t("Résilier mon abonnement")}</Link>
         </div>
       </div>
     </footer>

@@ -41,15 +41,28 @@ Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification pouss�
 5. Paramètres → Facturation → Portail client : activer, autoriser la mise à jour du moyen de paiement et l'historique des factures. Le changement d'offre et la résiliation se font dans Movacash.
 6. Paramètres → Facturation → Abonnements : activer les relances automatiques des paiements échoués (« Smart Retries ») et les e-mails de reçu.
 
-## 5. E-mails : Resend (gratuit jusqu'à 3 000 e-mails par mois)
+## 5. E-mails : Resend (gratuit jusqu'à 3 000 e-mails par mois), obligatoire avant d'ouvrir les ventes
 
-Sert au « mot de passe oublié ».
+Sert au « mot de passe oublié » et aux e-mails exigés par la loi : confirmation d'abonnement, confirmation de résiliation, rappel avant le renouvellement d'un abonnement annuel (envoyé chaque matin par une tâche Vercel, entre 60 et 30 jours avant la date).
 1. Crée un compte sur resend.com et vérifie ton domaine (quelques enregistrements DNS à ajouter chez ton registrar).
 2. Dans Vercel : `RESEND_API_KEY` et `EMAIL_FROM` (par exemple `Movacash <bonjour@movacash.fr>`).
+3. Facultatif : `CRON_SECRET` (une longue chaîne aléatoire) pour protéger la tâche du matin.
 
-## 6. Légal
+## 6. Légal : à remplir dans Vercel, pas dans le code
 
-Complète les éléments entre crochets dans les mentions légales, les CGV et la politique de confidentialité (nom, SIRET, adresse, e-mail, médiateur de la consommation, durée de conservation), et fais-les relire.
+Ajoute ces variables (Settings → Environment Variables), puis redéploie. Tant qu'il en manque, les pages affichent « [à compléter] » et l'onglet Admin les liste.
+- `LEGAL_NOM` : ton prénom, ton nom et la mention EI (ex. « Aurèle Martin EI »)
+- `LEGAL_SIRET` : ton SIRET
+- `LEGAL_ADRESSE` : ton adresse postale, ou celle d'une société de domiciliation si tu ne veux pas afficher la tienne
+- `LEGAL_EMAIL` : l'e-mail de contact (sinon `SUPPORT_EMAIL`)
+- `LEGAL_TELEPHONE` : un numéro de téléphone (obligatoire dans les mentions légales)
+- `MEDIATEUR_NOM`, `MEDIATEUR_SITE` (et si tu veux `MEDIATEUR_ADRESSE`) : ton médiateur de la consommation. L'adhésion est obligatoire pour vendre aux particuliers (compte quelques dizaines d’euros par an selon le médiateur ; liste des médiateurs agréés sur economie.gouv.fr, rubrique médiation de la consommation).
+
+Dans Stripe : Radar → Règles, bloque les paiements dont le pays de la carte n'est pas dans l'Union européenne (le site bloque déjà les visiteurs hors UE, la règle Stripe ferme la porte aux VPN).
+
+Seuil de TVA : en franchise (art. 293 B), surveille ton chiffre d'affaires total et, à part, tes ventes à des particuliers d'autres pays de l'UE. Au-delà de 10 000 € par an de ventes vers les autres pays de l'UE, la TVA du pays du client s'applique (déclaration par le guichet unique OSS).
+
+Fais relire les CGV par un professionnel avant d'ouvrir si tu le peux.
 
 ## 7. Test final avant d'ouvrir
 
