@@ -164,6 +164,9 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "my_idea_id", "INTEGER"], // « Mon idée » : la première idée trouvée dans l'atelier, ou celle choisie ensuite
   ["users", "real_mode", "INTEGER NOT NULL DEFAULT 0"], // admin : 1 = vraies générations ; par défaut, mode tournage (écran de génération sans appel à l'API)
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
+  ["users", "banned", "INTEGER NOT NULL DEFAULT 0"], // compte suspendu depuis l'onglet Admin : plus de connexion ni de génération
+  ["users", "quota_override", "INTEGER"], // limite d'e-books par mois fixée à la main par l'admin (remplace celle de la formule)
+  ["api_usage", "user_id", "INTEGER"],
 ];
 
 // Texte de recherche d'une idée : minuscules, sans accents

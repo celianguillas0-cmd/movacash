@@ -4,6 +4,7 @@ import { isAdmin } from "@/lib/config";
 import { all } from "@/lib/db";
 import { listCategories } from "@/lib/ideas";
 import FilmModeToggle from "./FilmModeToggle";
+import AdminNav from "./AdminNav";
 import { usageSummary } from "@/lib/usage";
 
 export const dynamic = "force-dynamic";
@@ -63,6 +64,8 @@ export default async function AdminPage() {
         <h1 className="at-titre">Admin.</h1>
         <p className="muted mt-2">Visible uniquement par toi. {repondants} personne{repondants > 1 ? "s ont" : " a"} répondu à la question des thématiques.</p>
       </div>
+
+      <AdminNav current="vue" />
 
       <FilmModeToggle initial={!user.real_mode} />
 

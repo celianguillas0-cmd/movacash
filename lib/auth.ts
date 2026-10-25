@@ -43,6 +43,8 @@ export interface User {
   email_tips: number;
   real_mode: number;
   my_idea_id: number | null;
+  banned: number;
+  quota_override: number | null;
 }
 
 export const sha256 = (s: string) => crypto.createHash("sha256").update(s).digest("hex");
@@ -85,7 +87,7 @@ export async function getCurrentUser(): Promise<User | null> {
   try {
     const { payload } = await jwtVerify(token, getSecret());
     const user = await getUserById(Number(payload.uid));
-    if (!user || Number(payload.sv ?? 1) !== user.session_version) return null;
+    if (!user || Number(payload.sv ?? 1) !== user.session_version || user.banned) return null;
     return user;
   } catch {
     return null;

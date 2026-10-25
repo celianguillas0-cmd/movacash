@@ -1,4 +1,5 @@
 import { all, run } from "./db";
+import { usageContext } from "./usage-context";
 
 // Suivi des dépenses API (affiché dans l'onglet Admin). Estimation à partir des tarifs publics Google :
 // le solde réel reste celui de la facturation Google Cloud.
@@ -19,7 +20,7 @@ function imagePrice(model: string) {
 
 async function save(kind: string, model: string, tokensIn: number, tokensOut: number, usd: number) {
   try {
-    await run("INSERT INTO api_usage (kind, model, tokens_in, tokens_out, cost_eur) VALUES (?, ?, ?, ?, ?)", [kind, model, tokensIn, tokensOut, usd * EUR_PER_USD]);
+    await run("INSERT INTO api_usage (user_id, kind, model, tokens_in, tokens_out, cost_eur) VALUES (?, ?, ?, ?, ?, ?)", [usageContext.getStore()?.userId ?? null, kind, model, tokensIn, tokensOut, usd * EUR_PER_USD]);
   } catch (e) {
     // Le suivi ne doit jamais faire échouer une génération
     console.error("Suivi API :", (e as Error).message);

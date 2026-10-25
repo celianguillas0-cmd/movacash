@@ -9,6 +9,7 @@ export async function POST(req: Request) {
     return fail("Trop de tentatives. Réessaie dans 15 minutes.", 429);
   const user = await getUserByEmail(email);
   if (!user || !(await verifyPassword(password, user.password_hash))) return fail("E-mail ou mot de passe incorrect", 401);
+  if (user.banned) return fail("Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.", 403);
   await createSession(user.id);
   return ok();
 }

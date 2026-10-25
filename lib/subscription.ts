@@ -49,7 +49,8 @@ export async function getUsage(user: User) {
   const plan = quotaPlan(user);
   const r = await one<{ n: number }>("SELECT COUNT(*) AS n FROM generations WHERE user_id = ? AND created_at >= ?", [user.id, monthStart()]);
   const used = r?.n ?? 0;
-  const limit = hasActiveSubscription(user) ? plan?.ebooksPerMonth ?? 0 : 0;
+  // Limite fixée à la main dans l'onglet Admin, sinon celle de la formule
+  const limit = hasActiveSubscription(user) ? user.quota_override ?? plan?.ebooksPerMonth ?? 0 : 0;
   return { used, limit, remaining: Math.max(0, limit - used), resetsOn: nextMonthStart() };
 }
 
