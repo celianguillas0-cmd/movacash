@@ -138,6 +138,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
   function goTo(i: number) {
     arreter();
+    etapeAffichee = -1;
     step = Math.max(0, Math.min(STEPS.length - 1, i));
     noteAffichee = false;
     libreOuvert = false;
@@ -159,10 +160,18 @@ export function mountFunnel(cfg: FunnelConfig) {
   const bouton = (label: string, action = "next", extra = "") => `<button class="btn btn-primary btn-lg" data-action="${action}" ${extra}>${label} ${fleche}</button>`;
   const prenom = () => esc((user?.name || "").trim());
 
+  let etapeAffichee = -1;
   function render(html: string) {
+    // Même écran redessiné (case cochée, réponse libre ouverte…) : pas d'animation d'entrée,
+    // sinon la page clignote et la barre de défilement apparaît puis disparaît
+    const memeEcran = etapeAffichee === step;
+    etapeAffichee = step;
+    const focus = memeEcran ? (document.activeElement as HTMLElement | null)?.dataset?.v : undefined;
     root.innerHTML = html;
     const sec = root.querySelector("[data-reveal]");
-    if (sec) requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.add("in")));
+    if (sec && memeEcran) sec.classList.add("in");
+    else if (sec) requestAnimationFrame(() => requestAnimationFrame(() => sec.classList.add("in")));
+    if (focus) root.querySelector<HTMLElement>(`[data-v="${CSS.escape(focus)}"]`)?.focus({ preventScroll: true });
     const titre = root.querySelector<HTMLElement>(".machine");
     const id = STEPS[step].id;
     if (titre && !tapes.has(id)) {
