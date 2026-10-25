@@ -46,7 +46,7 @@ export async function emailSubscriptionConfirmed(user: User) {
     t("Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.", { email: legal().email || APP_URL }),
     "",
     `${t("Conditions générales de vente")} : ${APP_URL}/cgv`,
-    t("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité."),
+    t("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité."),
   ];
   await send(user, t("{app} : ton abonnement {plan} est actif", { app: APP_NAME, plan: plan.name }), lines.join("\n") + sign);
 }

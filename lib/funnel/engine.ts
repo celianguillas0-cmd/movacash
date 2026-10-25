@@ -357,7 +357,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   function diagnostic() {
     const objectif = Number(answers.revenu ?? SLIDER.defaut);
     const actions = [
-      { libelle: tr("Publier ton premier e-book sur Etsy"), detail: tr("Un sujet précis, relu avec soin.") },
+      { libelle: tr("Publier ton premier e-book sur Etsy"), detail: tr("Un sujet précis, une fiche soignée.") },
       ...LEVIERS.filter((l) => answers[l.id] === "oui").map((l) => ({ libelle: l.action, detail: l.detail })),
       { libelle: tr("Rester régulier"), detail: answers.time ? tr("{temps} par jour, chaque semaine.", { temps: TEMPS[String(answers.time)] || tr("Un peu de temps") }) : tr("Un peu chaque semaine.") },
     ];
@@ -369,7 +369,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       .map((_, n) => `<span class="seg seg-${Math.min(n, 2)}" style="flex:1"></span>`)
       .join("")}</div><div class="proj-chiffres"><div><b>${nb}</b><span>${tr("ventes par mois")}</span></div><div><b>${euros(PRIX_EBOOK)}</b><span>${tr("si tu vends à ce prix")}</span></div><div><b>${Math.ceil(nb / 30)}</b><span>${tr("par jour environ")}</span></div></div></div><p class="proj-intro">${tr("Pour t'en approcher, voilà ce qu'il faudrait faire :")}</p><div class="proj-lignes">${actions
       .map((l, n) => `<div class="proj-ligne"><i class="pastille pastille-${Math.min(n, 2)}"></i><span class="proj-nom">${esc(l.libelle)}<small>${esc(l.detail)}</small></span></div>`)
-      .join("")}</div><p class="hypothese">${tr("Simple calcul à partir de ton objectif, pas une promesse ni une prévision. Tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p>${bouton(tr("Continuer"))}</section>`);
+      .join("")}</div><p class="hypothese">${tr("Simple calcul à partir de ton objectif, pas une promesse ni une prévision. Tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>${bouton(tr("Continuer"))}</section>`);
   }
 
   function showBarriere() {
@@ -423,7 +423,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showSerment() {
-    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">${tr("Ta promesse")}</p><h1 class="stage-title stage-title-q">${tr("Avant d'aller plus loin,")}<br/><em>${tr("fais-toi une promesse.")}</em></h1><blockquote class="serment-texte">${tr("« Je me promets d'aller au bout de mon premier e-book, de le relire avec soin et de le mettre en vente. »")}</blockquote><button class="empreinte" id="empreinte" aria-label="${tr("Rester appuyé pour signer")}"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">${tr("Reste appuyé une dizaine de secondes pour signer")}</p></section>`);
+    render(`${barre()}${retour()}<section class="stage stage-center serment" data-reveal><p class="stage-kicker">${tr("Ta promesse")}</p><h1 class="stage-title stage-title-q">${tr("Avant d'aller plus loin,")}<br/><em>${tr("fais-toi une promesse.")}</em></h1><blockquote class="serment-texte">${tr("« Je me promets d'aller au bout de mon premier e-book et de le mettre en vente. »")}</blockquote><button class="empreinte" id="empreinte" aria-label="${tr("Rester appuyé pour signer")}"><svg class="empreinte-anneau" viewBox="0 0 120 120" aria-hidden="true"><circle class="empreinte-piste" cx="60" cy="60" r="56"/><circle class="empreinte-jauge" id="e-jauge" cx="60" cy="60" r="56" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><span class="empreinte-dessin">${EMPREINTE}</span><span class="empreinte-remplie" id="e-remplie">${EMPREINTE}</span></button><p class="serment-aide" id="e-aide">${tr("Reste appuyé une dizaine de secondes pour signer")}</p></section>`);
     const btn = root.querySelector<HTMLButtonElement>("#empreinte")!;
     const jauge = root.querySelector<SVGCircleElement>("#e-jauge")!;
     const remplie = root.querySelector<HTMLElement>("#e-remplie")!;
@@ -487,7 +487,7 @@ export function mountFunnel(cfg: FunnelConfig) {
     const faq = [
       [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
       [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
-      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter, relis bien et publie régulièrement.")],
+      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter et publie régulièrement.")],
       [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés.")],
     ];
     render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">${tr("Sans engagement")}</p><p class="garantie-texte">${tr("Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.")}</p></div></div><h1 class="stage-title stage-title-q">${tr("Choisis ton plan.")}</h1><div class="plans">${plans
@@ -497,7 +497,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       )
       .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
       .map(([q, r]) => `<details><summary>${q}</summary><p>${r}</p></details>`)
-      .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p></section>`);
+      .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p></section>`);
   }
 
   function envoyerQuiz() {

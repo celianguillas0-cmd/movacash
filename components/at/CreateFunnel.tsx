@@ -161,7 +161,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
               <input className="mf-rail" type="range" min={0} max={3000} step={50} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} />
               <div className="mf-bornes"><span>{fmtEur(0, locale)}</span><span>{fmtEur(3000, locale)}</span></div>
               <button className="mf-btn" disabled={objectif === 0} onClick={() => setStep(1)}>{t("Lancer mon e-book")} <span aria-hidden="true">→</span></button>
-              <p className="mf-soit" style={{ fontSize: 13, color: "#8a909b", marginTop: 16 }}>{t("C'est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p>
+              <p className="mf-soit" style={{ fontSize: 13, color: "#8a909b", marginTop: 16 }}>{t("C'est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
             </>
           ) : (
             <>

@@ -83,7 +83,7 @@ export const ETAPES_CALCUL = ["Lecture de tes réponses", "Ton temps et ton ryth
 
 export const PARCOURS = [
   { titre: "Tes 3 idées", texte: "Trois sujets choisis dans notre base d'idées à partir de tes réponses." },
-  { titre: "Ton e-book", texte: "Movacash écrit le plan, les chapitres et les exemples. Tu relis et tu ajustes." },
+  { titre: "Ton e-book", texte: "Movacash écrit le plan, les chapitres et les exemples pour toi." },
   { titre: "Ta couverture et ton PDF", texte: "Une mise en page propre, prête à mettre en vente." },
   { titre: "Ta fiche Etsy", texte: "Titre, description et 13 tags préparés pour ta fiche." },
   { titre: "Ton plan de 30 jours", texte: "Quoi faire chaque semaine pour publier et te faire connaître, à ton rythme." },
@@ -192,7 +192,7 @@ export const STEPS: Step[] = [
     libre: { placeholder: "Ex : personne autour de moi ne fait ça…" },
     options: [
       { id: "methode", label: "Je ne sais pas par où commencer", note: "C'est exactement ce que Movacash règle : un sujet, un e-book, une fiche Etsy, dans le bon ordre." },
-      { id: "temps", label: "Je manque de temps", note: "L'IA écrit le premier jet. Ton temps passe dans la relecture, pas devant la page blanche." },
+      { id: "temps", label: "Je manque de temps", note: "L'IA écrit à ta place. Fini la page blanche." },
       { id: "sujet", label: "Je ne sais pas quoi vendre", note: "On part de tes réponses pour te proposer trois sujets qui te ressemblent." },
       { id: "peur", label: "J'ai peur que ça ne marche pas", note: "C'est normal, et personne ne peut te le garantir. Commence petit, avec un seul e-book, pour voir si ça te plaît." },
     ],
@@ -251,8 +251,8 @@ export const STEPS: Step[] = [
     id: "ia-ecrit",
     illustration: "livre",
     kicker: "L'écriture",
-    titre: "L'IA écrit. Toi, tu relis.",
-    sous: "Plan, chapitres, exemples, couverture et fiche Etsy : tout est préparé. Tu relis, tu ajustes, tu publies.",
+    titre: "L'IA écrit pour toi.",
+    sous: "Plan, chapitres, exemples, couverture et fiche Etsy : tout est préparé pour toi.",
     cta: "Suivant",
   },
   {
@@ -261,7 +261,7 @@ export const STEPS: Step[] = [
     illustration: "chemin",
     kicker: "L'objectif",
     titre: "Fais le premier pas.",
-    sous: "Un e-book en vente, c'est le début d'un projet à toi. La suite dépend de ton sujet, de ta relecture et de ta régularité.",
+    sous: "Un e-book en vente, c'est le début d'un projet à toi. La suite dépend de ton sujet, de ta fiche Etsy et de ta régularité.",
     cta: "Continuer",
   },
 
@@ -304,7 +304,7 @@ export const STEPS: Step[] = [
     options: [
       { id: "video", label: "Me montrer en vidéo" },
       { id: "sensible", label: "Écrire sur la santé, la minceur ou l'argent" },
-      { id: "relire", label: "Passer des heures à relire" },
+      { id: "relire", label: "Passer des heures à écrire" },
       { id: "rien", label: "Rien, je suis prêt à essayer" },
     ],
   },
@@ -342,7 +342,7 @@ export const STEPS: Step[] = [
     kicker: "Ton horloge",
     titre: "Quand veux-tu publier ton premier e-book ?",
     options: [
-      { id: "aujourdhui", label: "Aujourd'hui", note: "C'est possible si tu prends le temps de bien relire avant de publier." },
+      { id: "aujourdhui", label: "Aujourd'hui", note: "C'est possible : l'e-book et la fiche Etsy sont préparés pour toi." },
       { id: "semaine", label: "Cette semaine" },
       { id: "mois", label: "Ce mois-ci" },
       { id: "tranquille", label: "Je prends mon temps" },

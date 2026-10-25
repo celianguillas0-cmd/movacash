@@ -19,7 +19,7 @@ function plan30(a: QuizAnswers, t: T): [string, string][] {
   const few = a.time === "15";
   const promo = a.promo === "none" ? t("optimise tes titres et tags Etsy (pas de réseaux, comme tu le souhaites)") : a.promo === "faceless" ? t("épingle tes visuels sur Pinterest et publie un carrousel sans visage") : t("publie une courte vidéo qui montre l'intérieur de ton e-book");
   return [
-    [t("Semaine 1"), t("génère ton premier e-book et relis-le{sessions}, crée ta boutique Etsy{boutique}.", { sessions: few ? t(" par petites sessions de 15 minutes") : "", boutique: a.etsy === "shop" ? t(" (ou ajoute une section à la tienne)") : "" })],
+    [t("Semaine 1"), t("génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.", { sessions: few ? t(" par petites sessions de 15 minutes") : "", boutique: a.etsy === "shop" ? t(" (ou ajoute une section à la tienne)") : "" })],
     [t("Semaine 2"), t("publie-le avec la fiche et la miniature générées, puis {promo}.", { promo })],
     [t("Semaine 3"), few ? t("regarde les vues de ta fiche et ajuste le titre ou la première photo.") : t("crée un deuxième e-book dans la même thématique pour renforcer ta boutique.")],
     [t("Semaine 4"), t("{ebook}, et note ce qui attire le plus de vues.", { ebook: few ? t("deuxième e-book") : t("troisième e-book") }) + (a.patience === "weeks" ? t(" Les premières ventes peuvent prendre plus d'un mois : c'est normal.") : "")],

@@ -220,7 +220,7 @@ export function explainIdea(i: Idea, a: QuizAnswers, terrain: Set<number>, t: T 
   if (aud.length) out.push(t("Vise {public}, un public que tu dis bien connaître.", { public: aud.map((k) => t(AUD_LABEL[k])).join(t(" et ")) }));
   if (parts.format) out.push(t("Format « {format} », celui que tu préfères.", { format: i.format.toLowerCase() }));
   out.push(t("Demande estimée {demande}, concurrence {concurrence}.", { demande: t(LEVEL[i.demand - 1]), concurrence: t(COMP[i.competition - 1]) }));
-  out.push(t("Avec {temps}, compte {duree} pour relire et publier.", { temps: t(TIME[str(a.time)] || "un peu de temps chaque jour"), duree: t(DAYS[str(a.time)] || "une à deux semaines") }));
+  out.push(t("Avec {temps}, compte {duree} pour mettre ton e-book en vente.", { temps: t(TIME[str(a.time)] || "un peu de temps chaque jour"), duree: t(DAYS[str(a.time)] || "une à deux semaines") }));
   if (i.sensitive) out.push(t("Sujet sensible : un avertissement est ajouté automatiquement au PDF et à la fiche."));
   return out;
 }

@@ -45,7 +45,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
           <div className="faq">
             <details><summary>{t("Que se passe-t-il si je résilie ?")}</summary><p>{t("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")}</p></details>
             <details><summary>{t("Je peux vendre les e-books au prix que je veux ?")}</summary><p>{t("Oui, c'est toi qui fixes ton prix. Movacash te donne un prix conseillé (estimé) pour chaque sujet.")}</p></details>
-            <details><summary>{t("Et si je ne fais aucune vente ?")}</summary><p>{t("C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par l'offre Starter, de bien relire et de publier régulièrement.")}</p></details>
+            <details><summary>{t("Et si je ne fais aucune vente ?")}</summary><p>{t("C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par l'offre Starter et de publier régulièrement.")}</p></details>
             <details><summary>{t("Le quota d'e-books se renouvelle quand ?")}</summary><p>{t("Le 1er de chaque mois, y compris en formule annuelle. Les e-books non utilisés ne sont pas reportés.")}</p></details>
           </div>
         </section>

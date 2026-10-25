@@ -13,10 +13,10 @@ export const dynamic = "force-dynamic";
 export default async function Home() {
   const { t, locale } = await getT();
   const FAQ: [string, string][] = [
-    [t("Est-ce que je vais vraiment gagner de l'argent ?"), t("Personne ne peut te le garantir, et nous non plus. Ce qui met les chances de ton côté : un sujet précis, une vraie relecture, une fiche soignée et de la régularité. Les premières ventes peuvent prendre du temps, ou ne pas venir.")],
+    [t("Est-ce que je vais vraiment gagner de l'argent ?"), t("Personne ne peut te le garantir, et nous non plus. Ce qui met les chances de ton côté : un sujet précis, une fiche soignée et de la régularité. Les premières ventes peuvent prendre du temps, ou ne pas venir.")],
     [t("Etsy accepte les e-books créés avec l'IA ?"), t("Oui, à condition de l'indiquer dans la description de l'annonce. Movacash ajoute cette mention automatiquement dans la fiche et dans le PDF.")],
-    [t("Si tout le monde utilise les mêmes idées, ça ne marche plus ?"), t("Chaque e-book est rédigé à partir de tes choix (public, ton, consignes) et de ta relecture. Deux personnes sur le même sujet obtiennent deux livres différents. Comme partout sur Etsy, l'exécution compte plus que l'idée.")],
-    [t("Je ne sais pas écrire. C'est un problème ?"), t("Non. L'IA rédige, tu relis comme un lecteur exigeant : ce qui est flou, ce qui manque, ce que tu ajouterais. Tu peux régénérer un chapitre en un clic.")],
+    [t("Si tout le monde utilise les mêmes idées, ça ne marche plus ?"), t("Chaque e-book est rédigé à partir de tes choix (public, ton, consignes). Deux personnes sur le même sujet obtiennent deux livres différents. Comme partout sur Etsy, l'exécution compte plus que l'idée.")],
+    [t("Je ne sais pas écrire. C'est un problème ?"), t("Non. L'IA écrit tout pour toi : le plan, les chapitres et les exemples. Un chapitre ne te plaît pas ? Tu le régénères en un clic.")],
     [t("À quoi servent les questions ?"), t("On regarde ton temps, ton niveau, ce que tu connais déjà et ton style, pour écarter ce qui ne te correspond pas et te proposer 3 idées réalistes, avec un plan de 30 jours.")],
     [t("Je peux arrêter quand je veux ?"), t("Oui, l'abonnement est sans engagement et se résilie depuis ton compte. Il reste actif jusqu'à la fin de la période payée. Il n'y a pas de remboursement d'une période entamée.")],
   ];
@@ -41,7 +41,7 @@ export default async function Home() {
             <div className="ctas">
               <Link className="btn btn-white btn-lg" href="/quiz">{t("Créer mon premier e-book")} <span aria-hidden="true">→</span></Link>
             </div>
-            <p className="fine-line">{t("Aucun revenu garanti : tes ventes dépendent de ton sujet, de ta relecture et de ta régularité.")}</p>
+            <p className="fine-line">{t("Aucun revenu garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
           </div>
           <div className="hero-visual">
             <div className="phone-stage">
@@ -56,7 +56,7 @@ export default async function Home() {
           <div className="section-head">
             <p className="eyebrow">{t("Comment ça marche")}</p>
             <h2>{t("De l'idée au PDF prêt à vendre,")} <em>{t("étape par étape.")}</em></h2>
-            <p>{t("Tu restes l'auteur : l'outil fait le gros du travail, tu apportes la relecture et ta touche.")}</p>
+            <p>{t("Tu restes l'auteur : l'IA écrit le livre pour toi, du plan au dernier chapitre.")}</p>
           </div>
           <div className="steps">
             {[
@@ -145,7 +145,7 @@ export default async function Home() {
               <ul>
                 <li>{t("Garantir des ventes ou un revenu.")}</li>
                 <li>{t("Publier à ta place sur Etsy.")}</li>
-                <li>{t("Remplacer ta relecture : tu restes responsable de ce que tu vends.")}</li>
+                <li>{t("Te dispenser des règles d'Etsy : tu restes responsable de ce que tu vends.")}</li>
                 <li>{t("Rembourser une période entamée (voir CGV).")}</li>
               </ul>
             </div>
