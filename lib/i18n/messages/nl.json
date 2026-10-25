@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 hoofdstukken, ongeveer 40 pagina's",
  "8 caractères minimum": "Minimaal 8 tekens",
  "9 chapitres, environ 50 pages": "9 hoofdstukken, ongeveer 50 pagina's",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Bij {prix} per e-book betekent dat <strong>{n} verkopen</strong> per maand.",
  "A déjà essayé": "Heeft het al geprobeerd",
  "à partir du {date}": "vanaf {date}",
  "À payer aujourd'hui :": "Vandaag te betalen:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Je {plan}-abonnement eindigt op {fin}. Je houdt toegang tot die datum, daarna wordt er niets meer afgeschreven.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Je jaarabonnement {plan} wordt op {date} automatisch verlengd, voor {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Toch van gedachten veranderd? Je kunt je abonnement tot de laatste dag opnieuw activeren:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Je hebt directe toegang tot de dienst gevraagd en erkend dat je je herroepingsrecht van 14 dagen verliest zodra je je eerste e-book maakt. Zolang je geen e-book hebt gemaakt, kun je binnen 14 dagen nog herroepen door te schrijven naar {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Je hebt directe toegang tot de dienst gevraagd en erkend dat je je herroepingsrecht van 14 dagen verliest zodra je je eerste e-book maakt. Zolang je geen e-book hebt gemaakt, kun je binnen 14 dagen nog herroepen door te schrijven naar {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Dat is <strong>{jour} per dag</strong>, oftewel <strong>{an} per jaar</strong>."
 }

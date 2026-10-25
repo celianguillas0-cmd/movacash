@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 capitole, aproximativ 40 de pagini",
  "8 caractères minimum": "Minimum 8 caractere",
  "9 chapitres, environ 50 pages": "9 capitole, aproximativ 50 de pagini",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "La {prix} pe e-book, asta înseamnă <strong>{n} vânzări</strong> pe lună.",
  "A déjà essayé": "A mai încercat",
  "à partir du {date}": "de la {date}",
  "À payer aujourd'hui :": "De plată azi:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Abonamentul tău {plan} se încheie pe {fin}. Păstrezi accesul până atunci, apoi nu mai are loc nicio plată.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Abonamentul tău anual {plan} va fi reînnoit automat pe {date}, pentru {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Te-ai răzgândit? Îți poți reactiva abonamentul până în ultima zi:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Ai solicitat accesul imediat la serviciu și ai recunoscut că pierzi dreptul de retragere de 14 zile odată cu crearea primului e-book. Cât timp nu ai creat niciun e-book, te poți retrage în 14 zile scriind la {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Ai solicitat accesul imediat la serviciu și ai recunoscut că pierzi dreptul de retragere de 14 zile odată cu crearea primului e-book. Cât timp nu ai creat niciun e-book, te poți retrage în 14 zile scriind la {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Asta înseamnă <strong>{jour} pe zi</strong>, adică <strong>{an} pe an</strong>."
 }

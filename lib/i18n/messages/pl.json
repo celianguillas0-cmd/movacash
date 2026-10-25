@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 rozdziałów, około 40 stron",
  "8 caractères minimum": "Minimum 8 znaków",
  "9 chapitres, environ 50 pages": "9 rozdziałów, około 50 stron",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Przy cenie {prix} za e-book to <strong>{n} sprzedaży</strong> miesięcznie.",
  "A déjà essayé": "Już próbował(a)",
  "à partir du {date}": "od {date}",
  "À payer aujourd'hui :": "Do zapłaty dzisiaj:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Twoja subskrypcja {plan} kończy się {fin}. Do tego dnia zachowujesz dostęp, potem nie będzie już żadnych obciążeń.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Twoja roczna subskrypcja {plan} zostanie automatycznie odnowiona {date} za {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Zmieniłeś(-aś) zdanie? Możesz ponownie aktywować subskrypcję do ostatniego dnia:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Poprosiłeś(-aś) o natychmiastowy dostęp do usługi i potwierdziłeś(-aś), że tracisz 14-dniowe prawo odstąpienia z chwilą utworzenia pierwszego e-booka. Dopóki nie utworzysz żadnego e-booka, możesz odstąpić od umowy w ciągu 14 dni, pisząc na {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Poprosiłeś(-aś) o natychmiastowy dostęp do usługi i potwierdziłeś(-aś), że tracisz 14-dniowe prawo odstąpienia z chwilą utworzenia pierwszego e-booka. Dopóki nie utworzysz żadnego e-booka, możesz odstąpić od umowy w ciągu 14 dni, pisząc na {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "To <strong>{jour} dziennie</strong>, czyli <strong>{an} rocznie</strong>."
 }

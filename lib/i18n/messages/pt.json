@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 capítulos, cerca de 40 páginas",
  "8 caractères minimum": "Mínimo 8 caracteres",
  "9 chapitres, environ 50 pages": "9 capítulos, cerca de 50 páginas",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "A {prix} por e-book, isso representa <strong>{n} vendas</strong> por mês.",
  "A déjà essayé": "Já tentou",
  "à partir du {date}": "a partir de {date}",
  "À payer aujourd'hui :": "A pagar hoje:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "A tua subscrição {plan} termina a {fin}. Manténs o acesso até essa data e depois não será feita mais nenhuma cobrança.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "A tua subscrição anual {plan} será renovada automaticamente a {date}, por {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Mudaste de ideias? Podes reativar a subscrição até ao último dia:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Pediste o acesso imediato ao serviço e reconheceste que perdes o direito de livre resolução de 14 dias ao criar o teu primeiro e-book. Enquanto não tiveres criado nenhum e-book, ainda podes desistir no prazo de 14 dias escrevendo para {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Pediste o acesso imediato ao serviço e reconheceste que perdes o direito de livre resolução de 14 dias ao criar o teu primeiro e-book. Enquanto não tiveres criado nenhum e-book, ainda podes desistir no prazo de 14 dias escrevendo para {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "São <strong>{jour} por dia</strong>, ou seja, <strong>{an} por ano</strong>."
 }

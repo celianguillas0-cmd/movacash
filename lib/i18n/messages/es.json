@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 capítulos, unas 40 páginas",
  "8 caractères minimum": "Mínimo 8 caracteres",
  "9 chapitres, environ 50 pages": "9 capítulos, unas 50 páginas",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "A {prix} el e-book, eso son <strong>{n} ventas</strong> al mes.",
  "A déjà essayé": "Ya lo ha intentado",
  "à partir du {date}": "a partir del {date}",
  "À payer aujourd'hui :": "A pagar hoy:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tu suscripción {plan} termina el {fin}. Conservas el acceso hasta esa fecha y después no se realizará ningún cargo más.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tu suscripción anual {plan} se renovará automáticamente el {date}, por {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "¿Has cambiado de opinión? Puedes reactivar tu suscripción hasta el último día:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Solicitaste el acceso inmediato al servicio y reconociste que pierdes tu derecho de desistimiento de 14 días al crear tu primer e-book. Mientras no hayas creado ningún e-book, aún puedes desistir en un plazo de 14 días escribiendo a {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Solicitaste el acceso inmediato al servicio y reconociste que pierdes tu derecho de desistimiento de 14 días al crear tu primer e-book. Mientras no hayas creado ningún e-book, aún puedes desistir en un plazo de 14 días escribiendo a {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Son <strong>{jour} al día</strong>, es decir, <strong>{an} al año</strong>."
 }

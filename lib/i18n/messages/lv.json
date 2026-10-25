@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 nodaļas, aptuveni 40 lappuses",
  "8 caractères minimum": "Vismaz 8 rakstzīmes",
  "9 chapitres, environ 50 pages": "9 nodaļas, aptuveni 50 lappuses",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Ar cenu {prix} par e-grāmatu tas nozīmē <strong>{n} pārdošanas</strong> mēnesī.",
  "A déjà essayé": "Jau ir mēģinājis",
  "à partir du {date}": "no {date}",
  "À payer aujourd'hui :": "Jāmaksā šodien:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tavs {plan} abonements beidzas {fin}. Piekļuve saglabājas līdz šim datumam, pēc tam vairs netiks iekasēta nekāda maksa.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tavs gada abonements {plan} tiks automātiski atjaunots {date} par {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Pārdomāji? Vari atjaunot abonementu līdz pēdējai dienai:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Tu pieprasīji tūlītēju piekļuvi pakalpojumam un apliecināji, ka ar pirmās e-grāmatas izveidi zaudē 14 dienu atteikuma tiesības. Kamēr neesi izveidojis nevienu e-grāmatu, vēl vari atteikties 14 dienu laikā, rakstot uz {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Tu pieprasīji tūlītēju piekļuvi pakalpojumam un apliecināji, ka ar pirmās e-grāmatas izveidi zaudē 14 dienu atteikuma tiesības. Kamēr neesi izveidojis nevienu e-grāmatu, vēl vari atteikties 14 dienu laikā, rakstot uz {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Tas ir <strong>{jour} dienā</strong> jeb <strong>{an} gadā</strong>."
 }

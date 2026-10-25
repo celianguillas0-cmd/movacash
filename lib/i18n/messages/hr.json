@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 poglavlja, oko 40 stranica",
  "8 caractères minimum": "Najmanje 8 znakova",
  "9 chapitres, environ 50 pages": "9 poglavlja, oko 50 stranica",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Uz {prix} po e-knjizi, to je <strong>{n} prodaja</strong> mjesečno.",
  "A déjà essayé": "Već je probao/la",
  "à partir du {date}": "od {date}",
  "À payer aujourd'hui :": "Za platiti danas:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tvoja pretplata {plan} završava {fin}. Pristup zadržavaš do tog datuma, a nakon toga više nema naplate.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tvoja godišnja pretplata {plan} automatski će se obnoviti {date}, za {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Predomislio/la si se? Pretplatu možeš ponovno aktivirati do posljednjeg dana:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Zatražio/la si trenutačan pristup usluzi i potvrdio/la da izradom prve e-knjige gubiš pravo na jednostrani raskid u roku od 14 dana. Dok ne izradiš nijednu e-knjigu, još se možeš povući u roku od 14 dana tako da pišeš na {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Zatražio/la si trenutačan pristup usluzi i potvrdio/la da izradom prve e-knjige gubiš pravo na jednostrani raskid u roku od 14 dana. Dok ne izradiš nijednu e-knjigu, još se možeš povući u roku od 14 dana tako da pišeš na {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "To je <strong>{jour} dnevno</strong>, odnosno <strong>{an} godišnje</strong>."
 }

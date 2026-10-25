@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 lukua, noin 40 sivua",
  "8 caractères minimum": "Vähintään 8 merkkiä",
  "9 chapitres, environ 50 pages": "9 lukua, noin 50 sivua",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Hinnalla {prix} per e-kirja se tarkoittaa <strong>{n} myyntiä</strong> kuukaudessa.",
  "A déjà essayé": "On jo kokeillut",
  "à partir du {date}": "alkaen {date}",
  "À payer aujourd'hui :": "Maksettavana tänään:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "{plan}-tilauksesi päättyy {fin}. Käyttöoikeutesi säilyy siihen asti, eikä sen jälkeen veloiteta mitään.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Vuositilauksesi {plan} uusiutuu automaattisesti {date} hintaan {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Muutitko mielesi? Voit aktivoida tilauksesi uudelleen viimeiseen päivään asti:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Pyysit palvelun välitöntä käyttöönottoa ja vahvistit menettäväsi 14 päivän peruuttamisoikeutesi, kun luot ensimmäisen e-kirjasi. Niin kauan kuin et ole luonut yhtään e-kirjaa, voit vielä peruuttaa 14 päivän kuluessa kirjoittamalla osoitteeseen {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Pyysit palvelun välitöntä käyttöönottoa ja vahvistit menettäväsi 14 päivän peruuttamisoikeutesi, kun luot ensimmäisen e-kirjasi. Niin kauan kuin et ole luonut yhtään e-kirjaa, voit vielä peruuttaa 14 päivän kuluessa kirjoittamalla osoitteeseen {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Se tekee <strong>{jour} päivässä</strong> eli <strong>{an} vuodessa</strong>."
 }

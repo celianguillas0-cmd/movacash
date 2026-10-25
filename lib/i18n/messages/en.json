@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 chapters, about 40 pages",
  "8 caractères minimum": "8 characters minimum",
  "9 chapitres, environ 50 pages": "9 chapters, about 50 pages",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "At {prix} per e-book, that means <strong>{n} sales</strong> a month.",
  "A déjà essayé": "Has already tried",
  "à partir du {date}": "from {date}",
  "À payer aujourd'hui :": "To pay today:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Your {plan} subscription ends on {fin}. You keep access until then, and no further payment will be taken.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Your annual {plan} subscription will renew automatically on {date}, for {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Changed your mind? You can reactivate your subscription until the last day:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "You requested immediate access to the service and acknowledged that you lose your 14-day right of withdrawal once you create your first e-book. As long as you haven't created any e-book, you can still withdraw within 14 days by writing to {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "You requested immediate access to the service and acknowledged that you lose your 14-day right of withdrawal once you create your first e-book. As long as you haven't created any e-book, you can still withdraw within 14 days by writing to {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "That's <strong>{jour} a day</strong>, or <strong>{an} a year</strong>."
 }

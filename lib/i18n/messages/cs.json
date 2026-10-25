@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 kapitol, asi 40 stran",
  "8 caractères minimum": "Minimálně 8 znaků",
  "9 chapitres, environ 50 pages": "9 kapitol, asi 50 stran",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Při ceně {prix} za e-book to znamená <strong>{n} prodejů</strong> měsíčně.",
  "A déjà essayé": "Už to zkoušel(a)",
  "à partir du {date}": "od {date}",
  "À payer aujourd'hui :": "K zaplacení dnes:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tvoje předplatné {plan} končí {fin}. Do té doby máš přístup, potom už nebude nic strženo.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tvoje roční předplatné {plan} se automaticky obnoví {date} za {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Rozmyslel(a) sis to? Předplatné můžeš znovu aktivovat až do posledního dne:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Požádal(a) jsi o okamžitý přístup ke službě a vzal(a) na vědomí, že vytvořením první e-knihy ztrácíš právo na odstoupení do 14 dnů. Dokud nevytvoříš žádnou e-knihu, můžeš do 14 dnů odstoupit e-mailem na {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Požádal(a) jsi o okamžitý přístup ke službě a vzal(a) na vědomí, že vytvořením první e-knihy ztrácíš právo na odstoupení do 14 dnů. Dokud nevytvoříš žádnou e-knihu, můžeš do 14 dnů odstoupit e-mailem na {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "To je <strong>{jour} denně</strong>, tedy <strong>{an} ročně</strong>."
 }

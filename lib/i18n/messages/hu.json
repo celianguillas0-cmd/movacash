@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 fejezet, kb. 40 oldal",
  "8 caractères minimum": "Legalább 8 karakter",
  "9 chapitres, environ 50 pages": "9 fejezet, kb. 50 oldal",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "E-könyvenként {prix} áron ez havi <strong>{n} eladást</strong> jelent.",
  "A déjà essayé": "Már próbálta",
  "à partir du {date}": "{date}-tól",
  "À payer aujourd'hui :": "Ma fizetendő:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "A(z) {plan} előfizetésed {fin} napján megszűnik. Addig megmarad a hozzáférésed, utána már nem lesz terhelés.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Az éves {plan} előfizetésed {date} napján automatikusan megújul, {prix} összegért.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Meggondoltad magad? Az utolsó napig újraaktiválhatod az előfizetésed:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Kérted a szolgáltatás azonnali megkezdését, és tudomásul vetted, hogy az első e-könyved létrehozásával elveszíted a 14 napos elállási jogodat. Amíg nem hoztál létre e-könyvet, 14 napon belül még elállhatsz, ha írsz a(z) {email} címre."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Kérted a szolgáltatás azonnali megkezdését, és tudomásul vetted, hogy az első e-könyved létrehozásával elveszíted a 14 napos elállási jogodat. Amíg nem hoztál létre e-könyvet, 14 napon belül még elállhatsz, ha írsz a(z) {email} címre.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Ez <strong>napi {jour}</strong>, vagyis <strong>évi {an}</strong>."
 }

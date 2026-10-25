@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 kapitol, približne 40 strán",
  "8 caractères minimum": "Minimálne 8 znakov",
  "9 chapitres, environ 50 pages": "9 kapitol, približne 50 strán",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Pri cene {prix} za e-book to znamená <strong>{n} predajov</strong> mesačne.",
  "A déjà essayé": "Už to skúšal(a)",
  "à partir du {date}": "od {date}",
  "À payer aujourd'hui :": "Na zaplatenie dnes:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tvoje predplatné {plan} končí {fin}. Dovtedy máš prístup, potom už nebude nič strhnuté.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tvoje ročné predplatné {plan} sa automaticky obnoví {date} za {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Rozmyslel(a) si sa? Predplatné môžeš znova aktivovať až do posledného dňa:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Požiadal(a) si o okamžitý prístup k službe a vzal(a) si na vedomie, že vytvorením prvej e-knihy strácaš právo na odstúpenie do 14 dní. Kým nevytvoríš žiadnu e-knihu, môžeš do 14 dní odstúpiť e-mailom na {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Požiadal(a) si o okamžitý prístup k službe a vzal(a) si na vedomie, že vytvorením prvej e-knihy strácaš právo na odstúpenie do 14 dní. Kým nevytvoríš žiadnu e-knihu, môžeš do 14 dní odstúpiť e-mailom na {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "To je <strong>{jour} denne</strong>, teda <strong>{an} ročne</strong>."
 }

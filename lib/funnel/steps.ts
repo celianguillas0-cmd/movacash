@@ -48,14 +48,14 @@ export type Step = {
 export const PRIX_EBOOK = 9;
 
 export const SLIDER = {
-  min: 100,
-  max: 3000,
+  min: 0,
+  max: 10000,
   pas: 50,
   defaut: 300,
   paliers: [
     { jusqua: 300, mot: "Premier pas", note: "Un objectif de départ : le bon niveau pour apprendre avec ton premier e-book." },
     { jusqua: 1000, mot: "Motivant", note: "Ça demande en général plusieurs e-books et de la régularité sur Etsy et Pinterest." },
-    { jusqua: 2000, mot: "Ambitieux", note: "Ça demande un vrai catalogue et du temps. Vise-le comme une étape, pas comme un point de départ." },
+    { jusqua: 3000, mot: "Ambitieux", note: "Ça demande un vrai catalogue et du temps. Vise-le comme une étape, pas comme un point de départ." },
     { jusqua: Infinity, mot: "Très ambitieux", note: "C'est un objectif de long terme, sans aucune garantie. Garde-le en tête, mais commence par le premier palier." },
   ],
 };

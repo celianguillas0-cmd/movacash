@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 peatükki, umbes 40 lehekülge",
  "8 caractères minimum": "Vähemalt 8 tähemärki",
  "9 chapitres, environ 50 pages": "9 peatükki, umbes 50 lehekülge",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Hinnaga {prix} e-raamatu kohta teeb see <strong>{n} müüki</strong> kuus.",
  "A déjà essayé": "On juba proovinud",
  "à partir du {date}": "alates {date}",
  "À payer aujourd'hui :": "Täna maksmisele:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Sinu {plan} tellimus lõpeb {fin}. Ligipääs jääb sulle selle kuupäevani, seejärel rohkem makseid ei võeta.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Sinu aastatellimus {plan} uueneb automaatselt {date} hinnaga {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Mõtlesid ümber? Saad tellimuse uuesti aktiveerida kuni viimase päevani:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Taotlesid teenusele kohest ligipääsu ja kinnitasid, et esimese e-raamatu loomisega kaotad 14-päevase taganemisõiguse. Kuni sa pole ühtegi e-raamatut loonud, saad veel 14 päeva jooksul taganeda, kirjutades aadressile {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Taotlesid teenusele kohest ligipääsu ja kinnitasid, et esimese e-raamatu loomisega kaotad 14-päevase taganemisõiguse. Kuni sa pole ühtegi e-raamatut loonud, saad veel 14 päeva jooksul taganeda, kirjutades aadressile {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "See teeb <strong>{jour} päevas</strong> ehk <strong>{an} aastas</strong>."
 }

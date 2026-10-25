@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 κεφάλαια, περίπου 40 σελίδες",
  "8 caractères minimum": "Τουλάχιστον 8 χαρακτήρες",
  "9 chapitres, environ 50 pages": "9 κεφάλαια, περίπου 50 σελίδες",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Με {prix} ανά e-book, αυτό σημαίνει <strong>{n} πωλήσεις</strong> τον μήνα.",
  "A déjà essayé": "Έχει ήδη δοκιμάσει",
  "à partir du {date}": "από {date}",
  "À payer aujourd'hui :": "Πληρωτέο σήμερα:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Η συνδρομή σου {plan} λήγει στις {fin}. Διατηρείς την πρόσβαση μέχρι τότε και μετά δεν θα γίνει καμία χρέωση.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Η ετήσια συνδρομή σου {plan} θα ανανεωθεί αυτόματα στις {date}, για {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Άλλαξες γνώμη; Μπορείς να ενεργοποιήσεις ξανά τη συνδρομή σου μέχρι την τελευταία μέρα:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Ζήτησες άμεση πρόσβαση στην υπηρεσία και αναγνώρισες ότι χάνεις το δικαίωμα υπαναχώρησης 14 ημερών με τη δημιουργία του πρώτου σου e-book. Όσο δεν έχεις δημιουργήσει κανένα e-book, μπορείς ακόμα να υπαναχωρήσεις μέσα σε 14 ημέρες γράφοντας στο {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Ζήτησες άμεση πρόσβαση στην υπηρεσία και αναγνώρισες ότι χάνεις το δικαίωμα υπαναχώρησης 14 ημερών με τη δημιουργία του πρώτου σου e-book. Όσο δεν έχεις δημιουργήσει κανένα e-book, μπορείς ακόμα να υπαναχωρήσεις μέσα σε 14 ημέρες γράφοντας στο {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Δηλαδή <strong>{jour} την ημέρα</strong>, ή <strong>{an} τον χρόνο</strong>."
 }

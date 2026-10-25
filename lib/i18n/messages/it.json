@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 capitoli, circa 40 pagine",
  "8 caractères minimum": "Minimo 8 caratteri",
  "9 chapitres, environ 50 pages": "9 capitoli, circa 50 pagine",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "A {prix} per e-book, significa <strong>{n} vendite</strong> al mese.",
  "A déjà essayé": "Ci ha già provato",
  "à partir du {date}": "dal {date}",
  "À payer aujourd'hui :": "Da pagare oggi:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Il tuo abbonamento {plan} termina il {fin}. Mantieni l'accesso fino a quella data, poi non verrà effettuato alcun addebito.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Il tuo abbonamento annuale {plan} si rinnoverà automaticamente il {date}, per {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Hai cambiato idea? Puoi riattivare l'abbonamento fino all'ultimo giorno:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Hai chiesto l'accesso immediato al servizio e riconosciuto di perdere il diritto di recesso di 14 giorni con la creazione del tuo primo e-book. Finché non hai creato alcun e-book, puoi ancora recedere entro 14 giorni scrivendo a {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Hai chiesto l'accesso immediato al servizio e riconosciuto di perdere il diritto di recesso di 14 giorni con la creazione del tuo primo e-book. Finché non hai creato alcun e-book, puoi ancora recedere entro 14 giorni scrivendo a {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Sono <strong>{jour} al giorno</strong>, cioè <strong>{an} all'anno</strong>."
 }

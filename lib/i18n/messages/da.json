@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 kapitler, ca. 40 sider",
  "8 caractères minimum": "Mindst 8 tegn",
  "9 chapitres, environ 50 pages": "9 kapitler, ca. 50 sider",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Ved {prix} pr. e-bog svarer det til <strong>{n} salg</strong> om måneden.",
  "A déjà essayé": "Har allerede prøvet",
  "à partir du {date}": "fra {date}",
  "À payer aujourd'hui :": "At betale i dag:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Dit {plan}-abonnement slutter den {fin}. Du beholder adgangen indtil da, og derefter trækkes der ikke flere betalinger.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Dit årsabonnement {plan} fornyes automatisk den {date} for {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Har du fortrudt? Du kan genaktivere dit abonnement indtil sidste dag:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du anmodede om øjeblikkelig adgang til tjenesten og anerkendte, at du mister din fortrydelsesret på 14 dage, når du opretter din første e-bog. Så længe du ikke har oprettet nogen e-bog, kan du stadig fortryde inden for 14 dage ved at skrive til {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du anmodede om øjeblikkelig adgang til tjenesten og anerkendte, at du mister din fortrydelsesret på 14 dage, når du opretter din første e-bog. Så længe du ikke har oprettet nogen e-bog, kan du stadig fortryde inden for 14 dage ved at skrive til {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Det er <strong>{jour} om dagen</strong>, altså <strong>{an} om året</strong>."
 }

@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 Kapitel, etwa 40 Seiten",
  "8 caractères minimum": "Mindestens 8 Zeichen",
  "9 chapitres, environ 50 pages": "9 Kapitel, etwa 50 Seiten",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Bei {prix} pro E-Book sind das <strong>{n} Verkäufe</strong> im Monat.",
  "A déjà essayé": "Hat es schon versucht",
  "à partir du {date}": "ab dem {date}",
  "À payer aujourd'hui :": "Heute zu zahlen:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Dein {plan}-Abo endet am {fin}. Bis dahin behältst du den Zugang, danach erfolgt keine Abbuchung mehr.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Dein Jahresabo {plan} verlängert sich automatisch am {date} für {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Doch anders entschieden? Du kannst dein Abo bis zum letzten Tag wieder aktivieren:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du hast den sofortigen Zugang zum Dienst verlangt und bestätigt, dass du dein 14-tägiges Widerrufsrecht mit der Erstellung deines ersten E-Books verlierst. Solange du kein E-Book erstellt hast, kannst du innerhalb von 14 Tagen per E-Mail an {email} widerrufen."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du hast den sofortigen Zugang zum Dienst verlangt und bestätigt, dass du dein 14-tägiges Widerrufsrecht mit der Erstellung deines ersten E-Books verlierst. Solange du kein E-Book erstellt hast, kannst du innerhalb von 14 Tagen per E-Mail an {email} widerrufen.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Das sind <strong>{jour} pro Tag</strong>, also <strong>{an} pro Jahr</strong>."
 }

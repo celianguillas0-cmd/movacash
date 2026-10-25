@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 skyriai, apie 40 puslapių",
  "8 caractères minimum": "Mažiausiai 8 simboliai",
  "9 chapitres, environ 50 pages": "9 skyriai, apie 50 puslapių",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Kai el. knyga kainuoja {prix}, tai yra <strong>{n} pardavimų</strong> per mėnesį.",
  "A déjà essayé": "Jau bandė",
  "à partir du {date}": "nuo {date}",
  "À payer aujourd'hui :": "Mokėti šiandien:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tavo {plan} prenumerata baigiasi {fin}. Iki tos dienos išlaikai prieigą, vėliau nebebus jokių nuskaitymų.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tavo metinė prenumerata {plan} bus automatiškai atnaujinta {date} už {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Persigalvojai? Prenumeratą gali vėl aktyvuoti iki paskutinės dienos:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Paprašei tiesioginės prieigos prie paslaugos ir patvirtinai, kad sukūręs pirmąją el. knygą prarandi 14 dienų teisę atsisakyti sutarties. Kol nesukūrei nė vienos el. knygos, dar gali atsisakyti per 14 dienų parašęs adresu {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Paprašei tiesioginės prieigos prie paslaugos ir patvirtinai, kad sukūręs pirmąją el. knygą prarandi 14 dienų teisę atsisakyti sutarties. Kol nesukūrei nė vienos el. knygos, dar gali atsisakyti per 14 dienų parašęs adresu {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Tai <strong>{jour} per dieną</strong>, arba <strong>{an} per metus</strong>."
 }

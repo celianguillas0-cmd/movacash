@@ -279,7 +279,7 @@ export function mountFunnel(cfg: FunnelConfig) {
 
   const palier = (v: number) => SLIDER.paliers.find((p) => v <= p.jusqua) || SLIDER.paliers[SLIDER.paliers.length - 1];
   const ventes = (v: number) => Math.ceil(v / PRIX_EBOOK);
-  const calcul = (v: number) => tr("À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.", { prix: euros(PRIX_EBOOK), n: ventes(v) });
+  const calcul = (v: number) => tr("Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.", { jour: euros((v * 12) / 365), an: euros(v * 12) });
   function showSlider(s: Step) {
     const v = Number(answers[s.id] ?? SLIDER.defaut);
     const part = ((v - SLIDER.min) / (SLIDER.max - SLIDER.min)) * 100;

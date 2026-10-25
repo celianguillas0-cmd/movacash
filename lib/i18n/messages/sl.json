@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 poglavij, približno 40 strani",
  "8 caractères minimum": "Najmanj 8 znakov",
  "9 chapitres, environ 50 pages": "9 poglavij, približno 50 strani",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Pri {prix} na e-knjigo to pomeni <strong>{n} prodaj</strong> na mesec.",
  "A déjà essayé": "Je že poskusil/a",
  "à partir du {date}": "od {date}",
  "À payer aujourd'hui :": "Za plačilo danes:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Tvoja naročnina {plan} se konča {fin}. Dostop obdržiš do tega datuma, nato ni več nobene bremenitve.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Tvoja letna naročnina {plan} se bo samodejno podaljšala {date} za {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Si si premislil/a? Naročnino lahko ponovno aktiviraš do zadnjega dne:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Zahteval/a si takojšen dostop do storitve in potrdil/a, da z ustvarjanjem prve e-knjige izgubiš pravico do odstopa v 14 dneh. Dokler ne ustvariš nobene e-knjige, lahko še odstopiš v 14 dneh, tako da pišeš na {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Zahteval/a si takojšen dostop do storitve in potrdil/a, da z ustvarjanjem prve e-knjige izgubiš pravico do odstopa v 14 dneh. Dokler ne ustvariš nobene e-knjige, lahko še odstopiš v 14 dneh, tako da pišeš na {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "To je <strong>{jour} na dan</strong> oziroma <strong>{an} na leto</strong>."
 }

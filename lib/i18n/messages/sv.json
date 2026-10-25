@@ -62,7 +62,6 @@
  "7 chapitres, environ 40 pages": "7 kapitel, cirka 40 sidor",
  "8 caractères minimum": "Minst 8 tecken",
  "9 chapitres, environ 50 pages": "9 kapitel, cirka 50 sidor",
- "À {prix} l'e-book, ça représente <strong>{n} ventes</strong> par mois.": "Med {prix} per e-bok motsvarar det <strong>{n} försäljningar</strong> per månad.",
  "A déjà essayé": "Har redan provat",
  "à partir du {date}": "från och med {date}",
  "À payer aujourd'hui :": "Att betala idag:",
@@ -1132,5 +1131,6 @@
  "Ton abonnement {plan} prend fin le {fin}. Tu gardes l'accès jusqu'à cette date, puis plus aucun prélèvement n'aura lieu.": "Din {plan}-prenumeration upphör den {fin}. Du behåller tillgången fram till dess, sedan dras inga fler betalningar.",
  "Ton abonnement annuel {plan} sera renouvelé automatiquement le {date}, pour {prix}.": "Din årsprenumeration {plan} förnyas automatiskt den {date} för {prix}.",
  "Tu as changé d'avis ? Tu peux réactiver ton abonnement jusqu'au dernier jour :": "Ångrat dig? Du kan återaktivera din prenumeration fram till sista dagen:",
- "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du begärde omedelbar tillgång till tjänsten och bekräftade att du förlorar din ångerrätt på 14 dagar när du skapar din första e-bok. Så länge du inte har skapat någon e-bok kan du fortfarande ångra dig inom 14 dagar genom att skriva till {email}."
+ "Tu as demandé l'accès immédiat au service et reconnu perdre ton droit de rétractation de 14 jours dès la création de ton premier e-book. Tant que tu n'as créé aucun e-book, tu peux encore te rétracter pendant 14 jours en écrivant à {email}.": "Du begärde omedelbar tillgång till tjänsten och bekräftade att du förlorar din ångerrätt på 14 dagar när du skapar din första e-bok. Så länge du inte har skapat någon e-bok kan du fortfarande ångra dig inom 14 dagar genom att skriva till {email}.",
+ "Ça fait <strong>{jour} par jour</strong>, soit <strong>{an} par an</strong>.": "Det blir <strong>{jour} per dag</strong>, alltså <strong>{an} per år</strong>."
 }
