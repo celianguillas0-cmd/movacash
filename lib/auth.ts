@@ -32,8 +32,7 @@ export interface User {
   is_demo_sub: number;
   quiz_json: string | null;
   created_at: number;
-  billing_interval: string; // durée de l'offre (semaine, mois, trimestre)
-  current_period_start: number | null;
+  billing_interval: "month" | "year";
   cancel_at_period_end: number;
   quota_plan: string | null;
   quota_plan_until: number | null;

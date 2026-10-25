@@ -23,7 +23,7 @@ Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
 ## Espace client
 
 - `/app` tableau de bord (quota du mois, e-books, idées suggérées), `/app/ebooks` tous les e-books, `/app/aide` FAQ.
-- `/app/abonnement` : offre actuelle et quota de la période, changement de durée (immédiat : nouvelle période avec quota complet, temps non utilisé déduit au prorata), carte et factures via le portail Stripe, résiliation avec motif.
+- `/app/abonnement` : offre actuelle et quota, changement d'offre (supérieure : immédiat, différence au prorata payée tout de suite ; inférieure : au prochain renouvellement, quota actuel conservé jusque-là), passage mensuel → annuel, résiliation en fin de période avec motif, réactivation, carte bancaire et factures (portail Stripe).
 - `/app/parametres` : prénom, nom d'auteur, langue et ton par défaut, changement d'e-mail et de mot de passe, déconnexion des autres appareils, export JSON des données, suppression du compte.
 - `/mot-de-passe` : lien de réinitialisation par e-mail (Resend), valable 1 heure.
 - Le quota compte les e-books créés dans le mois civil (table `generations`) : supprimer un e-book ne rend pas de crédit.
@@ -54,8 +54,8 @@ Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
 
 ## Stripe
 
-1. Créer un produit avec 3 prix récurrents : 4,90 € par semaine (5 e-books), 19,90 € par mois (20), 50 € tous les 3 mois (60), modifiables dans `lib/config.ts`. Variables : `STRIPE_PRICE_SEMAINE`, `STRIPE_PRICE_MOIS`, `STRIPE_PRICE_TRIMESTRE`.
-2. Renseigner `STRIPE_SECRET_KEY` et les trois `STRIPE_PRICE_...` ci-dessus.
+1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 120 : modifiables dans `lib/config.ts`), et si voulu un prix annuel pour chacun.
+2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS` (et les `_ANNUAL`).
 3. Webhook vers `https://votre-domaine/api/stripe/webhook` avec les événements `checkout.session.completed`, `customer.subscription.created|updated|deleted`, `invoice.paid`, `invoice.payment_failed`, puis `STRIPE_WEBHOOK_SECRET`.
 4. Activer le portail client Stripe (moyen de paiement, factures, adresse). Changement d'offre et résiliation se font dans l'application.
 

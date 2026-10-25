@@ -12,7 +12,7 @@ export default async function NewEbook({ searchParams }: { searchParams: Promise
   const { t, locale } = await getT();
   // Depuis une idée : on passe par les questions de l'atelier
   if (ideaId && /^\d+$/.test(ideaId)) redirect(`/app/creer/${ideaId}`);
-  const [idea, allowed, usage] = await Promise.all([ideaId ? getIdea(Number(ideaId)) : undefined, canCreateEbook(user, t, locale), getUsage(user)]);
+  const [idea, allowed, usage] = await Promise.all([ideaId ? getIdea(Number(ideaId)) : undefined, canCreateEbook(user, t), getUsage(user)]);
   let quiz: { answers?: Record<string, unknown> } = {};
   try {
     quiz = JSON.parse(user.quiz_json || "{}");
@@ -29,7 +29,7 @@ export default async function NewEbook({ searchParams }: { searchParams: Promise
       <h1 className="at-titre">{t("Sujet libre.")}</h1>
       <p className="muted mt-2">
         {t("L'IA rédige d'abord un plan, puis chaque chapitre (1800 à 2500 mots). Compte quelques minutes. Tu pourras ensuite tout relire et modifier.")}
-        {allowed.ok && " " + (usage.remaining > 1 ? t("Il te reste {n} e-books sur cette période.", { n: usage.remaining }) : t("Il te reste {n} e-book sur cette période.", { n: usage.remaining }))}
+        {allowed.ok && " " + (usage.remaining > 1 ? t("Il te reste {n} e-books ce mois-ci.", { n: usage.remaining }) : t("Il te reste {n} e-book ce mois-ci.", { n: usage.remaining }))}
       </p>
       {!allowed.ok ? (
         <div className="card mt-6 space-y-3">

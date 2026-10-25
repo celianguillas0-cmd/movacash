@@ -74,7 +74,7 @@ export default async function Comptes({ searchParams }: { searchParams: Promise<
             {rows.map((u) => {
               const actif = hasActiveSubscription(u);
               const plan = getPlan(u.plan);
-              const limite = actif ? u.quota_override ?? plan?.ebooks ?? 0 : 0;
+              const limite = actif ? u.quota_override ?? plan?.ebooksPerMonth ?? 0 : 0;
               return (
                 <tr key={u.id} className="border-b border-slate-200 last:border-0">
                   <td className="px-5 py-3">

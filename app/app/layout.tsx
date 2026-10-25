@@ -42,7 +42,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           <div className="at-quota">
             {live ? (
               <>
-                <b>{usage.used} / {usage.limit}</b> {t("e-books sur cette période")}
+                <b>{usage.used} / {usage.limit}</b> {t("e-books ce mois-ci")}
                 <div className="at-quota-rail"><i style={{ width: `${Math.min(100, (usage.used / Math.max(1, usage.limit)) * 100)}%` }} /></div>
                 {usage.remaining === 0 && <Link href="/app/abonnement">{t("Passer à l'offre supérieure")}</Link>}
               </>

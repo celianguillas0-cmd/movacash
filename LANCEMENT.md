@@ -29,11 +29,11 @@ Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification pouss�
 
 ## 4. Paiement : Stripe
 
-1. Catalogue de produits : crée **un seul produit** « Movacash » avec **trois prix récurrents** en EUR :
-   - 4,90 € toutes les semaines (5 e-books par semaine)
-   - 19,90 € tous les mois (20 e-books par mois)
-   - 50 € tous les 3 mois (60 e-books par trimestre) : choisis « Personnalisé », tous les 3 mois
-2. Copie chaque identifiant de prix (`price_...`) dans Vercel : `STRIPE_PRICE_SEMAINE`, `STRIPE_PRICE_MOIS`, `STRIPE_PRICE_TRIMESTRE`.
+1. Produits (Catalogue de produits), un par offre, prix récurrents en EUR :
+   - Starter : 19,90 € / mois (et 190,80 € / an si tu proposes l'annuel)
+   - Pro : 39,90 € / mois (et 382,80 € / an)
+   - Business : 79,90 € / mois (et 766,80 € / an)
+2. Copie chaque identifiant de prix (`price_...`) dans Vercel : `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS`, et pour l'annuel `STRIPE_PRICE_STARTER_ANNUAL`, `STRIPE_PRICE_PRO_ANNUAL`, `STRIPE_PRICE_BUSINESS_ANNUAL`. Sans les trois prix annuels, le choix « Annuel » est simplement masqué.
 3. Développeurs → Clés API : `STRIPE_SECRET_KEY` (commence par `sk_live_` en production, `sk_test_` pour tester).
 4. Développeurs → Webhooks → Ajouter un endpoint : `https://ton-domaine/api/stripe/webhook`, événements :
    `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`.
@@ -43,7 +43,7 @@ Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification pouss�
 
 ## 5. E-mails : Resend (gratuit jusqu'à 3 000 e-mails par mois), obligatoire avant d'ouvrir les ventes
 
-Sert au « mot de passe oublié » et aux e-mails exigés par la loi : confirmation d'abonnement, confirmation de résiliation, rappel avant chaque renouvellement d'un abonnement trimestriel (envoyé chaque matin par une tâche Vercel, entre 60 et 30 jours avant la date).
+Sert au « mot de passe oublié » et aux e-mails exigés par la loi : confirmation d'abonnement, confirmation de résiliation, rappel avant le renouvellement d'un abonnement annuel (envoyé chaque matin par une tâche Vercel, entre 60 et 30 jours avant la date).
 1. Crée un compte sur resend.com et vérifie ton domaine (quelques enregistrements DNS à ajouter chez ton registrar).
 2. Dans Vercel : `RESEND_API_KEY` et `EMAIL_FROM` (par exemple `Movacash <bonjour@movacash.fr>`).
 3. Facultatif : `CRON_SECRET` (une longue chaîne aléatoire) pour protéger la tâche du matin.
@@ -67,9 +67,9 @@ Fais relire les CGV par un professionnel avant d'ouvrir si tu le peux.
 ## 7. Test final avant d'ouvrir
 
 En mode test Stripe (`sk_test_`, carte `4242 4242 4242 4242`) :
-1. Faire le questionnaire, créer un compte, payer la formule hebdomadaire.
+1. Faire le questionnaire, créer un compte, payer Starter.
 2. Créer un e-book jusqu'au bout, télécharger le PDF.
-3. Abonnement : passer au trimestriel (le montant affiché doit déduire le temps non utilisé), revenir au mensuel, résilier puis réactiver.
+3. Abonnement : passer à Pro (paiement de la différence), revenir à Starter, résilier puis réactiver.
 4. Paramètres : changer le mot de passe, tester « Mot de passe oublié » (l'e-mail doit arriver).
 5. Vérifier dans Stripe que les factures et le statut de l'abonnement correspondent.
 

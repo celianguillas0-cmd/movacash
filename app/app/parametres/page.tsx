@@ -22,7 +22,7 @@ export default async function SettingsPage() {
       <AtHead name={user.name} title={t("Paramètres.")} />
       <section className="at-table">
         <div><span>{t("Adresse e-mail")}</span><b>{user.email}</b></div>
-        <div><span>{t("Formule")}</span><b>{hasSub && plan ? t(plan.name) : t("Aucune")}</b></div>
+        <div><span>{t("Formule")}</span><b>{hasSub && plan ? plan.name : t("Aucune")}</b></div>
         <div><span>{t("Compte créé le")}</span><b>{new Date(user.created_at * 1000).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" })}</b></div>
         <Link href="/app/abonnement">{t("Gérer mon abonnement")}</Link>
       </section>

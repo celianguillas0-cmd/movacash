@@ -8,7 +8,7 @@ export default function QuotaMeter({ used, limit, compact }: { used: number; lim
   return (
     <div>
       <div className={`flex items-baseline justify-between ${compact ? "text-xs" : "text-sm"}`}>
-        <span className="text-slate-600">{t("E-books sur cette période")}</span>
+        <span className="text-slate-600">{t("E-books ce mois-ci")}</span>
         <span className="font-semibold text-slate-900">{used} / {limit}</span>
       </div>
       <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-200">

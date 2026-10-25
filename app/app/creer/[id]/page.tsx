@@ -17,7 +17,7 @@ export default async function Creer({ params }: { params: Promise<{ id: string }
   if (!found) notFound();
   const { t, locale } = await getT();
   const [idea] = await localizeIdeas([found], locale);
-  const allowed = await canCreateEbook(user, t, locale);
+  const allowed = await canCreateEbook(user, t);
   if (!allowed.ok)
     return (
       <div>

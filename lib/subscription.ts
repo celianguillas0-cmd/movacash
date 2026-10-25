@@ -1,5 +1,5 @@
 import { one } from "./db";
-import { getPlan } from "./config";
+import { getPlan, PLANS, type Plan } from "./config";
 import type { User } from "./auth";
 import { makeT, type T } from "./i18n/t";
 
@@ -30,34 +30,42 @@ export function subState(user: User): SubState {
   return user.plan ? "ended" : "none";
 }
 
+// Offre qui fixe le quota : après un passage à une offre inférieure, le quota de l'ancienne offre reste acquis jusqu'à la fin de la période payée.
+export function quotaPlan(user: User): Plan | undefined {
+  const plan = getPlan(user.plan);
+  const held = user.quota_plan_until && user.quota_plan_until > now() ? getPlan(user.quota_plan) : undefined;
+  if (held && (!plan || held.ebooksPerMonth > plan.ebooksPerMonth)) return held;
+  return plan;
+}
+
 export function monthStart(d = new Date()) {
   return Math.floor(new Date(d.getFullYear(), d.getMonth(), 1).getTime() / 1000);
 }
 
-// Période en cours : le quota d'e-books se compte depuis le début de la période payée (semaine, mois ou trimestre)
-export function currentPeriod(user: User) {
-  const plan = getPlan(user.plan);
-  const end = user.current_period_end ?? now() + (plan?.periodDays ?? 30) * DAY;
-  const start = user.current_period_start ?? end - (plan?.periodDays ?? 30) * DAY;
-  return { start, end };
+export function nextMonthStart(d = new Date()) {
+  return new Date(d.getFullYear(), d.getMonth() + 1, 1);
 }
 
 export async function getUsage(user: User) {
-  const plan = getPlan(user.plan);
-  const { start, end } = currentPeriod(user);
-  const r = await one<{ n: number }>("SELECT COUNT(*) AS n FROM generations WHERE user_id = ? AND created_at >= ?", [user.id, start]);
+  const plan = quotaPlan(user);
+  const r = await one<{ n: number }>("SELECT COUNT(*) AS n FROM generations WHERE user_id = ? AND created_at >= ?", [user.id, monthStart()]);
   const used = r?.n ?? 0;
   // Limite fixée à la main dans l'onglet Admin, sinon celle de la formule
-  const limit = hasActiveSubscription(user) ? user.quota_override ?? plan?.ebooks ?? 0 : 0;
-  return { used, limit, remaining: Math.max(0, limit - used), resetsOn: new Date(end * 1000) };
+  const limit = hasActiveSubscription(user) ? user.quota_override ?? plan?.ebooksPerMonth ?? 0 : 0;
+  return { used, limit, remaining: Math.max(0, limit - used), resetsOn: nextMonthStart() };
 }
 
-export async function canCreateEbook(user: User, t: T = makeT({}), locale = "fr"): Promise<{ ok: true } | { ok: false; reason: string }> {
+export async function canCreateEbook(user: User, t: T = makeT({})): Promise<{ ok: true } | { ok: false; reason: string }> {
   if (!hasActiveSubscription(user)) return { ok: false, reason: t("Un abonnement actif est nécessaire pour générer des e-books.") };
   const u = await getUsage(user);
   if (u.remaining <= 0) {
-    const date = u.resetsOn.toLocaleDateString(locale, { day: "numeric", month: "long" });
-    return { ok: false, reason: t("Quota atteint ({n} e-books pour cette période). Il repart à zéro le {date}, à ton prochain renouvellement.", { n: u.limit, date }) };
+    const better = PLANS.find((p) => p.ebooksPerMonth > u.limit);
+    return {
+      ok: false,
+      reason: better
+        ? t("Quota du mois atteint ({n} e-books). Il se renouvelle le 1er du mois, ou passe à l'offre {plan} ({m} e-books par mois) depuis la page Abonnement.", { n: u.limit, plan: better.name, m: better.ebooksPerMonth })
+        : t("Quota du mois atteint ({n} e-books). Il se renouvelle le 1er du mois.", { n: u.limit }),
+    };
   }
   return { ok: true };
 }

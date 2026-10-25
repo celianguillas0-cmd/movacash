@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
-import { FEATURES, getPlan, isStripeConfigured } from "@/lib/config";
-import { planViews } from "@/lib/planView";
-import { listInvoices, paymentMethod, type InvoiceView } from "@/lib/stripe";
-import { getUsage, subState } from "@/lib/subscription";
+import { PLANS, getPlan, isStripeConfigured } from "@/lib/config";
+import { annualAvailable, listInvoices, paymentMethod, type InvoiceView } from "@/lib/stripe";
+import { getUsage, quotaPlan, subState } from "@/lib/subscription";
 import SubscriptionManager from "./SubscriptionManager";
 import AtHead from "@/components/ws/AtHead";
 import { getT } from "@/lib/i18n/server";
@@ -11,7 +10,7 @@ import { fmtEur, type T } from "@/lib/i18n/t";
 
 export const dynamic = "force-dynamic";
 
-export default async function SubscriptionPage({ searchParams }: { searchParams: Promise<{ plan?: string }> }) {
+export default async function SubscriptionPage({ searchParams }: { searchParams: Promise<{ plan?: string; annual?: string }> }) {
   const user = await requireUser();
   const sp = await searchParams;
   const { t, locale } = await getT();
@@ -27,6 +26,7 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
       stripeError = (e as Error).message;
     }
   }
+  const held = quotaPlan(user);
   const plan = getPlan(user.plan);
 
   if (state === "none" || state === "ended")
@@ -35,7 +35,7 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
         <AtHead name={user.name} title={t("Ta formule.")} />
         <div className="card space-y-3">
           <p className="text-sm text-slate-700">
-            {state === "ended" ? t("Ton abonnement {plan} est terminé.", { plan: plan ? t(plan.name) : "" }) : t("Tu n'as pas encore d'abonnement.")} {t("Tes e-books déjà créés restent consultables et téléchargeables.")}
+            {state === "ended" ? t("Ton abonnement {plan} est terminé.", { plan: plan?.name ?? "" }) : t("Tu n'as pas encore d'abonnement.")} {t("Tes e-books déjà créés restent consultables et téléchargeables.")}
           </p>
           <Link href="/tarifs" className="btn-primary">{state === "ended" ? t("Reprendre un abonnement") : t("Voir les offres")}</Link>
         </div>
@@ -49,18 +49,21 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
         <p className="at-dim" style={{ marginTop: 10 }}>{t("Change de formule, mets à jour ta carte ou résilie quand tu veux. Sans engagement.")}</p>
       </AtHead>
       <SubscriptionManager
-        plans={planViews(t, locale)}
-        features={FEATURES.map((f) => t(f))}
+        plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features }))}
         sub={{
-          plan: plan?.id ?? "",
+          plan: user.plan as string,
+          annual: user.billing_interval === "year",
           state,
           periodEnd: user.current_period_end,
           demo: Boolean(user.is_demo_sub) || !isStripeConfigured(),
+          heldPlan: held && held.id !== user.plan ? held.name : null,
+          heldUntil: user.quota_plan_until,
           card,
           hasPortal: isStripeConfigured() && Boolean(user.stripe_customer_id) && !user.is_demo_sub,
         }}
         usage={{ used: usage.used, limit: usage.limit, resetsOn: usage.resetsOn.toISOString() }}
-        preselect={sp.plan ?? null}
+        annualAvailable={annualAvailable()}
+        preselect={sp.plan ? { plan: sp.plan, annual: sp.annual === "1" } : null}
       />
       {stripeError && <p className="notice-warn">{t("Impossible de charger les factures pour le moment ({erreur}).", { erreur: stripeError })}</p>}
       {invoices.length > 0 && <InvoiceTable invoices={invoices} t={t} locale={locale} />}
