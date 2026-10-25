@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "sugeneruok savo pirmąją el. knygą{sessions}, sukurk savo Etsy parduotuvę{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Turėdamas {temps}, skaičiuok {duree} el. knygai pateikti parduoti.",
  "Garde le doigt appuyé… {n} %": "Laikyk pirštą nuspaudęs… {n} %",
- "Reste appuyé quelques secondes pour signer": "Palaikyk nuspaudęs kelias sekundes, kad pasirašytum"
+ "Reste appuyé quelques secondes pour signer": "Palaikyk nuspaudęs kelias sekundes, kad pasirašytum",
+ "L'annuel est-il remboursable ?": "Ar metinė prenumerata grąžinama?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: metai apmokami iš karto, už pusę kainos. Gali bet kada atšaukti, kad neatsinaujintų, o prieigą išlaikai iki apmokėtų metų pabaigos.",
+ "tu économises {prix}": "sutaupai {prix}"
 }

@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "δημιούργησε το πρώτο σου e-book{sessions}, άνοιξε το κατάστημά σου στο Etsy{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Με {temps}, υπολόγισε {duree} για να βάλεις το e-book σου προς πώληση.",
  "Garde le doigt appuyé… {n} %": "Κράτα το δάχτυλο πατημένο… {n} %",
- "Reste appuyé quelques secondes pour signer": "Κράτησε πατημένο λίγα δευτερόλεπτα για να υπογράψεις"
+ "Reste appuyé quelques secondes pour signer": "Κράτησε πατημένο λίγα δευτερόλεπτα για να υπογράψεις",
+ "L'annuel est-il remboursable ?": "Επιστρέφονται τα χρήματα του ετήσιου;",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Όχι: το έτος πληρώνεται εφάπαξ, στη μισή τιμή. Μπορείς να ακυρώσεις όποτε θέλεις ώστε να μην ανανεωθεί, και διατηρείς την πρόσβαση ως το τέλος του πληρωμένου έτους.",
+ "tu économises {prix}": "εξοικονομείς {prix}"
 }

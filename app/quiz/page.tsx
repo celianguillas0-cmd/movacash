@@ -3,6 +3,7 @@ import Funnel from "./Funnel";
 import { listCategories } from "@/lib/ideas";
 import { getCurrentUser } from "@/lib/auth";
 import { PLANS, isStripeConfigured } from "@/lib/config";
+import { annualAvailable } from "@/lib/stripe";
 import "../tunnel.css";
 import { getT } from "@/lib/i18n/server";
 
@@ -21,7 +22,8 @@ export default async function QuizPage() {
       <main className="wrap">
         <Funnel
           categories={categories.map((c) => ({ slug: c.slug, name: t(c.name) }))}
-          plans={PLANS.map((p) => ({ id: p.id, name: p.name, price: p.priceEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: p.highlight }))}
+          plans={PLANS.map((p) => ({ id: p.id, name: p.name, price: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: p.highlight }))}
+          annualAvailable={annualAvailable()}
           user={user ? { name: user.name || "" } : null}
           demo={!isStripeConfigured()}
         />

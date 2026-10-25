@@ -10,7 +10,8 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   const t = useT();
   const locale = useLocale();
   const money = (n: number) => fmtEur(n, locale);
-  const [annual, setAnnual] = useState(false);
+  // L'annuel est mis en avant : choisi par défaut quand il est disponible
+  const [annual, setAnnual] = useState(annualAvailable);
   const [plan, setPlan] = useState(plans.find((p) => p.highlight)?.id || plans[0].id);
   const [waiver, setWaiver] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,8 +46,9 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
             {p.highlight && <span className="tag">{t("Recommandé")}</span>}
             <h3>{p.name}</h3>
             <div>
-              <div className="price">{money(price(p))}<small> / {t("mois")}</small></div>
+              <div className="price">{annual && <s className="price-old">{money(p.monthly)}</s>}{money(price(p))}<small> / {t("mois")}</small></div>
               <div className="per">{annual ? t("facturé {prix} par an", { prix: money(Math.round(price(p) * 1200) / 100) }) : t("facturé chaque mois, résiliable à tout moment")}</div>
+              {annual && <div className="save-line">{t("tu économises {prix}", { prix: money(Math.round((p.monthly * 12 - Math.round(p.annual * 1200) / 100) * 100) / 100) })}</div>}
             </div>
             <div className="dim">{t("Soit {prix} par e-book", { prix: fmtEur(Math.round((price(p) / p.ebooks) * 100) / 100, locale) })}</div>
             <ul>{p.features.map((f) => <li key={f}>{t(f)}</li>)}</ul>

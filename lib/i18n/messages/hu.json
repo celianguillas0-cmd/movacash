@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "generáld le az első e-bookodat{sessions}, hozd létre az Etsy-boltodat{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Napi {temps} mellett számolj {duree}, mire eladásra kínálod az e-bookodat.",
  "Garde le doigt appuyé… {n} %": "Tartsd lenyomva az ujjad… {n} %",
- "Reste appuyé quelques secondes pour signer": "Tartsd lenyomva néhány másodpercig az aláíráshoz"
+ "Reste appuyé quelques secondes pour signer": "Tartsd lenyomva néhány másodpercig az aláíráshoz",
+ "L'annuel est-il remboursable ?": "Visszatéríthető az éves csomag?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nem: az évet egyben fizeted, féláron. Bármikor lemondhatod, hogy ne újuljon meg, és a hozzáférés a kifizetett év végéig megmarad.",
+ "tu économises {prix}": "megtakarítasz {prix} összeget"
 }

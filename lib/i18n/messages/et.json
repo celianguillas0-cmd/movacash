@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "loo oma esimene e-raamat{sessions}, ava oma Etsy pood{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Kui sul on {temps}, arvesta e-raamatu müüki panemiseks {duree}.",
  "Garde le doigt appuyé… {n} %": "Hoia sõrme all… {n} %",
- "Reste appuyé quelques secondes pour signer": "Hoia paar sekundit all, et allkirjastada"
+ "Reste appuyé quelques secondes pour signer": "Hoia paar sekundit all, et allkirjastada",
+ "L'annuel est-il remboursable ?": "Kas aastapakett on tagastatav?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ei: aasta makstakse korraga, poole hinnaga. Võid igal ajal tühistada, et see ei pikeneks, ja ligipääs jääb sulle makstud aasta lõpuni.",
+ "tu économises {prix}": "säästad {prix}"
 }

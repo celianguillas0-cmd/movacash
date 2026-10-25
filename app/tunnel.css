@@ -301,6 +301,13 @@
 .tf .plan:hover { border-color: var(--line-3); transform: translateY(-1px); }
 .tf .plan.selected { border-color: #fff; box-shadow: 0 0 0 1px #fff, 0 20px 50px -30px rgba(255, 255, 255, 0.4); background: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)); }
 .tf .plan-ruban-la { margin-top: 12px; }
+.tf .periode { display: flex; width: fit-content; margin: 22px auto 0; padding: 4px; border: 1px solid var(--line-2); border-radius: 999px; background: var(--bg-1); }
+.tf .periode button { border: 0; background: none; color: var(--text-2); font: inherit; font-size: 14px; font-weight: 600; padding: 9px 18px; border-radius: 999px; cursor: pointer; }
+.tf .periode button.on { background: #fff; color: var(--action-texte); }
+.tf .periode-remise { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 999px; background: var(--accent); color: var(--action-texte); font-size: 11.5px; font-weight: 800; }
+.tf .periode button.on .periode-remise { background: var(--action-texte); color: #fff; }
+.tf .plan-barre { color: var(--text-3); }
+.tf .plan-annuel { font-size: 12.5px; color: var(--text-3); }
 .tf .plan-ruban { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); background: var(--accent); color: var(--action-texte); font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
 .tf .plan-radio { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--line-3); display: grid; place-items: center; }
 .tf .plan.selected .plan-radio { background: #fff; border-color: #fff; }

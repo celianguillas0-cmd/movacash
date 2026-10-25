@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "genera tu primer e-book{sessions}, crea tu tienda de Etsy{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Con {temps}, cuenta {duree} para poner tu e-book a la venta.",
  "Garde le doigt appuyé… {n} %": "Mantén el dedo pulsado… {n} %",
- "Reste appuyé quelques secondes pour signer": "Mantén pulsado unos segundos para firmar"
+ "Reste appuyé quelques secondes pour signer": "Mantén pulsado unos segundos para firmar",
+ "L'annuel est-il remboursable ?": "¿El plan anual es reembolsable?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "No: el año se paga de una vez, a mitad de precio. Puedes cancelar cuando quieras para que no se renueve, y conservas el acceso hasta el final del año pagado.",
+ "tu économises {prix}": "ahorras {prix}"
 }

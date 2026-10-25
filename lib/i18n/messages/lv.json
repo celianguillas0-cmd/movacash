@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "izveido savu pirmo e-grāmatu{sessions}, atver savu Etsy veikalu{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Ar {temps} rēķinies ar {duree} e-grāmatas nodošanai pārdošanā.",
  "Garde le doigt appuyé… {n} %": "Turi pirkstu nospiestu… {n} %",
- "Reste appuyé quelques secondes pour signer": "Turi nospiestu dažas sekundes, lai parakstītos"
+ "Reste appuyé quelques secondes pour signer": "Turi nospiestu dažas sekundes, lai parakstītos",
+ "L'annuel est-il remboursable ?": "Vai gada abonements ir atmaksājams?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nē: gads tiek apmaksāts uzreiz, par pusi lētāk. Vari jebkurā laikā atcelt, lai tas netiktu atjaunots, un piekļuve saglabājas līdz apmaksātā gada beigām.",
+ "tu économises {prix}": "tu ietaupi {prix}"
 }

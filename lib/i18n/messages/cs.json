@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "vygeneruj svůj první e-book{sessions}, založ si obchod na Etsy{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "S {temps} počítej s {duree} na uvedení e-booku do prodeje.",
  "Garde le doigt appuyé… {n} %": "Drž prst stisknutý… {n} %",
- "Reste appuyé quelques secondes pour signer": "Podrž několik sekund a podepiš"
+ "Reste appuyé quelques secondes pour signer": "Podrž několik sekund a podepiš",
+ "L'annuel est-il remboursable ?": "Je roční předplatné vratné?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: rok se platí najednou, za poloviční cenu. Kdykoli ho můžeš zrušit, aby se neobnovilo, a přístup ti zůstane do konce zaplaceného roku.",
+ "tu économises {prix}": "ušetříš {prix}"
 }

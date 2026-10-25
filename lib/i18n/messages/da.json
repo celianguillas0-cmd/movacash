@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "generér din første e-bog{sessions}, opret din Etsy-butik{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Med {temps} skal du regne med {duree} til at sætte din e-bog til salg.",
  "Garde le doigt appuyé… {n} %": "Hold fingeren nede… {n} %",
- "Reste appuyé quelques secondes pour signer": "Hold nede i et par sekunder for at underskrive"
+ "Reste appuyé quelques secondes pour signer": "Hold nede i et par sekunder for at underskrive",
+ "L'annuel est-il remboursable ?": "Kan årsabonnementet refunderes?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nej: året betales på én gang, til halv pris. Du kan opsige, når du vil, så det ikke fornyes, og du beholder adgangen til udgangen af det betalte år.",
+ "tu économises {prix}": "du sparer {prix}"
 }

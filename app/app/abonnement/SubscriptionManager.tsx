@@ -182,7 +182,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
           {annualAvailable && !sub.annual && (
             <div className="flex rounded-full border border-slate-300 bg-slate-100 p-1 text-sm" role="group" aria-label={t("Fréquence de facturation")}>
               <button className={`rounded-full px-4 py-1.5 ${!annual ? "bg-slate-300 font-semibold text-slate-900" : "text-slate-600"}`} onClick={() => setAnnual(false)}>{t("Mensuel")}</button>
-              <button className={`rounded-full px-4 py-1.5 ${annual ? "bg-slate-300 font-semibold text-slate-900" : "text-slate-600"}`} onClick={() => setAnnual(true)}>{t("Annuel")} <span className="text-brand-700">−20 %</span></button>
+              <button className={`rounded-full px-4 py-1.5 ${annual ? "bg-slate-300 font-semibold text-slate-900" : "text-slate-600"}`} onClick={() => setAnnual(true)}>{t("Annuel")} <span className="text-brand-700">−{Math.round((1 - plans[0].annual / plans[0].monthly) * 100)} %</span></button>
             </div>
           )}
         </div>

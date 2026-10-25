@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "generate your first e-book{sessions}, create your Etsy shop{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "With {temps}, allow {duree} to put your e-book up for sale.",
  "Garde le doigt appuyé… {n} %": "Keep your finger pressed… {n} %",
- "Reste appuyé quelques secondes pour signer": "Hold for a few seconds to sign"
+ "Reste appuyé quelques secondes pour signer": "Hold for a few seconds to sign",
+ "L'annuel est-il remboursable ?": "Is the annual plan refundable?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "No: the year is paid in one go, at half price. You can cancel whenever you like so it doesn't renew, and you keep access until the end of the paid year.",
+ "tu économises {prix}": "you save {prix}"
 }

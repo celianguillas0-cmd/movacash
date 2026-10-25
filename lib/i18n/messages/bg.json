@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "генерирай първата си електронна книга{sessions}, създай магазина си в Etsy{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "С {temps} предвиди {duree}, за да пуснеш книгата си в продажба.",
  "Garde le doigt appuyé… {n} %": "Задръж пръста си… {n} %",
- "Reste appuyé quelques secondes pour signer": "Задръж няколко секунди, за да подпишеш"
+ "Reste appuyé quelques secondes pour signer": "Задръж няколко секунди, за да подпишеш",
+ "L'annuel est-il remboursable ?": "Възстановява ли се годишният абонамент?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Не: годината се плаща наведнъж, на половин цена. Можеш да прекратиш по всяко време, за да не се поднови, и запазваш достъпа до края на платената година.",
+ "tu économises {prix}": "спестяваш {prix}"
 }

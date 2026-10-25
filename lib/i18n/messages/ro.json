@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "generează primul tău e-book{sessions}, creează-ți magazinul Etsy{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Cu {temps}, socotește {duree} ca să pui e-bookul la vânzare.",
  "Garde le doigt appuyé… {n} %": "Ține degetul apăsat… {n} %",
- "Reste appuyé quelques secondes pour signer": "Ține apăsat câteva secunde ca să semnezi"
+ "Reste appuyé quelques secondes pour signer": "Ține apăsat câteva secunde ca să semnezi",
+ "L'annuel est-il remboursable ?": "Abonamentul anual se rambursează?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nu: anul se plătește o singură dată, la jumătate de preț. Poți rezilia oricând ca să nu se reînnoiască, iar accesul îl păstrezi până la sfârșitul anului plătit.",
+ "tu économises {prix}": "economisești {prix}"
 }

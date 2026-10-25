@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "ustvari svojo prvo e-knjigo{sessions}, odpri svojo trgovino na Etsyju{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Z {temps} računaj {duree}, da daš e-knjigo v prodajo.",
  "Garde le doigt appuyé… {n} %": "Drži prst pritisnjen… {n} %",
- "Reste appuyé quelques secondes pour signer": "Drži pritisnjeno nekaj sekund za podpis"
+ "Reste appuyé quelques secondes pour signer": "Drži pritisnjeno nekaj sekund za podpis",
+ "L'annuel est-il remboursable ?": "Ali je letna naročnina vračljiva?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: leto plačaš naenkrat, za polovično ceno. Kadar koli jo lahko odpoveš, da se ne podaljša, dostop pa ohraniš do konca plačanega leta.",
+ "tu économises {prix}": "prihraniš {prix}"
 }

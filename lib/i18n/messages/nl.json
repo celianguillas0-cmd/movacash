@@ -1132,5 +1132,8 @@
  "génère ton premier e-book{sessions}, crée ta boutique Etsy{boutique}.": "genereer je eerste e-book{sessions}, maak je Etsy-winkel aan{boutique}.",
  "Avec {temps}, compte {duree} pour mettre ton e-book en vente.": "Met {temps} moet je rekenen op {duree} om je e-book te koop te zetten.",
  "Garde le doigt appuyé… {n} %": "Houd je vinger ingedrukt… {n} %",
- "Reste appuyé quelques secondes pour signer": "Houd een paar seconden ingedrukt om te ondertekenen"
+ "Reste appuyé quelques secondes pour signer": "Houd een paar seconden ingedrukt om te ondertekenen",
+ "L'annuel est-il remboursable ?": "Is het jaarabonnement terugbetaalbaar?",
+ "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nee: het jaar wordt in één keer betaald, voor de helft van de prijs. Je kunt op elk moment opzeggen zodat het niet wordt verlengd, en je houdt toegang tot het einde van het betaalde jaar.",
+ "tu économises {prix}": "je bespaart {prix}"
 }

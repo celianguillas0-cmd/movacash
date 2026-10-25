@@ -4,19 +4,20 @@
 import { ETAPES_CALCUL as ETAPES_FR, LEVIERS as LEVIERS_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
 import { fmtEur, type T } from "../i18n/t";
 
-export type FunnelPlan = { id: string; name: string; price: number; ebooks: number; features: string[]; highlight?: boolean };
+export type FunnelPlan = { id: string; name: string; price: number; annual: number; ebooks: number; features: string[]; highlight?: boolean };
 
 export type FunnelConfig = {
   root: HTMLElement;
   categories: { slug: string; name: string }[];
   plans: FunnelPlan[];
+  annualAvailable?: boolean;
   user: { name?: string } | null;
   demo?: boolean;
   storageKey?: string;
   api: {
     signup: (d: { name: string; email: string; password: string; answers: Answers }) => Promise<{ ok: boolean; error?: string }>;
     saveQuiz: (answers: Record<string, unknown>) => Promise<void>;
-    checkout: (plan: string) => Promise<{ url?: string; error?: string }>;
+    checkout: (plan: string, annual: boolean) => Promise<{ url?: string; error?: string }>;
   };
   onUrl?: (url: string) => void;
   // Traduction (le français sert de clé) et langue des montants
@@ -476,8 +477,15 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   let planChoisi = "";
+  // L'annuel est mis en avant : choisi par défaut quand il est disponible
+  let annuel = cfg.annualAvailable !== false;
   function showFormules(erreur = "") {
     const plans = cfg.plans;
+    const avecAnnuel = cfg.annualAvailable !== false;
+    if (!avecAnnuel) annuel = false;
+    const remise = Math.round((1 - plans[0].annual / plans[0].price) * 100);
+    const mensuelEq = (p: FunnelPlan) => (annuel ? p.annual : p.price);
+    const parAn = (p: FunnelPlan) => Math.round(p.annual * 1200) / 100;
     if (!planChoisi) planChoisi = (plans.find((p) => p.highlight) || plans[0]).id;
     const plan = plans.find((p) => p.id === planChoisi) || plans[0];
     const avantages = [
@@ -491,14 +499,15 @@ export function mountFunnel(cfg: FunnelConfig) {
       [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
       [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
       [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter et publie régulièrement.")],
-      [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois. Les e-books non utilisés ne sont pas reportés.")],
+      [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois, y compris en formule annuelle. Les e-books non utilisés ne sont pas reportés.")],
+      [tr("L'annuel est-il remboursable ?"), tr("Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.")],
     ];
-    render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">${tr("Sans engagement")}</p><p class="garantie-texte">${tr("Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.")}</p></div></div><h1 class="stage-title stage-title-q">${tr("Choisis ton plan.")}</h1><div class="plans">${plans
+    render(`${barre()}<section class="stage formules" data-reveal><div class="garantie garantie-forte"><span class="garantie-sceau">${ICONE_BOUCLIER}</span><div><p class="garantie-titre">${tr("Sans engagement")}</p><p class="garantie-texte">${tr("Tu résilies quand tu veux depuis ton espace, en deux clics. L'accès s'ouvre tout de suite après le paiement.")}</p></div></div><h1 class="stage-title stage-title-q">${tr("Choisis ton plan.")}</h1>${avecAnnuel ? `<div class="periode" role="group" aria-label="${tr("Fréquence de facturation")}"><button class="${annuel ? "" : "on"}" data-action="periode" data-v="mois">${tr("Mensuel")}</button><button class="${annuel ? "on" : ""}" data-action="periode" data-v="an">${tr("Annuel")} <span class="periode-remise">−${remise} %</span></button></div>` : ""}<div class="plans">${plans
       .map(
         (p) =>
-          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${tr("{n} e-books par mois · {prix} / mois", { n: p.ebooks, prix: prix(p.price) })}</span></span><span class="plan-jour"><strong>${prix(p.price / p.ebooks)}</strong><em>${tr("par e-book")}</em></span></button>`,
+          `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${tr("{n} e-books par mois · {prix} / mois", { n: p.ebooks, prix: `${annuel ? `<s class="plan-barre">${prix(p.price)}</s> ` : ""}${prix(mensuelEq(p))}` })}</span>${annuel ? `<span class="plan-annuel">${tr("facturé {prix} par an", { prix: prix(parAn(p)) })} · ${tr("tu économises {prix}", { prix: prix(Math.round((p.price * 12 - parAn(p)) * 100) / 100) })}</span>` : ""}</span><span class="plan-jour"><strong>${prix(mensuelEq(p) / p.ebooks)}</strong><em>${tr("par e-book")}</em></span></button>`,
       )
-      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
+      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${annuel ? tr("{prix} / an", { prix: prix(parAn(plan)) }) : tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
       .map(([q, r]) => `<details><summary>${q}</summary><p>${r}</p></details>`)
       .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p></section>`);
   }
@@ -642,12 +651,15 @@ export function mountFunnel(cfg: FunnelConfig) {
       case "plan":
         planChoisi = v;
         return showFormules();
+      case "periode":
+        annuel = v === "an";
+        return showFormules();
       case "payer": {
         const coche = root.querySelector<HTMLInputElement>("#waiver")?.checked;
         if (!coche) return showFormules("Coche la case pour demander l'accès immédiat.");
         t.setAttribute("disabled", "");
         t.textContent = "Ouverture du paiement…";
-        const r = await cfg.api.checkout(planChoisi).catch(() => ({ error: "" }) as { url?: string; error?: string });
+        const r = await cfg.api.checkout(planChoisi, annuel).catch(() => ({ error: "" }) as { url?: string; error?: string });
         if (!r.url) return showFormules(r.error || "Le paiement n'a pas pu démarrer. Réessaie.");
         try {
           localStorage.removeItem(KEY);

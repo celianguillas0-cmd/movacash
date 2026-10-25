@@ -9,7 +9,7 @@ async function post(url: string, body: unknown) {
   return { ok: res.ok, data };
 }
 
-export default function Funnel({ categories, plans, user, demo }: { categories: { slug: string; name: string }[]; plans: FunnelPlan[]; user: { name?: string } | null; demo: boolean }) {
+export default function Funnel({ categories, plans, annualAvailable, user, demo }: { categories: { slug: string; name: string }[]; plans: FunnelPlan[]; annualAvailable: boolean; user: { name?: string } | null; demo: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const t = useT();
   const locale = useLocale();
@@ -20,6 +20,7 @@ export default function Funnel({ categories, plans, user, demo }: { categories: 
       root: ref.current,
       categories,
       plans,
+      annualAvailable,
       user,
       demo,
       t,
@@ -35,8 +36,8 @@ export default function Funnel({ categories, plans, user, demo }: { categories: 
             if (r.data.quiz) localStorage.setItem("mc_quiz", JSON.stringify(r.data.quiz));
           } catch {}
         },
-        async checkout(plan) {
-          const r = await post("/api/billing/checkout", { plan, annual: false, waiver: true });
+        async checkout(plan, annual) {
+          const r = await post("/api/billing/checkout", { plan, annual, waiver: true });
           return r.ok ? { url: r.data.url } : { error: r.data.error ? t(r.data.error) : undefined };
         },
       },
