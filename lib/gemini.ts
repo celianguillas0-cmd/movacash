@@ -21,6 +21,8 @@ export async function geminiGenerate(prompt: string, opts: GenOptions = {}): Pro
       temperature: opts.temperature ?? 0.8,
       maxOutputTokens: opts.maxOutputTokens ?? 32000,
       ...(opts.json ? { responseMimeType: "application/json" } : {}),
+      // La rédaction n'a pas besoin de « réflexion » : la couper divise le coût de sortie, sans changer le texte rendu.
+      ...(model.startsWith("gemini-2.5") ? { thinkingConfig: { thinkingBudget: Number(process.env.GEMINI_THINKING_BUDGET || 0) } } : {}),
     },
   };
 
