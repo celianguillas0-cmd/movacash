@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
@@ -9,6 +10,8 @@ import WsNav from "@/components/ws/WsNav";
 import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
 import "../atelier.css";
+
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export const dynamic = "force-dynamic";
 

@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
+import { getT } from "@/lib/i18n/server";
 import LegalPage from "@/components/LegalPage";
 import { APP_NAME } from "@/lib/config";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT();
+  return { title: t("Avertissement sur les revenus") };
+}
 
 export default function IncomeDisclaimer() {
   return (

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import Paywall from "@/components/funnel/Paywall";
@@ -7,6 +8,11 @@ import { hasActiveSubscription } from "@/lib/subscription";
 import { annualAvailable } from "@/lib/stripe";
 import { countIdeas } from "@/lib/ideas";
 import { canPayFromHere, getT } from "@/lib/i18n/server";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT();
+  return { title: t("Tarifs") };
+}
 
 export const dynamic = "force-dynamic";
 

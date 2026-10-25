@@ -12,7 +12,6 @@ export default async function LegalPage({ title, children }: { title: string; ch
           <p className="dim" lang={locale} style={{ marginBottom: 16 }}>{t("Ce document fait foi en français. Ton navigateur peut le traduire automatiquement si besoin.")}</p>
         )}
         <h1 className="q-title">{title}</h1>
-        <p className="dim" style={{ marginTop: 8 }}>Modèle à faire valider par un professionnel du droit. Les éléments entre crochets sont à compléter.</p>
         {children}
       </main>
       <FunnelFooter />

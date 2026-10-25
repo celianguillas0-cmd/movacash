@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import LegalPage from "@/components/LegalPage";
 import { APP_NAME } from "@/lib/config";
 import { fill, legal } from "@/lib/legal";
+
+export const metadata: Metadata = { title: "Politique de confidentialité" };
 
 export const dynamic = "force-dynamic";
 
