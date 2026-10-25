@@ -4,6 +4,7 @@ import { fail, ok, withUser } from "@/lib/api";
 import { briefFromEbook, getEbook, outlineFromRows, refreshStatus } from "@/lib/ebooks";
 import { generateChapter } from "@/lib/generator";
 import { hasActiveSubscription } from "@/lib/subscription";
+import { isFilmMode } from "@/lib/config";
 
 export const maxDuration = 300;
 type Ctx = { params: Promise<{ id: string; idx: string }> };
@@ -20,7 +21,7 @@ export async function POST(_req: Request, { params }: Ctx) {
     if (!ch) return fail("Chapitre introuvable", 404);
     await run("UPDATE chapters SET status = 'generating' WHERE id = ?", [ch.id]);
     try {
-      const md = await generateChapter(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), i);
+      const md = await generateChapter(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), i, isFilmMode(user));
       await run("UPDATE chapters SET content_md = ?, status = 'done' WHERE id = ?", [md, ch.id]);
     } catch (e) {
       await run("UPDATE chapters SET status = 'error' WHERE id = ?", [ch.id]);

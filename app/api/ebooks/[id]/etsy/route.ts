@@ -5,6 +5,7 @@ import { briefFromEbook, getEbook, outlineFromRows } from "@/lib/ebooks";
 import { generateEtsyKit } from "@/lib/generator";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { wordCount } from "@/lib/markdown";
+import { isFilmMode } from "@/lib/config";
 
 export const maxDuration = 120;
 type Ctx = { params: Promise<{ id: string }> };
@@ -16,8 +17,10 @@ export async function POST(_req: Request, { params }: Ctx) {
     const data = await getEbook(Number(id), user.id);
     if (!data) return fail("Introuvable", 404);
     const words = data.chapters.reduce((n, c) => n + wordCount(c.content_md), 0);
-    const pages = Math.max(10, Math.round(words / 380) + 3);
-    const kit = await generateEtsyKit(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), pages);
+    const film = isFilmMode(user);
+    // En tournage, les chapitres d'exemple sont courts : on affiche une longueur réaliste.
+    const pages = film ? 48 : Math.max(10, Math.round(words / 380) + 3);
+    const kit = await generateEtsyKit(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), pages, film);
     await run("UPDATE ebooks SET etsy_json = ? WHERE id = ?", [JSON.stringify(kit), data.ebook.id]);
     return ok({ kit });
   });

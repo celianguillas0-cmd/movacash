@@ -134,6 +134,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "author_name", "TEXT NOT NULL DEFAULT ''"],
   ["users", "default_language", "TEXT"],
   ["users", "default_tone", "TEXT"],
+  ["users", "film_mode", "INTEGER NOT NULL DEFAULT 0"], // mode tournage de l'admin : écran de génération sans appel à l'API
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
 ];
 

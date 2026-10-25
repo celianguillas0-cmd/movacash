@@ -3,6 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { isAdmin } from "@/lib/config";
 import { all } from "@/lib/db";
 import { listCategories } from "@/lib/ideas";
+import FilmModeToggle from "./FilmModeToggle";
 
 export const dynamic = "force-dynamic";
 
@@ -57,6 +58,8 @@ export default async function AdminPage() {
         <h1 className="h2 text-3xl">Admin</h1>
         <p className="muted mt-2">Visible uniquement par toi. {repondants} personne{repondants > 1 ? "s ont" : " a"} répondu à la question des thématiques.</p>
       </div>
+
+      <FilmModeToggle initial={Boolean(user.film_mode)} />
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Domaines proposés en « Autre »</h2>

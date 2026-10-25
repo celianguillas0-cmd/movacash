@@ -4,7 +4,7 @@ import { canCreateEbook } from "@/lib/subscription";
 import { generateOutline } from "@/lib/generator";
 import { createEbook } from "@/lib/ebooks";
 import { getIdea } from "@/lib/ideas";
-import { isGeminiConfigured } from "@/lib/config";
+import { isFilmMode, isGeminiConfigured } from "@/lib/config";
 
 export const maxDuration = 120;
 
@@ -38,8 +38,9 @@ export async function POST(req: Request) {
       sensitive: d.sensitive ?? idea?.sensitive ?? null,
       format: idea?.format || "Guide complet",
     };
-    const outline = await generateOutline(brief);
-    const id = await createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !isGeminiConfigured());
+    const film = isFilmMode(user);
+    const outline = await generateOutline(brief, film);
+    const id = await createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !film && !isGeminiConfigured(), film);
     return ok({ id });
   });
 }

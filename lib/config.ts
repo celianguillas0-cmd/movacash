@@ -64,5 +64,8 @@ export function getPlan(id: string | null | undefined): Plan | undefined {
 export const ADMIN_EMAIL = "celianguillas0@gmail.com";
 export const isAdmin = (email?: string | null) => (email || "").trim().toLowerCase() === ADMIN_EMAIL;
 
+// Mode tournage : l'admin filme l'outil sans consommer d'API ni de quota.
+export const isFilmMode = (u: { email: string; film_mode?: number }) => isAdmin(u.email) && Boolean(u.film_mode);
+
 export const isGeminiConfigured = () => Boolean(process.env.GEMINI_API_KEY);
 export const isStripeConfigured = () => Boolean(process.env.STRIPE_SECRET_KEY);

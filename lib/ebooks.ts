@@ -49,7 +49,7 @@ export function defaultCover(seed: string): CoverSettings {
   return { style: (["moderne", "elegant", "bold"] as const)[h % 3], ...p };
 }
 
-export async function createEbook(userId: number, ideaId: number | null, brief: EbookBrief, outline: Outline, authorName: string, isDemo: boolean) {
+export async function createEbook(userId: number, ideaId: number | null, brief: EbookBrief, outline: Outline, authorName: string, isDemo: boolean, horsQuota = false) {
   // Tout dans une transaction : l'e-book, ses chapitres et la génération comptée dans le quota
   const latest = "(SELECT MAX(id) FROM ebooks WHERE user_id = ?)";
   const res = await batch([
@@ -63,7 +63,7 @@ export async function createEbook(userId: number, ideaId: number | null, brief: 
       sql: `INSERT INTO chapters (ebook_id, idx, title, summary, key_points) VALUES (${latest}, ?, ?, ?, ?)`,
       args: [userId, i, c.title, c.summary || "", JSON.stringify(c.keyPoints || [])],
     })),
-    { sql: `INSERT INTO generations (user_id, ebook_id) VALUES (?, ${latest})`, args: [userId, userId] },
+    ...(horsQuota ? [] : [{ sql: `INSERT INTO generations (user_id, ebook_id) VALUES (?, ${latest})`, args: [userId, userId] }]),
     { sql: `SELECT ${latest} AS id`, args: [userId] },
   ]);
   return Number(res[res.length - 1].rows[0].id);

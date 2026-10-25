@@ -41,7 +41,10 @@ ${b.sensitive ? `Sujet sensible : ${SENSITIVE_LABELS[b.sensitive]} (prudence et 
 ${b.extras ? `Consignes de l'auteur : ${b.extras}` : ""}`;
 }
 
-export async function generateOutline(b: EbookBrief): Promise<Outline> {
+const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+export async function generateOutline(b: EbookBrief, fake = false): Promise<Outline> {
+  if (fake) return pause(3500).then(() => mockOutline(b, true));
   if (!isGeminiConfigured()) return mockOutline(b);
   const prompt = `${briefText(b)}
 
@@ -59,9 +62,11 @@ Réponds uniquement en JSON avec ce format :
 export async function generateChapter(
   b: EbookBrief,
   outline: Outline,
-  index: number
+  index: number,
+  fake = false
 ): Promise<string> {
   const ch = outline.chapters[index];
+  if (fake) return pause(2500 + Math.random() * 2000).then(() => mockChapter(b, outline, index, true));
   if (!isGeminiConfigured()) return mockChapter(b, outline, index);
   const toc = outline.chapters.map((c, i) => `${i + 1}. ${c.title} : ${c.summary}`).join("\n");
   const isFirst = index === 0;
@@ -90,8 +95,10 @@ ${isLast ? "- C'est la conclusion : synthèse, plan d'action, erreurs à éviter
 export async function generateEtsyKit(
   b: EbookBrief,
   outline: Outline,
-  pages: number
+  pages: number,
+  fake = false
 ): Promise<EtsyKit> {
+  if (fake) return pause(3000).then(() => mockEtsyKit(b, outline, pages));
   if (!isGeminiConfigured()) return mockEtsyKit(b, outline, pages);
   const prompt = `${briefText(b)}
 
@@ -119,7 +126,7 @@ Réponds uniquement en JSON : {"title": "...", "tags": ["..."], "description": "
 // Mode démo (sans clé Gemini) : contenu structuré d'exemple pour tester tout le parcours.
 // ---------------------------------------------------------------------------
 
-function mockOutline(b: EbookBrief): Outline {
+function mockOutline(b: EbookBrief, film = false): Outline {
   const n = Math.max(4, b.chapters);
   const middle = [
     "Les bases indispensables",
@@ -141,16 +148,14 @@ function mockOutline(b: EbookBrief): Outline {
   return {
     title: b.topic,
     subtitle: `Le guide pratique pour ${b.audience ? b.audience.toLowerCase() : "débutants"}`,
-    promise: "À la fin de ce guide, vous saurez par où commencer et quelles étapes suivre. (Contenu de démonstration : configurez GEMINI_API_KEY pour générer le vrai contenu.)",
+    promise: `À la fin de ce guide, vous saurez par où commencer et quelles étapes suivre.${film ? "" : " (Contenu de démonstration : configurez GEMINI_API_KEY pour générer le vrai contenu.)"}`,
     chapters,
   };
 }
 
-function mockChapter(b: EbookBrief, o: Outline, i: number) {
+function mockChapter(b: EbookBrief, o: Outline, i: number, film = false) {
   const ch = o.chapters[i];
-  return `> **Mode démo** : ce chapitre est un exemple de mise en page. Ajoutez votre clé GEMINI_API_KEY pour générer un vrai contenu de 1800 à 2500 mots par chapitre.
-
-Ce chapitre traite de **${ch.title.toLowerCase()}** dans le cadre de « ${b.topic} ». ${ch.summary}
+  return `${film ? "" : "> **Mode démo** : ce chapitre est un exemple de mise en page. Ajoutez votre clé GEMINI_API_KEY pour générer un vrai contenu de 1800 à 2500 mots par chapitre.\n\n"}Ce chapitre traite de **${ch.title.toLowerCase()}** dans le cadre de « ${b.topic} ». ${ch.summary}
 
 ## Pourquoi c'est important
 
