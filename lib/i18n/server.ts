@@ -14,8 +14,12 @@ export async function getLocale(): Promise<Locale> {
   return detectLocale({ cookie: jar.get(LANG_COOKIE)?.value, country: await getCountry(), acceptLanguage: h.get("accept-language") });
 }
 
+// Une phrase pas encore traduite dans une langue s'affiche en anglais plutôt qu'en français.
+const cache = new Map<Locale, Dict>();
 export function getDict(locale: Locale): Dict {
-  return locale === SOURCE_LOCALE ? {} : MESSAGES[locale] || {};
+  if (locale === SOURCE_LOCALE) return {};
+  if (!cache.has(locale)) cache.set(locale, locale === "en" ? MESSAGES.en || {} : { ...MESSAGES.en, ...MESSAGES[locale] });
+  return cache.get(locale)!;
 }
 
 export async function getT() {
