@@ -74,3 +74,12 @@ En mode test Stripe (`sk_test_`, carte `4242 4242 4242 4242`) :
 5. Vérifier dans Stripe que les factures et le statut de l'abonnement correspondent.
 
 Puis remplacer les clés de test par les clés live (et refaire le webhook en mode live).
+
+## Connexion avec Google (facultatif)
+
+1. https://console.cloud.google.com : crée un projet « Movacash ».
+2. https://console.cloud.google.com/auth/overview : « Commencer », nom Movacash, ton e-mail, audience « Externe ».
+3. Onglet Clients : « Créer un client », type « Application Web ». Origine autorisée : `https://movacash.vercel.app`. URI de redirection : `https://movacash.vercel.app/api/auth/google/callback`.
+4. Onglet Audience : « Publier l'application ».
+5. Vercel : `GOOGLE_CLIENT_ID` (Config) et `GOOGLE_CLIENT_SECRET` (Secret), puis redéployer. Le bouton apparaît tout seul.
+6. Au changement de domaine : ajouter la nouvelle origine et la nouvelle URI de redirection dans le client Google.
