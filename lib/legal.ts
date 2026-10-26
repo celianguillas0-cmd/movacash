@@ -4,6 +4,9 @@ import { SUPPORT_EMAIL } from "./config";
 // Tant qu'une valeur manque, la page affiche [à compléter] et l'onglet Admin la signale.
 const DEFAUTS: Record<string, string> = {
   LEGAL_NOM: "Aurèle Guillas EI",
+  LEGAL_SIRET: "103 120 853 00017",
+  LEGAL_ADRESSE: "17 route de l'Échangeur, 29860 Kersaint-Plabennec",
+  LEGAL_TELEPHONE: "07 83 57 88 70",
   LEGAL_EMAIL: "movacash.contact@gmail.com",
   MEDIATEUR_NOM: "Médiation de la Consommation & Patrimoine (MCP)",
   MEDIATEUR_SITE: "https://www.mcpmediation.org",
