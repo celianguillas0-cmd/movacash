@@ -1147,5 +1147,7 @@
  "Ouvre ton atelier en un geste, comme une vraie appli.": "Nyisd meg a műhelyed egy koppintással, mint egy igazi appot.",
  "Installer": "Telepítés",
  "Dans Safari, touche le bouton Partager (le carré avec une flèche), puis « Sur l'écran d'accueil ».": "A Safariban koppints a Megosztás gombra (a négyzet nyíllal), majd a „Főképernyőhöz adás” lehetőségre.",
- "Écrire sur un sujet que je ne connais pas": "Olyan témáról írni, amit nem ismerek"
+ "Écrire sur un sujet que je ne connais pas": "Olyan témáról írni, amit nem ismerek",
+ "Passe à l'annuel et paie {n} % moins cher": "Válts éves fizetésre, és fizess {n}%-kal kevesebbet",
+ "ou {prix} / mois en annuel": "vagy {prix} / hó éves fizetéssel"
 }

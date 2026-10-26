@@ -1147,5 +1147,7 @@
  "Ouvre ton atelier en un geste, comme une vraie appli.": "Open your workshop in one tap, like a real app.",
  "Installer": "Install",
  "Dans Safari, touche le bouton Partager (le carré avec une flèche), puis « Sur l'écran d'accueil ».": "In Safari, tap the Share button (the square with an arrow), then “Add to Home Screen”.",
- "Écrire sur un sujet que je ne connais pas": "Writing about a subject I don't know"
+ "Écrire sur un sujet que je ne connais pas": "Writing about a subject I don't know",
+ "Passe à l'annuel et paie {n} % moins cher": "Switch to yearly and pay {n}% less",
+ "ou {prix} / mois en annuel": "or {prix} / month billed yearly"
 }

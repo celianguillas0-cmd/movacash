@@ -1147,5 +1147,7 @@
  "Ouvre ton atelier en un geste, comme une vraie appli.": "Avaa pajasi yhdellä napautuksella, kuin oikea sovellus.",
  "Installer": "Asenna",
  "Dans Safari, touche le bouton Partager (le carré avec une flèche), puis « Sur l'écran d'accueil ».": "Napauta Safarissa Jaa-painiketta (neliö, jossa on nuoli) ja sitten ”Lisää Koti-valikkoon”.",
- "Écrire sur un sujet que je ne connais pas": "Kirjoittaa aiheesta, jota en tunne"
+ "Écrire sur un sujet que je ne connais pas": "Kirjoittaa aiheesta, jota en tunne",
+ "Passe à l'annuel et paie {n} % moins cher": "Vaihda vuosilaskutukseen ja maksa {n} % vähemmän",
+ "ou {prix} / mois en annuel": "tai {prix} / kk vuosilaskutuksella"
 }

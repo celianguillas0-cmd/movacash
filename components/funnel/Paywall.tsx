@@ -11,8 +11,8 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   const t = useT();
   const locale = useLocale();
   const money = (n: number) => fmtEur(n, locale);
-  // L'annuel est mis en avant : choisi par défaut quand il est disponible
-  const [annual, setAnnual] = useState(annualAvailable);
+  // Mensuel par défaut ; l'annuel (−50 %) est mis en avant par le badge, l'astuce et le prix rappelé sur chaque offre
+  const [annual, setAnnual] = useState(false);
   const [plan, setPlan] = useState(plans.find((p) => p.highlight)?.id || plans[0].id);
   const [waiver, setWaiver] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -40,6 +40,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
           <button type="button" className={annual ? "" : "on"} onClick={() => setAnnual(false)}>{t("Mensuel")}</button>
           <button type="button" className={annual ? "on" : ""} onClick={() => setAnnual(true)}>{t("Annuel")}<span className="save">−{save} %</span></button>
         </div>
+        {!annual && <div><button type="button" className="annual-nudge" onClick={() => setAnnual(true)}>{t("Passe à l'annuel et paie {n} % moins cher", { n: save })} →</button></div>}
       </div>}
       <div className="plans">
         {plans.map((p) => (
@@ -49,6 +50,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
             <div>
               <div className="price">{annual && <s className="price-old">{money(p.monthly)}</s>}{money(price(p))}<small> / {t("mois")}</small></div>
               <div className="per">{annual ? t("facturé {prix} par an", { prix: money(Math.round(price(p) * 1200) / 100) }) : t("facturé chaque mois, résiliable à tout moment")}</div>
+              {!annual && annualAvailable && <div className="annual-hint">{t("ou {prix} / mois en annuel", { prix: money(p.annual) })} <b>−{save} %</b></div>}
               {annual && <div className="save-line">{t("tu économises {prix}", { prix: money(Math.round((p.monthly * 12 - Math.round(p.annual * 1200) / 100) * 100) / 100) })}</div>}
             </div>
             <div className="dim">{t("Soit {prix} par e-book", { prix: fmtEur(Math.round((price(p) / p.ebooks) * 100) / 100, locale) })}</div>

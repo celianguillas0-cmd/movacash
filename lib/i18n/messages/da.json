@@ -1147,5 +1147,7 @@
  "Ouvre ton atelier en un geste, comme une vraie appli.": "Åbn dit værksted med ét tryk, som en rigtig app.",
  "Installer": "Installer",
  "Dans Safari, touche le bouton Partager (le carré avec une flèche), puis « Sur l'écran d'accueil ».": "Tryk på Del-knappen i Safari (firkanten med en pil) og derefter på »Føj til hjemmeskærm«.",
- "Écrire sur un sujet que je ne connais pas": "Skrive om et emne, jeg ikke kender"
+ "Écrire sur un sujet que je ne connais pas": "Skrive om et emne, jeg ikke kender",
+ "Passe à l'annuel et paie {n} % moins cher": "Skift til årlig betaling og betal {n} % mindre",
+ "ou {prix} / mois en annuel": "eller {prix} / md. med årlig betaling"
 }

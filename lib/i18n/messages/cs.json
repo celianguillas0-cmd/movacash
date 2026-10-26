@@ -1147,5 +1147,7 @@
  "Ouvre ton atelier en un geste, comme une vraie appli.": "Otevři si dílnu jedním klepnutím, jako skutečnou aplikaci.",
  "Installer": "Nainstalovat",
  "Dans Safari, touche le bouton Partager (le carré avec une flèche), puis « Sur l'écran d'accueil ».": "V Safari klepni na tlačítko Sdílet (čtverec se šipkou) a pak na „Přidat na plochu“.",
- "Écrire sur un sujet que je ne connais pas": "Psát o tématu, které neznám"
+ "Écrire sur un sujet que je ne connais pas": "Psát o tématu, které neznám",
+ "Passe à l'annuel et paie {n} % moins cher": "Přejdi na roční platbu a plať o {n} % méně",
+ "ou {prix} / mois en annuel": "nebo {prix} / měsíc při roční platbě"
 }
