@@ -4,6 +4,7 @@ import { listCategories } from "@/lib/ideas";
 import { getCurrentUser } from "@/lib/auth";
 import { PLANS, isStripeConfigured } from "@/lib/config";
 import { annualAvailable } from "@/lib/stripe";
+import { googleConfigured } from "@/lib/google";
 import "../tunnel.css";
 import { getT } from "@/lib/i18n/server";
 
@@ -26,6 +27,7 @@ export default async function QuizPage() {
           annualAvailable={annualAvailable()}
           user={user ? { name: user.name || "" } : null}
           demo={!isStripeConfigured()}
+          google={googleConfigured()}
         />
       </main>
     </div>

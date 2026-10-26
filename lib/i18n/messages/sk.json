@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Podrž niekoľko sekúnd a podpíš",
  "L'annuel est-il remboursable ?": "Je ročné predplatné vratné?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nie: rok sa platí naraz, za polovičnú cenu. Kedykoľvek ho môžeš zrušiť, aby sa neobnovilo, a prístup ti zostane do konca zaplateného roka.",
- "tu économises {prix}": "ušetríš {prix}"
+ "tu économises {prix}": "ušetríš {prix}",
+ "Continuer avec Google": "Pokračovať cez Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Pokračovaním cez Google prijímaš obchodné podmienky a zásady ochrany osobných údajov a chápeš, že žiadny príjem nie je zaručený.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Prihlásenie cez Google sa nepodarilo. Skús to znova alebo použi svoj e-mail.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Prihlásenie cez Google zatiaľ nie je dostupné. Použi svoj e-mail.",
+ "ou": "alebo"
 }

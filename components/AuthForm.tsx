@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useT } from "@/lib/i18n/client";
+import GoogleButton from "./GoogleButton";
 
-export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
+export default function AuthForm({ mode, google = false, googleError = "" }: { mode: "login" | "signup"; google?: boolean; googleError?: string }) {
   const router = useRouter();
   const t = useT();
   const [form, setForm] = useState({ email: "", password: "", name: "", acceptTerms: false });
@@ -54,6 +55,14 @@ export default function AuthForm({ mode }: { mode: "login" | "signup" }) {
       </h1>
       {mode === "signup" && (
         <p className="q-help">{t("On te demande juste ton prénom, ton e-mail et un mot de passe, pour retrouver tes réponses, tes idées et tes e-books. Pas de revente de données.")}</p>
+      )}
+      {googleError && <p className="error" style={{ marginTop: 20 }}>{googleError}</p>}
+      {google && (
+        <div className="google-bloc">
+          <GoogleButton next={mode === "signup" ? (hasQuiz ? "/resultats" : "/tarifs") : "/app"} label={t("Continuer avec Google")} />
+          {mode === "signup" && <p className="dim google-note">{t("En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.")}</p>}
+          <p className="google-ou"><span>{t("ou")}</span></p>
+        </div>
       )}
       <form className="form" onSubmit={submit}>
         {mode === "signup" && (

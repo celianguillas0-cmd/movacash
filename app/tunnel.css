@@ -371,3 +371,11 @@
   .tf .illu-grande, .tf .saas-points li, .tf .etape, .tf .note-tiroir { animation: none; }
 }
 .tf .options-grille > .option-autre { grid-column: 1 / -1; }
+
+/* Connexion avec Google */
+.tf .btn-google { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 13px 16px; border-radius: 12px; background: #fff; color: #111827; font-size: 15px; font-weight: 600; text-decoration: none; }
+.tf .btn-google:hover { background: #e9edf3; }
+.tf .btn-google svg { flex: none; }
+.tf .google-bloc { gap: 10px; }
+.tf .google-ou { display: flex; align-items: center; gap: 12px; margin: 6px 0 -10px; font-size: 13px; color: var(--text-3); }
+.tf .google-ou::before, .tf .google-ou::after { content: ""; flex: 1; height: 1px; background: var(--line-2); }

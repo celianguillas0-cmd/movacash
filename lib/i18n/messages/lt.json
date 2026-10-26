@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Palaikyk nuspaudęs kelias sekundes, kad pasirašytum",
  "L'annuel est-il remboursable ?": "Ar metinė prenumerata grąžinama?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: metai apmokami iš karto, už pusę kainos. Gali bet kada atšaukti, kad neatsinaujintų, o prieigą išlaikai iki apmokėtų metų pabaigos.",
- "tu économises {prix}": "sutaupai {prix}"
+ "tu économises {prix}": "sutaupai {prix}",
+ "Continuer avec Google": "Tęsti su Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Tęsdamas su Google sutinki su pardavimo sąlygomis ir privatumo politika bei supranti, kad jokios pajamos negarantuojamos.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Prisijungti su Google nepavyko. Bandyk dar kartą arba naudok savo el. paštą.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Prisijungimas su Google dar negalimas. Naudok savo el. paštą.",
+ "ou": "arba"
 }

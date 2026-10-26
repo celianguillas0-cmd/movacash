@@ -9,7 +9,7 @@ async function post(url: string, body: unknown) {
   return { ok: res.ok, data };
 }
 
-export default function Funnel({ categories, plans, annualAvailable, user, demo }: { categories: { slug: string; name: string }[]; plans: FunnelPlan[]; annualAvailable: boolean; user: { name?: string } | null; demo: boolean }) {
+export default function Funnel({ categories, plans, annualAvailable, user, demo, google }: { categories: { slug: string; name: string }[]; plans: FunnelPlan[]; annualAvailable: boolean; user: { name?: string } | null; demo: boolean; google?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const t = useT();
   const locale = useLocale();
@@ -23,6 +23,7 @@ export default function Funnel({ categories, plans, annualAvailable, user, demo 
       annualAvailable,
       user,
       demo,
+      google,
       t,
       locale,
       api: {

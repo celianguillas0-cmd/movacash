@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Mantén pulsado unos segundos para firmar",
  "L'annuel est-il remboursable ?": "¿El plan anual es reembolsable?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "No: el año se paga de una vez, a mitad de precio. Puedes cancelar cuando quieras para que no se renueve, y conservas el acceso hasta el final del año pagado.",
- "tu économises {prix}": "ahorras {prix}"
+ "tu économises {prix}": "ahorras {prix}",
+ "Continuer avec Google": "Continuar con Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Al continuar con Google, aceptas las condiciones generales de venta y la política de privacidad, y entiendes que no se garantiza ningún ingreso.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "El inicio de sesión con Google no ha funcionado. Vuelve a intentarlo o usa tu correo.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "El inicio de sesión con Google aún no está disponible. Usa tu correo.",
+ "ou": "o"
 }

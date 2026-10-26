@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Håll inne några sekunder för att skriva under",
  "L'annuel est-il remboursable ?": "Kan årsabonnemanget återbetalas?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nej: året betalas på en gång, till halva priset. Du kan säga upp när du vill så att det inte förnyas, och du behåller tillgången till slutet av det betalda året.",
- "tu économises {prix}": "du sparar {prix}"
+ "tu économises {prix}": "du sparar {prix}",
+ "Continuer avec Google": "Fortsätt med Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Genom att fortsätta med Google godkänner du försäljningsvillkoren och integritetspolicyn och förstår att ingen inkomst är garanterad.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Inloggningen med Google fungerade inte. Försök igen eller använd din e-post.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Inloggning med Google är inte tillgänglig än. Använd din e-post.",
+ "ou": "eller"
 }

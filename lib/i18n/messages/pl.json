@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Przytrzymaj kilka sekund, aby podpisać",
  "L'annuel est-il remboursable ?": "Czy plan roczny podlega zwrotowi?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nie: rok opłacasz jednorazowo, za połowę ceny. Możesz zrezygnować w dowolnym momencie, by się nie odnowił, a dostęp zachowasz do końca opłaconego roku.",
- "tu économises {prix}": "oszczędzasz {prix}"
+ "tu économises {prix}": "oszczędzasz {prix}",
+ "Continuer avec Google": "Kontynuuj z Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Kontynuując z Google, akceptujesz regulamin sprzedaży i politykę prywatności oraz rozumiesz, że żaden dochód nie jest gwarantowany.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Logowanie przez Google nie powiodło się. Spróbuj ponownie lub użyj swojego e-maila.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Logowanie przez Google nie jest jeszcze dostępne. Użyj swojego e-maila.",
+ "ou": "lub"
 }

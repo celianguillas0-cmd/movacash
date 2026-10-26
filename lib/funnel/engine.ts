@@ -1,6 +1,7 @@
 // Moteur du sondage public, sans React : il écrit le HTML de chaque étape dans un conteneur.
 // Le même fichier sert à l'appli (app/quiz/Funnel.tsx) et à la maquette interactive (compilé en script autonome).
 
+import { GOOGLE_G } from "../googleLogo";
 import { ETAPES_CALCUL as ETAPES_FR, LEVIERS as LEVIERS_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
 import { fmtEur, type T } from "../i18n/t";
 
@@ -13,6 +14,7 @@ export type FunnelConfig = {
   annualAvailable?: boolean;
   user: { name?: string } | null;
   demo?: boolean;
+  google?: boolean;
   storageKey?: string;
   api: {
     signup: (d: { name: string; email: string; password: string; answers: Answers }) => Promise<{ ok: boolean; error?: string }>;
@@ -382,7 +384,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showCompte(erreur = "", valeurs: { name?: string; email?: string; password?: string; cgv?: boolean } = {}) {
-    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">${tr("Crée ton compte")}<br/><em>${tr("pour débloquer tes résultats.")}</em></h1><form class="account-form" id="signup-form" novalidate><label class="field"><span>${tr("Prénom")}</span><input name="name" type="text" autocomplete="given-name" placeholder="${tr("Camille")}" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>${tr("E-mail")}</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="${tr("camille@exemple.fr")}" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>${tr("Mot de passe")}</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="${tr("8 caractères minimum")}" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>${tr("J'accepte les")} <a href="/cgv" target="_blank" rel="noopener">${tr("CGV")}</a> ${tr("et la")} <a href="/confidentialite" target="_blank" rel="noopener">${tr("politique de confidentialité")}</a>${tr(", et je comprends qu'aucun revenu n'est garanti.")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">${tr("Continuer")} ${fleche}</button><p class="form-note">${tr("Tes réponses sont enregistrées dans ton compte. Pas de revente de données.")}</p></form></section>`);
+    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">${tr("Crée ton compte")}<br/><em>${tr("pour débloquer tes résultats.")}</em></h1>${cfg.google ? `<div class="account-form google-bloc"><a class="btn-google" href="/api/auth/google?next=%2Fquiz">${GOOGLE_G}${tr("Continuer avec Google")}</a><p class="form-note">${tr("En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.")}</p><p class="google-ou"><span>${tr("ou")}</span></p></div>` : ""}<form class="account-form" id="signup-form" novalidate><label class="field"><span>${tr("Prénom")}</span><input name="name" type="text" autocomplete="given-name" placeholder="${tr("Camille")}" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>${tr("E-mail")}</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="${tr("camille@exemple.fr")}" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>${tr("Mot de passe")}</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="${tr("8 caractères minimum")}" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>${tr("J'accepte les")} <a href="/cgv" target="_blank" rel="noopener">${tr("CGV")}</a> ${tr("et la")} <a href="/confidentialite" target="_blank" rel="noopener">${tr("politique de confidentialité")}</a>${tr(", et je comprends qu'aucun revenu n'est garanti.")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">${tr("Continuer")} ${fleche}</button><p class="form-note">${tr("Tes réponses sont enregistrées dans ton compte. Pas de revente de données.")}</p></form></section>`);
     const form = root.querySelector<HTMLFormElement>("#signup-form")!;
     if (valeurs.password) (form.elements.namedItem("password") as HTMLInputElement).value = valeurs.password;
     if (valeurs.cgv) (form.elements.namedItem("cgv") as HTMLInputElement).checked = true;

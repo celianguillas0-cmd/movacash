@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Hoia paar sekundit all, et allkirjastada",
  "L'annuel est-il remboursable ?": "Kas aastapakett on tagastatav?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ei: aasta makstakse korraga, poole hinnaga. Võid igal ajal tühistada, et see ei pikeneks, ja ligipääs jääb sulle makstud aasta lõpuni.",
- "tu économises {prix}": "säästad {prix}"
+ "tu économises {prix}": "säästad {prix}",
+ "Continuer avec Google": "Jätka Google'iga",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Google'iga jätkates nõustud müügitingimuste ja privaatsuspoliitikaga ning mõistad, et mingit tulu ei garanteerita.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Google'iga sisselogimine ei õnnestunud. Proovi uuesti või kasuta oma e-posti.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Google'iga sisselogimine pole veel saadaval. Kasuta oma e-posti.",
+ "ou": "või"
 }

@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Turi nospiestu dažas sekundes, lai parakstītos",
  "L'annuel est-il remboursable ?": "Vai gada abonements ir atmaksājams?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nē: gads tiek apmaksāts uzreiz, par pusi lētāk. Vari jebkurā laikā atcelt, lai tas netiktu atjaunots, un piekļuve saglabājas līdz apmaksātā gada beigām.",
- "tu économises {prix}": "tu ietaupi {prix}"
+ "tu économises {prix}": "tu ietaupi {prix}",
+ "Continuer avec Google": "Turpināt ar Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Turpinot ar Google, tu piekrīti pārdošanas noteikumiem un privātuma politikai un saproti, ka nekādi ienākumi netiek garantēti.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Pierakstīšanās ar Google neizdevās. Mēģini vēlreiz vai izmanto savu e-pastu.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Pierakstīšanās ar Google vēl nav pieejama. Izmanto savu e-pastu.",
+ "ou": "vai"
 }

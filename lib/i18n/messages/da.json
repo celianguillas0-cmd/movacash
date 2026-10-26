@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Hold nede i et par sekunder for at underskrive",
  "L'annuel est-il remboursable ?": "Kan årsabonnementet refunderes?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nej: året betales på én gang, til halv pris. Du kan opsige, når du vil, så det ikke fornyes, og du beholder adgangen til udgangen af det betalte år.",
- "tu économises {prix}": "du sparer {prix}"
+ "tu économises {prix}": "du sparer {prix}",
+ "Continuer avec Google": "Fortsæt med Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Ved at fortsætte med Google accepterer du salgsbetingelserne og privatlivspolitikken og forstår, at ingen indtægt er garanteret.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Login med Google lykkedes ikke. Prøv igen eller brug din e-mail.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Login med Google er ikke tilgængeligt endnu. Brug din e-mail.",
+ "ou": "eller"
 }

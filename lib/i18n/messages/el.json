@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Κράτησε πατημένο λίγα δευτερόλεπτα για να υπογράψεις",
  "L'annuel est-il remboursable ?": "Επιστρέφονται τα χρήματα του ετήσιου;",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Όχι: το έτος πληρώνεται εφάπαξ, στη μισή τιμή. Μπορείς να ακυρώσεις όποτε θέλεις ώστε να μην ανανεωθεί, και διατηρείς την πρόσβαση ως το τέλος του πληρωμένου έτους.",
- "tu économises {prix}": "εξοικονομείς {prix}"
+ "tu économises {prix}": "εξοικονομείς {prix}",
+ "Continuer avec Google": "Συνέχεια με Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Συνεχίζοντας με Google, αποδέχεσαι τους όρους πώλησης και την πολιτική απορρήτου και κατανοείς ότι κανένα εισόδημα δεν είναι εγγυημένο.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Η σύνδεση με Google δεν ολοκληρώθηκε. Δοκίμασε ξανά ή χρησιμοποίησε το email σου.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Η σύνδεση με Google δεν είναι ακόμη διαθέσιμη. Χρησιμοποίησε το email σου.",
+ "ou": "ή"
 }

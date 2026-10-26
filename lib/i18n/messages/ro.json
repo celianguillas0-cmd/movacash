@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Ține apăsat câteva secunde ca să semnezi",
  "L'annuel est-il remboursable ?": "Abonamentul anual se rambursează?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nu: anul se plătește o singură dată, la jumătate de preț. Poți rezilia oricând ca să nu se reînnoiască, iar accesul îl păstrezi până la sfârșitul anului plătit.",
- "tu économises {prix}": "economisești {prix}"
+ "tu économises {prix}": "economisești {prix}",
+ "Continuer avec Google": "Continuă cu Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Continuând cu Google, accepți condițiile generale de vânzare și politica de confidențialitate și înțelegi că niciun venit nu este garantat.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Conectarea cu Google nu a reușit. Încearcă din nou sau folosește adresa ta de e-mail.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Conectarea cu Google nu este încă disponibilă. Folosește adresa ta de e-mail.",
+ "ou": "sau"
 }

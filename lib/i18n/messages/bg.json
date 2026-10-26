@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Задръж няколко секунди, за да подпишеш",
  "L'annuel est-il remboursable ?": "Възстановява ли се годишният абонамент?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Не: годината се плаща наведнъж, на половин цена. Можеш да прекратиш по всяко време, за да не се поднови, и запазваш достъпа до края на платената година.",
- "tu économises {prix}": "спестяваш {prix}"
+ "tu économises {prix}": "спестяваш {prix}",
+ "Continuer avec Google": "Продължи с Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Като продължиш с Google, приемаш общите условия за продажба и политиката за поверителност и разбираш, че не се гарантира никакъв доход.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Влизането с Google не успя. Опитай отново или използвай своя имейл.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Влизането с Google все още не е налично. Използвай своя имейл.",
+ "ou": "или"
 }

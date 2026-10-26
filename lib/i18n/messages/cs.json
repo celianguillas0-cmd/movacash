@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Podrž několik sekund a podepiš",
  "L'annuel est-il remboursable ?": "Je roční předplatné vratné?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: rok se platí najednou, za poloviční cenu. Kdykoli ho můžeš zrušit, aby se neobnovilo, a přístup ti zůstane do konce zaplaceného roku.",
- "tu économises {prix}": "ušetříš {prix}"
+ "tu économises {prix}": "ušetříš {prix}",
+ "Continuer avec Google": "Pokračovat přes Google",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Pokračováním přes Google přijímáš obchodní podmínky a zásady ochrany osobních údajů a chápeš, že žádný příjem není zaručen.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Přihlášení přes Google se nepovedlo. Zkus to znovu nebo použij svůj e-mail.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Přihlášení přes Google zatím není k dispozici. Použij svůj e-mail.",
+ "ou": "nebo"
 }

@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Drži pritisnjeno nekaj sekund za podpis",
  "L'annuel est-il remboursable ?": "Ali je letna naročnina vračljiva?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Ne: leto plačaš naenkrat, za polovično ceno. Kadar koli jo lahko odpoveš, da se ne podaljša, dostop pa ohraniš do konca plačanega leta.",
- "tu économises {prix}": "prihraniš {prix}"
+ "tu économises {prix}": "prihraniš {prix}",
+ "Continuer avec Google": "Nadaljuj z Googlom",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Z nadaljevanjem z Googlom sprejmeš prodajne pogoje in politiko zasebnosti ter razumeš, da noben zaslužek ni zagotovljen.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Prijava z Googlom ni uspela. Poskusi znova ali uporabi svoj e-naslov.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Prijava z Googlom še ni na voljo. Uporabi svoj e-naslov.",
+ "ou": "ali"
 }

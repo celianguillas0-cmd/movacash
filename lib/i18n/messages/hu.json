@@ -1135,5 +1135,10 @@
  "Reste appuyé quelques secondes pour signer": "Tartsd lenyomva néhány másodpercig az aláíráshoz",
  "L'annuel est-il remboursable ?": "Visszatéríthető az éves csomag?",
  "Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.": "Nem: az évet egyben fizeted, féláron. Bármikor lemondhatod, hogy ne újuljon meg, és a hozzáférés a kifizetett év végéig megmarad.",
- "tu économises {prix}": "megtakarítasz {prix} összeget"
+ "tu économises {prix}": "megtakarítasz {prix} összeget",
+ "Continuer avec Google": "Folytatás Google-lel",
+ "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "A Google-lel való folytatással elfogadod az ÁSZF-et és az adatvédelmi szabályzatot, és tudomásul veszed, hogy semmilyen bevétel nem garantált.",
+ "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "A Google-bejelentkezés nem sikerült. Próbáld újra, vagy használd az e-mail-címedet.",
+ "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "A Google-bejelentkezés még nem érhető el. Használd az e-mail-címedet.",
+ "ou": "vagy"
 }
