@@ -46,7 +46,7 @@ export default function Privacy() {
       <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition, ainsi que du droit de retirer votre consentement à tout moment. Depuis votre espace (« Paramètres »), vous pouvez modifier vos informations, télécharger toutes vos données (format JSON) et supprimer votre compte vous-même. Pour toute autre demande : {fill(l.email)}. Vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr).</p>
 
       <h2>Cookies</h2>
-      <p>Le site n'utilise que deux cookies techniques, strictement nécessaires et exemptés de consentement : le cookie de session qui vous garde connecté, et un cookie qui retient la langue choisie. Aucun cookie publicitaire ni de mesure d'audience n'est déposé.</p>
+      <p>Le site n'utilise que deux cookies techniques, strictement nécessaires et exemptés de consentement : le cookie de session qui vous garde connecté, et un cookie qui retient la langue choisie. Aucun cookie publicitaire ni de mesure d'audience n'est déposé. La fréquentation du site est mesurée par Vercel Web Analytics, sans cookie et de façon anonyme : seuls des chiffres globaux (pages vues, pays, type d'appareil, site d'origine) sont conservés, sans permettre de vous identifier.</p>
     </LegalPage>
   );
 }

@@ -4,6 +4,7 @@ import "./funnel.css";
 import { APP_NAME, APP_URL } from "@/lib/config";
 import { getDict, getLocale, getT } from "@/lib/i18n/server";
 import { I18nProvider } from "@/lib/i18n/client";
+import { Analytics } from "@vercel/analytics/next";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getT();
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <I18nProvider locale={locale} dict={getDict(locale)}>{children}</I18nProvider>
+        <Analytics />
       </body>
     </html>
   );
