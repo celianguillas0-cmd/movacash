@@ -1,6 +1,9 @@
 import { tk } from "./i18n/t";
 export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Movacash";
-export const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+// Sans NEXT_PUBLIC_APP_URL, on prend l'adresse de production fournie par Vercel
+export const APP_URL =
+  process.env.NEXT_PUBLIC_APP_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "http://localhost:3000");
 // Adresse de contact affichée dans l'aide (ex. support@ton-domaine.fr)
 export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "";
 
