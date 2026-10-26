@@ -17,8 +17,8 @@
  "{n} e-books par mois · {prix} / mois": "{n} e-knjig na mesec · {prix} / mesec",
  "{n} e-books.": "E-knjige: {n}.",
  "{n} mots": "{n} besed",
- "{n} vente": "Prodaje: {n}",
- "{n} ventes": "Prodaje: {n}",
+ "{n} vente": "{n} prodaja",
+ "{n} ventes": "{n} prodaj",
  "{prenom}, voici": "{prenom}, tukaj so",
  "{prenom}, voilà comment on t'amène": "{prenom}, tako te bomo pripeljali",
  "{prix} / an": "{prix} / leto",
@@ -94,7 +94,7 @@
  "Analyse du sujet": "Analiza teme",
  "Animaux": "Živali",
  "Annuel": "Letno",
- "annuelle": "letna",
+ "annuelle": "letni",
  "Annulée": "Preklicano",
  "Annuler": "Prekliči",
  "Aperçu de la miniature Etsy": "Predogled sličice za Etsy",
@@ -567,7 +567,7 @@
  "Marques citées ({brands}) : n'utilise pas leurs logos et précise que le guide n'est pas affilié à ces marques.": "Omenjene znamke ({brands}): ne uporabljaj njihovih logotipov in navedi, da vodnik ni povezan s temi znamkami.",
  "Me montrer en vidéo": "Pokaži mi v videu",
  "Mensuel": "Mesečno",
- "mensuelle": "mesečna",
+ "mensuelle": "mesečni",
  "Mentions légales": "Pravno obvestilo",
  "Merci ! Tu as déjà envoyé plusieurs avis, réessaie plus tard.": "Hvala! Poslal/a si že več mnenj, poskusi znova pozneje.",
  "Merci, ton avis est bien arrivé. On lit chaque message.": "Hvala, tvoje mnenje je prispelo. Preberemo vsako sporočilo.",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Z nadaljevanjem z Googlom sprejmeš prodajne pogoje in politiko zasebnosti ter razumeš, da noben zaslužek ni zagotovljen.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Prijava z Googlom ni uspela. Poskusi znova ali uporabi svoj e-naslov.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Prijava z Googlom še ni na voljo. Uporabi svoj e-naslov.",
- "ou": "ali"
+ "ou": "ali",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Sprejemam <1>splošne prodajne pogoje</1> in <2>politiko zasebnosti</2> ter razumem, da noben zaslužek ni zagotovljen.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Zahtevam takojšen dostop do storitve in razumem, da izgubim pravico do odstopa v 14 dneh, takoj ko ustvarim svojo prvo e-knjigo. Prebral/a sem <1>splošne prodajne pogoje</1>."
 }

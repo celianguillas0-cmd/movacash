@@ -567,7 +567,7 @@
  "Marques citées ({brands}) : n'utilise pas leurs logos et précise que le guide n'est pas affilié à ces marques.": "Споменати марки ({brands}): не използвай логата им и уточни, че наръчникът не е свързан с тези марки.",
  "Me montrer en vidéo": "Покажи ми във видео",
  "Mensuel": "Месечно",
- "mensuelle": "месечна",
+ "mensuelle": "месечен",
  "Mentions légales": "Правна информация",
  "Merci ! Tu as déjà envoyé plusieurs avis, réessaie plus tard.": "Благодарим! Вече изпрати няколко мнения, опитай отново по-късно.",
  "Merci, ton avis est bien arrivé. On lit chaque message.": "Благодарим, мнението ти пристигна. Четем всяко съобщение.",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Като продължиш с Google, приемаш общите условия за продажба и политиката за поверителност и разбираш, че не се гарантира никакъв доход.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Влизането с Google не успя. Опитай отново или използвай своя имейл.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Влизането с Google все още не е налично. Използвай своя имейл.",
- "ou": "или"
+ "ou": "или",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Приемам <1>Общите условия</1> и <2>Политиката за поверителност</2> и разбирам, че никакъв доход не е гарантиран.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Искам незабавен достъп до услугата и разбирам, че губя правото си на отказ в срок от 14 дни, щом създам първата си електронна книга. Прочетох <1>Общите условия</1>."
 }

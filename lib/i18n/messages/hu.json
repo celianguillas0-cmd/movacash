@@ -149,8 +149,8 @@
  "Calcul des ventes nécessaires": "A szükséges eladások kiszámítása",
  "Calcul du montant…": "Összeg kiszámítása…",
  "Calcul en cours": "Számítás folyamatban",
- "Camille": "Camille",
- "camille@exemple.fr": "camille@pelda.hu",
+ "Camille": "Anna",
+ "camille@exemple.fr": "anna@pelda.hu",
  "Carrière & emploi": "Karrier és munka",
  "Catégorie Etsy :": "Etsy-kategória:",
  "Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.": "Ezt a fiókot felfüggesztették. Írj a támogatásnak, ha szerinted tévedés.",
@@ -384,7 +384,7 @@
  "Ex. : étudiants qui veulent un complément de revenus": "Pl.: diákok, akik mellékkeresetet szeretnének",
  "Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…": "Pl.: legyen benne heti bontású program, 50 €-s induló költségvetés, magyarországi példák…",
  "Ex. : Lancer son business d'achat-revente sur Vinted": "Pl.: Viszonteladói vállalkozás indítása a Vinteden",
- "Ex. Camille Martin": "Pl. Camille Martin",
+ "Ex. Camille Martin": "Pl. Kovács Anna",
  "Exemples et exercices": "Példák és gyakorlatok",
  "Exigeante": "Igényes",
  "Expert": "Szakértő",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "A Google-lel való folytatással elfogadod az ÁSZF-et és az adatvédelmi szabályzatot, és tudomásul veszed, hogy semmilyen bevétel nem garantált.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "A Google-bejelentkezés nem sikerült. Próbáld újra, vagy használd az e-mail-címedet.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "A Google-bejelentkezés még nem érhető el. Használd az e-mail-címedet.",
- "ou": "vagy"
+ "ou": "vagy",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Elfogadom az <1>ÁSZF-et</1> és az <2>adatvédelmi szabályzatot</2>, és tudomásul veszem, hogy semmilyen bevétel nem garantált.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Kérem a szolgáltatás azonnali megkezdését, és tudomásul veszem, hogy az első e-könyvem létrehozásakor elveszítem a 14 napos elállási jogomat. Elolvastam az <1>ÁSZF-et</1>."
 }

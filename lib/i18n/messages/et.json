@@ -918,7 +918,7 @@
  "Terre cuite": "Terrakota",
  "Tes 3 idées": "Sinu 3 ideed",
  "Tes 3 idées sont prêtes.": "Sinu 3 ideed on valmis.",
- "tes 3 idées.": "3 ideed sinu jaoks.",
+ "tes 3 idées.": "sinu 3 ideed.",
  "Tes autres e-books": "Sinu teised e-raamatud",
  "Tes e-books déjà créés restent consultables et téléchargeables.": "Sinu juba loodud e-raamatud jäävad vaadatavaks ja allalaaditavaks.",
  "Tes e-books et PDF restent consultables et téléchargeables.": "Sinu e-raamatud ja PDF-id jäävad vaadatavaks ja allalaaditavaks.",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Google'iga jätkates nõustud müügitingimuste ja privaatsuspoliitikaga ning mõistad, et mingit tulu ei garanteerita.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Google'iga sisselogimine ei õnnestunud. Proovi uuesti või kasuta oma e-posti.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Google'iga sisselogimine pole veel saadaval. Kasuta oma e-posti.",
- "ou": "või"
+ "ou": "või",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Nõustun <1>müügitingimuste</1> ja <2>privaatsuspoliitikaga</2> ning mõistan, et mingit tulu ei garanteerita.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Soovin teenusele kohest ligipääsu ja saan aru, et kaotan 14-päevase taganemisõiguse kohe, kui loon oma esimese e-raamatu. Olen tutvunud <1>müügitingimustega</1>."
 }

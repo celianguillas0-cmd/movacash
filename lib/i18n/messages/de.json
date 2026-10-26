@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Wenn du mit Google fortfährst, akzeptierst du die AGB und die Datenschutzerklärung und verstehst, dass kein Einkommen garantiert ist.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Die Anmeldung mit Google hat nicht geklappt. Versuche es erneut oder nutze deine E-Mail.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Die Anmeldung mit Google ist noch nicht verfügbar. Nutze deine E-Mail.",
- "ou": "oder"
+ "ou": "oder",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Ich akzeptiere die <1>AGB</1> und die <2>Datenschutzerklärung</2> und verstehe, dass kein Einkommen garantiert ist.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Ich verlange den sofortigen Zugang zum Dienst und verstehe, dass ich mein 14-tägiges Widerrufsrecht verliere, sobald ich mein erstes E-Book erstelle. Ich habe die <1>AGB</1> gelesen."
 }

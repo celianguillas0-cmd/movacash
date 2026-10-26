@@ -149,8 +149,8 @@
  "Calcul des ventes nécessaires": "Tarvittavan myynnin laskeminen",
  "Calcul du montant…": "Lasketaan summaa…",
  "Calcul en cours": "Lasketaan",
- "Camille": "Camille",
- "camille@exemple.fr": "camille@esimerkki.fi",
+ "Camille": "Aino",
+ "camille@exemple.fr": "aino@esimerkki.fi",
  "Carrière & emploi": "Ura & työ",
  "Catégorie Etsy :": "Etsy-kategoria:",
  "Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.": "Tämä tili on jäädytetty. Kirjoita tukeen, jos uskot, että kyseessä on virhe.",
@@ -384,7 +384,7 @@
  "Ex. : étudiants qui veulent un complément de revenus": "Esim.: opiskelijat, jotka haluavat lisätuloja",
  "Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…": "Esim.: sisällytä viikko viikolta -ohjelma, 50 €:n aloitusbudjetti, esimerkkejä Suomesta…",
  "Ex. : Lancer son business d'achat-revente sur Vinted": "Esim.: Oman jälleenmyyntibisneksen aloittaminen Vintedissä",
- "Ex. Camille Martin": "Esim. Camille Martin",
+ "Ex. Camille Martin": "Esim. Aino Virtanen",
  "Exemples et exercices": "Esimerkit ja harjoitukset",
  "Exigeante": "Vaativa",
  "Expert": "Asiantuntija",
@@ -708,7 +708,7 @@
  "Pédagogique (par défaut)": "Opettavainen (oletus)",
  "Pédagogue et bienveillant": "Opettavainen ja ystävällinen",
  "Pense à télécharger tes PDF avant.": "Muista ladata PDF:si ensin.",
- "pensées pour Etsy.": "Etsyä varten suunniteltuja.",
+ "pensées pour Etsy.": "suunniteltu Etsyä varten.",
  "peu de recherche": "vähän taustatyötä",
  "Photo en cours…": "Kuvaa luodaan…",
  "Photo pleine page, titre dessus": "Koko sivun kuva, otsikko päällä",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Jatkamalla Googlella hyväksyt myyntiehdot ja tietosuojakäytännön ja ymmärrät, ettei mitään tuloja taata.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Kirjautuminen Googlella ei onnistunut. Yritä uudelleen tai käytä sähköpostiasi.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Kirjautuminen Googlella ei ole vielä käytettävissä. Käytä sähköpostiasi.",
- "ou": "tai"
+ "ou": "tai",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Hyväksyn <1>myyntiehdot</1> ja <2>tietosuojakäytännön</2> ja ymmärrän, ettei mitään tuloja taata.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Pyydän palvelun välitöntä käyttöönottoa ja ymmärrän menettäväni 14 päivän peruuttamisoikeuteni heti, kun luon ensimmäisen e-kirjani. Olen lukenut <1>myyntiehdot</1>."
 }

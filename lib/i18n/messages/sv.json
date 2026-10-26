@@ -149,8 +149,8 @@
  "Calcul des ventes nécessaires": "Beräkning av nödvändig försäljning",
  "Calcul du montant…": "Beräknar beloppet…",
  "Calcul en cours": "Beräknar",
- "Camille": "Camille",
- "camille@exemple.fr": "camille@exempel.se",
+ "Camille": "Elsa",
+ "camille@exemple.fr": "elsa@exempel.se",
  "Carrière & emploi": "Karriär & jobb",
  "Catégorie Etsy :": "Etsy-kategori:",
  "Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.": "Det här kontot har stängts av. Skriv till supporten om du tror att det är ett misstag.",
@@ -384,7 +384,7 @@
  "Ex. : étudiants qui veulent un complément de revenus": "T.ex.: studenter som vill ha en extrainkomst",
  "Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…": "T.ex.: ta med ett program vecka för vecka, en startbudget på 50 €, exempel från Sverige…",
  "Ex. : Lancer son business d'achat-revente sur Vinted": "T.ex.: Starta en återförsäljningsverksamhet på Vinted",
- "Ex. Camille Martin": "T.ex. Camille Martin",
+ "Ex. Camille Martin": "T.ex. Elsa Andersson",
  "Exemples et exercices": "Exempel och övningar",
  "Exigeante": "Krävande",
  "Expert": "Expert",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Genom att fortsätta med Google godkänner du försäljningsvillkoren och integritetspolicyn och förstår att ingen inkomst är garanterad.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Inloggningen med Google fungerade inte. Försök igen eller använd din e-post.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Inloggning med Google är inte tillgänglig än. Använd din e-post.",
- "ou": "eller"
+ "ou": "eller",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Jag godkänner <1>villkoren</1> och <2>integritetspolicyn</2> och förstår att ingen inkomst är garanterad.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Jag begär omedelbar tillgång till tjänsten och förstår att jag förlorar min ångerrätt på 14 dagar så snart jag skapar min första e-bok. Jag har läst <1>villkoren</1>."
 }

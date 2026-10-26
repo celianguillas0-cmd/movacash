@@ -149,8 +149,8 @@
  "Calcul des ventes nécessaires": "Berekening van de benodigde verkopen",
  "Calcul du montant…": "Bedrag berekenen…",
  "Calcul en cours": "Bezig met berekenen",
- "Camille": "Camille",
- "camille@exemple.fr": "camille@voorbeeld.nl",
+ "Camille": "Sanne",
+ "camille@exemple.fr": "sanne@voorbeeld.nl",
  "Carrière & emploi": "Carrière & werk",
  "Catégorie Etsy :": "Etsy-categorie:",
  "Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.": "Dit account is opgeschort. Schrijf naar support als je denkt dat het een vergissing is.",
@@ -384,7 +384,7 @@
  "Ex. : étudiants qui veulent un complément de revenus": "Bijv.: studenten die wat willen bijverdienen",
  "Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…": "Bijv.: een programma week per week, een startbudget van 50 €, voorbeelden uit Nederland…",
  "Ex. : Lancer son business d'achat-revente sur Vinted": "Bijv.: Je eigen tweedehandsbusiness starten op Vinted",
- "Ex. Camille Martin": "Bijv. Camille Martin",
+ "Ex. Camille Martin": "Bijv. Sanne Jansen",
  "Exemples et exercices": "Voorbeelden en oefeningen",
  "Exigeante": "Veeleisend",
  "Expert": "Expert",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Door verder te gaan met Google ga je akkoord met de algemene verkoopvoorwaarden en het privacybeleid, en begrijp je dat er geen inkomen gegarandeerd is.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Inloggen met Google is niet gelukt. Probeer het opnieuw of gebruik je e-mail.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Inloggen met Google is nog niet beschikbaar. Gebruik je e-mail.",
- "ou": "of"
+ "ou": "of",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Ik accepteer de <1>algemene voorwaarden</1> en het <2>privacybeleid</2>, en ik begrijp dat geen enkel inkomen gegarandeerd is.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Ik vraag directe toegang tot de dienst en begrijp dat ik mijn herroepingsrecht van 14 dagen verlies zodra ik mijn eerste e-book maak. Ik heb de <1>algemene voorwaarden</1> gelezen."
 }

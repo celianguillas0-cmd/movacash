@@ -94,7 +94,7 @@
  "Analyse du sujet": "Analiza teme",
  "Animaux": "Životinje",
  "Annuel": "Godišnje",
- "annuelle": "godišnja",
+ "annuelle": "godišnji",
  "Annulée": "Otkazano",
  "Annuler": "Odustani",
  "Aperçu de la miniature Etsy": "Pregled minijature za Etsy",
@@ -567,7 +567,7 @@
  "Marques citées ({brands}) : n'utilise pas leurs logos et précise que le guide n'est pas affilié à ces marques.": "Spomenute marke ({brands}): ne koristi njihove logotipe i navedi da vodič nije povezan s tim markama.",
  "Me montrer en vidéo": "Pokaži mi u videu",
  "Mensuel": "Mjesečno",
- "mensuelle": "mjesečna",
+ "mensuelle": "mjesečni",
  "Mentions légales": "Pravne napomene",
  "Merci ! Tu as déjà envoyé plusieurs avis, réessaie plus tard.": "Hvala! Već si poslao/la nekoliko mišljenja, pokušaj ponovno kasnije.",
  "Merci, ton avis est bien arrivé. On lit chaque message.": "Hvala, tvoje je mišljenje stiglo. Čitamo svaku poruku.",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Nastavkom s Googleom prihvaćaš opće uvjete prodaje i pravila o privatnosti te razumiješ da nikakva zarada nije zajamčena.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Prijava s Googleom nije uspjela. Pokušaj ponovno ili upotrijebi svoju e-poštu.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Prijava s Googleom još nije dostupna. Upotrijebi svoju e-poštu.",
- "ou": "ili"
+ "ou": "ili",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Prihvaćam <1>opće uvjete prodaje</1> i <2>pravila o privatnosti</2> te razumijem da nikakva zarada nije zajamčena.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Tražim trenutačan pristup usluzi i razumijem da gubim pravo na jednostrani raskid ugovora u roku od 14 dana čim izradim svoju prvu e-knjigu. Pročitao/la sam <1>opće uvjete prodaje</1>."
 }

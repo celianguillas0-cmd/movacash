@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "By continuing with Google, you accept the Terms of Sale and the privacy policy, and you understand that no income is guaranteed.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Signing in with Google didn't work. Try again or use your email.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Signing in with Google isn't available yet. Use your email.",
- "ou": "or"
+ "ou": "or",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "I accept the <1>Terms of sale</1> and the <2>privacy policy</2>, and I understand that no income is guaranteed.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "I request immediate access to the service and understand that I lose my 14-day right of withdrawal as soon as I create my first e-book. I have read the <1>Terms of sale</1>."
 }

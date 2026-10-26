@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Al continuar con Google, aceptas las condiciones generales de venta y la política de privacidad, y entiendes que no se garantiza ningún ingreso.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "El inicio de sesión con Google no ha funcionado. Vuelve a intentarlo o usa tu correo.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "El inicio de sesión con Google aún no está disponible. Usa tu correo.",
- "ou": "o"
+ "ou": "o",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Acepto las <1>Condiciones de venta</1> y la <2>política de privacidad</2>, y entiendo que ningún ingreso está garantizado.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Solicito el acceso inmediato al servicio y entiendo que pierdo mi derecho de desistimiento de 14 días en cuanto cree mi primer e-book. He leído las <1>Condiciones de venta</1>."
 }

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useT } from "@/lib/i18n/client";
 import GoogleButton from "./GoogleButton";
+import { rich } from "@/lib/i18n/rich";
 
 export default function AuthForm({ mode, google = false, googleError = "" }: { mode: "login" | "signup"; google?: boolean; googleError?: string }) {
   const router = useRouter();
@@ -80,7 +81,10 @@ export default function AuthForm({ mode, google = false, googleError = "" }: { m
           <label className="check" htmlFor="f-cgv">
             <input id="f-cgv" type="checkbox" checked={form.acceptTerms} onChange={(e) => setForm({ ...form, acceptTerms: e.target.checked })} />
             <span>
-              {t("J'accepte les")} <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>{t("CGV")}</Link> {t("et la")} <Link href="/confidentialite" target="_blank" style={{ textDecoration: "underline" }}>{t("politique de confidentialité")}</Link>{t(", et je comprends qu'aucun revenu n'est garanti.")}
+              {rich(t("J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti."), {
+                1: (s) => <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>{s}</Link>,
+                2: (s) => <Link href="/confidentialite" target="_blank" style={{ textDecoration: "underline" }}>{s}</Link>,
+              })}
             </span>
           </label>
         )}

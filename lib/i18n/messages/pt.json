@@ -734,7 +734,7 @@
  "Pour": "Para",
  "Pour commencer": "Para começar",
  "pour débloquer tes résultats.": "para desbloquear os teus resultados.",
- "pour les voir.": "para os veres.",
+ "pour les voir.": "para as veres.",
  "Pour qui tu": "Para quem",
  "Pour t'en approcher, voilà ce qu'il faudrait faire :": "Para lá chegares, eis o que seria preciso fazer:",
  "pour ton e-book ?": "para o teu e-book?",
@@ -1077,7 +1077,7 @@
  "Vérifier sur Etsy": "Verificar na Etsy",
  "Vise {public}, un public que tu dis bien connaître.": "Aponta a {public}, um público que dizes conhecer bem.",
  "Visuel {n}": "Imagem {n}",
- "Voici": "Aqui está",
+ "Voici": "Aqui estão",
  "Voilà comment on t'amène": "Eis como te levamos",
  "Voir les formules": "Ver os planos",
  "Voir les offres": "Ver as ofertas",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Ao continuar com o Google, aceitas as condições gerais de venda e a política de privacidade, e compreendes que nenhum rendimento é garantido.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "O início de sessão com o Google não funcionou. Tenta novamente ou usa o teu e-mail.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "O início de sessão com o Google ainda não está disponível. Usa o teu e-mail.",
- "ou": "ou"
+ "ou": "ou",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Aceito as <1>Condições de venda</1> e a <2>política de privacidade</2>, e compreendo que nenhum rendimento é garantido.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Peço o acesso imediato ao serviço e compreendo que perco o meu direito de livre resolução de 14 dias assim que criar o meu primeiro e-book. Li as <1>Condições de venda</1>."
 }

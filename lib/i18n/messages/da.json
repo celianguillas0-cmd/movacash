@@ -149,8 +149,8 @@
  "Calcul des ventes nécessaires": "Beregning af nødvendigt salg",
  "Calcul du montant…": "Beregner beløbet…",
  "Calcul en cours": "Beregner",
- "Camille": "Camille",
- "camille@exemple.fr": "camille@eksempel.dk",
+ "Camille": "Freja",
+ "camille@exemple.fr": "freja@eksempel.dk",
  "Carrière & emploi": "Karriere & job",
  "Catégorie Etsy :": "Etsy-kategori:",
  "Ce compte a été suspendu. Écris au support si tu penses qu'il s'agit d'une erreur.": "Denne konto er blevet suspenderet. Skriv til support, hvis du mener, det er en fejl.",
@@ -384,7 +384,7 @@
  "Ex. : étudiants qui veulent un complément de revenus": "F.eks.: studerende, der vil tjene lidt ekstra",
  "Ex. : inclure un programme semaine par semaine, un budget de départ de 50 €, des exemples en France…": "F.eks.: inkluder et program uge for uge, et startbudget på 50 €, eksempler fra Danmark…",
  "Ex. : Lancer son business d'achat-revente sur Vinted": "F.eks.: Start din egen videresalgsforretning på Vinted",
- "Ex. Camille Martin": "F.eks. Camille Martin",
+ "Ex. Camille Martin": "F.eks. Freja Jensen",
  "Exemples et exercices": "Eksempler og øvelser",
  "Exigeante": "Krævende",
  "Expert": "Ekspert",
@@ -1140,5 +1140,7 @@
  "En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.": "Ved at fortsætte med Google accepterer du salgsbetingelserne og privatlivspolitikken og forstår, at ingen indtægt er garanteret.",
  "La connexion avec Google n'a pas abouti. Réessaie ou utilise ton e-mail.": "Login med Google lykkedes ikke. Prøv igen eller brug din e-mail.",
  "La connexion avec Google n'est pas encore disponible. Utilise ton e-mail.": "Login med Google er ikke tilgængeligt endnu. Brug din e-mail.",
- "ou": "eller"
+ "ou": "eller",
+ "J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.": "Jeg accepterer <1>handelsbetingelserne</1> og <2>privatlivspolitikken</2> og forstår, at ingen indtægt er garanteret.",
+ "Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>.": "Jeg anmoder om øjeblikkelig adgang til tjenesten og forstår, at jeg mister min fortrydelsesret på 14 dage, så snart jeg opretter min første e-bog. Jeg har læst <1>handelsbetingelserne</1>."
 }
