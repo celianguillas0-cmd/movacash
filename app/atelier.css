@@ -271,3 +271,13 @@
 .at .bg-slate-100 { background: rgba(255, 255, 255, 0.04); }
 .at .bg-slate-300 { background: #fff; }
 .at .bg-slate-300.text-slate-900, .at .bg-slate-300 .text-slate-900 { color: #0a0a0d; }
+
+/* Bandeau d'installation de l'appli (téléphone) */
+.at .at-install { display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: var(--r-l); background: rgba(255, 255, 255, 0.03); padding: 12px 12px 12px 14px; }
+.at .at-install img { flex: none; border-radius: 11px; }
+.at .at-install-texte { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--text-2); line-height: 1.4; }
+.at .at-install-texte b { color: var(--text); font-weight: 600; font-size: 14px; }
+.at .at-install-actions { display: flex; align-items: center; gap: 4px; }
+.at .at-install .at-btn { padding: 9px 14px; font-size: 13.5px; }
+.at .at-install-x { border: 0; background: transparent; color: var(--text-2); font-size: 22px; line-height: 1; padding: 4px 6px; cursor: pointer; align-self: flex-start; }
+.at .at-install:last-child { margin-bottom: 24px; }

@@ -9,6 +9,7 @@ import LogoutButton from "@/components/LogoutButton";
 import WsNav from "@/components/ws/WsNav";
 import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
+import InstallApp from "@/components/InstallApp";
 import "../atelier.css";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
@@ -53,6 +54,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
         </aside>
         <main className="min-w-0">
           <div className="space-y-3">
+            <InstallApp />
             {state === "past_due" && (
               <p className="notice-error">{t("Ton dernier paiement a échoué. Mets à jour ta carte pour garder l'accès.")} <Link href="/app/abonnement" className="font-semibold underline">{t("Régler maintenant")}</Link></p>
             )}
