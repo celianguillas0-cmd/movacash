@@ -1,8 +1,15 @@
 import { SUPPORT_EMAIL } from "./config";
 
-// Informations légales de l'éditeur, renseignées dans Vercel (Settings → Environment Variables).
-// Tant qu'une variable manque, la page affiche [à compléter] et l'onglet Admin la signale.
-const v = (k: string) => (process.env[k] || "").trim();
+// Informations légales de l'éditeur. Une variable Vercel du même nom remplace la valeur écrite ici.
+// Tant qu'une valeur manque, la page affiche [à compléter] et l'onglet Admin la signale.
+const DEFAUTS: Record<string, string> = {
+  LEGAL_NOM: "Aurèle Guillas EI",
+  LEGAL_EMAIL: "movacash.contact@gmail.com",
+  MEDIATEUR_NOM: "Médiation de la Consommation & Patrimoine (MCP)",
+  MEDIATEUR_SITE: "https://www.mcpmediation.org",
+  MEDIATEUR_ADRESSE: "12 square Desnouettes, 75015 Paris",
+};
+const v = (k: string) => (process.env[k] || DEFAUTS[k] || "").trim();
 
 export function legal() {
   return {
