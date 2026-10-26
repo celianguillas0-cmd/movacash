@@ -1,9 +1,13 @@
 import { notFound } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { isAdmin } from "@/lib/config";
-import { all } from "@/lib/db";
+import { all, one } from "@/lib/db";
+import { hasActiveSubscription } from "@/lib/subscription";
 import { listCategories } from "@/lib/ideas";
-import FilmModeToggle from "./FilmModeToggle";
+import AdminTest from "./AdminTest";
+import { PLANS, isGeminiConfigured, isStripeConfigured } from "@/lib/config";
+import { googleConfigured } from "@/lib/google";
+import { annualAvailable } from "@/lib/stripe";
 import AdminNav from "./AdminNav";
 import { usageSummary } from "@/lib/usage";
 import { missingLegal } from "@/lib/legal";
@@ -54,6 +58,57 @@ export default async function AdminPage() {
     libres.set(k, e);
   }
   const depenses = await usageSummary();
+
+  // Chiffres clés
+  const jour = Math.floor(Date.now() / 1000) - 86400;
+  const semaine = Math.floor(Date.now() / 1000) - 7 * 86400;
+  const debutMois = Math.floor(new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime() / 1000);
+  const [c, abonnes, gen, derniers, rejouables] = await Promise.all([
+    one<{ n: number; s: number; j: number }>("SELECT COUNT(*) AS n, COUNT(*) FILTER (WHERE created_at >= ?) AS s, COUNT(*) FILTER (WHERE created_at >= ?) AS j FROM users", [semaine, jour]),
+    all<{ plan: string; billing_interval: string; is_demo_sub: number; n: number }>(
+      "SELECT plan, billing_interval, is_demo_sub, COUNT(*) AS n FROM users WHERE plan IS NOT NULL AND sub_status IN ('active', 'trialing', 'past_due') GROUP BY plan, billing_interval, is_demo_sub"
+    ),
+    one<{ m: number; j: number }>("SELECT COUNT(*) FILTER (WHERE created_at >= ?) AS m, COUNT(*) FILTER (WHERE created_at >= ?) AS j FROM generations", [debutMois, jour]),
+    all<{ id: number; email: string; plan: string | null; sub_status: string; is_demo_sub: number; created_at: number }>("SELECT id, email, plan, sub_status, is_demo_sub, created_at FROM users ORDER BY id DESC LIMIT 8"),
+    all<{ topic: string }>(
+      `SELECT DISTINCT e.topic FROM ebooks e WHERE e.user_id = ? AND e.is_demo = 0 AND e.film_source_id IS NULL
+         AND EXISTS (SELECT 1 FROM generations g WHERE g.ebook_id = e.id)
+         AND NOT EXISTS (SELECT 1 FROM chapters ch WHERE ch.ebook_id = e.id AND ch.status != 'done') LIMIT 12`,
+      [user.id]
+    ),
+  ]);
+  const payants = abonnes.filter((a) => !a.is_demo_sub);
+  const stats = {
+    comptes: Number(c?.n ?? 0),
+    nouveaux7: Number(c?.s ?? 0),
+    nouveaux1: Number(c?.j ?? 0),
+    payants: payants.reduce((n, a) => n + Number(a.n), 0),
+    offerts: abonnes.filter((a) => a.is_demo_sub).reduce((n, a) => n + Number(a.n), 0),
+    mrr: payants.reduce((t, a) => {
+      const p = PLANS.find((x) => x.id === a.plan);
+      return t + (p ? (a.billing_interval === "year" ? p.annualMonthlyEur : p.priceEur) * Number(a.n) : 0);
+    }, 0),
+    parOffre: PLANS.map((p) => ({ nom: p.name, n: payants.filter((a) => a.plan === p.id).reduce((n, a) => n + Number(a.n), 0) })).filter((o) => o.n),
+    ebooksMois: Number(gen?.m ?? 0),
+    ebooksJour: Number(gen?.j ?? 0),
+  };
+
+  // Ce qui est branché ou non
+  const env = (k: string) => Boolean(process.env[k]);
+  const prixManquants = PLANS.flatMap((p) => [p.stripePriceEnv, p.stripeAnnualPriceEnv]).filter((k) => !env(k));
+  const etat = [
+    { nom: "Base de données", ok: env("DATABASE_URL") || env("POSTGRES_URL"), requis: true, aide: "sans elle, rien n'est conservé (Neon dans Vercel)." },
+    { nom: "Génération des e-books (Gemini)", ok: isGeminiConfigured(), requis: true, aide: "variable GEMINI_API_KEY." },
+    { nom: "Paiements Stripe", ok: isStripeConfigured(), requis: true, aide: "variable STRIPE_SECRET_KEY (clé sk_live)." },
+    { nom: "Webhook Stripe", ok: env("STRIPE_WEBHOOK_SECRET"), requis: true, aide: "variable STRIPE_WEBHOOK_SECRET : sans elle, l'accès ne s'ouvre pas après paiement." },
+    { nom: "Prix Stripe", ok: !prixManquants.length, requis: true, aide: `manque ${prixManquants.join(", ")}.` },
+    { nom: "Offres annuelles", ok: annualAvailable(), requis: false, aide: "les prix annuels Stripe ne sont pas tous renseignés." },
+    { nom: "E-mails (Resend)", ok: isEmailConfigured(), requis: true, aide: "RESEND_API_KEY et EMAIL_FROM, après l'achat du domaine. Obligatoire : confirmations d'abonnement et de résiliation, rappel annuel." },
+    { nom: "Mentions légales", ok: !missingLegal().length, requis: true, aide: `manque ${missingLegal().map(([, , label]) => label.toLowerCase()).join(", ")}.` },
+    { nom: "Connexion avec Google", ok: googleConfigured(), requis: false, aide: "GOOGLE_CLIENT_ID et GOOGLE_CLIENT_SECRET." },
+    { nom: "Clé de session", ok: (process.env.AUTH_SECRET || "").length >= 16, requis: false, aide: "AUTH_SECRET, conseillée." },
+    { nom: "Adresse du site", ok: env("NEXT_PUBLIC_APP_URL"), requis: false, aide: "NEXT_PUBLIC_APP_URL, à changer quand tu auras le domaine." },
+  ];
   const euros = (n: number) => `${n.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
   const avis = await all<{ id: number; email: string; note: number | null; message: string; created_at: number }>("SELECT id, email, note, message, created_at FROM feedback ORDER BY id DESC LIMIT 100");
   const top = [...libres.values()].sort((a, b) => b.n - a.n);
@@ -69,18 +124,56 @@ export default async function AdminPage() {
 
       <AdminNav current="vue" />
 
-      {(missingLegal().length > 0 || !isEmailConfigured()) && (
-        <section className="card border-amber-300 p-6">
-          <h2 className="text-lg font-bold text-slate-900">À compléter avant d'ouvrir les ventes</h2>
-          <p className="muted mt-1 text-sm">Ces informations sont obligatoires sur un site qui vend aux particuliers. Ajoute-les dans Vercel (Settings → Environment Variables), puis redéploie.</p>
-          <ul className="mt-3 space-y-1 text-sm text-slate-800">
-            {missingLegal().map(([, env, label]) => <li key={env}>• {label} : variable <code>{env}</code></li>)}
-            {!isEmailConfigured() && <li>• Le service d'e-mails (Resend) : variables <code>RESEND_API_KEY</code> et <code>EMAIL_FROM</code>. Sans lui, les confirmations d'abonnement et de résiliation exigées par la loi ne partent pas.</li>}
-          </ul>
-        </section>
-      )}
+      <AdminTest
+        tournage={!user.real_mode}
+        vue={hasActiveSubscription(user) && user.is_demo_sub && user.plan ? (user.plan as "starter" | "pro" | "business") : hasActiveSubscription(user) ? "starter" : "aucun"}
+        payant={Boolean(user.stripe_subscription_id && !user.is_demo_sub && hasActiveSubscription(user))}
+        sujetsRejouables={rejouables.map((r) => r.topic)}
+      />
 
-      <FilmModeToggle initial={!user.real_mode} />
+      <section className="card p-6">
+        <h2 className="text-lg font-bold text-slate-900">Chiffres</h2>
+        <div className="mt-4 grid gap-5 sm:grid-cols-4">
+          {[
+            ["Comptes", String(stats.comptes), `${stats.nouveaux7} cette semaine · ${stats.nouveaux1} aujourd'hui`],
+            ["Abonnés payants", String(stats.payants), stats.offerts ? `+ ${stats.offerts} formule${stats.offerts > 1 ? "s" : ""} offerte${stats.offerts > 1 ? "s" : ""}` : "par Stripe"],
+            ["Revenu mensuel estimé", euros(stats.mrr), "abonnements actifs, annuels ramenés au mois"],
+            ["E-books ce mois-ci", String(stats.ebooksMois), `${stats.ebooksJour} aujourd'hui · hors tournage`],
+          ].map(([titre, valeur, detail]) => (
+            <div key={titre}><p className="muted text-sm">{titre}</p><p className="mt-1 text-3xl font-bold text-slate-900">{valeur}</p><p className="muted mt-1 text-xs">{detail}</p></div>
+          ))}
+        </div>
+        {stats.parOffre.length > 0 && (
+          <p className="muted mt-4 text-sm">Par offre : {stats.parOffre.map((o) => `${o.nom} ${o.n}`).join(" · ")}</p>
+        )}
+        <p className="muted mt-1 text-sm">Conversion : {stats.comptes ? Math.round((stats.payants / stats.comptes) * 100) : 0} % des comptes ont un abonnement payant.</p>
+        {derniers.length > 0 && (
+          <>
+            <h3 className="mt-6 text-sm font-semibold text-slate-900">Dernières inscriptions</h3>
+            <ul className="mt-2 text-sm">
+              {derniers.map((d) => (
+                <li key={d.id} className="flex justify-between gap-3 border-t border-slate-100 py-2">
+                  <a href={`/app/admin/comptes/${d.id}`} className="truncate text-slate-900 underline-offset-2 hover:underline">{d.email}</a>
+                  <span className="muted shrink-0">{d.plan && ["active", "trialing", "past_due"].includes(d.sub_status) ? `${d.plan}${d.is_demo_sub ? " (offert)" : ""}` : "sans abonnement"} · {new Date(d.created_at * 1000).toLocaleDateString("fr-FR")}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </section>
+
+      <section className="card p-6">
+        <h2 className="text-lg font-bold text-slate-900">État du site</h2>
+        <p className="muted mt-1 text-sm">{etat.filter((e) => !e.ok && e.requis).length ? "Les lignes en rouge bloquent l'ouverture des ventes." : "Tout ce qui est obligatoire est en place."}</p>
+        <ul className="mt-4 space-y-2 text-sm">
+          {etat.map((e) => (
+            <li key={e.nom} className="flex gap-3">
+              <span aria-hidden="true" className={e.ok ? "text-slate-900" : e.requis ? "text-red-600" : "text-amber-600"}>{e.ok ? "✓" : e.requis ? "✗" : "○"}</span>
+              <span><b className="text-slate-900">{e.nom}</b>{e.ok ? "" : ` : ${e.aide}`}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Dépenses API (Gemini + photos)</h2>

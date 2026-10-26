@@ -5,6 +5,7 @@ import { briefFromEbook, getEbook, outlineFromRows, refreshStatus } from "@/lib/
 import { generateChapter } from "@/lib/generator";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { isFilmMode } from "@/lib/config";
+import { ATTENTE, pause } from "@/lib/film";
 
 export const maxDuration = 300;
 type Ctx = { params: Promise<{ id: string; idx: string }> };
@@ -21,7 +22,13 @@ export async function POST(_req: Request, { params }: Ctx) {
     if (!ch) return fail("Chapitre introuvable", 404);
     await run("UPDATE chapters SET status = 'generating' WHERE id = ?", [ch.id]);
     try {
-      const md = await generateChapter(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), i, isFilmMode(user));
+      const film = isFilmMode(user);
+      const rejoue = film && data.ebook.film_source_id
+        ? await one<{ content_md: string }>("SELECT content_md FROM chapters WHERE ebook_id = ? AND idx = ?", [data.ebook.film_source_id, i])
+        : null;
+      const md = rejoue?.content_md
+        ? await pause(...ATTENTE.chapitre).then(() => rejoue.content_md)
+        : await generateChapter(briefFromEbook(data.ebook, data.chapters.length), outlineFromRows(data.ebook, data.chapters), i, film);
       await run("UPDATE chapters SET content_md = ?, status = 'done' WHERE id = ?", [md, ch.id]);
     } catch (e) {
       await run("UPDATE chapters SET status = 'error' WHERE id = ?", [ch.id]);

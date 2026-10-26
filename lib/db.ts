@@ -179,7 +179,8 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["api_usage", "user_id", "INTEGER"],
   ["users", "tips_consent", "INTEGER NOT NULL DEFAULT 0"], // remplace email_tips, qui était coché par défaut (un consentement doit être donné activement)
   ["users", "locale", "TEXT"], // langue de l'interface au moment du paiement, pour les e-mails liés au contrat
-  ["users", "renewal_reminded_for", "INTEGER"], // fin de période annuelle pour laquelle le rappel de renouvellement (art. L215-1) a été envoyé
+  ["users", "renewal_reminded_for", "INTEGER"],
+  ["ebooks", "film_source_id", "INTEGER"], // mode tournage : vrai e-book dont le contenu est rejoué, sans appel à l'API // fin de période annuelle pour laquelle le rappel de renouvellement (art. L215-1) a été envoyé
 ];
 
 // Texte de recherche d'une idée : minuscules, sans accents

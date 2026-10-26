@@ -1,3 +1,4 @@
+import { ATTENTE, pause as pauseEntre } from "./film";
 import { geminiGenerate, parseJsonLoose } from "./gemini";
 import { isGeminiConfigured } from "./config";
 import { LANGUAGES, TONES, SENSITIVE_LABELS, aiDisclosure, type EtsyKit } from "./etsy";
@@ -41,10 +42,9 @@ ${b.sensitive ? `Sujet sensible : ${SENSITIVE_LABELS[b.sensitive]} (prudence et 
 ${b.extras ? `Consignes de l'auteur : ${b.extras}` : ""}`;
 }
 
-const pause = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export async function generateOutline(b: EbookBrief, fake = false): Promise<Outline> {
-  if (fake) return pause(3500).then(() => mockOutline(b, true));
+  if (fake) return pauseEntre(...ATTENTE.plan).then(() => mockOutline(b, true));
   if (!isGeminiConfigured()) return mockOutline(b);
   const prompt = `${briefText(b)}
 
@@ -66,7 +66,7 @@ export async function generateChapter(
   fake = false
 ): Promise<string> {
   const ch = outline.chapters[index];
-  if (fake) return pause(2500 + Math.random() * 2000).then(() => mockChapter(b, outline, index, true));
+  if (fake) return pauseEntre(...ATTENTE.chapitre).then(() => mockChapter(b, outline, index, true));
   if (!isGeminiConfigured()) return mockChapter(b, outline, index);
   const toc = outline.chapters.map((c, i) => `${i + 1}. ${c.title} : ${c.summary}`).join("\n");
   const isFirst = index === 0;
@@ -98,7 +98,7 @@ export async function generateEtsyKit(
   pages: number,
   fake = false
 ): Promise<EtsyKit> {
-  if (fake) return pause(3000).then(() => mockEtsyKit(b, outline, pages));
+  if (fake) return pauseEntre(...ATTENTE.fiche).then(() => mockEtsyKit(b, outline, pages));
   if (!isGeminiConfigured()) return mockEtsyKit(b, outline, pages);
   const prompt = `${briefText(b)}
 

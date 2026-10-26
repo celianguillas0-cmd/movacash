@@ -3,10 +3,11 @@ import { CONTENT_LANG_CODES } from "@/lib/content-langs";
 import { fail, ok, withUser } from "@/lib/api";
 import { canCreateEbook } from "@/lib/subscription";
 import { generateOutline } from "@/lib/generator";
-import { createEbook } from "@/lib/ebooks";
+import { createEbook, outlineFromRows } from "@/lib/ebooks";
 import { one, run } from "@/lib/db";
 import { getIdea } from "@/lib/ideas";
 import { isFilmMode, isGeminiConfigured } from "@/lib/config";
+import { ATTENTE, filmSource, pause } from "@/lib/film";
 import { getT } from "@/lib/i18n/server";
 
 export const maxDuration = 120;
@@ -43,8 +44,13 @@ export async function POST(req: Request) {
       format: idea?.format || "Guide complet",
     };
     const film = isFilmMode(user);
-    const outline = await generateOutline(brief, film);
+    // Tournage : on rejoue le dernier vrai e-book de l'admin sur ce sujet, s'il existe
+    const source = film ? await filmSource(user.id, brief.topic) : null;
+    const outline = source
+      ? await pause(...ATTENTE.plan).then(() => outlineFromRows(source.ebook, source.chapters))
+      : await generateOutline(brief, film);
     const id = await createEbook(user.id, idea?.id ?? null, brief, outline, d.authorName || user.name, !film && !isGeminiConfigured(), film);
+    if (source) await run("UPDATE ebooks SET film_source_id = ? WHERE id = ?", [source.ebook.id, id]);
     if (d.thumb) {
       const row = await one<{ cover_json: string }>("SELECT cover_json FROM ebooks WHERE id = ?", [id]);
       let cover: Record<string, unknown> = {};

@@ -4,6 +4,7 @@ import { getEbook } from "@/lib/ebooks";
 import { imagenPhoto } from "@/lib/gemini";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { isFilmMode, isGeminiConfigured } from "@/lib/config";
+import { ATTENTE, pause } from "@/lib/film";
 
 export const maxDuration = 60;
 type Ctx = { params: Promise<{ id: string }> };
@@ -32,7 +33,16 @@ export async function POST(_req: Request, { params }: Ctx) {
     const prev = await one<PhotoRow>("SELECT tries FROM ebook_photos WHERE ebook_id = ?", [data.ebook.id]);
     // Tournage ou pas de clé : même attente que la vraie génération, sans appel à l'API.
     if (isFilmMode(user) || !isGeminiConfigured()) {
-      await new Promise((r) => setTimeout(r, 3000));
+      await pause(...ATTENTE.photo);
+      // Tournage : la photo du vrai e-book rejoué, s'il en a une
+      const src = isFilmMode(user) && data.ebook.film_source_id ? await one<PhotoRow>("SELECT mime, data, tries FROM ebook_photos WHERE ebook_id = ?", [data.ebook.film_source_id]) : null;
+      if (src) {
+        await run(
+          "INSERT INTO ebook_photos (ebook_id, mime, data, tries) VALUES (?, ?, ?, 1) ON CONFLICT (ebook_id) DO UPDATE SET tries = LEAST(ebook_photos.tries + 1, ?), created_at = unixepoch()",
+          [data.ebook.id, src.mime, src.data, MAX_TRIES]
+        );
+        return ok({ photo: true, tries: Math.min((prev?.tries ?? 0) + 1, MAX_TRIES), max: MAX_TRIES });
+      }
       return ok({ photo: false, tries: prev?.tries ?? 0, max: MAX_TRIES });
     }
     if (prev && prev.tries >= MAX_TRIES) return fail("Tu as déjà généré 3 photos pour cet e-book. Tu peux toujours changer de mise en page.", 429);
