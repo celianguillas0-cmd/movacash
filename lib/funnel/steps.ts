@@ -303,7 +303,7 @@ export const STEPS: Step[] = [
     libre: { placeholder: "Ex : parler de ma vie privée…" },
     options: [
       { id: "video", label: "Me montrer en vidéo" },
-      { id: "sensible", label: "Écrire sur la santé, la minceur ou l'argent" },
+      { id: "inconnu", label: "Écrire sur un sujet que je ne connais pas" },
       { id: "relire", label: "Passer des heures à écrire" },
       { id: "rien", label: "Rien, je suis prêt à essayer" },
     ],
@@ -391,7 +391,8 @@ export function scoringAnswers(a: Answers, name?: string) {
     name: name || a.name,
     etsy: a.boutique === "oui" ? "shop" : a.anciennete && a.anciennete !== "jamais" ? "online" : "none",
     writing: refus.includes("relire") ? "hard" : "ok",
-    sensitive: refus.includes("sensible") ? "no" : "yes",
+    sensitive: "yes",
+    refuse: refus.includes("inconnu") ? ["unknown"] : [],
     promo: refus.includes("video") ? (a.pinterest === "non" ? "none" : "faceless") : "face",
     start: a.echeance === "aujourdhui" || a.echeance === "semaine" ? "week" : undefined,
     goal: a.goal === "ventes" ? "side" : a.goal === "publier" ? "build" : "test",
