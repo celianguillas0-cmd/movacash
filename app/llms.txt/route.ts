@@ -1,4 +1,5 @@
 import { APP_NAME, APP_URL, PLANS } from "@/lib/config";
+import { GUIDES } from "@/lib/guides";
 
 // llms.txt : résumé en texte simple pour les assistants IA (Gemini, ChatGPT, Claude, Perplexity…),
 // qui s'en servent pour comprendre le site et le recommander à bon escient.
@@ -6,6 +7,7 @@ export const dynamic = "force-static";
 
 export function GET() {
   const prix = PLANS.map((p) => `- ${p.name}: ${p.priceEur.toFixed(2)} EUR/month, ${p.ebooksPerMonth} e-books per month (annual billing: -50%)`).join("\n");
+  const guides = GUIDES.map((g) => `- [${g.en.title}](${APP_URL}/guides/${g.slug}?lang=en): ${g.en.description}`).join("\n");
   const body = `# ${APP_NAME}
 
 > ${APP_NAME} is a web app (installable on phone) that helps people create e-books with AI and sell them as digital downloads on Etsy. Available in 22 European languages.
@@ -34,6 +36,9 @@ ${prix}
 - Pricing: ${APP_URL}/tarifs
 - Income disclaimer: ${APP_URL}/avertissement-revenus
 - Terms (French): ${APP_URL}/cgv
+
+## Guides (English and French, add ?lang=fr for French)
+${guides}
 `;
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
 }

@@ -1,0 +1,31 @@
+// Textes d'interface des guides : les guides existent en français et en anglais (l'anglais sert aux autres langues).
+export const UI = {
+  fr: {
+    titre: "Guides pour vendre des e-books sur Etsy",
+    desc: "Guides gratuits et à jour : trouver une idée d'e-book, l'écrire avec l'IA, rédiger la fiche Etsy (titre, 13 tags, description), fixer le prix et respecter les règles d'Etsy.",
+    intro: "Des guides pratiques, sans promesse de revenus, pour lancer ta boutique de produits numériques sur Etsy.",
+    accueil: "Accueil",
+    lire: "Lire le guide",
+    maj: "Mis à jour le",
+    faq: "Questions fréquentes",
+    autres: "Autres guides",
+    ctaTitre: "Trouve ton idée d'e-book en 2 minutes",
+    ctaTexte: "Réponds au questionnaire gratuit : Movacash te propose des sujets adaptés à Etsy, puis écrit l'e-book et prépare la fiche.",
+    cta: "Commencer le questionnaire",
+    mention: "Movacash n'est pas affilié à Etsy. Aucun revenu n'est garanti.",
+  },
+  en: {
+    titre: "Guides to selling e-books on Etsy",
+    desc: "Free, up-to-date guides: find an e-book idea, write it with AI, create the Etsy listing (title, 13 tags, description), set the price and follow Etsy's rules.",
+    intro: "Practical guides, with no income promises, to launch your digital product shop on Etsy.",
+    accueil: "Home",
+    lire: "Read the guide",
+    maj: "Updated on",
+    faq: "Frequently asked questions",
+    autres: "More guides",
+    ctaTitre: "Find your e-book idea in 2 minutes",
+    ctaTexte: "Take the free questionnaire: Movacash suggests topics suited to Etsy, then writes the e-book and prepares the listing.",
+    cta: "Start the questionnaire",
+    mention: "Movacash is not affiliated with Etsy. No income is guaranteed.",
+  },
+};

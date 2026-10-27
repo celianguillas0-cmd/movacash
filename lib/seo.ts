@@ -8,7 +8,15 @@ export const FR_ONLY_PATHS = ["/cgv", "/mentions-legales", "/confidentialite"];
 
 export const langUrl = (path: string, locale: Locale) => `${APP_URL}${path === "/" ? "/" : path}?lang=${locale}`;
 
+// Guides : rédigés en français et en anglais seulement (l'anglais sert aux autres langues).
+export const isGuidePath = (path: string) => path === "/guides" || path.startsWith("/guides/");
+export function guideAlternates(path: string, locale: Locale) {
+  const languages = { fr: langUrl(path, "fr"), en: langUrl(path, "en"), "x-default": langUrl(path, "en") };
+  return { canonical: locale === "fr" ? languages.fr : languages.en, languages };
+}
+
 export function alternates(path: string, locale: Locale) {
+  if (isGuidePath(path)) return guideAlternates(path, locale);
   if (FR_ONLY_PATHS.includes(path)) return { canonical: `${APP_URL}${path}` };
   if (!MULTI_PATHS.includes(path)) return undefined;
   const languages: Record<string, string> = Object.fromEntries(LOCALES.map((l) => [l.code, langUrl(path, l.code)]));

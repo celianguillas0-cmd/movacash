@@ -4,7 +4,7 @@ import LangSwitch from "@/components/LangSwitch";
 import { ConsentLink } from "@/components/Consent";
 
 export default async function FunnelFooter() {
-  const { t } = await getT();
+  const { t, locale } = await getT();
   return (
     <footer>
       <div className="wrap">
@@ -14,6 +14,7 @@ export default async function FunnelFooter() {
           <div style={{ marginTop: 14 }}><LangSwitch /></div>
         </div>
         <div className="links">
+          <Link href={locale === "fr" ? "/guides?lang=fr" : "/guides?lang=en"}>{t("Guides Etsy")}</Link>
           <Link href="/cgv">{t("CGV")}</Link>
           <Link href="/mentions-legales">{t("Mentions légales")}</Link>
           <Link href="/confidentialite">{t("Confidentialité")}</Link>

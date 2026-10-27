@@ -430,3 +430,21 @@
 .mc.dark .google-ou { color: var(--dim); }
 .mc.dark .error { color: #fca5a5; }
 .mc.dark { --ok: #4ade80; --warn: #fcd34d; --danger: #fca5a5; }
+
+/* ================= Guides (référencement) ================= */
+.mc .guides-liste { display: grid; gap: 14px; margin-top: 28px; }
+.mc .guide-carte { display: block; padding: 20px 22px; border: 1px solid rgba(255,255,255,.12); border-radius: 16px; background: rgba(255,255,255,.03); transition: border-color .2s, background .2s; }
+.mc .guide-carte:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.06); }
+.mc .guide-carte h2 { margin: 0 0 6px; font-size: 19px; color: #fff; }
+.mc .guide-carte p { margin: 0 0 10px; }
+.mc .guide-carte span { font-weight: 600; font-size: 14px; color: #fff; }
+.mc .guide-fil { font-size: 13px; color: var(--muted); margin-bottom: 18px; }
+.mc .guide-fil a { text-decoration: underline; }
+.mc .guide-intro { font-size: 17px !important; color: #e4e4e7 !important; margin-top: 16px; }
+.mc .prose-legal a:not(.btn):not(.guide-carte) { text-decoration: underline; }
+.mc .guide-faq { border-bottom: 1px solid rgba(255,255,255,.1); padding: 12px 0; }
+.mc .guide-faq summary { cursor: pointer; font-weight: 600; color: #fff; }
+.mc .guide-faq p { margin-top: 8px; }
+.mc .guide-cta { margin: 44px 0 12px; padding: 26px; border: 1px solid rgba(255,255,255,.15); border-radius: 18px; background: rgba(255,255,255,.04); text-align: center; }
+.mc .guide-cta h2 { margin-top: 0 !important; }
+.mc .guide-cta .btn { margin-top: 10px; }
