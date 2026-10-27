@@ -461,3 +461,5 @@
 @media (max-width: 380px) { .mc.dark .nav-links .link-login { display: none; } }
 .mc .pay-box { grid-template-columns: minmax(0, 1fr); }
 .mc .pay-row > span { min-width: 0; overflow-wrap: anywhere; }
+/* Bouton Google : texte foncé sur fond blanc, même dans le thème sombre (les liens y sont blancs) */
+.mc .btn-google, .mc.dark .btn-google, .mc.dark a.btn-google:hover { color: #111827; }
