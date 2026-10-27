@@ -44,7 +44,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
 
   if (!ideas.length)
     return (
-      <div className="mc has-photo">
+      <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
         <FunnelNav />
         <main className="wrap narrow survey" style={{ marginInline: "auto" }}>
@@ -55,7 +55,7 @@ export default async function Results({ searchParams }: { searchParams: Promise<
     );
 
   return (
-    <div className="mc has-photo">
+    <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <main className="wrap narrow" style={{ marginInline: "auto" }}>

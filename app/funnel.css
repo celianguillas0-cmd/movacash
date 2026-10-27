@@ -407,3 +407,26 @@
 .mc .annual-hint b { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 999px; background: #111827; color: #fff; font-size: 11px; font-weight: 800; }
 @keyframes mc-remise { 0%, 100% { box-shadow: 0 0 0 0 rgba(17, 24, 39, 0.45); } 50% { box-shadow: 0 0 0 6px rgba(17, 24, 39, 0); } }
 @media (prefers-reduced-motion: reduce) { .mc .toggle .save { animation: none !important; } }
+
+/* Tout le site en sombre (27/10) : composants des pages connexion, inscription, résultats, formules et pages légales. */
+.mc.dark { color-scheme: dark; }
+.mc.dark .idea-card, .mc.dark .plan30, .mc.dark .profile, .mc.dark .plan, .mc.dark .pay-box { background: var(--bg-2); box-shadow: none; }
+.mc.dark .meter { background: rgba(255, 255, 255, .03); }
+.mc.dark .lock-badge { background: rgba(9, 9, 11, .45); }
+.mc.dark .lock-badge span { background: var(--bg-2); }
+.mc.dark .form input[type=text], .mc.dark .form input[type=email], .mc.dark .form input[type=password] { background: var(--bg-2); color: var(--fg); }
+.mc.dark .form input::placeholder { color: var(--dim); }
+.mc.dark .form input:focus { border-color: #fff; outline: none; box-shadow: 0 0 0 3px rgba(255, 255, 255, .12); }
+.mc.dark .toggle { background: var(--bg-2); }
+.mc.dark .toggle button.on { background: #fff; color: #09090b; }
+.mc.dark .toggle button.on .save { background: #09090b; color: #fff; }
+.mc.dark .toggle .save { background: #fff; color: #09090b; }
+.mc.dark .save-line { color: var(--fg); }
+.mc.dark .plan .tag { color: #09090b; }
+.mc.dark .opt .tick, .mc.dark .opt.on .tick { color: #09090b; }
+.mc.dark .annual-nudge { background: rgba(255, 255, 255, .05); border-color: rgba(255, 255, 255, .35); color: var(--fg); }
+.mc.dark .annual-nudge:hover { background: rgba(255, 255, 255, .1); }
+.mc.dark .annual-hint b { background: #fff; color: #09090b; }
+.mc.dark .google-ou { color: var(--dim); }
+.mc.dark .error { color: #fca5a5; }
+.mc.dark { --ok: #4ade80; --warn: #fcd34d; --danger: #fca5a5; }

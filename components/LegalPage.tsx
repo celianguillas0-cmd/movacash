@@ -5,7 +5,7 @@ import { getT } from "@/lib/i18n/server";
 export default async function LegalPage({ title, children }: { title: string; children: React.ReactNode }) {
   const { t, locale } = await getT();
   return (
-    <div className="mc">
+    <div className="mc dark">
       <FunnelNav />
       <main className="wrap narrow prose-legal" style={{ marginInline: "auto", paddingBlock: 48 }}>
         {locale !== "fr" && (

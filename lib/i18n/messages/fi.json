@@ -1150,5 +1150,6 @@
  "Écrire sur un sujet que je ne connais pas": "Kirjoittaa aiheesta, jota en tunne",
  "Passe à l'annuel et paie {n} % moins cher": "Vaihda vuosilaskutukseen ja maksa {n} % vähemmän",
  "ou {prix} / mois en annuel": "tai {prix} / kk vuosilaskutuksella",
- "Lancer mon business": "Käynnistä liiketoimintani"
+ "Lancer mon business": "Käynnistä liiketoimintani",
+ "soit {jour} par jour": "eli {jour} päivässä"
 }

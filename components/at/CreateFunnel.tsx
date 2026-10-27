@@ -64,7 +64,6 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
   const premieres = Array.from(new Set([locale, "en", "fr", "de", "es", "it"])).slice(0, 6);
   const LANGUES: Choix[] = premieres.map((code) => ({ id: code, titre: nomLangue(code), detail: MARCHES[code] || "", pastille: code.toUpperCase() }));
   const autres = LOCALES.filter((l) => !premieres.includes(l.code));
-  const prix = Math.round((idea.priceMin + idea.priceMax) / 2);
   const [step, setStep] = useState(0);
   const [objectif, setObjectif] = useState(0);
   const [r, setR] = useState<Record<string, string>>({ tone: defaults.tone || "", language: defaults.language || "", chapters: "", lecteur: "", thumb: "" });
@@ -156,20 +155,20 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
             <>
               <p className="mf-montant">{fmtEur(objectif, locale)}</p>
               <p className="mf-soit">
-                {t("soit")} <b>{Math.ceil(objectif / prix) > 1 ? t("{n} ventes", { n: Math.ceil(objectif / prix) }) : t("{n} vente", { n: Math.ceil(objectif / prix) })}</b> {t("par mois à {prix}, le prix conseillé pour ce sujet", { prix: fmtEur(prix, locale) })}
+                <b>{t("soit {jour} par jour", { jour: fmtEur(Math.round((objectif * 12) / 365), locale) })}</b>
               </p>
-              <input className="mf-rail" type="range" min={0} max={3000} step={50} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} />
-              <div className="mf-bornes"><span>{fmtEur(0, locale)}</span><span>{fmtEur(3000, locale)}</span></div>
+              <input className="mf-rail" type="range" min={0} max={30000} step={10} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} />
+              <div className="mf-bornes"><span>{fmtEur(0, locale)}</span><span>{fmtEur(30000, locale)}</span></div>
               <button className="mf-btn" disabled={objectif === 0} onClick={() => setStep(1)}>{t("Lancer mon e-book")} <span aria-hidden="true">→</span></button>
-              <p className="mf-soit" style={{ fontSize: 13, color: "#8a909b", marginTop: 16 }}>{t("C'est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
+              <p className="mf-soit" style={{ fontSize: 13, color: "#71717a", marginTop: 16 }}>{t("C'est ton objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
             </>
           ) : (
             <>
-              <div className="mf-cartes">
+              <div className={`mf-cartes${e.cle === "thumb" ? " mf-cartes-3" : ""}`}>
                 {e.choix!.map((c, k) => (
                   <button key={c.id} className="mf-carte" aria-pressed={r[e.cle] === c.id} onClick={() => (step === ETAPES.length - 1 ? setR({ ...r, thumb: c.id }) : choisir(c.id))}>
                     <span className="mf-touche">{k + 1}</span>
-                    {c.pastille && <span className="mf-pastille" style={{ fontFamily: "'Spline Sans Mono', monospace", fontSize: 13, color: "#6b7280" }}>{c.pastille}</span>}
+                    {c.pastille && <span className="mf-pastille" style={{ fontFamily: "'Spline Sans Mono', monospace", fontSize: 13, color: "#a1a1aa" }}>{c.pastille}</span>}
                     <b>{e.cle === "language" ? c.titre : t(c.titre)}</b>
                     {c.detail && <small>{t(c.detail)}</small>}
                     {e.cle === "thumb" && <div className="mf-apercu" style={{ background: APERCUS[c.id] }} aria-hidden="true" />}

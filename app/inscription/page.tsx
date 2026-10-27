@@ -11,7 +11,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function Page() {
   return (
-    <div className="mc has-photo">
+    <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <AuthForm mode="signup" google={googleConfigured()} />

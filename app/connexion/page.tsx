@@ -17,7 +17,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ g
     indisponible: t("La connexion avec Google n'est pas encore disponible. Utilise ton e-mail."),
   };
   return (
-    <div className="mc has-photo">
+    <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <AuthForm mode="login" google={googleConfigured()} googleError={(google && erreurs[google]) || ""} />

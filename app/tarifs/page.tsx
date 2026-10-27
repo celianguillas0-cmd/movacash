@@ -22,7 +22,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
   const payable = await canPayFromHere();
   const { canceled } = await searchParams;
   return (
-    <div className="mc has-photo">
+    <div className="mc dark has-photo">
       <div className="page-photo" aria-hidden="true" />
       <FunnelNav />
       <main className="wrap pw">
