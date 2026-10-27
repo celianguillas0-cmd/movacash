@@ -33,7 +33,7 @@ export default function Privacy() {
       <p>Aucune donnée n'est vendue, louée ni utilisée pour de la publicité.</p>
 
       <h2>Destinataires et sous-traitants</h2>
-      <p>Vercel Inc. (hébergement du site) ; Neon Inc. (base de données) ; Stripe (paiement et factures) ; Resend (envoi des e-mails) ; Google (API Gemini et Imagen), qui reçoit les sujets et consignes de génération que vous saisissez : n'y indiquez pas de données personnelles sensibles. Certains de ces prestataires sont établis aux États-Unis ; les transferts sont encadrés par le cadre de protection des données UE–États-Unis (Data Privacy Framework) auquel ils adhèrent, ou à défaut par les clauses contractuelles types de la Commission européenne.</p>
+      <p>Vercel Inc. (hébergement du site) ; Neon Inc. (base de données) ; Stripe (paiement et factures) ; Resend (envoi des e-mails) ; Crisp (messagerie du support, si vous nous écrivez par le chat) ; Google (API Gemini et Imagen), qui reçoit les sujets et consignes de génération que vous saisissez : n'y indiquez pas de données personnelles sensibles. Certains de ces prestataires sont établis aux États-Unis ; les transferts sont encadrés par le cadre de protection des données UE–États-Unis (Data Privacy Framework) auquel ils adhèrent, ou à défaut par les clauses contractuelles types de la Commission européenne.</p>
 
       <h2>Durée de conservation</h2>
       <ul>
@@ -46,7 +46,7 @@ export default function Privacy() {
       <p>Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, de portabilité et d'opposition, ainsi que du droit de retirer votre consentement à tout moment. Depuis votre espace (« Paramètres »), vous pouvez modifier vos informations, télécharger toutes vos données (format JSON) et supprimer votre compte vous-même. Pour toute autre demande : {fill(l.email)}. Vous pouvez introduire une réclamation auprès de la CNIL (cnil.fr).</p>
 
       <h2>Cookies</h2>
-      <p>Le site n'utilise que deux cookies techniques, strictement nécessaires et exemptés de consentement : le cookie de session qui vous garde connecté, et un cookie qui retient la langue choisie. Aucun cookie publicitaire ni de mesure d'audience n'est déposé. La fréquentation du site est mesurée par Vercel Web Analytics, sans cookie et de façon anonyme : seuls des chiffres globaux (pages vues, pays, type d'appareil, site d'origine) sont conservés, sans permettre de vous identifier.</p>
+      <p>Le site n'utilise que deux cookies techniques, strictement nécessaires et exemptés de consentement : le cookie de session qui vous garde connecté, et un cookie qui retient la langue choisie. Si vous utilisez la fenêtre de discussion du support, Crisp enregistre un identifiant de conversation pour retrouver vos messages. Aucun cookie publicitaire ni de mesure d'audience n'est déposé. La fréquentation du site est mesurée par Vercel Web Analytics, sans cookie et de façon anonyme : seuls des chiffres globaux (pages vues, pays, type d'appareil, site d'origine) sont conservés, sans permettre de vous identifier.</p>
     </LegalPage>
   );
 }

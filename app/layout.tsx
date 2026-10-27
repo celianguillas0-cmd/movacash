@@ -28,6 +28,11 @@ export const viewport: Viewport = { themeColor: "#000000" };
 // Service worker (appli installable) + mémorise l'invitation d'installation d'Android pour le bandeau de l'atelier.
 const PWA = `if("serviceWorker"in navigator)addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})});addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__mcInstall=e;dispatchEvent(new Event("mc-install"))});`;
 
+// Chat Crisp, chargé seulement si NEXT_PUBLIC_CRISP_WEBSITE_ID est renseigné dans Vercel, dans la langue du visiteur.
+const CRISP_ID = process.env.NEXT_PUBLIC_CRISP_WEBSITE_ID;
+const crisp = (id: string, locale: string) =>
+  `window.$crisp=[];window.CRISP_WEBSITE_ID=${JSON.stringify(id)};window.CRISP_RUNTIME_CONFIG={locale:${JSON.stringify(locale)}};(function(){var s=document.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;document.head.appendChild(s)})();`;
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
   return (
@@ -42,6 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <I18nProvider locale={locale} dict={getDict(locale)}>{children}</I18nProvider>
         <Analytics />
+        {CRISP_ID && <script dangerouslySetInnerHTML={{ __html: crisp(CRISP_ID, locale) }} />}
       </body>
     </html>
   );
