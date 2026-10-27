@@ -19,18 +19,67 @@
    "description": "Otwarcie sklepu, wybór tematu, przygotowanie PDF, opis oferty i ustalenie ceny: wszystkie kroki, by sprzedać pierwszego e-booka na Etsy.",
    "intro": "Etsy to nie tylko ręcznie robiona biżuteria i dekoracje. Produkty cyfrowe, w tym e-booki w PDF, też mają tam swoje miejsce: kupujący płaci, pobiera plik, a Ty nie musisz niczego wysyłać. Oto cały proces, krok po kroku, bez magicznych skrótów.",
    "sections": [
-    {"h": "1. Otwórz swój sklep na Etsy", "p": ["Rejestracja sprzedawcy zaczyna się na etsy.com/sell. Etsy prosi o nazwę sklepu, dokument tożsamości i konto bankowe (IBAN), na które wypłaci pieniądze ze sprzedaży. Zanim zaczniesz sprzedawać regularnie, sprawdź zasady prowadzenia działalności w swoim kraju."]},
-    {"h": "2. Wybierz temat, który rozwiązuje prawdziwy problem", "p": ["Dobry e-book na Etsy rozwiązuje konkretny problem konkretnej grupy: „Przygotowanie na przyjście dziecka: kompletna checklista” sprzedaje się lepiej niż „Wszystko o rodzicielstwie”. Zobacz, co już jest na Etsy, przeczytaj opinie kupujących i poszukaj luki: poziomu dla początkujących, bardziej praktycznego formatu, słabiej obsłużonego języka."], "ul": ["Wyraźna grupa odbiorców (początkujący, młodzi rodzice, sportowcy, studenci…)", "Konkretny efekt (plan, metoda, checklista)", "Temat, który możesz przedstawić uczciwie, bez obietnic medycznych czy finansowych"]},
-    {"h": "3. Przygotuj PDF", "p": ["E-book powinien dobrze się czytać: spis treści, krótkie rozdziały, przykłady, ćwiczenia i plan działania. Stawiaj na jakość, a nie liczbę stron. Z narzędziem takim jak Movacash AI pisze plan i rozdziały na Twój temat; potem czytasz, zmieniasz to, co Ci się nie podoba, i eksportujesz PDF w formacie A4, A5 lub US Letter."]},
-    {"h": "4. Napisz ofertę, którą da się znaleźć", "p": ["Wyszukiwarka Etsy czyta przede wszystkim tytuł i 13 tagów. Umieść na początku tytułu słowa, które wpisują kupujący (maksymalnie 140 znaków), wykorzystaj wszystkie 13 tagów (po 20 znaków) z różnymi frazami i napisz opis, który jasno mówi, co zawiera plik, dla kogo jest i jak go pobrać."]},
-    {"h": "5. Zadbaj o miniaturę", "p": ["Pierwsze zdjęcie widać w wynikach wyszukiwania. Powinno pokazywać tytuł czytelny nawet w małym rozmiarze, jasno wskazywać rodzaj produktu (e-book PDF) i zachęcać do kliknięcia. Unikaj przeładowanych grafik i wielkich napisów z obietnicami."]},
-    {"h": "6. Ustal cenę", "p": ["Sprawdź ceny podobnych e-booków na Etsy i uwzględnij opłaty: wystawienie (0,20 $ za ofertę, ważne 4 miesiące), prowizja od transakcji (6,5%) i obsługa płatności. Wielu sprzedawców zaczyna od przystępnej ceny, by zdobyć pierwsze opinie, a potem ją koryguje."]},
-    {"h": "7. Publikuj regularnie i ucz się", "p": ["Jedna oferta rzadko daje wiele. Sprzedawcy, którzy się rozwijają, publikują kilka e-booków na pokrewne tematy, śledzą statystyki sklepu (wyświetlenia, ulubione, sprzedaż) i poprawiają tytuły oraz miniatury, które nie działają."]}
+    {
+     "h": "1. Otwórz swój sklep na Etsy",
+     "p": [
+      "Rejestracja sprzedawcy zaczyna się na etsy.com/sell. Etsy prosi o nazwę sklepu, dokument tożsamości i konto bankowe (IBAN), na które wypłaci pieniądze ze sprzedaży. Zanim zaczniesz sprzedawać regularnie, sprawdź zasady prowadzenia działalności w swoim kraju."
+     ]
+    },
+    {
+     "h": "2. Wybierz temat, który rozwiązuje prawdziwy problem",
+     "p": [
+      "Dobry e-book na Etsy rozwiązuje konkretny problem konkretnej grupy: „Przygotowanie na przyjście dziecka: kompletna checklista” sprzedaje się lepiej niż „Wszystko o rodzicielstwie”. Zobacz, co już jest na Etsy, przeczytaj opinie kupujących i poszukaj luki: poziomu dla początkujących, bardziej praktycznego formatu, słabiej obsłużonego języka."
+     ],
+     "ul": [
+      "Wyraźna grupa odbiorców (początkujący, młodzi rodzice, sportowcy, studenci…)",
+      "Konkretny efekt (plan, metoda, checklista)",
+      "Temat, który możesz przedstawić uczciwie, bez obietnic medycznych czy finansowych"
+     ]
+    },
+    {
+     "h": "3. Przygotuj PDF",
+     "p": [
+      "E-book powinien dobrze się czytać: spis treści, krótkie rozdziały, przykłady, ćwiczenia i plan działania. Stawiaj na jakość, a nie liczbę stron. Z narzędziem takim jak Movacash AI pisze plan i rozdziały na Twój temat; potem czytasz, zmieniasz to, co Ci się nie podoba, i eksportujesz PDF w formacie A4, A5 lub US Letter."
+     ]
+    },
+    {
+     "h": "4. Napisz ofertę, którą da się znaleźć",
+     "p": [
+      "Wyszukiwarka Etsy czyta przede wszystkim tytuł i 13 tagów. Umieść na początku tytułu słowa, które wpisują kupujący (maksymalnie 140 znaków), wykorzystaj wszystkie 13 tagów (po 20 znaków) z różnymi frazami i napisz opis, który jasno mówi, co zawiera plik, dla kogo jest i jak go pobrać."
+     ]
+    },
+    {
+     "h": "5. Zadbaj o miniaturę",
+     "p": [
+      "Pierwsze zdjęcie widać w wynikach wyszukiwania. Powinno pokazywać tytuł czytelny nawet w małym rozmiarze, jasno wskazywać rodzaj produktu (e-book PDF) i zachęcać do kliknięcia. Unikaj przeładowanych grafik i wielkich napisów z obietnicami."
+     ]
+    },
+    {
+     "h": "6. Ustal cenę",
+     "p": [
+      "Sprawdź ceny podobnych e-booków na Etsy i uwzględnij opłaty: wystawienie (0,20 $ za ofertę, ważne 4 miesiące), prowizja od transakcji (6,5%) i obsługa płatności. Wielu sprzedawców zaczyna od przystępnej ceny, by zdobyć pierwsze opinie, a potem ją koryguje."
+     ]
+    },
+    {
+     "h": "7. Publikuj regularnie i ucz się",
+     "p": [
+      "Jedna oferta rzadko daje wiele. Sprzedawcy, którzy się rozwijają, publikują kilka e-booków na pokrewne tematy, śledzą statystyki sklepu (wyświetlenia, ulubione, sprzedaż) i poprawiają tytuły oraz miniatury, które nie działają."
+     ]
+    }
    ],
    "faq": [
-    ["Czy potrzebuję działalności gospodarczej, żeby sprzedawać na Etsy?", "Przy regularnej sprzedaży zwykle tak. Sprawdź zasady w swoim kraju, zanim zaczniesz."],
-    ["Czy Etsy akceptuje e-booki napisane z AI?", "Tak, pod warunkiem że w opisie zaznaczysz użycie AI i przestrzegasz zasad Etsy dotyczących własności intelektualnej."],
-    ["Ile można zarobić?", "Nikt nie może tego zagwarantować. Sprzedaż zależy od tematu, jakości oferty, konkurencji i Twojej regularności."]
+    [
+     "Czy potrzebuję działalności gospodarczej, żeby sprzedawać na Etsy?",
+     "Przy regularnej sprzedaży zwykle tak. Sprawdź zasady w swoim kraju, zanim zaczniesz."
+    ],
+    [
+     "Czy Etsy akceptuje e-booki napisane z AI?",
+     "Tak, pod warunkiem że w opisie zaznaczysz użycie AI i przestrzegasz zasad Etsy dotyczących własności intelektualnej."
+    ],
+    [
+     "Ile można zarobić?",
+     "Nikt nie może tego zagwarantować. Sprzedaż zależy od tematu, jakości oferty, konkurencji i Twojej regularności."
+    ]
    ]
   },
   "idees-ebook-etsy": {
@@ -38,14 +87,78 @@
    "description": "30 pomysłów na e-booki dopasowanych do Etsy, pogrupowanych tematycznie (rodzina, sport, budżet, dom, AI, hobby), i jak wybrać swój.",
    "intro": "Dobry temat leży tam, gdzie spotykają się trzy rzeczy: prawdziwa potrzeba, odbiorcy kupujący na Etsy i ujęcie, które potrafisz dobrze opracować. Oto 30 pomysłów z naszej bazy do dopasowania do Twojego profilu.",
    "sections": [
-    {"h": "Rodzina i rodzicielstwo", "ul": ["Przygotowanie na przyjście dziecka: kompletna checklista", "Karmienie piersią: praktyczny poradnik na pierwsze tygodnie", "Wieczorne rytuały dla dzieci od 3 do 6 lat", "Rodzinny plan obowiązków do wydruku", "Organizacja urodzin dziecka bez stresu"]},
-    {"h": "Sport i dobre samopoczucie", "ul": ["Codzienny 20-minutowy program HIIT", "Poradnik skutecznego treningu na rowerku stacjonarnym", "Trening siłowy w domu od podstaw", "Rozciąganie dla osób pracujących przy biurku", "Przygotowanie do pierwszych 10 km"]},
-    {"h": "Budżet i organizacja", "ul": ["Miesięczny planer budżetu", "Metoda kopert krok po kroku", "Porządkowanie dokumentów", "Checklista przeprowadzki, by o niczym nie zapomnieć", "Cotygodniowy meal prep"]},
-    {"h": "Dom i ogród", "ul": ["Jak przyciągnąć ptaki i owady do ogrodu", "Warzywnik na balkonie dla początkujących", "Porządki w domu pokój po pokoju", "Ekologiczne sprzątanie: domowe przepisy", "Łatwe w pielęgnacji rośliny doniczkowe"]},
-    {"h": "AI i narzędzia cyfrowe", "ul": ["Pisanie skutecznych promptów do AI", "Najlepsze darmowe narzędzia AI", "Jak znaleźć pracę z pomocą AI", "Tworzenie grafik z AI (prawa i licencje)", "Pinterest jako darmowe źródło ruchu"]},
-    {"h": "Hobby i kreatywność", "ul": ["Szycie dla początkujących: pierwsze projekty", "Nauka szydełkowania w 10 projektach", "Fotografia smartfonem", "Prowadzenie bullet journala", "Wychowanie szczeniaka: pierwsze 30 dni"]},
-    {"h": "Jak wybrać temat", "p": ["Zacznij od tego, co znasz lub co naprawdę Cię interesuje: łatwiej wychwycisz błędy i lepiej przedstawisz produkt. Potem sprawdź na Etsy, czy jest popyt (podobne e-booki mają opinie), a pierwsze wyniki nie są identyczne z Twoim pomysłem. Na koniec unikaj tematów wymagających wiedzy medycznej, prawnej lub finansowej, której nie masz."]},
-    {"h": "Znajdź pomysły dopasowane do siebie", "p": ["Darmowy kwestionariusz Movacash zadaje kilka pytań o Twój czas, poziom i zainteresowania, a potem proponuje 3 pomysły z naszej bazy z oceną popytu i konkurencji (to nasze szacunki, nie gwarancje)."]}
+    {
+     "h": "Rodzina i rodzicielstwo",
+     "ul": [
+      "Przygotowanie na przyjście dziecka: kompletna checklista",
+      "Karmienie piersią: praktyczny poradnik na pierwsze tygodnie",
+      "Wieczorne rytuały dla dzieci od 3 do 6 lat",
+      "Rodzinny plan obowiązków do wydruku",
+      "Organizacja urodzin dziecka bez stresu"
+     ]
+    },
+    {
+     "h": "Sport i dobre samopoczucie",
+     "ul": [
+      "Codzienny 20-minutowy program HIIT",
+      "Poradnik skutecznego treningu na rowerku stacjonarnym",
+      "Trening siłowy w domu od podstaw",
+      "Rozciąganie dla osób pracujących przy biurku",
+      "Przygotowanie do pierwszych 10 km"
+     ]
+    },
+    {
+     "h": "Budżet i organizacja",
+     "ul": [
+      "Miesięczny planer budżetu",
+      "Metoda kopert krok po kroku",
+      "Porządkowanie dokumentów",
+      "Checklista przeprowadzki, by o niczym nie zapomnieć",
+      "Cotygodniowy meal prep"
+     ]
+    },
+    {
+     "h": "Dom i ogród",
+     "ul": [
+      "Jak przyciągnąć ptaki i owady do ogrodu",
+      "Warzywnik na balkonie dla początkujących",
+      "Porządki w domu pokój po pokoju",
+      "Ekologiczne sprzątanie: domowe przepisy",
+      "Łatwe w pielęgnacji rośliny doniczkowe"
+     ]
+    },
+    {
+     "h": "AI i narzędzia cyfrowe",
+     "ul": [
+      "Pisanie skutecznych promptów do AI",
+      "Najlepsze darmowe narzędzia AI",
+      "Jak znaleźć pracę z pomocą AI",
+      "Tworzenie grafik z AI (prawa i licencje)",
+      "Pinterest jako darmowe źródło ruchu"
+     ]
+    },
+    {
+     "h": "Hobby i kreatywność",
+     "ul": [
+      "Szycie dla początkujących: pierwsze projekty",
+      "Nauka szydełkowania w 10 projektach",
+      "Fotografia smartfonem",
+      "Prowadzenie bullet journala",
+      "Wychowanie szczeniaka: pierwsze 30 dni"
+     ]
+    },
+    {
+     "h": "Jak wybrać temat",
+     "p": [
+      "Zacznij od tego, co znasz lub co naprawdę Cię interesuje: łatwiej wychwycisz błędy i lepiej przedstawisz produkt. Potem sprawdź na Etsy, czy jest popyt (podobne e-booki mają opinie), a pierwsze wyniki nie są identyczne z Twoim pomysłem. Na koniec unikaj tematów wymagających wiedzy medycznej, prawnej lub finansowej, której nie masz."
+     ]
+    },
+    {
+     "h": "Znajdź pomysły dopasowane do siebie",
+     "p": [
+      "Darmowy kwestionariusz Movacash zadaje kilka pytań o Twój czas, poziom i zainteresowania, a potem proponuje 3 pomysły z naszej bazy z oceną popytu i konkurencji (to nasze szacunki, nie gwarancje)."
+     ]
+    }
    ]
   },
   "creer-ebook-ia": {
@@ -53,16 +166,55 @@
    "description": "Od tematu do PDF: jak wykorzystać AI do napisania przydatnego e-booka, uniknąć typowych błędów i otrzymać produkt gotowy do sprzedaży.",
    "intro": "AI potrafi napisać cały e-book w kilka minut. Ale dobry e-book to nie długi tekst, tylko tekst przydatny, dobrze zorganizowany i bez błędów. Oto metoda, która działa.",
    "sections": [
-    {"h": "1. Określ czytelnika i obietnicę książki", "p": ["Zanim cokolwiek wygenerujesz, zapisz w jednym zdaniu, dla kogo jest książka i w czym pomaga. Przykład: „Pomóc zupełnie początkującej osobie uszyć pierwsze 5 projektów w miesiąc”. To zdanie prowadzi całą resztę."]},
-    {"h": "2. Wygeneruj szczegółowy plan", "p": ["Najpierw poproś o plan: od 7 do 12 rozdziałów, każdy z jasnym celem. Przejrzyj go: czy kolejność jest logiczna? Czy brakuje jakiegoś kroku? Czy któryś rozdział powtarza inny? Poprawienie planu zajmuje dwie minuty i oszczędza przepisywania stron."]},
-    {"h": "3. Generuj rozdział po rozdziale", "p": ["Jeden rozdział naraz daje dokładniejszy tekst niż cała książka za jednym razem. Każdy rozdział powinien zawierać wyjaśnienie, konkretne przykłady, ćwiczenie lub checklistę i podsumowanie najważniejszych punktów."]},
-    {"h": "4. Przeczytaj i sprawdź", "ul": ["Usuń liczby i statystyki, których nie możesz zweryfikować", "Wykreśl obietnice („gwarantowane”, „efekty w 7 dni”)", "Sprawdź porady dotyczące bezpieczeństwa, zdrowia i pieniędzy", "Dodaj własne wskazówki: to one czynią książkę wyjątkową"]},
-    {"h": "5. Złóż i wyeksportuj", "p": ["Spis treści, okładka, numery stron i czytelne nagłówki robią różnicę. Wyeksportuj PDF w formacie, jakiego oczekują kupujący (A4 w Europie, US Letter w USA, A5 do czytania na telefonie)."]},
-    {"h": "Co robi Movacash", "p": ["Movacash łączy te kroki: szczegółowy plan, rozdziały z przykładami i ćwiczeniami, ponowne wygenerowanie rozdziału jednym kliknięciem, okładka, PDF i oferta na Etsy. Treść jest pisana tak, by unikać zmyślonych statystyk i przesadnych obietnic, a autorem pozostajesz Ty: przed sprzedażą czytasz i zmieniasz, co chcesz."]}
+    {
+     "h": "1. Określ czytelnika i obietnicę książki",
+     "p": [
+      "Zanim cokolwiek wygenerujesz, zapisz w jednym zdaniu, dla kogo jest książka i w czym pomaga. Przykład: „Pomóc zupełnie początkującej osobie uszyć pierwsze 5 projektów w miesiąc”. To zdanie prowadzi całą resztę."
+     ]
+    },
+    {
+     "h": "2. Wygeneruj szczegółowy plan",
+     "p": [
+      "Najpierw poproś o plan: od 7 do 12 rozdziałów, każdy z jasnym celem. Przejrzyj go: czy kolejność jest logiczna? Czy brakuje jakiegoś kroku? Czy któryś rozdział powtarza inny? Poprawienie planu zajmuje dwie minuty i oszczędza przepisywania stron."
+     ]
+    },
+    {
+     "h": "3. Generuj rozdział po rozdziale",
+     "p": [
+      "Jeden rozdział naraz daje dokładniejszy tekst niż cała książka za jednym razem. Każdy rozdział powinien zawierać wyjaśnienie, konkretne przykłady, ćwiczenie lub checklistę i podsumowanie najważniejszych punktów."
+     ]
+    },
+    {
+     "h": "4. Przeczytaj i sprawdź",
+     "ul": [
+      "Usuń liczby i statystyki, których nie możesz zweryfikować",
+      "Wykreśl obietnice („gwarantowane”, „efekty w 7 dni”)",
+      "Sprawdź porady dotyczące bezpieczeństwa, zdrowia i pieniędzy",
+      "Dodaj własne wskazówki: to one czynią książkę wyjątkową"
+     ]
+    },
+    {
+     "h": "5. Złóż i wyeksportuj",
+     "p": [
+      "Spis treści, okładka, numery stron i czytelne nagłówki robią różnicę. Wyeksportuj PDF w formacie, jakiego oczekują kupujący (A4 w Europie, US Letter w USA, A5 do czytania na telefonie)."
+     ]
+    },
+    {
+     "h": "Co robi Movacash",
+     "p": [
+      "Movacash łączy te kroki: szczegółowy plan, rozdziały z przykładami i ćwiczeniami, ponowne wygenerowanie rozdziału jednym kliknięciem, okładka, PDF i oferta na Etsy. Treść jest pisana tak, by unikać zmyślonych statystyk i przesadnych obietnic, a autorem pozostajesz Ty: przed sprzedażą czytasz i zmieniasz, co chcesz."
+     ]
+    }
    ],
    "faq": [
-    ["Czy sprzedaż e-booka napisanego z AI jest legalna?", "W większości przypadków tak, o ile nie wykorzystujesz chronionych treści i informujesz o użyciu AI, gdy platforma tego wymaga, jak Etsy."],
-    ["Ile stron potrzeba?", "Nie ma minimum. 40–60 solidnych stron jest lepsze niż 150 stron wypełniacza."]
+    [
+     "Czy sprzedaż e-booka napisanego z AI jest legalna?",
+     "W większości przypadków tak, o ile nie wykorzystujesz chronionych treści i informujesz o użyciu AI, gdy platforma tego wymaga, jak Etsy."
+    ],
+    [
+     "Ile stron potrzeba?",
+     "Nie ma minimum. 40–60 solidnych stron jest lepsze niż 150 stron wypełniacza."
+    ]
    ]
   },
   "fiche-etsy-produit-numerique": {
@@ -70,11 +222,39 @@
    "description": "Jak napisać tytuł, dobrać 13 tagów i przygotować opis e-booka lub PDF na Etsy, by dało się go znaleźć i zrozumieć.",
    "intro": "Na Etsy świetny produkt, którego nikt nie widzi, się nie sprzeda. Oferta ma dwa zadania: pojawić się w wyszukiwarce, a potem przekonać w kilka sekund. Oto jak ją zbudować.",
    "sections": [
-    {"h": "Tytuł (maksymalnie 140 znaków)", "p": ["Zacznij od dokładnej frazy, którą wpisuje kupujący, potem dodaj format i grupę odbiorców. Przykład: „Program HIIT 20 minut – E-book PDF dla początkujących – Trening w domu bez sprzętu”. Unikaj poetyckich tytułów: są ładne, ale nikt ich nie znajduje."]},
-    {"h": "13 tagów (po 20 znaków)", "ul": ["Zawsze wykorzystuj wszystkie 13", "Zmieniaj frazy zamiast powtarzać to samo słowo", "Myśl o synonimach i zastosowaniach („prezent”, „do druku”, „dla początkujących”)", "Dodaj format: „ebook pdf”, „poradnik pdf”"]},
-    {"h": "Opis", "p": ["Pierwsze linijki wyświetlają się jako podgląd: od razu powiedz, co zawiera plik i dla kogo jest. Potem wymień zawartość (rozdziały, checklisty, ćwiczenia), format (PDF, liczba stron, A4 lub US Letter) i sposób pobrania. Zakończ informacją o użyciu AI, jeśli z niej korzystałeś, tak jak wymaga Etsy."]},
-    {"h": "Zdjęcia", "p": ["Miniatura musi być czytelna w małym rozmiarze. Dodaj 2 lub 3 podglądy stron w środku: kupujący chcą widzieć, co kupują. Unikaj logo marek i obietnic efektów napisanych na obrazku."]},
-    {"h": "Co Movacash przygotowuje za Ciebie", "p": ["Dla każdego e-booka Movacash tworzy tytuł do 140 znaków, 13 tagów, opis z informacją o AI i miniaturę, gotowe do wklejenia na Etsy. Przed publikacją możesz wszystko zmienić."]}
+    {
+     "h": "Tytuł (maksymalnie 140 znaków)",
+     "p": [
+      "Zacznij od dokładnej frazy, którą wpisuje kupujący, potem dodaj format i grupę odbiorców. Przykład: „Program HIIT 20 minut – E-book PDF dla początkujących – Trening w domu bez sprzętu”. Unikaj poetyckich tytułów: są ładne, ale nikt ich nie znajduje."
+     ]
+    },
+    {
+     "h": "13 tagów (po 20 znaków)",
+     "ul": [
+      "Zawsze wykorzystuj wszystkie 13",
+      "Zmieniaj frazy zamiast powtarzać to samo słowo",
+      "Myśl o synonimach i zastosowaniach („prezent”, „do druku”, „dla początkujących”)",
+      "Dodaj format: „ebook pdf”, „poradnik pdf”"
+     ]
+    },
+    {
+     "h": "Opis",
+     "p": [
+      "Pierwsze linijki wyświetlają się jako podgląd: od razu powiedz, co zawiera plik i dla kogo jest. Potem wymień zawartość (rozdziały, checklisty, ćwiczenia), format (PDF, liczba stron, A4 lub US Letter) i sposób pobrania. Zakończ informacją o użyciu AI, jeśli z niej korzystałeś, tak jak wymaga Etsy."
+     ]
+    },
+    {
+     "h": "Zdjęcia",
+     "p": [
+      "Miniatura musi być czytelna w małym rozmiarze. Dodaj 2 lub 3 podglądy stron w środku: kupujący chcą widzieć, co kupują. Unikaj logo marek i obietnic efektów napisanych na obrazku."
+     ]
+    },
+    {
+     "h": "Co Movacash przygotowuje za Ciebie",
+     "p": [
+      "Dla każdego e-booka Movacash tworzy tytuł do 140 znaków, 13 tagów, opis z informacją o AI i miniaturę, gotowe do wklejenia na Etsy. Przed publikacją możesz wszystko zmienić."
+     ]
+    }
    ]
   },
   "prix-ebook-etsy": {
@@ -82,11 +262,39 @@
    "description": "Jak wycenić e-booka na Etsy: przeanalizuj konkurencję, policz opłaty Etsy, wybierz cenę startową i ją dopasuj.",
    "intro": "Za drogo, a nikt nie kupi w nieznanym sklepie. Za tanio, a e-book wygląda na bezwartościowy, a opłaty zjadają marżę. Oto jak znaleźć właściwą cenę.",
    "sections": [
-    {"h": "Sprawdź podobne e-booki", "p": ["Wyszukaj swój temat na Etsy i zanotuj ceny pierwszych 15–20 wyników z opiniami. Tak otrzymasz realistyczny przedział dla tego typu produktu. W wielu praktycznych tematach e-booki kosztują od kilku do około piętnastu euro, ale każda nisza jest inna."]},
-    {"h": "Policz opłaty", "ul": ["Wystawienie: 0,20 $ za ofertę, odnawiane co 4 miesiące lub przy każdej sprzedaży", "Prowizja od transakcji: 6,5% ceny", "Obsługa płatności: procent plus stała kwota, zależnie od kraju", "Etsy Ads i Offsite Ads: tylko jeśli dotyczą Twojego sklepu"]},
-    {"h": "Wybierz cenę startową", "p": ["Wielu sprzedawców zaczyna od dolnej granicy przedziału, by zdobyć pierwsze zamówienia i opinie, a potem podnosi cenę. Inna opcja to pakiet (2 lub 3 e-booki na pokrewne tematy) w wyższej cenie."]},
-    {"h": "Koryguj na podstawie statystyk", "p": ["Jeśli oferta ma wyświetlenia i dodania do ulubionych, ale nie ma sprzedaży, problemem może być cena lub opis. Jeśli nie ma wyświetleń, najpierw sprawdź tytuł, tagi lub miniaturę."]},
-    {"h": "Jak pomaga Movacash", "p": ["Każdy pomysł w naszej bazie ma sugerowaną cenę, oszacowaną na podstawie podobnych produktów. To punkt wyjścia, nie gwarancja: cenę ustalasz sam."]}
+    {
+     "h": "Sprawdź podobne e-booki",
+     "p": [
+      "Wyszukaj swój temat na Etsy i zanotuj ceny pierwszych 15–20 wyników z opiniami. Tak otrzymasz realistyczny przedział dla tego typu produktu. W wielu praktycznych tematach e-booki kosztują od kilku do około piętnastu euro, ale każda nisza jest inna."
+     ]
+    },
+    {
+     "h": "Policz opłaty",
+     "ul": [
+      "Wystawienie: 0,20 $ za ofertę, odnawiane co 4 miesiące lub przy każdej sprzedaży",
+      "Prowizja od transakcji: 6,5% ceny",
+      "Obsługa płatności: procent plus stała kwota, zależnie od kraju",
+      "Etsy Ads i Offsite Ads: tylko jeśli dotyczą Twojego sklepu"
+     ]
+    },
+    {
+     "h": "Wybierz cenę startową",
+     "p": [
+      "Wielu sprzedawców zaczyna od dolnej granicy przedziału, by zdobyć pierwsze zamówienia i opinie, a potem podnosi cenę. Inna opcja to pakiet (2 lub 3 e-booki na pokrewne tematy) w wyższej cenie."
+     ]
+    },
+    {
+     "h": "Koryguj na podstawie statystyk",
+     "p": [
+      "Jeśli oferta ma wyświetlenia i dodania do ulubionych, ale nie ma sprzedaży, problemem może być cena lub opis. Jeśli nie ma wyświetleń, najpierw sprawdź tytuł, tagi lub miniaturę."
+     ]
+    },
+    {
+     "h": "Jak pomaga Movacash",
+     "p": [
+      "Każdy pomysł w naszej bazie ma sugerowaną cenę, oszacowaną na podstawie podobnych produktów. To punkt wyjścia, nie gwarancja: cenę ustalasz sam."
+     ]
+    }
    ]
   },
   "etsy-ia-regles": {
@@ -94,11 +302,366 @@
    "description": "Czy można sprzedawać na Etsy e-booka stworzonego z AI? Zasady, które trzeba znać: informacja o AI, własność intelektualna, tematy wrażliwe.",
    "intro": "Etsy akceptuje produkty powstałe z pomocą AI, ale na określonych zasadach. Ich ignorowanie może skończyć się usunięciem oferty, a nawet zawieszeniem sklepu. Oto, co się liczy.",
    "sections": [
-    {"h": "Informuj o użyciu AI", "p": ["Etsy oczekuje od sprzedawców przejrzystości: jeśli Twój produkt powstał z pomocą narzędzi AI, napisz o tym w opisie oferty. Wystarczy jedno proste zdanie, na przykład „Treść napisana z pomocą narzędzi AI, następnie sprawdzona i złożona przez sklep”."]},
-    {"h": "Szanuj własność intelektualną", "ul": ["Żadnych chronionych marek, logo ani postaci w tytule, tagach czy grafikach", "Żadnego kopiowania istniejących książek, kursów czy artykułów", "Grafiki, do których masz prawa (własne, z AI, która na to pozwala, lub licencjonowane)"]},
-    {"h": "Uważaj na tematy wrażliwe", "p": ["Zdrowie, odchudzanie, pieniądze, inwestowanie: te tematy się sprzedają, ale wymagają ostrożności. Żadnych obietnic wyleczenia ani zysków, jasne zastrzeżenia i w razie potrzeby odesłanie do specjalisty."]},
-    {"h": "Daj prawdziwą wartość", "p": ["Etsy faworyzuje sklepy z zadowolonymi klientami. Sprawdzony, przydatny i dobrze przedstawiony e-book zbiera lepsze opinie niż tekst wygenerowany i opublikowany bez weryfikacji."]},
-    {"h": "Jak Movacash pomaga przestrzegać zasad", "p": ["Informacja o AI jest automatycznie dodawana do oferty i do PDF. Tematy zdrowotne i finansowe dostają zastrzeżenia, a tekst unika przesadnych obietnic i nazw marek. Za to, co publikujesz, odpowiadasz Ty: zawsze przeczytaj przed sprzedażą."]}
+    {
+     "h": "Informuj o użyciu AI",
+     "p": [
+      "Etsy oczekuje od sprzedawców przejrzystości: jeśli Twój produkt powstał z pomocą narzędzi AI, napisz o tym w opisie oferty. Wystarczy jedno proste zdanie, na przykład „Treść napisana z pomocą narzędzi AI, następnie sprawdzona i złożona przez sklep”."
+     ]
+    },
+    {
+     "h": "Szanuj własność intelektualną",
+     "ul": [
+      "Żadnych chronionych marek, logo ani postaci w tytule, tagach czy grafikach",
+      "Żadnego kopiowania istniejących książek, kursów czy artykułów",
+      "Grafiki, do których masz prawa (własne, z AI, która na to pozwala, lub licencjonowane)"
+     ]
+    },
+    {
+     "h": "Uważaj na tematy wrażliwe",
+     "p": [
+      "Zdrowie, odchudzanie, pieniądze, inwestowanie: te tematy się sprzedają, ale wymagają ostrożności. Żadnych obietnic wyleczenia ani zysków, jasne zastrzeżenia i w razie potrzeby odesłanie do specjalisty."
+     ]
+    },
+    {
+     "h": "Daj prawdziwą wartość",
+     "p": [
+      "Etsy faworyzuje sklepy z zadowolonymi klientami. Sprawdzony, przydatny i dobrze przedstawiony e-book zbiera lepsze opinie niż tekst wygenerowany i opublikowany bez weryfikacji."
+     ]
+    },
+    {
+     "h": "Jak Movacash pomaga przestrzegać zasad",
+     "p": [
+      "Informacja o AI jest automatycznie dodawana do oferty i do PDF. Tematy zdrowotne i finansowe dostają zastrzeżenia, a tekst unika przesadnych obietnic i nazw marek. Za to, co publikujesz, odpowiadasz Ty: zawsze przeczytaj przed sprzedażą."
+     ]
+    }
+   ]
+  },
+  "produits-numeriques-etsy": {
+   "title": "Sprzedaż produktów cyfrowych na Etsy: poradnik dla początkujących",
+   "description": "E-booki, planery, printables, szablony: jakie produkty cyfrowe sprzedawać na Etsy, jak to działa i jak zacząć bez magazynu i wysyłek.",
+   "intro": "Produkt cyfrowy to plik, który kupujący pobiera po zapłacie: bez magazynu, bez pakowania, bez wysyłki. Na Etsy to osobna kategoria z własnymi zasadami. Oto jak działa i jak postawić pierwsze kroki.",
+   "sections": [
+    {
+     "h": "Co można sprzedawać",
+     "ul": [
+      "E-booki i praktyczne poradniki w PDF",
+      "Planery i kalendarze do druku",
+      "Checklisty, karty pracy i trackery",
+      "Szablony (CV, budżet, media społecznościowe, ślub)",
+      "Zeszyty ćwiczeń i materiały edukacyjne",
+      "Wykroje krawieckie, wzory na szydełko i na drutach"
+     ]
+    },
+    {
+     "h": "Jak wygląda sprzedaż",
+     "p": [
+      "Tworzysz ofertę typu „Cyfrowy” i dołączasz plik (do 5 plików po 20 MB). Gdy ktoś kupuje, Etsy automatycznie przekazuje mu link do pobrania. W chwili sprzedaży nie musisz nic robić: dlatego ten model da się pogodzić z pracą lub studiami."
+     ]
+    },
+    {
+     "h": "Dlaczego zacząć od e-booka",
+     "p": [
+      "E-book odpowiada na konkretne pytanie („jak przygotować się do pierwszych 10 km”, „jak uporządkować budżet”) i łatwo go zaprezentować: jasny tytuł, okładka, spis treści. Wymaga mniej projektowania niż planer, a jeden temat można dopasować do kilku grup odbiorców."
+     ]
+    },
+    {
+     "h": "Co robi różnicę",
+     "ul": [
+      "Konkretny temat dla konkretnych odbiorców zamiast szerokiego tematu",
+      "Tytuł i tagi ze słowami, które wpisują kupujący",
+      "Czytelna miniatura i podglądy stron w środku",
+      "Naprawdę przydatna, sprawdzona treść bez przesadnych obietnic",
+      "Kilka produktów na pokrewne tematy, żeby sklep był spójny"
+     ]
+    },
+    {
+     "h": "Co warto wiedzieć przed startem",
+     "p": [
+      "Etsy pobiera opłaty za każdą ofertę i każdą sprzedaż, a sprzedaż nigdy nie jest gwarantowana: często trzeba opublikować i poprawić kilka produktów, zanim pojawią się efekty. Przy regularnej sprzedaży zwykle trzeba zarejestrować działalność w swoim kraju. W przypadku kupujących z Unii Europejskiej Etsy samo nalicza, pobiera i odprowadza VAT od produktów cyfrowych."
+     ]
+    },
+    {
+     "h": "Start z Movacash",
+     "p": [
+      "Movacash proponuje pomysły na e-booki dopasowane do Etsy i Twojego profilu, pisze treść z AI, eksportuje PDF i przygotowuje ofertę (tytuł, 13 tagów, opis, miniatura). Ty czytasz, poprawiasz i sam publikujesz na Etsy."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Czy trzeba umieć rysować lub pisać, żeby sprzedawać produkty cyfrowe?",
+     "Nie. Wielu sprzedawców korzysta z narzędzi (Canva, AI, szablony); liczy się to, by produkt był przydatny i dobrze przedstawiony."
+    ],
+    [
+     "Czy produkty cyfrowe dobrze sprzedają się na Etsy?",
+     "To bardzo popularna, ale też konkurencyjna kategoria. Wyniki zależą od tematu, oferty i regularności; żadne zarobki nie są gwarantowane."
+    ],
+    [
+     "Czy zakup pliku można zwrócić lub anulować?",
+     "Produkty cyfrowe często sprzedaje się bez możliwości zwrotu; jasno opisz swoje zasady w sklepie i pomagaj kupującym w razie problemów."
+    ]
+   ]
+  },
+  "gagner-argent-etsy": {
+   "title": "Zarabianie na Etsy bez magazynu: co naprawdę się liczy",
+   "description": "Dodatkowy dochód na Etsy z produktów cyfrowych: model, potrzebny czas, błędy, które kosztują miesiące, i realistyczna metoda.",
+   "intro": "Sprzedaż plików na Etsy to realny sposób na rozpoczęcie dodatkowego dochodu, bez magazynu i lokalu. To nie są łatwe pieniądze: to mały biznes, z klientami, próbami i regularnością. Oto, co się liczy, uczciwie.",
+   "sections": [
+    {
+     "h": "Model w jednym zdaniu",
+     "p": [
+      "Tworzysz produkt raz, wystawiasz go, a każdy kupujący pobiera go bez wysyłki z Twojej strony. Praca dzieje się wcześniej: wybór tematu, stworzenie produktu, dopracowanie oferty, a potem to samo z kolejnymi produktami."
+     ]
+    },
+    {
+     "h": "Co sprzedaje",
+     "ul": [
+      "Prawdziwa potrzeba: ludzie już szukają tego tematu na Etsy",
+      "Oferta, którą da się znaleźć: tytuł i 13 tagów ze słowami kupujących",
+      "Pierwsze zdjęcie, które zachęca do kliknięcia",
+      "Przydatny produkt, który zasługuje na dobre opinie",
+      "Liczba: kilka produktów na pokrewne tematy"
+     ]
+    },
+    {
+     "h": "Ile czasu to zajmuje",
+     "p": [
+      "Pierwsza sprzedaż może przyjść szybko albo po kilku tygodniach, a niektóre oferty nigdy się nie sprzedadzą. U większości sprzedawców działa regularność: co tydzień nowy produkt, obserwacja statystyk i poprawianie tego, co nie działa. Lepiej zaplanować kilka godzin tygodniowo niż jeden duży zryw."
+     ]
+    },
+    {
+     "h": "Błędy, które kosztują miesiące",
+     "ul": [
+      "Zbyt szeroki temat („dobre samopoczucie”) zamiast konkretnej potrzeby",
+      "Jedna oferta i czekanie",
+      "Kopiowanie bestsellera zamiast własnego ujęcia",
+      "Obietnice („schudnij 10 kg”, „zarób 1000 €”), których nie lubią ani Etsy, ani kupujący",
+      "Brak informacji o AI, jeśli z niej korzystałeś"
+     ]
+    },
+    {
+     "h": "Realistyczna metoda na 30 dni",
+     "ul": [
+      "Tydzień 1: otwórz sklep, wybierz 2–3 pokrewne tematy, stwórz pierwszego e-booka",
+      "Tydzień 2: opublikuj go z dopracowaną ofertą, stwórz drugiego",
+      "Tydzień 3: sprawdź wyświetlenia i ulubione, popraw tytuły i miniatury",
+      "Tydzień 4: opublikuj trzeciego, zostaw to, co przyciąga, porzuć to, co nie działa"
+     ]
+    },
+    {
+     "h": "Gdzie pomaga Movacash",
+     "p": [
+      "Movacash przyspiesza tworzenie: pomysły dopasowane do Twojego profilu, e-book napisany przez AI, PDF gotowy do sprzedaży, oferta na Etsy i miniatura. Reszta należy do Ciebie: publikuj, obserwuj, powtarzaj. Żadne zarobki nie są gwarantowane, ale na każdy produkt poświęcasz mniej czasu, a więcej na to, co sprzedaje."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Ile można zarobić na Etsy?",
+     "Nikt nie może tego zagwarantować. Niektórzy sprzedawcy nie sprzedają nic, inni budują prawdziwy dodatkowy dochód; zależy to od tematów, ofert i regularności."
+    ],
+    [
+     "Czy trzeba zainwestować pieniądze na start?",
+     "Niewiele: 0,20 $ za ofertę, w zależności od kraju ewentualna jednorazowa opłata za otwarcie sklepu i prowizje tylko wtedy, gdy sprzedajesz. Narzędzie takie jak Movacash to opcjonalna subskrypcja."
+    ],
+    [
+     "Czy da się to robić bez pokazywania twarzy?",
+     "Tak. Sklep z produktami cyfrowymi na Etsy działa bez twarzy i bez filmów; promocja na Pinterest też działa z prostymi grafikami."
+    ]
+   ]
+  },
+  "frais-etsy": {
+   "title": "Opłaty Etsy: ile kosztuje sprzedaż produktu cyfrowego?",
+   "description": "Opłata za wystawienie, prowizja, obsługa płatności, reklamy: wszystkie opłaty Etsy dla e-booka lub PDF, z przykładem liczbowym.",
+   "intro": "Zanim ustalisz cenę, musisz wiedzieć, ile Etsy zatrzymuje z każdej sprzedaży. Przy produkcie cyfrowym rachunek jest prosty, bo nie ma wysyłki ani pakowania. Oto każda pozycja, a potem przykład.",
+   "sections": [
+    {
+     "h": "Opłaty za każdą ofertę",
+     "p": [
+      "Etsy pobiera 0,20 $ za każdą opublikowaną ofertę. Oferta jest aktywna przez 4 miesiące; po tym czasie lub przy każdej sprzedaży odnawia się automatycznie (i jest ponownie opłacana). W zależności od kraju Etsy może też pobrać jednorazową opłatę przy otwarciu sklepu."
+     ]
+    },
+    {
+     "h": "Opłaty za każdą sprzedaż",
+     "ul": [
+      "Prowizja od transakcji: 6,5% ceny sprzedaży",
+      "Obsługa płatności: procent plus stała kwota, zależnie od kraju Twojego banku (np. w wielu krajach strefy euro 4% + 0,30 €)",
+      "Przewalutowanie: 2,5%, jeśli oferta nie jest w walucie Twojego konta bankowego",
+      "W niektórych krajach dochodzą opłaty regulacyjne"
+     ]
+    },
+    {
+     "h": "Opłaty opcjonalne lub warunkowe",
+     "ul": [
+      "Etsy Ads: reklama w Etsy z wybranym przez Ciebie budżetem",
+      "Offsite Ads: prowizja tylko wtedy, gdy sprzedaż pochodzi z reklamy Etsy na innej stronie (obowiązkowa powyżej określonego rocznego obrotu)",
+      "Etsy Plus: opcjonalna subskrypcja z dodatkowymi narzędziami"
+     ]
+    },
+    {
+     "h": "Przykład: e-book za 7,90 € (kraj strefy euro)",
+     "ul": [
+      "Wystawienie: ok. 0,18 €",
+      "Prowizja (6,5%): 0,51 €",
+      "Płatność (4% + 0,30 €): 0,62 €",
+      "Opłaty razem: ok. 1,31 €",
+      "Zostaje przed podatkami i składkami: ok. 6,59 €, czyli nieco ponad 83% ceny"
+     ]
+    },
+    {
+     "h": "VAT i podatki",
+     "p": [
+      "W przypadku kupujących z Unii Europejskiej Etsy samo nalicza, pobiera i odprowadza VAT od produktów cyfrowych: nie musisz tego robić. Etsy może jednak doliczać VAT do własnych opłat, zależnie od Twojej sytuacji. Swoje dochody nadal rozliczasz zgodnie z przepisami swojego kraju."
+     ]
+    },
+    {
+     "h": "Co to oznacza dla ceny",
+     "p": [
+      "Stałe opłaty bardziej obciążają niskie ceny: przy 2 € zabierają dużą część sprzedaży. To jeden z powodów, dla których wielu sprzedawców e-booków unika bardzo niskich cen i oferuje też pakiety. Movacash pokazuje dla każdego pomysłu sugerowaną cenę, oszacowaną na podstawie podobnych produktów, którą możesz dowolnie zmienić."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Ile Etsy bierze ze sprzedaży?",
+     "Przy produkcie cyfrowym w kraju, w którym płatność kosztuje 4% + 0,30 €: 6,5% prowizji plus ta opłata za płatność, plus 0,20 $ za ofertę. Około 1,30 € przy e-booku za 7,90 €."
+    ],
+    [
+     "Czy otwarcie sklepu na Etsy kosztuje?",
+     "W zależności od kraju Etsy może pobrać jednorazową opłatę za otwarcie; potem płacisz 0,20 $ za ofertę i prowizje tylko wtedy, gdy sprzedajesz."
+    ],
+    [
+     "Czy opłaty Etsy się zmieniają?",
+     "Tak, Etsy co jakiś czas je aktualizuje. Przed ustaleniem cen zawsze sprawdź oficjalną stronę opłat Etsy."
+    ]
+   ]
+  },
+  "ou-vendre-ebook": {
+   "title": "Gdzie sprzedawać e-booka: Etsy, Amazon Kindle, Gumroad czy własna strona?",
+   "description": "Uczciwe porównanie platform do sprzedaży e-booka: odbiorcy, opłaty, formaty, widoczność. I dlaczego Etsy dobrze sprawdza się na start.",
+   "intro": "Ten sam e-book może sprzedawać się w kilku miejscach, ale każda platforma ma własnych odbiorców i zasady. Oto najważniejsze, z mocnymi stronami i ograniczeniami, żeby łatwiej wybrać, od czego zacząć.",
+   "sections": [
+    {
+     "h": "Etsy",
+     "p": [
+      "Marketplace, na którym kupujący już szukają praktycznych produktów cyfrowych: planerów, poradników, checklist. Korzystasz z wyszukiwarki Etsy bez potrzeby posiadania własnej publiczności. Opłaty: 0,20 $ za ofertę, 6,5% prowizji i obsługa płatności. Dowolny format: PDF, ZIP, obrazy."
+     ],
+     "ul": [
+      "Zalety: istniejący ruch, prosty start, dobre miejsce dla praktycznych poradników",
+      "Wady: duża konkurencja w popularnych tematach, surowe zasady dotyczące obietnic i marek"
+     ]
+    },
+    {
+     "h": "Amazon Kindle Direct Publishing (KDP)",
+     "p": [
+      "Największa księgarnia e-booków. Książka jest konwertowana do formatu Kindle i sprzedawana na Amazonie. Tantiemy wynoszą od 35% do 70% ceny, zależnie od warunków."
+     ],
+     "ul": [
+      "Zalety: ogromna liczba czytelników, możliwość wydania wersji drukowanej",
+      "Wady: układ Kindle (słabo nadaje się do checklist i kart do druku), duża konkurencja, treści wygenerowane przez AI trzeba zgłaszać"
+     ]
+    },
+    {
+     "h": "Gumroad, Payhip i podobne platformy",
+     "p": [
+      "Narzędzia do sprzedaży plików z własnej strony. Pobierają prowizję od każdej sprzedaży, ale prawie nie przyprowadzają odwiedzających: musisz zapewnić ich sam (media społecznościowe, newsletter)."
+     ],
+     "ul": [
+      "Zalety: pełna swoboda, mało zasad, bezpośredni kontakt z kupującymi",
+      "Wady: bez publiczności mała sprzedaż albo żadna"
+     ]
+    },
+    {
+     "h": "Własna strona",
+     "p": [
+      "Sklep na własnej stronie (z narzędziem do płatności) pozwala ustalić wszystkie zasady, ale wymaga najwięcej pracy: SEO, płatności, dostarczanie plików, obowiązki prawne."
+     ]
+    },
+    {
+     "h": "Od czego zacząć",
+     "p": [
+      "Gdy zaczynasz bez publiczności, Etsy jest często najprostszym punktem startu dla praktycznego poradnika w PDF: kupujący już tam są, a jedna dobrze przygotowana oferta może zostać znaleziona od razu po publikacji. Nic nie stoi na przeszkodzie, by później oferować tę samą treść także gdzie indziej."
+     ]
+    },
+    {
+     "h": "A Movacash?",
+     "p": [
+      "Movacash jest stworzony z myślą o Etsy: dopasowane pomysły, oferta z 13 tagami, miniatura i informacja o AI. Wyeksportowany PDF należy do Ciebie i może być użyty także gdzie indziej, zgodnie z zasadami każdej platformy."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Czy mogę sprzedawać tego samego e-booka na Etsy i Amazonie?",
+     "Zwykle tak, chyba że dołączysz do programu wyłączności (jak KDP Select, który wymaga cyfrowej wyłączności na Amazonie)."
+    ],
+    [
+     "Która platforma pobiera najmniej opłat?",
+     "Na papierze własna strona; ale bez odwiedzających nic nie sprzeda. Etsy i Amazon biorą więcej, ale przyprowadzają kupujących."
+    ]
+   ]
+  },
+  "movacash": {
+   "title": "Movacash: jak działa i ile kosztuje",
+   "description": "Co robi Movacash krok po kroku: pomysły na e-booki na Etsy, pisanie z AI, PDF, oferta na Etsy i miniatura. Ceny, ograniczenia i najczęstsze pytania.",
+   "intro": "Movacash to aplikacja internetowa (do zainstalowania na telefonie), która pomaga tworzyć e-booki z AI i sprzedawać je jako pliki do pobrania na Etsy. Oto dokładnie, co robi, czego nie robi i ile kosztuje.",
+   "sections": [
+    {
+     "h": "1. Kwestionariusz, który pomoże znaleźć pomysł",
+     "p": [
+      "Kilka pytań o Twój czas, poziom, zainteresowania i cele. Movacash proponuje potem 3 pomysły na e-booki ze swojej bazy ponad 500 tematów dopasowanych do Etsy (sport, rodzicielstwo, budżet, narzędzia AI, rękodzieło, ogród, zwierzęta…), z oceną popytu, konkurencji i sugerowaną ceną."
+     ]
+    },
+    {
+     "h": "2. AI pisze e-booka",
+     "p": [
+      "Szczegółowy plan, a potem rozdziały: około 40–60 stron z metodami, przykładami, ćwiczeniami, checklistami i planem działania. Każdy rozdział można przeczytać, zmienić lub wygenerować ponownie. E-book może zostać napisany w 22 językach europejskich."
+     ]
+    },
+    {
+     "h": "3. PDF gotowy do sprzedaży",
+     "p": [
+      "Okładka, spis treści, numery stron i staranny skład w formacie A4, A5 lub US Letter. Informacja o użyciu AI jest dołączona, tak jak wymaga Etsy."
+     ]
+    },
+    {
+     "h": "4. Oferta na Etsy i miniatura",
+     "p": [
+      "Tytuł do 140 znaków, 13 tagów, pełny opis i miniatura, gotowe do wklejenia na Etsy. Tematy zdrowotne i finansowe dostają zastrzeżenia, a przesadne obietnice i nazwy marek są pomijane."
+     ]
+    },
+    {
+     "h": "Czego Movacash nie robi",
+     "ul": [
+      "Nie publikuje na Etsy za Ciebie: sklep pozostaje pod Twoją kontrolą",
+      "Nie gwarantuje sprzedaży ani zarobków",
+      "Nie jest powiązany z Etsy"
+     ]
+    },
+    {
+     "h": "Ceny",
+     "p": [
+      "Trzy miesięczne plany bez zobowiązań: Starter za 19,90 € (20 e-booków miesięcznie), Pro za 39,90 € (50 e-booków miesięcznie) i Business za 79,90 € (120 e-booków miesięcznie). Przy płatności rocznej ceny są niższe o 50%. Rezygnacja w dowolnym momencie w panelu klienta. Kwestionariusz i pierwsze pomysły są bezpłatne."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Czy Movacash jest darmowy?",
+     "Kwestionariusz i poznanie swoich pomysłów są bezpłatne. Tworzenie e-booków, PDF i ofert na Etsy wymaga subskrypcji, od 19,90 € miesięcznie (−50% w planie rocznym)."
+    ],
+    [
+     "Czy trzeba umieć pisać albo znać angielski?",
+     "Nie. AI pisze treść w wybranym języku spośród 22 języków europejskich; Ty czytasz i poprawiasz, co chcesz."
+    ],
+    [
+     "Czy stworzone e-booki należą do mnie?",
+     "Tak, możesz sprzedawać e-booki stworzone w Movacash, przestrzegając zasad Etsy (w szczególności informacji o AI)."
+    ],
+    [
+     "Czy Movacash gwarantuje sprzedaż?",
+     "Nie. Sprzedaż zależy od tematu, oferty, konkurencji i Twojej regularności. Movacash oszczędza czas przy tworzeniu; nie obiecuje żadnych zarobków."
+    ]
    ]
   }
  }

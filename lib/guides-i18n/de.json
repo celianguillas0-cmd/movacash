@@ -19,18 +19,67 @@
    "description": "Shop eröffnen, Thema wählen, PDF erstellen, Angebot schreiben und Preis festlegen: alle Schritte, um dein erstes E-Book auf Etsy zu verkaufen.",
    "intro": "Etsy ist nicht nur etwas für handgemachten Schmuck und Deko. Digitale Produkte, darunter E-Books im PDF-Format, haben dort ihren Platz: Der Käufer bezahlt, lädt die Datei herunter, und du musst nichts verschicken. Hier ist das Vorgehen, Schritt für Schritt, ohne magische Abkürzung.",
    "sections": [
-    {"h": "1. Deinen Etsy-Shop eröffnen", "p": ["Die Anmeldung als Verkäufer startet auf etsy.com/sell. Etsy fragt nach einem Shopnamen, einem Ausweis und einem Bankkonto (IBAN), auf das deine Verkäufe ausgezahlt werden. Prüfe die Regeln zur Gewerbeanmeldung in deinem Land, bevor du regelmäßig verkaufst."]},
-    {"h": "2. Ein Thema wählen, das ein echtes Problem löst", "p": ["Ein gutes Etsy-E-Book löst ein konkretes Problem für eine konkrete Zielgruppe: „Vorbereitung auf das Baby: die komplette Checkliste“ verkauft sich besser als „Alles über Elternschaft“. Schau dir an, was es auf Etsy schon gibt, lies die Bewertungen der Käufer und finde, was fehlt: ein Einsteigerniveau, ein praktischeres Format, eine weniger abgedeckte Sprache."], "ul": ["Eine klare Zielgruppe (Einsteiger, junge Eltern, Sportler, Studierende…)", "Ein konkretes Ergebnis (ein Plan, eine Methode, eine Checkliste)", "Ein Thema, das du ehrlich präsentieren kannst, ohne medizinische oder finanzielle Versprechen"]},
-    {"h": "3. Das PDF erstellen", "p": ["Dein E-Book sollte angenehm zu lesen sein: ein Inhaltsverzeichnis, kurze Kapitel, Beispiele, Übungen und ein Aktionsplan. Setze auf Qualität statt Seitenzahl. Mit einem Tool wie Movacash schreibt die KI Gliederung und Kapitel zu deinem Thema; danach liest du gegen, änderst, was dir nicht gefällt, und exportierst ein PDF in A4, A5 oder US Letter."]},
-    {"h": "4. Ein Angebot schreiben, das gefunden wird", "p": ["Die Etsy-Suche liest vor allem den Titel und die 13 Tags. Setze die Wörter, die Käufer eintippen, an den Anfang des Titels (maximal 140 Zeichen), nutze alle 13 Tags (je 20 Zeichen) mit unterschiedlichen Begriffen und schreibe eine Beschreibung, die klar sagt, was die Datei enthält, für wen sie ist und wie man sie herunterlädt."]},
-    {"h": "5. Auf das Vorschaubild achten", "p": ["Das erste Bild sehen Käufer in den Suchergebnissen. Es sollte einen auch klein lesbaren Titel zeigen, den Produkttyp (PDF-E-Book) deutlich machen und Lust aufs Klicken machen. Vermeide überladene Bilder und groß geschriebene Versprechen."]},
-    {"h": "6. Deinen Preis festlegen", "p": ["Schau dir vergleichbare E-Books auf Etsy an und rechne die Gebühren ein: Einstellgebühr (0,20 $ pro Angebot, 4 Monate gültig), Transaktionsgebühr (6,5 %) und Zahlungsabwicklung. Viele Verkäufer starten mit einem zugänglichen Preis, um erste Bewertungen zu sammeln, und passen ihn dann an."]},
-    {"h": "7. Regelmäßig veröffentlichen und dazulernen", "p": ["Ein einzelnes Angebot bewirkt selten viel. Verkäufer, die vorankommen, veröffentlichen mehrere E-Books zu verwandten Themen, beobachten ihre Shop-Statistiken (Aufrufe, Favoriten, Verkäufe) und verbessern Titel und Vorschaubilder, die nicht funktionieren."]}
+    {
+     "h": "1. Deinen Etsy-Shop eröffnen",
+     "p": [
+      "Die Anmeldung als Verkäufer startet auf etsy.com/sell. Etsy fragt nach einem Shopnamen, einem Ausweis und einem Bankkonto (IBAN), auf das deine Verkäufe ausgezahlt werden. Prüfe die Regeln zur Gewerbeanmeldung in deinem Land, bevor du regelmäßig verkaufst."
+     ]
+    },
+    {
+     "h": "2. Ein Thema wählen, das ein echtes Problem löst",
+     "p": [
+      "Ein gutes Etsy-E-Book löst ein konkretes Problem für eine konkrete Zielgruppe: „Vorbereitung auf das Baby: die komplette Checkliste“ verkauft sich besser als „Alles über Elternschaft“. Schau dir an, was es auf Etsy schon gibt, lies die Bewertungen der Käufer und finde, was fehlt: ein Einsteigerniveau, ein praktischeres Format, eine weniger abgedeckte Sprache."
+     ],
+     "ul": [
+      "Eine klare Zielgruppe (Einsteiger, junge Eltern, Sportler, Studierende…)",
+      "Ein konkretes Ergebnis (ein Plan, eine Methode, eine Checkliste)",
+      "Ein Thema, das du ehrlich präsentieren kannst, ohne medizinische oder finanzielle Versprechen"
+     ]
+    },
+    {
+     "h": "3. Das PDF erstellen",
+     "p": [
+      "Dein E-Book sollte angenehm zu lesen sein: ein Inhaltsverzeichnis, kurze Kapitel, Beispiele, Übungen und ein Aktionsplan. Setze auf Qualität statt Seitenzahl. Mit einem Tool wie Movacash schreibt die KI Gliederung und Kapitel zu deinem Thema; danach liest du gegen, änderst, was dir nicht gefällt, und exportierst ein PDF in A4, A5 oder US Letter."
+     ]
+    },
+    {
+     "h": "4. Ein Angebot schreiben, das gefunden wird",
+     "p": [
+      "Die Etsy-Suche liest vor allem den Titel und die 13 Tags. Setze die Wörter, die Käufer eintippen, an den Anfang des Titels (maximal 140 Zeichen), nutze alle 13 Tags (je 20 Zeichen) mit unterschiedlichen Begriffen und schreibe eine Beschreibung, die klar sagt, was die Datei enthält, für wen sie ist und wie man sie herunterlädt."
+     ]
+    },
+    {
+     "h": "5. Auf das Vorschaubild achten",
+     "p": [
+      "Das erste Bild sehen Käufer in den Suchergebnissen. Es sollte einen auch klein lesbaren Titel zeigen, den Produkttyp (PDF-E-Book) deutlich machen und Lust aufs Klicken machen. Vermeide überladene Bilder und groß geschriebene Versprechen."
+     ]
+    },
+    {
+     "h": "6. Deinen Preis festlegen",
+     "p": [
+      "Schau dir vergleichbare E-Books auf Etsy an und rechne die Gebühren ein: Einstellgebühr (0,20 $ pro Angebot, 4 Monate gültig), Transaktionsgebühr (6,5 %) und Zahlungsabwicklung. Viele Verkäufer starten mit einem zugänglichen Preis, um erste Bewertungen zu sammeln, und passen ihn dann an."
+     ]
+    },
+    {
+     "h": "7. Regelmäßig veröffentlichen und dazulernen",
+     "p": [
+      "Ein einzelnes Angebot bewirkt selten viel. Verkäufer, die vorankommen, veröffentlichen mehrere E-Books zu verwandten Themen, beobachten ihre Shop-Statistiken (Aufrufe, Favoriten, Verkäufe) und verbessern Titel und Vorschaubilder, die nicht funktionieren."
+     ]
+    }
    ],
    "faq": [
-    ["Brauche ich ein Gewerbe, um auf Etsy zu verkaufen?", "Bei regelmäßigem Verkauf meistens ja. Prüfe die Regeln in deinem Land, bevor du startest."],
-    ["Akzeptiert Etsy E-Books, die mit KI geschrieben wurden?", "Ja, sofern du in der Beschreibung angibst, dass KI verwendet wurde, und die Etsy-Regeln zum geistigen Eigentum einhältst."],
-    ["Wie viel kann ich verdienen?", "Das kann niemand garantieren. Die Verkäufe hängen vom Thema, der Qualität des Angebots, der Konkurrenz und deiner Regelmäßigkeit ab."]
+    [
+     "Brauche ich ein Gewerbe, um auf Etsy zu verkaufen?",
+     "Bei regelmäßigem Verkauf meistens ja. Prüfe die Regeln in deinem Land, bevor du startest."
+    ],
+    [
+     "Akzeptiert Etsy E-Books, die mit KI geschrieben wurden?",
+     "Ja, sofern du in der Beschreibung angibst, dass KI verwendet wurde, und die Etsy-Regeln zum geistigen Eigentum einhältst."
+    ],
+    [
+     "Wie viel kann ich verdienen?",
+     "Das kann niemand garantieren. Die Verkäufe hängen vom Thema, der Qualität des Angebots, der Konkurrenz und deiner Regelmäßigkeit ab."
+    ]
    ]
   },
   "idees-ebook-etsy": {
@@ -38,14 +87,78 @@
    "description": "30 E-Book-Ideen, die zu Etsy passen, nach Themen sortiert (Familie, Fitness, Finanzen, Zuhause, KI, Hobbys), und wie du deine auswählst.",
    "intro": "Das richtige Thema liegt dort, wo drei Dinge zusammenkommen: ein echter Bedarf, eine Zielgruppe, die auf Etsy kauft, und ein Blickwinkel, den du gut abdecken kannst. Hier sind 30 Ideen aus unserer Datenbank, die du an dein Profil anpassen kannst.",
    "sections": [
-    {"h": "Familie und Erziehung", "ul": ["Vorbereitung auf das Baby: die komplette Checkliste", "Stillen: ein praktischer Ratgeber für die ersten Wochen", "Abendroutinen für Kinder von 3 bis 6 Jahren", "Familien-Aufgabenplan zum Ausdrucken", "Einen entspannten Kindergeburtstag planen"]},
-    {"h": "Fitness und Wohlbefinden", "ul": ["Tägliches 20-Minuten-HIIT-Programm", "Der Ratgeber für effektives Heimtrainer-Training", "Krafttraining zu Hause starten", "Dehnroutine für Büroarbeiter", "Training für deinen ersten 10-km-Lauf"]},
-    {"h": "Budget und Organisation", "ul": ["Monatlicher Budgetplaner", "Die Umschlagmethode, Schritt für Schritt", "Papierkram organisieren", "Umzugscheckliste, bei der nichts vergessen wird", "Wöchentliches Meal Prep"]},
-    {"h": "Haus und Garten", "ul": ["Vögel und Insekten in den Garten locken", "Gemüsegarten auf dem Balkon für Einsteiger", "Das Zuhause Raum für Raum entrümpeln", "Ökologisch putzen: selbstgemachte Rezepte", "Pflegeleichte Zimmerpflanzen"]},
-    {"h": "KI und digitale Tools", "ul": ["Wirksame KI-Prompts schreiben", "Die besten kostenlosen KI-Tools", "Mit KI einen Job finden", "Bilder mit KI erstellen (Rechte und Lizenzen)", "Pinterest für kostenlosen Traffic"]},
-    {"h": "Hobbys und Kreativität", "ul": ["Nähen für Einsteiger: erste Projekte", "Häkeln lernen in 10 Projekten", "Fotografieren mit dem Smartphone", "Ein Bullet Journal führen", "Deinen Welpen erziehen: die ersten 30 Tage"]},
-    {"h": "So wählst du dein Thema", "p": ["Starte mit dem, was du kennst oder was dich wirklich interessiert: Du erkennst Fehler leichter und präsentierst das Produkt besser. Prüfe dann auf Etsy, ob es Nachfrage gibt (ähnliche E-Books haben Bewertungen), ohne dass die ersten Ergebnisse alle wie deins aussehen. Meide schließlich Themen, die medizinisches, rechtliches oder finanzielles Fachwissen erfordern, das du nicht hast."]},
-    {"h": "Ideen finden, die zu deinem Profil passen", "p": ["Der kostenlose Fragebogen von Movacash stellt dir ein paar Fragen zu deiner Zeit, deinem Niveau und deinen Interessen und schlägt dir dann 3 Ideen aus unserer Datenbank vor, mit einer Einschätzung von Nachfrage und Konkurrenz (unsere Schätzungen, keine Garantien)."]}
+    {
+     "h": "Familie und Erziehung",
+     "ul": [
+      "Vorbereitung auf das Baby: die komplette Checkliste",
+      "Stillen: ein praktischer Ratgeber für die ersten Wochen",
+      "Abendroutinen für Kinder von 3 bis 6 Jahren",
+      "Familien-Aufgabenplan zum Ausdrucken",
+      "Einen entspannten Kindergeburtstag planen"
+     ]
+    },
+    {
+     "h": "Fitness und Wohlbefinden",
+     "ul": [
+      "Tägliches 20-Minuten-HIIT-Programm",
+      "Der Ratgeber für effektives Heimtrainer-Training",
+      "Krafttraining zu Hause starten",
+      "Dehnroutine für Büroarbeiter",
+      "Training für deinen ersten 10-km-Lauf"
+     ]
+    },
+    {
+     "h": "Budget und Organisation",
+     "ul": [
+      "Monatlicher Budgetplaner",
+      "Die Umschlagmethode, Schritt für Schritt",
+      "Papierkram organisieren",
+      "Umzugscheckliste, bei der nichts vergessen wird",
+      "Wöchentliches Meal Prep"
+     ]
+    },
+    {
+     "h": "Haus und Garten",
+     "ul": [
+      "Vögel und Insekten in den Garten locken",
+      "Gemüsegarten auf dem Balkon für Einsteiger",
+      "Das Zuhause Raum für Raum entrümpeln",
+      "Ökologisch putzen: selbstgemachte Rezepte",
+      "Pflegeleichte Zimmerpflanzen"
+     ]
+    },
+    {
+     "h": "KI und digitale Tools",
+     "ul": [
+      "Wirksame KI-Prompts schreiben",
+      "Die besten kostenlosen KI-Tools",
+      "Mit KI einen Job finden",
+      "Bilder mit KI erstellen (Rechte und Lizenzen)",
+      "Pinterest für kostenlosen Traffic"
+     ]
+    },
+    {
+     "h": "Hobbys und Kreativität",
+     "ul": [
+      "Nähen für Einsteiger: erste Projekte",
+      "Häkeln lernen in 10 Projekten",
+      "Fotografieren mit dem Smartphone",
+      "Ein Bullet Journal führen",
+      "Deinen Welpen erziehen: die ersten 30 Tage"
+     ]
+    },
+    {
+     "h": "So wählst du dein Thema",
+     "p": [
+      "Starte mit dem, was du kennst oder was dich wirklich interessiert: Du erkennst Fehler leichter und präsentierst das Produkt besser. Prüfe dann auf Etsy, ob es Nachfrage gibt (ähnliche E-Books haben Bewertungen), ohne dass die ersten Ergebnisse alle wie deins aussehen. Meide schließlich Themen, die medizinisches, rechtliches oder finanzielles Fachwissen erfordern, das du nicht hast."
+     ]
+    },
+    {
+     "h": "Ideen finden, die zu deinem Profil passen",
+     "p": [
+      "Der kostenlose Fragebogen von Movacash stellt dir ein paar Fragen zu deiner Zeit, deinem Niveau und deinen Interessen und schlägt dir dann 3 Ideen aus unserer Datenbank vor, mit einer Einschätzung von Nachfrage und Konkurrenz (unsere Schätzungen, keine Garantien)."
+     ]
+    }
    ]
   },
   "creer-ebook-ia": {
@@ -53,16 +166,55 @@
    "description": "Vom Thema zum PDF: wie du KI nutzt, um ein nützliches E-Book zu schreiben, typische Fehler vermeidest und ein verkaufsfertiges Produkt bekommst.",
    "intro": "KI kann in wenigen Minuten ein ganzes E-Book schreiben. Ein gutes E-Book ist aber kein langer Text, sondern ein nützlicher, gut gegliederter Text ohne Fehler. Hier ist eine Methode, die funktioniert.",
    "sections": [
-    {"h": "1. Leser und Versprechen des Buches festlegen", "p": ["Bevor du etwas generierst, schreibe in einem Satz auf, für wen das Buch ist und wobei es hilft. Beispiel: „Einer absoluten Anfängerin helfen, in einem Monat ihre ersten 5 Nähprojekte umzusetzen.“ Dieser Satz leitet alles Weitere."]},
-    {"h": "2. Eine detaillierte Gliederung erstellen", "p": ["Lass dir zuerst eine Gliederung geben: 7 bis 12 Kapitel, jedes mit einem klaren Ziel. Prüfe sie: Ist die Reihenfolge logisch? Fehlt ein Schritt? Überschneidet sich ein Kapitel mit einem anderen? Die Gliederung zu korrigieren dauert zwei Minuten und erspart dir, Seiten neu zu schreiben."]},
-    {"h": "3. Kapitel für Kapitel generieren", "p": ["Ein Kapitel nach dem anderen liefert präziseren Text als ein ganzes Buch auf einmal. Jedes Kapitel sollte eine Erklärung, konkrete Beispiele, eine Übung oder Checkliste und eine Zusammenfassung der wichtigsten Punkte enthalten."]},
-    {"h": "4. Gegenlesen und prüfen", "ul": ["Zahlen und Statistiken entfernen, die du nicht überprüfen kannst", "Versprechen streichen („garantiert“, „Ergebnisse in 7 Tagen“)", "Ratschläge zu Sicherheit, Gesundheit und Geld prüfen", "Eigene Tipps ergänzen: Das macht das Buch einzigartig"]},
-    {"h": "5. Gestalten und exportieren", "p": ["Ein Inhaltsverzeichnis, ein Cover, Seitenzahlen und klare Überschriften machen den Unterschied. Exportiere ein PDF in dem Format, das deine Käufer erwarten (A4 in Europa, US Letter in den USA, A5 zum Lesen auf dem Handy)."]},
-    {"h": "Was Movacash übernimmt", "p": ["Movacash verbindet diese Schritte: detaillierte Gliederung, Kapitel mit Beispielen und Übungen, Neugenerierung eines Kapitels per Klick, Cover, PDF und Etsy-Angebot. Die Inhalte werden so geschrieben, dass erfundene Statistiken und übertriebene Versprechen vermieden werden, und du bleibst der Autor: Du liest gegen und änderst vor dem Verkauf, was du möchtest."]}
+    {
+     "h": "1. Leser und Versprechen des Buches festlegen",
+     "p": [
+      "Bevor du etwas generierst, schreibe in einem Satz auf, für wen das Buch ist und wobei es hilft. Beispiel: „Einer absoluten Anfängerin helfen, in einem Monat ihre ersten 5 Nähprojekte umzusetzen.“ Dieser Satz leitet alles Weitere."
+     ]
+    },
+    {
+     "h": "2. Eine detaillierte Gliederung erstellen",
+     "p": [
+      "Lass dir zuerst eine Gliederung geben: 7 bis 12 Kapitel, jedes mit einem klaren Ziel. Prüfe sie: Ist die Reihenfolge logisch? Fehlt ein Schritt? Überschneidet sich ein Kapitel mit einem anderen? Die Gliederung zu korrigieren dauert zwei Minuten und erspart dir, Seiten neu zu schreiben."
+     ]
+    },
+    {
+     "h": "3. Kapitel für Kapitel generieren",
+     "p": [
+      "Ein Kapitel nach dem anderen liefert präziseren Text als ein ganzes Buch auf einmal. Jedes Kapitel sollte eine Erklärung, konkrete Beispiele, eine Übung oder Checkliste und eine Zusammenfassung der wichtigsten Punkte enthalten."
+     ]
+    },
+    {
+     "h": "4. Gegenlesen und prüfen",
+     "ul": [
+      "Zahlen und Statistiken entfernen, die du nicht überprüfen kannst",
+      "Versprechen streichen („garantiert“, „Ergebnisse in 7 Tagen“)",
+      "Ratschläge zu Sicherheit, Gesundheit und Geld prüfen",
+      "Eigene Tipps ergänzen: Das macht das Buch einzigartig"
+     ]
+    },
+    {
+     "h": "5. Gestalten und exportieren",
+     "p": [
+      "Ein Inhaltsverzeichnis, ein Cover, Seitenzahlen und klare Überschriften machen den Unterschied. Exportiere ein PDF in dem Format, das deine Käufer erwarten (A4 in Europa, US Letter in den USA, A5 zum Lesen auf dem Handy)."
+     ]
+    },
+    {
+     "h": "Was Movacash übernimmt",
+     "p": [
+      "Movacash verbindet diese Schritte: detaillierte Gliederung, Kapitel mit Beispielen und Übungen, Neugenerierung eines Kapitels per Klick, Cover, PDF und Etsy-Angebot. Die Inhalte werden so geschrieben, dass erfundene Statistiken und übertriebene Versprechen vermieden werden, und du bleibst der Autor: Du liest gegen und änderst vor dem Verkauf, was du möchtest."
+     ]
+    }
    ],
    "faq": [
-    ["Ist es legal, ein mit KI geschriebenes E-Book zu verkaufen?", "In den meisten Fällen ja, solange du keine geschützten Inhalte übernimmst und die KI-Nutzung angibst, wenn die Plattform es verlangt, wie Etsy."],
-    ["Wie viele Seiten brauche ich?", "Es gibt kein Minimum. 40 bis 60 gehaltvolle Seiten sind besser als 150 aufgeblähte."]
+    [
+     "Ist es legal, ein mit KI geschriebenes E-Book zu verkaufen?",
+     "In den meisten Fällen ja, solange du keine geschützten Inhalte übernimmst und die KI-Nutzung angibst, wenn die Plattform es verlangt, wie Etsy."
+    ],
+    [
+     "Wie viele Seiten brauche ich?",
+     "Es gibt kein Minimum. 40 bis 60 gehaltvolle Seiten sind besser als 150 aufgeblähte."
+    ]
    ]
   },
   "fiche-etsy-produit-numerique": {
@@ -70,11 +222,39 @@
    "description": "So schreibst du Titel, wählst die 13 Tags und verfasst die Beschreibung eines E-Books oder PDFs auf Etsy, damit es gefunden und verstanden wird.",
    "intro": "Auf Etsy verkauft sich ein tolles Produkt, das niemand sieht, nicht. Das Angebot hat zwei Aufgaben: in der Suche gefunden werden und dann in wenigen Sekunden überzeugen. So baust du es auf.",
    "sections": [
-    {"h": "Der Titel (maximal 140 Zeichen)", "p": ["Beginne mit genau dem Ausdruck, den dein Käufer eintippt, und ergänze dann Format und Zielgruppe. Beispiel: „20-Minuten-HIIT-Programm – PDF-E-Book für Einsteiger – Workout zu Hause ohne Geräte“. Vermeide poetische Titel: Sie sind schön, aber niemand findet sie."]},
-    {"h": "Die 13 Tags (je 20 Zeichen)", "ul": ["Immer alle 13 nutzen", "Begriffe variieren, statt dasselbe Wort zu wiederholen", "An Synonyme und Verwendungen denken („Geschenk“, „zum Ausdrucken“, „Anfänger“)", "Das Format angeben: „ebook pdf“, „pdf ratgeber“"]},
-    {"h": "Die Beschreibung", "p": ["Die ersten Zeilen erscheinen als Vorschau: Sag sofort, was die Datei enthält und für wen sie ist. Liste dann den Inhalt auf (Kapitel, Checklisten, Übungen), das Format (PDF, Seitenzahl, A4 oder US Letter) und wie man sie herunterlädt. Schließe mit einem Hinweis zur KI-Nutzung, falls du KI verwendet hast, wie Etsy es verlangt."]},
-    {"h": "Die Bilder", "p": ["Das Vorschaubild muss auch klein lesbar bleiben. Füge 2 oder 3 Einblicke in Innenseiten hinzu: Käufer wollen sehen, was sie kaufen. Vermeide Markenlogos und auf das Bild geschriebene Ergebnisversprechen."]},
-    {"h": "Was Movacash für dich vorbereitet", "p": ["Für jedes E-Book erstellt Movacash einen Titel mit 140 Zeichen, 13 Tags, eine Beschreibung mit KI-Hinweis und ein Vorschaubild, bereit zum Einfügen in Etsy. Vor dem Veröffentlichen kannst du alles ändern."]}
+    {
+     "h": "Der Titel (maximal 140 Zeichen)",
+     "p": [
+      "Beginne mit genau dem Ausdruck, den dein Käufer eintippt, und ergänze dann Format und Zielgruppe. Beispiel: „20-Minuten-HIIT-Programm – PDF-E-Book für Einsteiger – Workout zu Hause ohne Geräte“. Vermeide poetische Titel: Sie sind schön, aber niemand findet sie."
+     ]
+    },
+    {
+     "h": "Die 13 Tags (je 20 Zeichen)",
+     "ul": [
+      "Immer alle 13 nutzen",
+      "Begriffe variieren, statt dasselbe Wort zu wiederholen",
+      "An Synonyme und Verwendungen denken („Geschenk“, „zum Ausdrucken“, „Anfänger“)",
+      "Das Format angeben: „ebook pdf“, „pdf ratgeber“"
+     ]
+    },
+    {
+     "h": "Die Beschreibung",
+     "p": [
+      "Die ersten Zeilen erscheinen als Vorschau: Sag sofort, was die Datei enthält und für wen sie ist. Liste dann den Inhalt auf (Kapitel, Checklisten, Übungen), das Format (PDF, Seitenzahl, A4 oder US Letter) und wie man sie herunterlädt. Schließe mit einem Hinweis zur KI-Nutzung, falls du KI verwendet hast, wie Etsy es verlangt."
+     ]
+    },
+    {
+     "h": "Die Bilder",
+     "p": [
+      "Das Vorschaubild muss auch klein lesbar bleiben. Füge 2 oder 3 Einblicke in Innenseiten hinzu: Käufer wollen sehen, was sie kaufen. Vermeide Markenlogos und auf das Bild geschriebene Ergebnisversprechen."
+     ]
+    },
+    {
+     "h": "Was Movacash für dich vorbereitet",
+     "p": [
+      "Für jedes E-Book erstellt Movacash einen Titel mit 140 Zeichen, 13 Tags, eine Beschreibung mit KI-Hinweis und ein Vorschaubild, bereit zum Einfügen in Etsy. Vor dem Veröffentlichen kannst du alles ändern."
+     ]
+    }
    ]
   },
   "prix-ebook-etsy": {
@@ -82,11 +262,39 @@
    "description": "So legst du den Preis eines E-Books auf Etsy fest: Konkurrenz analysieren, Etsy-Gebühren einrechnen, Startpreis wählen und anpassen.",
    "intro": "Zu teuer, und niemand kauft bei einem unbekannten Shop. Zu billig, und dein E-Book wirkt wertlos, während die Gebühren deine Marge auffressen. So findest du den richtigen Preis.",
    "sections": [
-    {"h": "Vergleichbare E-Books ansehen", "p": ["Suche dein Thema auf Etsy und notiere die Preise der ersten 15 bis 20 Ergebnisse mit Bewertungen. So bekommst du eine realistische Spanne für diese Art von Produkt. Bei vielen praktischen Themen liegen E-Books zwischen wenigen und rund fünfzehn Euro, aber jede Nische ist anders."]},
-    {"h": "Die Gebühren einrechnen", "ul": ["Einstellgebühr: 0,20 $ pro Angebot, alle 4 Monate oder bei jedem Verkauf erneuert", "Transaktionsgebühr: 6,5 % des Preises", "Zahlungsabwicklung: ein Prozentsatz plus ein fester Betrag, je nach Land", "Etsy Ads und Offsite Ads: nur, wenn sie für deinen Shop gelten"]},
-    {"h": "Einen Startpreis wählen", "p": ["Viele Verkäufer starten am unteren Ende der Spanne, um erste Verkäufe und Bewertungen zu bekommen, und erhöhen dann den Preis. Eine andere Möglichkeit ist ein Bundle (2 oder 3 E-Books zu verwandten Themen) zu einem höheren Preis."]},
-    {"h": "Mit deinen Statistiken nachjustieren", "p": ["Bekommt ein Angebot Aufrufe und Favoriten, aber keine Verkäufe, liegt es vielleicht am Preis oder an der Beschreibung. Bekommt es keine Aufrufe, schau zuerst auf Titel, Tags oder Vorschaubild."]},
-    {"h": "Wie Movacash hilft", "p": ["Jede Idee in unserer Datenbank zeigt einen empfohlenen Preis, geschätzt anhand vergleichbarer Produkte. Das ist ein Ausgangspunkt, keine Garantie: Deinen Preis legst du selbst fest."]}
+    {
+     "h": "Vergleichbare E-Books ansehen",
+     "p": [
+      "Suche dein Thema auf Etsy und notiere die Preise der ersten 15 bis 20 Ergebnisse mit Bewertungen. So bekommst du eine realistische Spanne für diese Art von Produkt. Bei vielen praktischen Themen liegen E-Books zwischen wenigen und rund fünfzehn Euro, aber jede Nische ist anders."
+     ]
+    },
+    {
+     "h": "Die Gebühren einrechnen",
+     "ul": [
+      "Einstellgebühr: 0,20 $ pro Angebot, alle 4 Monate oder bei jedem Verkauf erneuert",
+      "Transaktionsgebühr: 6,5 % des Preises",
+      "Zahlungsabwicklung: ein Prozentsatz plus ein fester Betrag, je nach Land",
+      "Etsy Ads und Offsite Ads: nur, wenn sie für deinen Shop gelten"
+     ]
+    },
+    {
+     "h": "Einen Startpreis wählen",
+     "p": [
+      "Viele Verkäufer starten am unteren Ende der Spanne, um erste Verkäufe und Bewertungen zu bekommen, und erhöhen dann den Preis. Eine andere Möglichkeit ist ein Bundle (2 oder 3 E-Books zu verwandten Themen) zu einem höheren Preis."
+     ]
+    },
+    {
+     "h": "Mit deinen Statistiken nachjustieren",
+     "p": [
+      "Bekommt ein Angebot Aufrufe und Favoriten, aber keine Verkäufe, liegt es vielleicht am Preis oder an der Beschreibung. Bekommt es keine Aufrufe, schau zuerst auf Titel, Tags oder Vorschaubild."
+     ]
+    },
+    {
+     "h": "Wie Movacash hilft",
+     "p": [
+      "Jede Idee in unserer Datenbank zeigt einen empfohlenen Preis, geschätzt anhand vergleichbarer Produkte. Das ist ein Ausgangspunkt, keine Garantie: Deinen Preis legst du selbst fest."
+     ]
+    }
    ]
   },
   "etsy-ia-regles": {
@@ -94,11 +302,366 @@
    "description": "Darf man ein mit KI erstelltes E-Book auf Etsy verkaufen? Die wichtigsten Regeln: KI-Hinweis, geistiges Eigentum, sensible Themen.",
    "intro": "Etsy akzeptiert Produkte, die mithilfe von KI entstanden sind, aber mit Regeln. Wer sie ignoriert, riskiert, dass ein Angebot entfernt oder sogar der Shop gesperrt wird. Hier ist das Wichtigste.",
    "sections": [
-    {"h": "Die KI-Nutzung angeben", "p": ["Etsy verlangt Transparenz von den Verkäufern: Wenn dein Produkt mithilfe von KI-Tools entstanden ist, sag das in der Beschreibung des Angebots. Ein einfacher Satz genügt, zum Beispiel „Inhalt mithilfe von KI-Tools geschrieben, anschließend vom Shop geprüft und gestaltet“."]},
-    {"h": "Geistiges Eigentum respektieren", "ul": ["Keine geschützten Marken, Logos oder Figuren in Titel, Tags oder Bildern", "Keine Kopie bestehender Bücher, Kurse oder Artikel", "Bilder, an denen du die Rechte hast (selbst gemacht, von einer KI, die es erlaubt, oder lizenziert)"]},
-    {"h": "Vorsicht bei sensiblen Themen", "p": ["Gesundheit, Abnehmen, Geld, Investieren: Diese Themen verkaufen sich, verlangen aber Sorgfalt. Keine Heilungs- oder Gewinnversprechen, klare Hinweise und bei Bedarf der Verweis an eine Fachperson."]},
-    {"h": "Echten Mehrwert bieten", "p": ["Etsy bevorzugt Shops mit zufriedenen Kunden. Ein geprüftes, nützliches und gut präsentiertes E-Book bekommt bessere Bewertungen als ein Text, der ungeprüft generiert und veröffentlicht wurde."]},
-    {"h": "Wie Movacash dir hilft, die Regeln einzuhalten", "p": ["Der KI-Hinweis wird automatisch in Angebot und PDF eingefügt. Gesundheits- und Geldthemen erhalten Warnhinweise, und der Text vermeidet übertriebene Versprechen und Markennamen. Du bleibst für das verantwortlich, was du veröffentlichst: Lies vor dem Verkauf immer gegen."]}
+    {
+     "h": "Die KI-Nutzung angeben",
+     "p": [
+      "Etsy verlangt Transparenz von den Verkäufern: Wenn dein Produkt mithilfe von KI-Tools entstanden ist, sag das in der Beschreibung des Angebots. Ein einfacher Satz genügt, zum Beispiel „Inhalt mithilfe von KI-Tools geschrieben, anschließend vom Shop geprüft und gestaltet“."
+     ]
+    },
+    {
+     "h": "Geistiges Eigentum respektieren",
+     "ul": [
+      "Keine geschützten Marken, Logos oder Figuren in Titel, Tags oder Bildern",
+      "Keine Kopie bestehender Bücher, Kurse oder Artikel",
+      "Bilder, an denen du die Rechte hast (selbst gemacht, von einer KI, die es erlaubt, oder lizenziert)"
+     ]
+    },
+    {
+     "h": "Vorsicht bei sensiblen Themen",
+     "p": [
+      "Gesundheit, Abnehmen, Geld, Investieren: Diese Themen verkaufen sich, verlangen aber Sorgfalt. Keine Heilungs- oder Gewinnversprechen, klare Hinweise und bei Bedarf der Verweis an eine Fachperson."
+     ]
+    },
+    {
+     "h": "Echten Mehrwert bieten",
+     "p": [
+      "Etsy bevorzugt Shops mit zufriedenen Kunden. Ein geprüftes, nützliches und gut präsentiertes E-Book bekommt bessere Bewertungen als ein Text, der ungeprüft generiert und veröffentlicht wurde."
+     ]
+    },
+    {
+     "h": "Wie Movacash dir hilft, die Regeln einzuhalten",
+     "p": [
+      "Der KI-Hinweis wird automatisch in Angebot und PDF eingefügt. Gesundheits- und Geldthemen erhalten Warnhinweise, und der Text vermeidet übertriebene Versprechen und Markennamen. Du bleibst für das verantwortlich, was du veröffentlichst: Lies vor dem Verkauf immer gegen."
+     ]
+    }
+   ]
+  },
+  "produits-numeriques-etsy": {
+   "title": "Digitale Produkte auf Etsy verkaufen: der Einsteiger-Ratgeber",
+   "description": "E-Books, Planer, Printables, Vorlagen: welche digitalen Produkte du auf Etsy verkaufen kannst, wie es funktioniert und wie du ohne Lager und Versand startest.",
+   "intro": "Ein digitales Produkt ist eine Datei, die der Käufer nach der Zahlung herunterlädt: kein Lager, keine Verpackung, kein Versand. Auf Etsy ist das eine eigene Kategorie mit eigenen Regeln. So funktioniert sie und so machst du deine ersten Schritte.",
+   "sections": [
+    {
+     "h": "Was du verkaufen kannst",
+     "ul": [
+      "E-Books und praktische Ratgeber als PDF",
+      "Planer und Kalender zum Ausdrucken",
+      "Checklisten, Arbeitsblätter und Tracker",
+      "Vorlagen (Lebenslauf, Budget, Social Media, Hochzeit)",
+      "Beschäftigungshefte und Lernmaterial",
+      "Schnittmuster, Häkel- und Strickanleitungen"
+     ]
+    },
+    {
+     "h": "So läuft ein Verkauf ab",
+     "p": [
+      "Du erstellst ein Angebot vom Typ „Digital“ und hängst deine Datei an (bis zu 5 Dateien mit je 20 MB). Wenn jemand kauft, bekommt er den Download-Link automatisch von Etsy. Im Moment des Verkaufs musst du nichts tun: Deshalb passt dieses Modell neben einen Job oder ein Studium."
+     ]
+    },
+    {
+     "h": "Warum mit einem E-Book anfangen",
+     "p": [
+      "Ein E-Book beantwortet eine konkrete Frage („Wie trainiere ich für meine ersten 10 km?“, „Wie organisiere ich mein Budget?“) und lässt sich leicht präsentieren: ein klarer Titel, ein Cover, ein Inhaltsverzeichnis. Es braucht weniger Design als ein Planer, und ein Thema lässt sich für mehrere Zielgruppen anpassen."
+     ]
+    },
+    {
+     "h": "Was den Unterschied macht",
+     "ul": [
+      "Ein konkretes Thema für eine konkrete Zielgruppe statt eines breiten Themas",
+      "Titel und Tags mit den Wörtern, die Käufer eintippen",
+      "Ein gut lesbares Vorschaubild und Einblicke in die Innenseiten",
+      "Wirklich nützlicher, geprüfter Inhalt ohne übertriebene Versprechen",
+      "Mehrere Produkte zu verwandten Themen, damit der Shop stimmig wirkt"
+     ]
+    },
+    {
+     "h": "Was du vor dem Start wissen solltest",
+     "p": [
+      "Etsy erhebt Gebühren für jedes Angebot und jeden Verkauf, und Verkäufe sind nie garantiert: Oft musst du mehrere Produkte veröffentlichen und verbessern, bevor du Ergebnisse siehst. Für regelmäßiges Verkaufen brauchst du in der Regel ein angemeldetes Gewerbe. Bei Käufern in der Europäischen Union berechnet und führt Etsy die Mehrwertsteuer auf digitale Produkte selbst ab."
+     ]
+    },
+    {
+     "h": "Mit Movacash starten",
+     "p": [
+      "Movacash schlägt dir passend zu deinem Profil E-Book-Ideen für Etsy vor, schreibt den Inhalt mit KI, exportiert das PDF und bereitet das Angebot vor (Titel, 13 Tags, Beschreibung, Vorschaubild). Du liest gegen, passt an und veröffentlichst selbst auf Etsy."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Muss ich zeichnen oder schreiben können, um digitale Produkte zu verkaufen?",
+     "Nein. Viele Verkäufer nutzen Tools (Canva, KI, Vorlagen); entscheidend ist, dass das Produkt nützlich und gut präsentiert ist."
+    ],
+    [
+     "Verkaufen sich digitale Produkte gut auf Etsy?",
+     "Die Kategorie wird viel gesucht, ist aber auch umkämpft. Die Ergebnisse hängen vom Thema, vom Angebot und von deiner Regelmäßigkeit ab; es wird kein Einkommen garantiert."
+    ],
+    [
+     "Kann ein digitaler Kauf erstattet oder storniert werden?",
+     "Digitale Produkte werden oft ohne Rückgabemöglichkeit verkauft; gib deine Richtlinien klar im Shop an und hilf Käufern bei Problemen."
+    ]
+   ]
+  },
+  "gagner-argent-etsy": {
+   "title": "Geld verdienen auf Etsy ohne Lager: worauf es wirklich ankommt",
+   "description": "Ein Nebeneinkommen auf Etsy mit digitalen Produkten aufbauen: das Modell, der Zeitaufwand, die Fehler, die Monate kosten, und eine realistische Methode.",
+   "intro": "Dateien auf Etsy zu verkaufen ist ein echter Weg, ein Nebeneinkommen zu starten, ohne Lager und ohne Laden. Leicht verdientes Geld ist es nicht: Es ist ein kleines Geschäft mit Kunden, Versuchen und Regelmäßigkeit. Hier ist ehrlich, worauf es ankommt.",
+   "sections": [
+    {
+     "h": "Das Modell in einem Satz",
+     "p": [
+      "Du erstellst ein Produkt einmal, stellst es ein, und jeder Käufer lädt es herunter, ohne dass du etwas verschicken musst. Die Arbeit passiert vorher: Thema wählen, Produkt erstellen, Angebot ausfeilen und dann mit weiteren Produkten wiederholen."
+     ]
+    },
+    {
+     "h": "Was sich verkauft",
+     "ul": [
+      "Ein echter Bedarf: Leute suchen auf Etsy bereits nach dem Thema",
+      "Ein auffindbares Angebot: Titel und 13 Tags mit den Wörtern der Käufer",
+      "Ein erstes Bild, das zum Klicken einlädt",
+      "Ein nützliches Produkt, das gute Bewertungen verdient",
+      "Menge: mehrere Produkte zu verwandten Themen"
+     ]
+    },
+    {
+     "h": "Der Zeitaufwand",
+     "p": [
+      "Die ersten Verkäufe können schnell kommen oder mehrere Wochen dauern, und manche Angebote verkaufen sich nie. Was bei den meisten Verkäufern funktioniert, ist Regelmäßigkeit: jede Woche ein neues Produkt veröffentlichen, die Statistiken beobachten und verbessern, was nicht läuft. Plane lieber ein paar Stunden pro Woche ein als einen einmaligen Kraftakt."
+     ]
+    },
+    {
+     "h": "Fehler, die Monate kosten",
+     "ul": [
+      "Ein zu breites Thema („Wohlbefinden“) statt eines konkreten Bedarfs wählen",
+      "Ein einziges Angebot veröffentlichen und abwarten",
+      "Einen Bestseller kopieren, statt einen eigenen Blickwinkel zu finden",
+      "Versprechen schreiben („10 kg abnehmen“, „1.000 € verdienen“), die Etsy und Käufer nicht mögen",
+      "Den KI-Hinweis vergessen, wenn du KI genutzt hast"
+     ]
+    },
+    {
+     "h": "Eine realistische 30-Tage-Methode",
+     "ul": [
+      "Woche 1: Shop eröffnen, 2 oder 3 verwandte Themen wählen, das erste E-Book erstellen",
+      "Woche 2: es mit einem sorgfältigen Angebot veröffentlichen, ein zweites erstellen",
+      "Woche 3: Aufrufe und Favoriten ansehen, Titel und Vorschaubilder überarbeiten",
+      "Woche 4: das dritte veröffentlichen, behalten, was ankommt, und aufgeben, was nicht zieht"
+     ]
+    },
+    {
+     "h": "Wo Movacash hilft",
+     "p": [
+      "Movacash beschleunigt das Erstellen: Ideen passend zu deinem Profil, ein von KI geschriebenes E-Book, ein verkaufsfertiges PDF, das Etsy-Angebot und das Vorschaubild. Der Rest liegt bei dir: veröffentlichen, beobachten, wiederholen. Es wird kein Einkommen garantiert, aber du verbringst weniger Zeit mit jedem Produkt und mehr mit dem, was verkauft."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Wie viel kann man auf Etsy verdienen?",
+     "Das kann niemand garantieren. Manche Verkäufer verkaufen nichts, andere bauen sich ein echtes Nebeneinkommen auf; das hängt von Themen, Angeboten und Regelmäßigkeit ab."
+    ],
+    [
+     "Muss ich Geld investieren, um zu starten?",
+     "Wenig: 0,20 $ pro Angebot, je nach Land eventuell eine einmalige Eröffnungsgebühr und Provisionen nur, wenn du verkaufst. Ein Tool wie Movacash ist ein optionales Abo."
+    ],
+    [
+     "Geht das, ohne mich zu zeigen?",
+     "Ja. Ein Etsy-Shop mit digitalen Produkten funktioniert ohne Gesicht und ohne Video; auch Werbung auf Pinterest klappt mit einfachen Bildern."
+    ]
+   ]
+  },
+  "frais-etsy": {
+   "title": "Etsy-Gebühren: Was kostet der Verkauf eines digitalen Produkts?",
+   "description": "Einstellgebühr, Transaktionsgebühr, Zahlungsabwicklung, Werbung: alle Etsy-Gebühren für ein E-Book oder PDF, mit einem Rechenbeispiel.",
+   "intro": "Bevor du deinen Preis festlegst, musst du wissen, was Etsy von jedem Verkauf behält. Bei einem digitalen Produkt ist die Rechnung einfach, weil es weder Versand noch Verpackung gibt. Hier jede Position und danach ein Beispiel.",
+   "sections": [
+    {
+     "h": "Gebühren für jedes Angebot",
+     "p": [
+      "Etsy berechnet 0,20 $ (etwa 0,18 €) pro veröffentlichtem Angebot. Das Angebot bleibt 4 Monate online; danach oder bei jedem Verkauf wird es automatisch verlängert (und erneut berechnet). Je nach Land kann Etsy bei der Shoperöffnung auch eine einmalige Gebühr verlangen."
+     ]
+    },
+    {
+     "h": "Gebühren für jeden Verkauf",
+     "ul": [
+      "Transaktionsgebühr: 6,5 % des Verkaufspreises",
+      "Zahlungsabwicklung: ein Prozentsatz plus ein fester Betrag, je nach Land deiner Bank (in Deutschland 4 % + 0,30 €)",
+      "Währungsumrechnung: 2,5 %, wenn dein Angebot nicht in der Währung deines Bankkontos ist",
+      "In manchen Ländern kommen regulatorische Gebühren hinzu"
+     ]
+    },
+    {
+     "h": "Optionale oder bedingte Gebühren",
+     "ul": [
+      "Etsy Ads: Werbung innerhalb von Etsy mit dem Budget, das du wählst",
+      "Offsite Ads: eine Gebühr nur dann, wenn ein Verkauf über eine Etsy-Anzeige auf einer anderen Website kommt (ab einem bestimmten Jahresumsatz Pflicht)",
+      "Etsy Plus: optionales Abo mit zusätzlichen Tools"
+     ]
+    },
+    {
+     "h": "Beispiel: ein E-Book für 7,90 €",
+     "ul": [
+      "Einstellgebühr: etwa 0,18 €",
+      "Transaktionsgebühr (6,5 %): 0,51 €",
+      "Zahlungsabwicklung (4 % + 0,30 €): 0,62 €",
+      "Gebühren gesamt: etwa 1,31 €",
+      "Bleibt vor Steuern und Abgaben: etwa 6,59 €, also gut 83 % des Preises"
+     ]
+    },
+    {
+     "h": "Mehrwertsteuer und Steuern",
+     "p": [
+      "Bei Käufern in der Europäischen Union berechnet, erhebt und führt Etsy die Mehrwertsteuer auf digitale Produkte selbst ab: Du musst das nicht tun. Etsy kann je nach deiner Situation allerdings Mehrwertsteuer auf seine eigenen Gebühren erheben. Deine Einnahmen musst du weiterhin nach den Regeln deines Landes angeben."
+     ]
+    },
+    {
+     "h": "Was das für deinen Preis bedeutet",
+     "p": [
+      "Feste Gebühren wiegen bei kleinen Preisen schwerer: Bei 2 € nehmen sie einen großen Teil des Verkaufs. Das ist ein Grund, warum viele E-Book-Verkäufer sehr niedrige Preise meiden und auch Bundles anbieten. Movacash zeigt für jede Idee einen empfohlenen Preis, geschätzt anhand vergleichbarer Produkte, den du frei anpassen kannst."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Wie viel nimmt Etsy von einem Verkauf?",
+     "Bei einem digitalen Produkt aus Deutschland: 6,5 % Transaktionsgebühr plus 4 % + 0,30 € Zahlungsabwicklung, plus 0,20 $ pro Angebot. Also etwa 1,30 € bei einem E-Book für 7,90 €."
+    ],
+    [
+     "Kostet es Geld, einen Etsy-Shop zu eröffnen?",
+     "Je nach Land kann Etsy eine einmalige Eröffnungsgebühr verlangen; danach zahlst du 0,20 $ pro Angebot und Provisionen nur, wenn du verkaufst."
+    ],
+    [
+     "Ändern sich die Etsy-Gebühren?",
+     "Ja, Etsy passt sie von Zeit zu Zeit an. Prüfe vor dem Festlegen deiner Preise immer die offizielle Gebührenseite von Etsy."
+    ]
+   ]
+  },
+  "ou-vendre-ebook": {
+   "title": "Wo ein E-Book verkaufen: Etsy, Amazon Kindle, Gumroad oder eigene Website?",
+   "description": "Ein ehrlicher Vergleich der Plattformen für den Verkauf eines E-Books: Publikum, Gebühren, Formate, Sichtbarkeit. Und warum Etsy gut für Einsteiger ist.",
+   "intro": "Dasselbe E-Book kann sich an mehreren Orten verkaufen, aber jede Plattform hat ihr eigenes Publikum und ihre eigenen Regeln. Hier die wichtigsten mit ihren Stärken und Grenzen, damit du entscheiden kannst, wo du anfängst.",
+   "sections": [
+    {
+     "h": "Etsy",
+     "p": [
+      "Ein Marktplatz, auf dem Käufer bereits nach praktischen digitalen Produkten suchen: Planer, Ratgeber, Checklisten. Du profitierst von der Etsy-Suche, ohne eigenes Publikum zu brauchen. Gebühren: 0,20 $ pro Angebot, 6,5 % Transaktionsgebühr und Zahlungsabwicklung. Freies Format: PDF, ZIP, Bilder."
+     ],
+     "ul": [
+      "Vorteile: vorhandener Traffic, einfacher Start, gut geeignet für praktische Ratgeber",
+      "Nachteile: starke Konkurrenz bei beliebten Themen, strenge Regeln zu Versprechen und Marken"
+     ]
+    },
+    {
+     "h": "Amazon Kindle Direct Publishing (KDP)",
+     "p": [
+      "Der größte E-Book-Shop. Dein Buch wird ins Kindle-Format umgewandelt und auf Amazon verkauft. Die Tantiemen liegen je nach Bedingungen zwischen 35 % und 70 % des Preises."
+     ],
+     "ul": [
+      "Vorteile: riesiges Lesepublikum, Option auf ein gedrucktes Buch",
+      "Nachteile: Kindle-Layout (wenig geeignet für Checklisten und Arbeitsblätter zum Ausdrucken), starke Konkurrenz, KI-generierte Inhalte müssen angegeben werden"
+     ]
+    },
+    {
+     "h": "Gumroad, Payhip und ähnliche Plattformen",
+     "p": [
+      "Tools, um deine Dateien über eine eigene Seite zu verkaufen. Sie nehmen eine Provision pro Verkauf, bringen aber kaum Besucher: Die musst du selbst mitbringen (soziale Netzwerke, Newsletter)."
+     ],
+     "ul": [
+      "Vorteile: volle Freiheit, wenige Regeln, direkter Kontakt zu Käufern",
+      "Nachteile: ohne Publikum wenige oder keine Verkäufe"
+     ]
+    },
+    {
+     "h": "Deine eigene Website",
+     "p": [
+      "Ein Shop auf deiner eigenen Website (mit einem Zahlungstool) lässt dich alle Regeln bestimmen, macht aber die meiste Arbeit: SEO, Zahlungen, Dateiauslieferung, rechtliche Pflichten."
+     ]
+    },
+    {
+     "h": "Wo anfangen",
+     "p": [
+      "Wer ohne Publikum startet, für den ist Etsy oft der einfachste Einstieg für einen praktischen PDF-Ratgeber: Die Käufer sind schon da, und ein einziges gut gemachtes Angebot kann gleich nach der Veröffentlichung gefunden werden. Nichts hindert dich daran, denselben Inhalt später auch anderswo anzubieten."
+     ]
+    },
+    {
+     "h": "Und Movacash?",
+     "p": [
+      "Movacash ist für Etsy gebaut: passende Ideen, ein Angebot mit 13 Tags, ein Vorschaubild und der KI-Hinweis. Das exportierte PDF gehört dir und kann unter Beachtung der Regeln jeder Plattform auch anderswo genutzt werden."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Kann ich dasselbe E-Book auf Etsy und Amazon verkaufen?",
+     "In der Regel ja, außer du nimmst an einem Exklusivprogramm teil (wie KDP Select, das digitale Exklusivität bei Amazon verlangt)."
+    ],
+    [
+     "Welche Plattform nimmt die geringsten Gebühren?",
+     "Auf dem Papier deine eigene Website; ohne Besucher verkauft sie aber nichts. Etsy und Amazon nehmen mehr, bringen aber Käufer."
+    ]
+   ]
+  },
+  "movacash": {
+   "title": "Movacash: So funktioniert es und das kostet es",
+   "description": "Was Movacash Schritt für Schritt macht: E-Book-Ideen für Etsy, Texte mit KI, PDF, Etsy-Angebot und Vorschaubild. Preise, Grenzen und häufige Fragen.",
+   "intro": "Movacash ist eine Web-App (auf dem Handy installierbar), die dabei hilft, E-Books mit KI zu erstellen und sie als digitale Downloads auf Etsy zu verkaufen. Hier steht genau, was sie macht, was nicht und was sie kostet.",
+   "sections": [
+    {
+     "h": "1. Ein Fragebogen, um deine Idee zu finden",
+     "p": [
+      "Ein paar Fragen zu deiner Zeit, deinem Niveau, deinen Interessen und Zielen. Movacash schlägt dir dann 3 E-Book-Ideen aus seiner Datenbank mit über 500 Etsy-tauglichen Themen vor (Fitness, Erziehung, Budget, KI-Tools, Kreatives, Garten, Haustiere…), mit einer Einschätzung von Nachfrage, Konkurrenz und einem empfohlenen Preis."
+     ]
+    },
+    {
+     "h": "2. Die KI schreibt das E-Book",
+     "p": [
+      "Eine detaillierte Gliederung, dann die Kapitel: etwa 40 bis 60 Seiten mit Methoden, Beispielen, Übungen, Checklisten und Aktionsplan. Jedes Kapitel kannst du gegenlesen, ändern oder neu generieren. Das E-Book kann in 22 europäischen Sprachen geschrieben werden."
+     ]
+    },
+    {
+     "h": "3. Ein verkaufsfertiges PDF",
+     "p": [
+      "Cover, Inhaltsverzeichnis, Seitenzahlen und ein sauberes Layout in A4, A5 oder US Letter. Der Hinweis auf die KI-Nutzung ist enthalten, wie Etsy es verlangt."
+     ]
+    },
+    {
+     "h": "4. Etsy-Angebot und Vorschaubild",
+     "p": [
+      "Ein Titel mit 140 Zeichen, 13 Tags, eine vollständige Beschreibung und ein Vorschaubild, bereit zum Einfügen in Etsy. Gesundheits- und Geldthemen erhalten Warnhinweise, übertriebene Versprechen und Markennamen werden vermieden."
+     ]
+    },
+    {
+     "h": "Was Movacash nicht macht",
+     "ul": [
+      "Es veröffentlicht nicht für dich auf Etsy: Du behältst die Kontrolle über deinen Shop",
+      "Es garantiert weder Verkäufe noch Einkommen",
+      "Es ist nicht mit Etsy verbunden"
+     ]
+    },
+    {
+     "h": "Preise",
+     "p": [
+      "Drei monatliche Tarife ohne Mindestlaufzeit: Starter für 19,90 € (20 E-Books pro Monat), Pro für 39,90 € (50 E-Books pro Monat) und Business für 79,90 € (120 E-Books pro Monat). Bei jährlicher Zahlung sind die Preise 50 % günstiger. Jederzeit im Kundenbereich kündbar. Der Fragebogen und die ersten Ideen sind kostenlos."
+     ]
+    }
+   ],
+   "faq": [
+    [
+     "Ist Movacash kostenlos?",
+     "Der Fragebogen und das Entdecken deiner Ideen sind kostenlos. E-Books, PDFs und Etsy-Angebote zu erstellen erfordert ein Abo, ab 19,90 € pro Monat (−50 % jährlich)."
+    ],
+    [
+     "Muss ich gut schreiben können oder Englisch sprechen?",
+     "Nein. Die KI schreibt den Inhalt in der gewählten Sprache unter 22 europäischen Sprachen; du liest gegen und passt an, was du möchtest."
+    ],
+    [
+     "Gehören mir die erstellten E-Books?",
+     "Ja, du kannst die mit Movacash erstellten E-Books verkaufen, wenn du die Etsy-Regeln einhältst (insbesondere den KI-Hinweis)."
+    ],
+    [
+     "Garantiert Movacash Verkäufe?",
+     "Nein. Die Verkäufe hängen vom Thema, vom Angebot, von der Konkurrenz und deiner Regelmäßigkeit ab. Movacash spart Zeit beim Erstellen; es verspricht kein Einkommen."
+    ]
    ]
   }
  }
