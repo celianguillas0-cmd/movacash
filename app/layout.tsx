@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./funnel.css";
 import { APP_NAME, APP_URL } from "@/lib/config";
+import { headers } from "next/headers";
 import { getDict, getLocale, getT } from "@/lib/i18n/server";
+import { alternates } from "@/lib/seo";
 import { I18nProvider } from "@/lib/i18n/client";
 import { Analytics } from "@vercel/analytics/next";
 import Consent from "@/components/Consent";
@@ -10,16 +12,21 @@ import Consent from "@/components/Consent";
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getT();
   const locale = await getLocale();
-  const title = `${APP_NAME} — ${t("Créez des e-books de qualité à vendre sur Etsy")}`;
-  const description = t("Trouvez une idée de formation, générez un e-book complet avec l'IA, exportez un PDF prêt à vendre et la fiche Etsy qui va avec.");
+  const path = (await headers()).get("x-mc-path") || "/";
+  const title = `${APP_NAME} — ${t("Crée et vends tes e-books sur Etsy avec l'IA")}`;
+  const description = t("Trouve une idée d'e-book adaptée à Etsy, laisse l'IA l'écrire (40 à 60 pages, PDF prêt à vendre), puis récupère la fiche Etsy complète : titre, 13 tags, description et miniature. Sans engagement.");
+  const google = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+  const bing = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
   return {
     metadataBase: new URL(APP_URL),
     title: { default: title, template: `%s · ${APP_NAME}` },
     description,
     applicationName: APP_NAME,
+    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
+    verification: { ...(google ? { google } : {}), ...(bing ? { other: { "msvalidate.01": bing } } : {}) },
     appleWebApp: { capable: true, title: APP_NAME, statusBarStyle: "black" },
     icons: { apple: "/apple-touch-icon.png" },
-    openGraph: { type: "website", siteName: APP_NAME, title, description, url: "/", locale: locale.replace("-", "_") },
+    openGraph: { type: "website", siteName: APP_NAME, title, description, url: path, locale: locale.replace("-", "_") },
     twitter: { card: "summary_large_image", title, description },
   };
 }
@@ -36,6 +43,8 @@ const crisp = (id: string, locale: string) =>
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
+  // hreflang écrits à la main : les métadonnées de Next retirent le « ?lang=xx » des adresses.
+  const alt = alternates((await headers()).get("x-mc-path") || "/", locale);
   return (
     <html lang={locale}>
       <head>
@@ -43,6 +52,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+        {alt && <link rel="canonical" href={alt.canonical} />}
+        {alt && "languages" in alt && Object.entries(alt.languages!).map(([l, href]) => <link key={l} rel="alternate" hrefLang={l} href={href} />)}
         <script dangerouslySetInnerHTML={{ __html: PWA }} />
       </head>
       <body>

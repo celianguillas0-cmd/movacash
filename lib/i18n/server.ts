@@ -11,7 +11,9 @@ export async function getCountry(): Promise<string | null> {
 
 export async function getLocale(): Promise<Locale> {
   const [jar, h] = await Promise.all([cookies(), headers()]);
-  return detectLocale({ cookie: jar.get(LANG_COOKIE)?.value, country: await getCountry(), acceptLanguage: h.get("accept-language") });
+  // ?lang=xx dans l'adresse (posé par le middleware) passe avant tout : c'est la version que Google indexe.
+  const forcee = h.get("x-mc-lang");
+  return detectLocale({ cookie: forcee || jar.get(LANG_COOKIE)?.value, country: await getCountry(), acceptLanguage: h.get("accept-language") });
 }
 
 // Une phrase pas encore traduite dans une langue s'affiche en anglais plutôt qu'en français.

@@ -7,6 +7,8 @@ import TypedLead from "@/components/funnel/TypedLead";
 import { countIdeas, searchIdeas } from "@/lib/ideas";
 import { getT } from "@/lib/i18n/server";
 import { localizeIdeas } from "@/lib/ideas-i18n";
+import { APP_NAME, APP_URL, PLANS, SUPPORT_EMAIL } from "@/lib/config";
+import { langUrl } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -24,8 +26,30 @@ export default async function Home() {
   const best = (await searchIdeas({ sort: "opportunity", pageSize: 60 })).items;
   // Hors français, seuls les sujets déjà traduits sont montrés
   const sample = (await localizeIdeas([...best].sort(() => Math.random() - 0.5), locale, { onlyTranslated: true })).slice(0, 12);
+  // Données structurées : ce que Google et les assistants IA lisent pour décrire et citer Movacash.
+  const description = t("Trouve une idée d'e-book adaptée à Etsy, laisse l'IA l'écrire (40 à 60 pages, PDF prêt à vendre), puis récupère la fiche Etsy complète : titre, 13 tags, description et miniature. Sans engagement.");
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      { "@type": "Organization", "@id": `${APP_URL}/#org`, name: APP_NAME, url: APP_URL, logo: `${APP_URL}/icon-512.png`, email: SUPPORT_EMAIL },
+      { "@type": "WebSite", "@id": `${APP_URL}/#site`, name: APP_NAME, url: APP_URL, inLanguage: locale, publisher: { "@id": `${APP_URL}/#org` } },
+      {
+        "@type": "SoftwareApplication",
+        name: APP_NAME,
+        url: langUrl("/", locale),
+        applicationCategory: "BusinessApplication",
+        operatingSystem: "Web, iOS, Android",
+        inLanguage: locale,
+        description,
+        publisher: { "@id": `${APP_URL}/#org` },
+        offers: PLANS.map((p) => ({ "@type": "Offer", name: p.name, price: p.priceEur.toFixed(2), priceCurrency: "EUR", url: langUrl("/tarifs", locale) })),
+      },
+      { "@type": "FAQPage", inLanguage: locale, mainEntity: FAQ.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
+    ],
+  };
   return (
     <div className="mc dark">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <FunnelNav />
       <main>
         <section className="hero-band">

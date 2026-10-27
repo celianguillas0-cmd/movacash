@@ -6,9 +6,18 @@ import { PLANS, isStripeConfigured } from "@/lib/config";
 import { annualAvailable } from "@/lib/stripe";
 import { googleConfigured } from "@/lib/google";
 import "../tunnel.css";
+import type { Metadata } from "next";
 import { getT } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getT();
+  return {
+    title: t("Trouve ton idée d'e-book à vendre sur Etsy : questionnaire gratuit"),
+    description: t("Réponds à quelques questions sur ton temps, ton niveau et tes centres d'intérêt : on te propose 3 idées d'e-books adaptées à Etsy, avec un plan de 30 jours."),
+  };
+}
 
 export default async function QuizPage() {
   const [user, categories, { t }] = await Promise.all([getCurrentUser(), listCategories(), getT()]);

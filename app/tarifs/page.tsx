@@ -11,7 +11,10 @@ import { canPayFromHere, getT } from "@/lib/i18n/server";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getT();
-  return { title: t("Tarifs") };
+  return {
+    title: t("Tarifs : crée tes e-books Etsy avec l'IA dès 19,90 € par mois"),
+    description: t("Trois formules sans engagement : 20, 50 ou 120 e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel."),
+  };
 }
 
 export const dynamic = "force-dynamic";
