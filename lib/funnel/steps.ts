@@ -120,7 +120,6 @@ export const STEPS: Step[] = [
     ],
   },
 
-  { type: "explication", id: "ebook101", condition: debutant },
 
   {
     type: "q",
@@ -133,19 +132,6 @@ export const STEPS: Step[] = [
       { id: "moins100", label: "Moins de 100 € par mois", note: "Des gens ont déjà payé pour ce que tu fais : c'est une bonne base pour continuer." },
       { id: "100-1000", label: "100 à 1 000 € par mois", note: "Tu as une base solide. On t'aide à élargir ton catalogue." },
       { id: "plus1000", label: "Plus de 1 000 € par mois", note: "Tu sais vendre. Movacash t'aide à créer de nouveaux produits plus vite." },
-    ],
-  },
-  {
-    type: "q",
-    id: "plateformes",
-    condition: (a) => Boolean(a.anciennete) && !debutant(a),
-    kicker: "Ta présence",
-    titre: "Tu vends sur combien de plateformes ?",
-    options: [
-      { id: "3plus", label: "3 ou plus" },
-      { id: "2", label: "2" },
-      { id: "1", label: "1" },
-      { id: "0", label: "Aucune pour l'instant" },
     ],
   },
   {
@@ -186,32 +172,6 @@ export const STEPS: Step[] = [
   },
   {
     type: "q",
-    id: "frein",
-    kicker: "Ce qui bloque",
-    titre: "Qu'est-ce qui t'empêche d'y arriver ?",
-    libre: { placeholder: "Ex : personne autour de moi ne fait ça…" },
-    options: [
-      { id: "methode", label: "Je ne sais pas par où commencer", note: "C'est exactement ce que Movacash règle : un sujet, un e-book, une fiche Etsy, dans le bon ordre." },
-      { id: "temps", label: "Je manque de temps", note: "L'IA écrit à ta place. Fini la page blanche." },
-      { id: "sujet", label: "Je ne sais pas quoi vendre", note: "On part de tes réponses pour te proposer trois sujets qui te ressemblent." },
-      { id: "peur", label: "J'ai peur que ça ne marche pas", note: "C'est normal, et personne ne peut te le garantir. Commence petit, avec un seul e-book, pour voir si ça te plaît." },
-    ],
-  },
-  {
-    type: "echelle",
-    id: "perseverance",
-    kicker: "Ton tempérament",
-    titre: "Quand je commence quelque chose, je vais au bout.",
-    options: [
-      { id: "non-fort", label: "Pas du tout" },
-      { id: "non", label: "Plutôt non" },
-      { id: "neutre", label: "Je ne sais pas" },
-      { id: "oui", label: "Plutôt oui" },
-      { id: "oui-fort", label: "Complètement" },
-    ],
-  },
-  {
-    type: "q",
     id: "time",
     kicker: "Ton carburant",
     titre: "Combien de temps peux-tu y consacrer par jour ?",
@@ -226,26 +186,7 @@ export const STEPS: Step[] = [
   { type: "slider", id: "revenu", kicker: "Ton objectif", titre: "Quel complément de revenu aimerais-tu viser chaque mois ?" },
   { type: "chargement", id: "calcul" },
   { type: "simulation", id: "simulation" },
-  { type: "barriere", id: "barriere", condition: (a) => debutant(a) || a.revenus === "rien" || a.boutique === "non" },
 
-  {
-    type: "message",
-    id: "bienvenue",
-    illustration: "etoile",
-    kicker: "Bienvenue",
-    titre: "Bienvenue dans Movacash.",
-    sous: "Des idées d'e-books triées pour toi, un générateur qui écrit avec toi, et tout le kit pour vendre sur Etsy.",
-    cta: "Suivant",
-  },
-  {
-    type: "message",
-    id: "idees",
-    illustration: "ampoule",
-    kicker: "L'idée",
-    titre: "Trouve ton sujet.",
-    sous: "On croise ce que tu connais avec notre base d'idées d'e-books pensées pour Etsy. Ton sujet, c'est la rencontre des deux.",
-    cta: "Suivant",
-  },
   {
     type: "message",
     id: "ia-ecrit",
@@ -254,15 +195,6 @@ export const STEPS: Step[] = [
     titre: "L'IA écrit pour toi.",
     sous: "Plan, chapitres, exemples, couverture et fiche Etsy : tout est préparé pour toi.",
     cta: "Suivant",
-  },
-  {
-    type: "message",
-    id: "quotidien",
-    illustration: "chemin",
-    kicker: "L'objectif",
-    titre: "Fais le premier pas.",
-    sous: "Un e-book en vente, c'est le début d'un projet à toi. La suite dépend de ton sujet, de ta fiche Etsy et de ta régularité.",
-    cta: "Continuer",
   },
 
   { type: "compte", id: "compte" },
