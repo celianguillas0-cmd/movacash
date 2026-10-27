@@ -463,3 +463,13 @@
 .mc .pay-row > span { min-width: 0; overflow-wrap: anywhere; }
 /* Bouton Google : texte foncé sur fond blanc, même dans le thème sombre (les liens y sont blancs) */
 .mc .btn-google, .mc.dark .btn-google, .mc.dark a.btn-google:hover { color: #111827; }
+/* Pages « idées d'e-books par thème » */
+.mc .idees-themes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 28px; }
+.mc .idees-themes .guide-carte h2 { font-size: 17px; }
+.mc .idees-themes .guide-carte p { margin: 0; color: var(--muted); font-size: 14px; }
+.mc .idees-autres { line-height: 1.9; }
+.mc .home-guides ul { display: grid; gap: 10px; padding: 0; list-style: none; margin-top: 18px; }
+.mc .home-guides li a { display: block; padding: 14px 18px; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: rgba(255,255,255,.03); color: #fff; }
+.mc .home-guides li a:hover { border-color: rgba(255,255,255,.3); }
+.mc .home-guides p { margin-top: 14px; }
+.mc .home-guides p a { text-decoration: underline; text-underline-offset: 3px; }

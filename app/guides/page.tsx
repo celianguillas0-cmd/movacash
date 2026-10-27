@@ -3,19 +3,18 @@ import Link from "next/link";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import { getLocale } from "@/lib/i18n/server";
-import { GUIDES, guideLang } from "@/lib/guides";
+import { GUIDES, guideLang, guideText, guideUI } from "@/lib/guides-tr";
 import { APP_NAME, APP_URL } from "@/lib/config";
 import { langUrl } from "@/lib/seo";
-import { UI } from "./ui";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const ui = UI[guideLang(await getLocale())];
+  const ui = guideUI(guideLang(await getLocale()));
   return { title: ui.titre, description: ui.desc, openGraph: { title: ui.titre, description: ui.desc, type: "website" } };
 }
 
 export default async function Guides() {
   const lang = guideLang(await getLocale());
-  const ui = UI[lang];
+  const ui = guideUI(lang);
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -24,7 +23,7 @@ export default async function Guides() {
         { "@type": "ListItem", position: 1, name: APP_NAME, item: langUrl("/", lang) },
         { "@type": "ListItem", position: 2, name: "Guides", item: langUrl("/guides", lang) },
       ] },
-      { "@type": "ItemList", itemListElement: GUIDES.map((g, i) => ({ "@type": "ListItem", position: i + 1, url: langUrl(`/guides/${g.slug}`, lang), name: g[lang].title })) },
+      { "@type": "ItemList", itemListElement: GUIDES.map((g, i) => ({ "@type": "ListItem", position: i + 1, url: langUrl(`/guides/${g.slug}`, lang), name: guideText(g, lang).title })) },
     ],
   };
   return (
@@ -37,8 +36,8 @@ export default async function Guides() {
         <div className="guides-liste">
           {GUIDES.map((g) => (
             <Link key={g.slug} className="guide-carte" href={`/guides/${g.slug}?lang=${lang}`}>
-              <h2>{g[lang].title}</h2>
-              <p>{g[lang].description}</p>
+              <h2>{guideText(g, lang).title}</h2>
+              <p>{guideText(g, lang).description}</p>
               <span>{ui.lire} →</span>
             </Link>
           ))}

@@ -1,6 +1,6 @@
 // Guides publics (référencement) : de vrais articles utiles, en français et en anglais.
 // Règles de rédaction : aucune promesse de revenus, chiffres Etsy vérifiables, conseils concrets.
-// Les autres langues du site affichent la version anglaise (canonique : ?lang=en).
+// Traductions dans lib/guides-i18n/<langue>.json ; une langue sans traduction affiche la version anglaise (canonique : ?lang=en).
 
 export type Section = { h: string; p?: string[]; ul?: string[] };
 export type GuideText = { title: string; description: string; intro: string; sections: Section[]; faq?: [string, string][] };
@@ -205,7 +205,206 @@ export const GUIDES: Guide[] = [
       ],
     },
   },
+  {
+    slug: "produits-numeriques-etsy",
+    date: "2026-10-28",
+    fr: {
+      title: "Vendre des produits numériques sur Etsy : le guide pour débuter",
+      description: "E-books, planners, printables, modèles : quels produits numériques vendre sur Etsy, comment ça fonctionne et par où commencer sans stock ni expédition.",
+      intro: "Un produit numérique, c'est un fichier que l'acheteur télécharge après paiement : pas de stock, pas d'emballage, pas d'envoi. Sur Etsy, c'est une catégorie à part entière, avec ses codes. Voici comment elle fonctionne et comment y faire tes premiers pas.",
+      sections: [
+        { h: "Ce qu'on peut vendre", ul: ["E-books et guides pratiques en PDF", "Planners et agendas à imprimer", "Checklists, fiches et tableaux de suivi", "Modèles (CV, budget, réseaux sociaux, mariage)", "Cahiers d'activités et supports pédagogiques", "Patrons de couture, de crochet ou de tricot"] },
+        { h: "Comment se passe une vente", p: ["Tu crées une annonce de type « Numérique » et tu y joins ton fichier (jusqu'à 5 fichiers de 20 Mo chacun). Quand quelqu'un achète, Etsy lui donne le lien de téléchargement automatiquement. Tu n'as rien à faire au moment de la vente : c'est ce qui rend ce modèle compatible avec un emploi ou des études."] },
+        { h: "Pourquoi commencer par un e-book", p: ["Un e-book répond à une question précise (« comment préparer son premier 10 km », « comment organiser son budget ») et se présente facilement : un titre clair, une couverture, un sommaire. Il demande moins de design qu'un planner, et un même sujet peut se décliner pour plusieurs publics."] },
+        { h: "Ce qui fait la différence", ul: ["Un sujet précis pour un public précis, plutôt qu'un thème large", "Un titre et des tags qui reprennent les mots des acheteurs", "Une miniature lisible et des aperçus des pages intérieures", "Un contenu réellement utile, relu, sans promesses exagérées", "Plusieurs produits sur des sujets proches pour donner de la cohérence à la boutique"] },
+        { h: "Ce qu'il faut savoir avant de se lancer", p: ["Etsy prélève des frais sur chaque annonce et chaque vente, et les ventes ne sont jamais garanties : il faut souvent publier plusieurs produits et les améliorer avant d'obtenir des résultats. Pour une activité régulière, un statut (comme la micro-entreprise en France) est nécessaire. Pour les acheteurs de l'Union européenne, Etsy collecte et reverse lui-même la TVA sur les produits numériques."] },
+        { h: "Commencer avec Movacash", p: ["Movacash te propose des idées d'e-books adaptées à Etsy selon ton profil, écrit le contenu avec l'IA, exporte le PDF et prépare la fiche (titre, 13 tags, description, miniature). Tu relis, tu ajustes, puis tu publies toi-même sur Etsy."] },
+      ],
+      faq: [
+        ["Faut-il savoir dessiner ou écrire pour vendre des produits numériques ?", "Non. Beaucoup de vendeurs utilisent des outils (Canva, l'IA, des modèles) ; ce qui compte, c'est que le produit soit utile et bien présenté."],
+        ["Les produits numériques se vendent-ils bien sur Etsy ?", "C'est une catégorie très recherchée, mais aussi concurrentielle. Les résultats dépendent du sujet, de la fiche et de la régularité ; aucun revenu n'est garanti."],
+        ["Peut-on être remboursé ou annuler une vente de fichier ?", "Les produits numériques sont souvent vendus sans retour possible ; indique ta politique clairement dans la boutique et reste disponible pour aider l'acheteur."],
+      ],
+    },
+    en: {
+      title: "Selling digital products on Etsy: a beginner's guide",
+      description: "E-books, planners, printables, templates: which digital products to sell on Etsy, how it works and where to start with no stock and no shipping.",
+      intro: "A digital product is a file the buyer downloads after paying: no stock, no packaging, no shipping. On Etsy it's a category in its own right, with its own codes. Here's how it works and how to take your first steps.",
+      sections: [
+        { h: "What you can sell", ul: ["E-books and practical PDF guides", "Printable planners and calendars", "Checklists, worksheets and trackers", "Templates (résumé, budget, social media, wedding)", "Activity books and teaching materials", "Sewing, crochet or knitting patterns"] },
+        { h: "How a sale works", p: ["You create a \"Digital\" listing and attach your file (up to 5 files of 20 MB each). When someone buys, Etsy gives them the download link automatically. You have nothing to do at the time of the sale, which is why this model fits around a job or studies."] },
+        { h: "Why start with an e-book", p: ["An e-book answers a precise question (\"how to train for my first 10K\", \"how to organize my budget\") and is easy to present: a clear title, a cover, a table of contents. It needs less design work than a planner, and one topic can be adapted for several audiences."] },
+        { h: "What makes the difference", ul: ["A specific topic for a specific audience rather than a broad theme", "A title and tags that use the words buyers type", "A readable thumbnail and previews of the inside pages", "Genuinely useful, reviewed content with no exaggerated promises", "Several products on related topics so the shop feels coherent"] },
+        { h: "What to know before you start", p: ["Etsy charges fees on every listing and every sale, and sales are never guaranteed: you often need to publish several products and improve them before seeing results. Regular selling usually requires registering a business in your country. For buyers in the European Union, Etsy collects and remits VAT on digital products itself."] },
+        { h: "Getting started with Movacash", p: ["Movacash suggests e-book ideas suited to Etsy based on your profile, writes the content with AI, exports the PDF and prepares the listing (title, 13 tags, description, thumbnail). You review, adjust, then publish on Etsy yourself."] },
+      ],
+      faq: [
+        ["Do I need to be able to draw or write to sell digital products?", "No. Many sellers use tools (Canva, AI, templates); what matters is that the product is useful and well presented."],
+        ["Do digital products sell well on Etsy?", "It's a heavily searched category, but also a competitive one. Results depend on the topic, the listing and consistency; no income is guaranteed."],
+        ["Can a digital purchase be refunded or cancelled?", "Digital products are often sold without returns; state your policy clearly in your shop and stay available to help buyers."],
+      ],
+    },
+  },
+  {
+    slug: "gagner-argent-etsy",
+    date: "2026-10-28",
+    fr: {
+      title: "Gagner de l'argent sur Etsy sans stock : ce qui compte vraiment",
+      description: "Lancer un revenu à côté sur Etsy avec des produits numériques : le modèle, le temps à prévoir, les erreurs qui font perdre des mois et une méthode réaliste.",
+      intro: "Vendre des fichiers sur Etsy est une vraie façon de commencer un revenu à côté, sans stock ni local. Ce n'est pas de l'argent facile : c'est un petit commerce, avec ses clients, ses essais et sa régularité. Voici ce qui compte, honnêtement.",
+      sections: [
+        { h: "Le modèle en une phrase", p: ["Tu crées un produit une fois, tu le mets en vente, et chaque acheteur le télécharge sans que tu aies à l'envoyer. Le travail se fait en amont : choisir le sujet, créer le produit, soigner la fiche, puis recommencer avec d'autres produits."] },
+        { h: "Ce qui fait vendre", ul: ["Un besoin réel : les gens cherchent déjà ce sujet sur Etsy", "Une fiche trouvable : titre et 13 tags avec les mots des acheteurs", "Une première image qui donne envie de cliquer", "Un produit utile, qui mérite de bons avis", "Du volume : plusieurs produits sur des sujets proches"] },
+        { h: "Le temps à prévoir", p: ["Les premières ventes peuvent arriver vite ou prendre plusieurs semaines, et certaines fiches ne vendront jamais. Ce qui fonctionne chez la plupart des vendeurs, c'est la régularité : publier un nouveau produit chaque semaine, observer les statistiques, améliorer ce qui ne marche pas. Compte quelques heures par semaine plutôt qu'un gros effort ponctuel."] },
+        { h: "Les erreurs qui font perdre des mois", ul: ["Choisir un sujet trop large (« le bien-être ») au lieu d'un besoin précis", "Publier une seule fiche et attendre", "Copier un best-seller au lieu de trouver un angle différent", "Écrire des promesses (« perds 10 kg », « gagne 1 000 € ») qu'Etsy et les acheteurs n'aiment pas", "Oublier la mention de l'IA quand on l'a utilisée"] },
+        { h: "Une méthode réaliste sur 30 jours", ul: ["Semaine 1 : ouvrir la boutique, choisir 2 ou 3 sujets proches, créer le premier e-book", "Semaine 2 : le publier avec une fiche soignée, en créer un deuxième", "Semaine 3 : regarder les vues et les favoris, retoucher titres et miniatures", "Semaine 4 : publier le troisième, garder ce qui attire, abandonner ce qui ne prend pas"] },
+        { h: "Où Movacash intervient", p: ["Movacash accélère la partie création : idées adaptées à ton profil, e-book écrit par l'IA, PDF prêt à vendre, fiche Etsy et miniature. Le reste t'appartient : publier, observer, recommencer. Aucun revenu n'est garanti, mais tu passes moins de temps sur chaque produit et plus sur ce qui fait vendre."] },
+      ],
+      faq: [
+        ["Combien peut-on gagner sur Etsy ?", "Personne ne peut le garantir. Certains vendeurs ne vendent rien, d'autres construisent un vrai complément de revenu ; cela dépend des sujets, des fiches et de la régularité."],
+        ["Faut-il investir de l'argent pour commencer ?", "Peu : 0,20 $ par annonce, plus d'éventuels frais d'ouverture selon le pays, et les commissions prélevées seulement quand tu vends. Un outil comme Movacash est un abonnement optionnel."],
+        ["Peut-on le faire sans se montrer ?", "Oui. Une boutique Etsy de produits numériques fonctionne sans visage ni vidéo ; la promotion sur Pinterest se fait aussi avec de simples visuels."],
+      ],
+    },
+    en: {
+      title: "Making money on Etsy with no inventory: what really matters",
+      description: "Starting a side income on Etsy with digital products: the model, the time it takes, the mistakes that waste months and a realistic method.",
+      intro: "Selling files on Etsy is a real way to start a side income, with no stock and no premises. It isn't easy money: it's a small business, with customers, experiments and consistency. Here's what matters, honestly.",
+      sections: [
+        { h: "The model in one sentence", p: ["You create a product once, list it, and each buyer downloads it without you having to send anything. The work happens upfront: choosing the topic, creating the product, polishing the listing, then doing it again with other products."] },
+        { h: "What makes things sell", ul: ["A real need: people already search for this topic on Etsy", "A findable listing: title and 13 tags using buyers' words", "A first image that makes people want to click", "A useful product that earns good reviews", "Volume: several products on related topics"] },
+        { h: "The time it takes", p: ["First sales can come quickly or take several weeks, and some listings will never sell. What works for most sellers is consistency: publish a new product every week, watch the stats, improve what doesn't work. Plan for a few hours a week rather than one big push."] },
+        { h: "Mistakes that waste months", ul: ["Choosing a topic that's too broad (\"wellness\") instead of a precise need", "Publishing one listing and waiting", "Copying a bestseller instead of finding a different angle", "Writing promises (\"lose 20 lbs\", \"earn $1,000\") that Etsy and buyers dislike", "Forgetting the AI disclosure when you used AI"] },
+        { h: "A realistic 30-day method", ul: ["Week 1: open the shop, choose 2 or 3 related topics, create the first e-book", "Week 2: publish it with a polished listing, create a second one", "Week 3: look at views and favorites, rework titles and thumbnails", "Week 4: publish the third, keep what attracts, drop what doesn't"] },
+        { h: "Where Movacash fits in", p: ["Movacash speeds up the creation part: ideas matched to your profile, an AI-written e-book, a ready-to-sell PDF, the Etsy listing and the thumbnail. The rest is yours: publish, observe, repeat. No income is guaranteed, but you spend less time on each product and more on what makes it sell."] },
+      ],
+      faq: [
+        ["How much can you make on Etsy?", "Nobody can guarantee it. Some sellers sell nothing, others build a real side income; it depends on the topics, the listings and consistency."],
+        ["Do I need to invest money to start?", "Very little: $0.20 per listing, a possible one-time setup fee depending on your country, and commissions taken only when you sell. A tool like Movacash is an optional subscription."],
+        ["Can I do it without showing my face?", "Yes. An Etsy shop of digital products works with no face and no video; promotion on Pinterest also works with simple visuals."],
+      ],
+    },
+  },
+  {
+    slug: "frais-etsy",
+    date: "2026-10-28",
+    fr: {
+      title: "Frais Etsy : combien coûte la vente d'un produit numérique ?",
+      description: "Frais de mise en vente, commission, frais de paiement, publicités : le détail des frais Etsy pour un e-book ou un PDF, avec un exemple chiffré.",
+      intro: "Avant de fixer ton prix, il faut savoir ce qu'Etsy garde sur chaque vente. Pour un produit numérique, le calcul est simple car il n'y a ni frais de port ni emballage. Voici chaque ligne, puis un exemple.",
+      sections: [
+        { h: "Les frais à chaque annonce", p: ["Etsy facture 0,20 $ (environ 0,18 €) par annonce publiée. L'annonce reste en ligne 4 mois ; elle est renouvelée automatiquement (et refacturée) à l'échéance ou à chaque vente. Selon le pays, Etsy peut aussi demander des frais uniques à l'ouverture de la boutique."] },
+        { h: "Les frais à chaque vente", ul: ["Commission de transaction : 6,5 % du prix de vente", "Frais de traitement des paiements : un pourcentage plus un montant fixe, selon le pays de ta banque (en France, 4 % + 0,30 €)", "Conversion de devise : 2,5 % si ton annonce n'est pas dans la devise de ton compte bancaire", "Selon les pays, des frais réglementaires peuvent s'ajouter"] },
+        { h: "Les frais optionnels ou conditionnels", ul: ["Etsy Ads : publicité dans Etsy, avec le budget que tu choisis", "Offsite Ads : commission prélevée seulement si une vente vient d'une publicité Etsy sur un autre site (obligatoire au-delà d'un certain chiffre d'affaires annuel)", "Etsy Plus : abonnement facultatif avec des outils supplémentaires"] },
+        { h: "Exemple : un e-book vendu 7,90 €", ul: ["Mise en vente : environ 0,18 €", "Commission (6,5 %) : 0,51 €", "Paiement (4 % + 0,30 €) : 0,62 €", "Total des frais : environ 1,31 €", "Reste avant impôts et cotisations : environ 6,59 €, soit un peu plus de 83 % du prix"] },
+        { h: "La TVA et les impôts", p: ["Pour les acheteurs de l'Union européenne, Etsy calcule, collecte et reverse lui-même la TVA sur les produits numériques : tu n'as pas à le faire. Etsy peut en revanche appliquer la TVA sur ses propres frais selon ta situation. Tes revenus restent à déclarer selon ton statut (par exemple la micro-entreprise en France)."] },
+        { h: "Ce que ça change pour ton prix", p: ["Les frais fixes pèsent plus lourd sur les petits prix : à 2 €, ils prennent une grosse part de la vente. C'est une des raisons pour lesquelles beaucoup de vendeurs d'e-books évitent les prix trop bas et proposent aussi des lots. Movacash affiche pour chaque idée un prix conseillé, estimé à partir de produits comparables, que tu restes libre d'ajuster."] },
+      ],
+      faq: [
+        ["Combien Etsy prend-il sur une vente ?", "Pour un produit numérique en France : 6,5 % de commission plus 4 % + 0,30 € de frais de paiement, plus 0,20 $ par annonce. Soit environ 1,30 € sur un e-book à 7,90 €."],
+        ["Faut-il payer pour ouvrir une boutique Etsy ?", "Selon le pays, Etsy peut demander des frais d'ouverture uniques ; ensuite, tu paies 0,20 $ par annonce et les commissions seulement quand tu vends."],
+        ["Les frais Etsy changent-ils ?", "Oui, Etsy les met à jour de temps en temps. Vérifie toujours la page officielle des frais d'Etsy avant de fixer tes prix."],
+      ],
+    },
+    en: {
+      title: "Etsy fees: how much does selling a digital product cost?",
+      description: "Listing fee, transaction fee, payment processing, ads: a breakdown of Etsy fees for an e-book or PDF, with a worked example.",
+      intro: "Before setting your price, you need to know what Etsy keeps from each sale. For a digital product the math is simple, since there's no shipping or packaging. Here's each line, then an example.",
+      sections: [
+        { h: "Fees for each listing", p: ["Etsy charges $0.20 per published listing. The listing stays live for 4 months; it renews automatically (and is charged again) when it expires or with each sale. Depending on your country, Etsy may also charge a one-time fee when you open your shop."] },
+        { h: "Fees for each sale", ul: ["Transaction fee: 6.5% of the sale price", "Payment processing: a percentage plus a fixed amount, depending on your bank's country (in the US, 3% + $0.25; in France, 4% + €0.30)", "Currency conversion: 2.5% if your listing isn't in your bank account's currency", "In some countries, regulatory fees may be added"] },
+        { h: "Optional or conditional fees", ul: ["Etsy Ads: advertising inside Etsy, with the budget you choose", "Offsite Ads: a fee taken only when a sale comes from an Etsy ad on another site (mandatory above a certain yearly revenue)", "Etsy Plus: optional subscription with extra tools"] },
+        { h: "Example: an e-book sold for $7.90 (US seller)", ul: ["Listing: $0.20", "Transaction fee (6.5%): $0.51", "Payment processing (3% + $0.25): $0.49", "Total fees: about $1.20", "Left before taxes: about $6.70, a little under 85% of the price"] },
+        { h: "VAT and taxes", p: ["For buyers in the European Union, Etsy calculates, collects and remits VAT on digital products itself, so you don't have to. Etsy may, however, charge VAT on its own fees depending on your situation. Your income still needs to be declared according to your local rules."] },
+        { h: "What it means for your price", p: ["Fixed fees weigh more on low prices: at $2, they take a big share of the sale. That's one reason many e-book sellers avoid very low prices and also offer bundles. Movacash shows a suggested price for each idea, estimated from comparable products, which you're free to adjust."] },
+      ],
+      faq: [
+        ["How much does Etsy take from a sale?", "For a digital product sold by a US seller: 6.5% transaction fee plus 3% + $0.25 payment processing, plus $0.20 per listing. About $1.20 on a $7.90 e-book."],
+        ["Does it cost money to open an Etsy shop?", "Depending on your country, Etsy may charge a one-time setup fee; after that, you pay $0.20 per listing and commissions only when you sell."],
+        ["Do Etsy fees change?", "Yes, Etsy updates them from time to time. Always check Etsy's official fees page before setting your prices."],
+      ],
+    },
+  },
+  {
+    slug: "ou-vendre-ebook",
+    date: "2026-10-28",
+    fr: {
+      title: "Où vendre un e-book : Etsy, Amazon Kindle, Gumroad ou ton site ?",
+      description: "Comparatif honnête des plateformes pour vendre un e-book : public, frais, formats acceptés, visibilité. Et pourquoi Etsy convient bien aux débutants.",
+      intro: "Un même e-book peut se vendre à plusieurs endroits, mais chaque plateforme a son public et ses règles. Voici les principales, avec leurs points forts et leurs limites, pour choisir par où commencer.",
+      sections: [
+        { h: "Etsy", p: ["Une place de marché où les acheteurs viennent déjà chercher des produits numériques pratiques : planners, guides, checklists. Tu profites de la recherche d'Etsy sans avoir besoin d'audience. Frais : 0,20 $ par annonce, 6,5 % de commission et des frais de paiement. Format libre : PDF, ZIP, images."], ul: ["Pour : trafic existant, mise en ligne simple, adapté aux guides pratiques", "Contre : forte concurrence sur les sujets populaires, règles strictes sur les promesses et les marques"] },
+        { h: "Amazon Kindle Direct Publishing (KDP)", p: ["La plus grande librairie numérique. Le livre est converti au format Kindle et vendu sur Amazon. Les droits d'auteur vont de 35 % à 70 % du prix selon les conditions."], ul: ["Pour : énorme audience de lecteurs, possibilité de livre imprimé", "Contre : mise en page Kindle (peu adaptée aux checklists et fiches à imprimer), forte concurrence, règles sur le contenu généré par IA à déclarer"] },
+        { h: "Gumroad, Payhip et plateformes similaires", p: ["Des outils pour vendre tes fichiers via ta propre page. Ils prennent une commission sur chaque vente, mais n'apportent presque pas de visiteurs : c'est à toi de les amener (réseaux sociaux, newsletter)."], ul: ["Pour : liberté totale, peu de règles, relation directe avec les acheteurs", "Contre : sans audience, peu ou pas de ventes"] },
+        { h: "Ton propre site", p: ["Une boutique sur ton site (avec un outil de paiement) te laisse fixer toutes les règles, mais demande le plus de travail : référencement, paiement, livraison du fichier, obligations légales."] },
+        { h: "Par où commencer", p: ["Quand on débute sans audience, Etsy est souvent le point de départ le plus simple pour un guide pratique en PDF : les acheteurs y sont déjà, et une seule fiche bien faite peut être trouvée dès la mise en ligne. Rien n'empêche ensuite de proposer le même contenu ailleurs."] },
+        { h: "Et Movacash ?", p: ["Movacash est pensé pour Etsy : idées adaptées, fiche avec 13 tags, miniature et mention de l'IA. Le PDF exporté t'appartient et peut aussi servir ailleurs, en respectant les règles de chaque plateforme."] },
+      ],
+      faq: [
+        ["Peut-on vendre le même e-book sur Etsy et sur Amazon ?", "Oui, en général, sauf si tu choisis un programme d'exclusivité (comme KDP Select, qui demande l'exclusivité numérique sur Amazon)."],
+        ["Quelle plateforme prend le moins de frais ?", "Sur le papier, ton propre site ; mais sans visiteurs, il ne vend pas. Etsy et Amazon prennent plus mais apportent des acheteurs."],
+      ],
+    },
+    en: {
+      title: "Where to sell an e-book: Etsy, Amazon Kindle, Gumroad or your own site?",
+      description: "An honest comparison of platforms for selling an e-book: audience, fees, accepted formats, visibility. And why Etsy works well for beginners.",
+      intro: "The same e-book can sell in several places, but each platform has its own audience and rules. Here are the main ones, with their strengths and limits, to help you decide where to start.",
+      sections: [
+        { h: "Etsy", p: ["A marketplace where buyers already come looking for practical digital products: planners, guides, checklists. You benefit from Etsy search without needing an audience. Fees: $0.20 per listing, 6.5% transaction fee and payment processing. Any format: PDF, ZIP, images."], ul: ["Pros: existing traffic, simple setup, well suited to practical guides", "Cons: strong competition on popular topics, strict rules on promises and brands"] },
+        { h: "Amazon Kindle Direct Publishing (KDP)", p: ["The largest e-book store. Your book is converted to Kindle format and sold on Amazon. Royalties range from 35% to 70% of the price depending on conditions."], ul: ["Pros: huge reading audience, option for print books", "Cons: Kindle layout (poorly suited to printable checklists and worksheets), strong competition, AI-generated content must be declared"] },
+        { h: "Gumroad, Payhip and similar platforms", p: ["Tools to sell your files from your own page. They take a commission on each sale but bring almost no visitors: you have to bring them yourself (social media, newsletter)."], ul: ["Pros: total freedom, few rules, direct relationship with buyers", "Cons: without an audience, few or no sales"] },
+        { h: "Your own website", p: ["A shop on your own site (with a payment tool) lets you set every rule, but it takes the most work: SEO, payments, file delivery, legal obligations."] },
+        { h: "Where to start", p: ["When you're starting with no audience, Etsy is often the simplest starting point for a practical PDF guide: buyers are already there, and a single well-made listing can be found as soon as it goes live. Nothing stops you from offering the same content elsewhere later."] },
+        { h: "And Movacash?", p: ["Movacash is built for Etsy: matched ideas, a listing with 13 tags, a thumbnail and the AI disclosure. The exported PDF is yours and can be used elsewhere too, following each platform's rules."] },
+      ],
+      faq: [
+        ["Can I sell the same e-book on Etsy and Amazon?", "Usually yes, unless you join an exclusivity program (such as KDP Select, which requires digital exclusivity on Amazon)."],
+        ["Which platform charges the least?", "On paper, your own site; but without visitors, it doesn't sell. Etsy and Amazon take more but bring buyers."],
+      ],
+    },
+  },
+  {
+    slug: "movacash",
+    date: "2026-10-28",
+    fr: {
+      title: "Movacash : comment ça marche et combien ça coûte",
+      description: "Ce que fait Movacash, étape par étape : idées d'e-books pour Etsy, rédaction par l'IA, PDF, fiche Etsy et miniature. Prix, limites et questions fréquentes.",
+      intro: "Movacash est une application web (installable sur téléphone) qui aide à créer des e-books avec l'IA et à les vendre comme téléchargements sur Etsy. Voici précisément ce qu'elle fait, ce qu'elle ne fait pas, et ce qu'elle coûte.",
+      sections: [
+        { h: "1. Un questionnaire pour trouver ton idée", p: ["Quelques questions sur ton temps, ton niveau, tes centres d'intérêt et tes envies. Movacash te propose ensuite 3 idées d'e-books tirées de sa base de plus de 500 sujets adaptés à Etsy (sport, parentalité, budget, outils d'IA, loisirs créatifs, jardin, animaux…), avec une estimation de la demande, de la concurrence et un prix conseillé."] },
+        { h: "2. L'IA écrit l'e-book", p: ["Un plan détaillé, puis les chapitres : environ 40 à 60 pages avec méthodes, exemples, exercices, checklists et plan d'action. Chaque chapitre peut être relu, modifié ou régénéré. L'e-book peut être écrit dans 22 langues européennes."] },
+        { h: "3. Un PDF prêt à vendre", p: ["Couverture, sommaire, numéros de page, mise en page soignée, au format A4, A5 ou US Letter. La mention de l'usage de l'IA est incluse, comme l'exige Etsy."] },
+        { h: "4. La fiche Etsy et la miniature", p: ["Un titre de 140 caractères, 13 tags, une description complète et une miniature, prêts à copier dans Etsy. Les sujets santé et argent reçoivent des avertissements, et les promesses exagérées et les marques sont évitées."] },
+        { h: "Ce que Movacash ne fait pas", ul: ["Il ne publie pas sur Etsy à ta place : tu restes maître de ta boutique", "Il ne garantit ni ventes ni revenus", "Il n'est pas affilié à Etsy"] },
+        { h: "Les prix", p: ["Trois formules mensuelles sans engagement : Starter à 19,90 € (20 e-books par mois), Pro à 39,90 € (50 e-books par mois) et Business à 79,90 € (120 e-books par mois). En paiement annuel, les prix sont réduits de 50 %. Résiliation à tout moment depuis l'espace client. Le questionnaire et les premières idées sont gratuits."] },
+      ],
+      faq: [
+        ["Movacash est-il gratuit ?", "Le questionnaire et la découverte des idées sont gratuits. La création des e-books, du PDF et des fiches Etsy demande un abonnement, à partir de 19,90 € par mois (−50 % en annuel)."],
+        ["Faut-il savoir écrire ou parler anglais ?", "Non. L'IA écrit le contenu dans la langue choisie parmi 22 langues européennes ; tu relis et ajustes ce que tu veux."],
+        ["Les e-books créés sont-ils à moi ?", "Oui, tu peux vendre les e-books créés avec Movacash, en respectant les règles d'Etsy (notamment la mention de l'IA)."],
+        ["Movacash garantit-il des ventes ?", "Non. Les ventes dépendent du sujet, de la fiche, de la concurrence et de ta régularité. Movacash fait gagner du temps sur la création ; il ne promet aucun revenu."],
+      ],
+    },
+    en: {
+      title: "Movacash: how it works and what it costs",
+      description: "What Movacash does, step by step: e-book ideas for Etsy, AI writing, PDF, Etsy listing and thumbnail. Pricing, limits and FAQ.",
+      intro: "Movacash is a web app (installable on your phone) that helps you create e-books with AI and sell them as digital downloads on Etsy. Here's exactly what it does, what it doesn't, and what it costs.",
+      sections: [
+        { h: "1. A questionnaire to find your idea", p: ["A few questions about your time, your level, your interests and your goals. Movacash then suggests 3 e-book ideas from its database of 500+ topics suited to Etsy (fitness, parenting, budgeting, AI tools, crafts, gardening, pets…), with an estimate of demand, competition and a suggested price."] },
+        { h: "2. AI writes the e-book", p: ["A detailed outline, then the chapters: about 40 to 60 pages with methods, examples, exercises, checklists and an action plan. Every chapter can be reviewed, edited or regenerated. The e-book can be written in 22 European languages."] },
+        { h: "3. A ready-to-sell PDF", p: ["Cover, table of contents, page numbers and a clean layout, in A4, A5 or US Letter. The AI-use disclosure is included, as Etsy requires."] },
+        { h: "4. The Etsy listing and thumbnail", p: ["A 140-character title, 13 tags, a full description and a thumbnail, ready to paste into Etsy. Health and money topics get disclaimers, and exaggerated promises and brand names are avoided."] },
+        { h: "What Movacash doesn't do", ul: ["It doesn't publish on Etsy for you: you stay in control of your shop", "It doesn't guarantee sales or income", "It isn't affiliated with Etsy"] },
+        { h: "Pricing", p: ["Three monthly plans with no commitment: Starter at €19.90 (20 e-books a month), Pro at €39.90 (50 e-books a month) and Business at €79.90 (120 e-books a month). With yearly billing, prices are 50% lower. Cancel anytime from your account. The questionnaire and the first ideas are free."] },
+      ],
+      faq: [
+        ["Is Movacash free?", "The questionnaire and discovering your ideas are free. Creating e-books, PDFs and Etsy listings requires a subscription, from €19.90 a month (−50% yearly)."],
+        ["Do I need to be a good writer or speak English?", "No. AI writes the content in your chosen language among 22 European languages; you review and adjust what you want."],
+        ["Do I own the e-books I create?", "Yes, you can sell the e-books you create with Movacash, following Etsy's rules (including the AI disclosure)."],
+        ["Does Movacash guarantee sales?", "No. Sales depend on the topic, the listing, competition and your consistency. Movacash saves time on creation; it doesn't promise any income."],
+      ],
+    },
+  },
 ];
 
-export const guideLang = (locale: string): "fr" | "en" => (locale === "fr" ? "fr" : "en");
 export const getGuide = (slug: string) => GUIDES.find((g) => g.slug === slug);

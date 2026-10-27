@@ -4,28 +4,28 @@ import { notFound } from "next/navigation";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import { getLocale } from "@/lib/i18n/server";
-import { GUIDES, getGuide, guideLang } from "@/lib/guides";
+import { getGuide } from "@/lib/guides";
+import { GUIDES, guideLang, guideText, guideUI } from "@/lib/guides-tr";
 import { APP_NAME, APP_URL } from "@/lib/config";
 import { langUrl } from "@/lib/seo";
-import { UI } from "../ui";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const g = getGuide((await params).slug);
   if (!g) return {};
-  const txt = g[guideLang(await getLocale())];
+  const txt = guideText(g, guideLang(await getLocale(), g.slug));
   return { title: txt.title, description: txt.description, openGraph: { title: txt.title, description: txt.description, type: "article", publishedTime: g.date, modifiedTime: g.date } };
 }
 
 export default async function GuidePage({ params }: Props) {
   const g = getGuide((await params).slug);
   if (!g) notFound();
-  const lang = guideLang(await getLocale());
-  const ui = UI[lang];
-  const txt = g[lang];
+  const lang = guideLang(await getLocale(), g.slug);
+  const ui = guideUI(lang);
+  const txt = guideText(g, lang);
   const url = langUrl(`/guides/${g.slug}`, lang);
-  const date = new Date(g.date).toLocaleDateString(lang === "fr" ? "fr-FR" : "en-GB", { day: "numeric", month: "long", year: "numeric" });
+  const date = new Date(g.date).toLocaleDateString(lang === "en" ? "en-GB" : lang, { day: "numeric", month: "long", year: "numeric" });
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -80,7 +80,7 @@ export default async function GuidePage({ params }: Props) {
         <h2>{ui.autres}</h2>
         <ul>
           {GUIDES.filter((o) => o.slug !== g.slug).map((o) => (
-            <li key={o.slug}><Link href={`/guides/${o.slug}?lang=${lang}`}>{o[lang].title}</Link></li>
+            <li key={o.slug}><Link href={`/guides/${o.slug}?lang=${lang}`}>{guideText(o, lang).title}</Link></li>
           ))}
         </ul>
       </main>

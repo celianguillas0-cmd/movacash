@@ -37,8 +37,14 @@ ${prix}
 - Income disclaimer: ${APP_URL}/avertissement-revenus
 - Terms (French): ${APP_URL}/cgv
 
-## Guides (English and French, add ?lang=fr for French)
+## Guides (English; also in French, German, Spanish, Italian, Portuguese, Dutch, Polish: add ?lang=fr, ?lang=de…)
 ${guides}
+
+## E-book ideas by theme (French)
+${APP_URL}/idees?lang=fr lists 31 themes (fitness, cooking, parenting, budgeting, AI, crafts…) with example e-book ideas, target audience, estimated demand, competition and suggested price.
+
+## Full text
+The complete text of every guide is available at ${APP_URL}/llms-full.txt
 `;
   return new Response(body, { headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" } });
 }

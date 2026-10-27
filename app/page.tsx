@@ -9,6 +9,7 @@ import { getT } from "@/lib/i18n/server";
 import { localizeIdeas } from "@/lib/ideas-i18n";
 import { APP_NAME, APP_URL, PLANS, SUPPORT_EMAIL } from "@/lib/config";
 import { langUrl } from "@/lib/seo";
+import { GUIDES, guideLang, guideText } from "@/lib/guides-tr";
 
 export const dynamic = "force-dynamic";
 
@@ -189,6 +190,22 @@ export default async function Home() {
               </details>
             ))}
           </div>
+        </section>
+
+        {/* Liens vers les guides (et les idées par thème en français) : aident Google et les assistants IA à découvrir le contenu */}
+        <section className="wrap section narrow home-guides" style={{ paddingTop: 0, marginInline: "auto" }}>
+          <div className="section-head">
+            <p className="eyebrow">{t("Guides gratuits")}</p>
+            <h2>{t("Apprendre à vendre des e-books sur Etsy")}</h2>
+          </div>
+          <ul>
+            {GUIDES.slice(0, 6).map((g) => {
+              const l = guideLang(locale, g.slug);
+              return <li key={g.slug}><Link href={`/guides/${g.slug}?lang=${l}`}>{guideText(g, l).title}</Link></li>;
+            })}
+            {locale === "fr" && <li><Link href="/idees?lang=fr">Idées d'e-books à vendre sur Etsy, par thème</Link></li>}
+          </ul>
+          <p><Link href={`/guides?lang=${guideLang(locale)}`}>{t("Tous les guides")} →</Link></p>
         </section>
 
         <section className="wrap final">

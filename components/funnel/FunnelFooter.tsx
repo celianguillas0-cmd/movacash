@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
 import { ConsentLink } from "@/components/Consent";
+import { guideLang } from "@/lib/guides-tr";
 
 export default async function FunnelFooter() {
   const { t, locale } = await getT();
@@ -14,7 +15,9 @@ export default async function FunnelFooter() {
           <div style={{ marginTop: 14 }}><LangSwitch /></div>
         </div>
         <div className="links">
-          <Link href={locale === "fr" ? "/guides?lang=fr" : "/guides?lang=en"}>{t("Guides Etsy")}</Link>
+          <Link href={`/guides?lang=${guideLang(locale)}`}>{t("Guides Etsy")}</Link>
+          {/* Les pages d'idées par thème n'existent qu'en français (la base d'idées est en français) */}
+          {locale === "fr" && <Link href="/idees?lang=fr">Idées d'e-books</Link>}
           <Link href="/cgv">{t("CGV")}</Link>
           <Link href="/mentions-legales">{t("Mentions légales")}</Link>
           <Link href="/confidentialite">{t("Confidentialité")}</Link>

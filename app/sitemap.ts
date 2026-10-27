@@ -3,6 +3,8 @@ import { APP_URL } from "@/lib/config";
 import { LOCALES } from "@/lib/i18n/locales";
 import { FR_ONLY_PATHS, guideAlternates, langUrl } from "@/lib/seo";
 import { GUIDES } from "@/lib/guides";
+import { guideLocales } from "@/lib/guides-tr";
+import { CATEGORIES } from "@/data/ideas-catalog.mjs";
 
 // Pages publiques seulement : l'espace connecté et l'API ne sont pas référencés.
 // Chaque page traduite est déclarée dans ses 22 langues, avec les liens hreflang entre elles.
@@ -25,7 +27,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const guides = ["/guides", ...GUIDES.map((g) => `/guides/${g.slug}`)].flatMap((path) => {
     const { languages } = guideAlternates(path, "fr");
     const modif = GUIDES.find((g) => path.endsWith(g.slug))?.date;
-    return (["fr", "en"] as const).map((l) => ({ url: languages[l], lastModified: modif ? new Date(modif) : now, changeFrequency: "monthly" as const, priority: 0.7, alternates: { languages: { fr: languages.fr, en: languages.en } } }));
+    const { "x-default": _defaut, ...langues } = languages;
+    return guideLocales(path.startsWith("/guides/") ? path.slice(8) : undefined).map((l) => ({ url: languages[l], lastModified: modif ? new Date(modif) : now, changeFrequency: "monthly" as const, priority: 0.7, alternates: { languages: langues } }));
   });
-  return [...traduites, ...guides, ...legales];
+  // Idées par thème : en français seulement
+  const idees = ["/idees", ...CATEGORIES.map((c: { slug: string }) => `/idees/${c.slug}`)].map((path) => ({ url: langUrl(path, "fr"), lastModified: now, changeFrequency: "weekly" as const, priority: path === "/idees" ? 0.8 : 0.6 }));
+  return [...traduites, ...guides, ...idees, ...legales];
 }

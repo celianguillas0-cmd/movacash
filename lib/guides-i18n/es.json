@@ -1,0 +1,105 @@
+{
+ "ui": {
+  "titre": "Guías para vender e-books en Etsy",
+  "desc": "Guías gratuitas y actualizadas: encontrar una idea de e-book, escribirlo con IA, crear la ficha de Etsy (título, 13 etiquetas, descripción), fijar el precio y respetar las normas de Etsy.",
+  "intro": "Guías prácticas, sin promesas de ingresos, para lanzar tu tienda de productos digitales en Etsy.",
+  "accueil": "Inicio",
+  "lire": "Leer la guía",
+  "maj": "Actualizado el",
+  "faq": "Preguntas frecuentes",
+  "autres": "Otras guías",
+  "ctaTitre": "Encuentra tu idea de e-book en 2 minutos",
+  "ctaTexte": "Responde al cuestionario gratuito: Movacash te propone temas adaptados a Etsy, luego escribe el e-book y prepara la ficha.",
+  "cta": "Empezar el cuestionario",
+  "mention": "Movacash no está afiliado a Etsy. No se garantiza ningún ingreso."
+ },
+ "guides": {
+  "vendre-ebook-etsy": {
+   "title": "Cómo vender un e-book en Etsy: la guía completa",
+   "description": "Abrir tu tienda, elegir un tema, crear el PDF, redactar la ficha y fijar el precio: todos los pasos para vender tu primer e-book en Etsy.",
+   "intro": "Etsy no es solo para joyas y decoración hechas a mano. Los productos digitales, y en especial los e-books en PDF, tienen su sitio: el comprador paga, descarga el archivo y tú no tienes nada que enviar. Este es el proceso, paso a paso, sin atajos mágicos.",
+   "sections": [
+    {"h": "1. Abrir tu tienda Etsy", "p": ["El registro como vendedor empieza en etsy.com/sell. Etsy te pide un nombre de tienda, un documento de identidad y una cuenta bancaria (IBAN) donde ingresará tus ventas. Consulta las normas para darte de alta como autónomo en tu país antes de vender con regularidad."]},
+    {"h": "2. Elegir un tema que resuelva un problema real", "p": ["Un buen e-book de Etsy resuelve un problema concreto para un público concreto: «Preparar la llegada del bebé: la checklist completa» se vende mejor que «Todo sobre la crianza». Mira lo que ya existe en Etsy, lee las reseñas de los compradores y busca lo que falta: un nivel principiante, un formato más práctico, un idioma menos cubierto."], "ul": ["Un público identificable (principiantes, padres primerizos, deportistas, estudiantes…)", "Un resultado concreto (un plan, un método, una checklist)", "Un tema que puedas presentar con honestidad, sin promesas médicas ni financieras"]},
+    {"h": "3. Crear el PDF", "p": ["Tu e-book debe ser agradable de leer: un índice, capítulos cortos, ejemplos, ejercicios y un plan de acción. Apuesta por la calidad más que por el número de páginas. Con una herramienta como Movacash, la IA redacta el índice y los capítulos a partir de tu tema; luego revisas, cambias lo que no te guste y exportas un PDF en A4, A5 o US Letter."]},
+    {"h": "4. Redactar una ficha que se encuentre", "p": ["El buscador de Etsy lee sobre todo el título y las 13 etiquetas. Pon al principio del título las palabras que escriben tus compradores (140 caracteres como máximo), usa las 13 etiquetas (20 caracteres cada una) con expresiones variadas y escribe una descripción que diga claramente qué contiene el archivo, para quién es y cómo descargarlo."]},
+    {"h": "5. Cuidar la miniatura", "p": ["La primera imagen es la que se ve en los resultados. Debe mostrar un título legible en pequeño, dejar claro el tipo de producto (e-book en PDF) y dar ganas de hacer clic. Evita las imágenes recargadas y las promesas escritas en grande."]},
+    {"h": "6. Fijar tu precio", "p": ["Mira los precios de e-books comparables en Etsy y ten en cuenta las tarifas: publicación (0,20 $ por anuncio, válida 4 meses), comisión por transacción (6,5 %) y gastos de procesamiento de pagos. Muchos vendedores empiezan con un precio accesible para conseguir sus primeras reseñas y luego lo ajustan."]},
+    {"h": "7. Publicar con regularidad y aprender", "p": ["Una sola ficha rara vez da resultados. Los vendedores que avanzan publican varios e-books sobre temas cercanos, observan las estadísticas de su tienda (visitas, favoritos, ventas) y mejoran los títulos y miniaturas que no funcionan."]}
+   ],
+   "faq": [
+    ["¿Necesito darme de alta para vender en Etsy?", "Para una actividad regular, normalmente sí. Consulta las normas de tu país antes de empezar."],
+    ["¿Acepta Etsy los e-books escritos con IA?", "Sí, siempre que indiques en la descripción que se ha usado IA y respetes las normas de Etsy sobre propiedad intelectual."],
+    ["¿Cuánto se puede ganar?", "Nadie puede garantizarlo. Las ventas dependen del tema, de la calidad de la ficha, de la competencia y de tu constancia."]
+   ]
+  },
+  "idees-ebook-etsy": {
+   "title": "¿Qué e-books se venden en Etsy? 30 ideas de temas",
+   "description": "30 ideas de e-books adaptadas a Etsy, agrupadas por temática (familia, deporte, presupuesto, hogar, IA, aficiones), y cómo elegir la tuya.",
+   "intro": "El buen tema está donde se cruzan tres cosas: una necesidad real, un público que compra en Etsy y un enfoque que puedas tratar bien. Aquí tienes 30 ideas de nuestra base de datos para adaptar a tu perfil.",
+   "sections": [
+    {"h": "Familia y crianza", "ul": ["Preparar la llegada del bebé: la checklist completa", "Lactancia: guía práctica para las primeras semanas", "Rutinas para dormir de niños de 3 a 6 años", "Tabla de tareas familiares imprimible", "Organizar un cumpleaños infantil sin estrés"]},
+    {"h": "Deporte y bienestar", "ul": ["Programa HIIT de 20 minutos al día", "Guía para entrenar eficazmente en bicicleta estática", "Empezar a hacer pesas en casa", "Rutina de estiramientos para trabajar en oficina", "Prepararse para tus primeros 10 km"]},
+    {"h": "Presupuesto y organización", "ul": ["Planificador de presupuesto mensual", "El método de los sobres, paso a paso", "Organizar tus papeles", "Checklist de mudanza sin olvidar nada", "Batch cooking semanal"]},
+    {"h": "Casa y jardín", "ul": ["Atraer pájaros e insectos a tu jardín", "Huerto en el balcón para principiantes", "Ordenar tu casa habitación por habitación", "Limpieza ecológica: recetas caseras", "Plantas de interior fáciles de cuidar"]},
+    {"h": "IA y herramientas digitales", "ul": ["Escribir prompts de IA eficaces", "Las mejores herramientas de IA gratuitas", "Usar la IA para encontrar trabajo", "Crear imágenes con IA (derechos y licencias)", "Pinterest para conseguir tráfico gratis"]},
+    {"h": "Aficiones y creatividad", "ul": ["Costura para principiantes: primeros proyectos", "Aprender ganchillo en 10 proyectos", "Fotografía con el móvil", "Llevar un bullet journal", "Educar a tu cachorro: los primeros 30 días"]},
+    {"h": "Cómo elegir tu tema", "p": ["Parte de lo que conoces o te interesa de verdad: detectarás los errores más fácilmente y presentarás mejor el producto. Comprueba después en Etsy que hay demanda (e-books parecidos tienen reseñas) sin que los primeros resultados sean todos idénticos al tuyo. Por último, evita los temas que exigen conocimientos médicos, jurídicos o financieros que no tienes."]},
+    {"h": "Encontrar ideas adaptadas a tu perfil", "p": ["El cuestionario gratuito de Movacash te hace unas preguntas sobre tu tiempo, tu nivel y tus intereses, y te propone 3 ideas de nuestra base con una estimación de la demanda y la competencia (estimaciones nuestras, no garantías)."]}
+   ]
+  },
+  "creer-ebook-ia": {
+   "title": "Crear un e-book con IA: el método paso a paso",
+   "description": "Del tema al PDF: cómo usar la IA para escribir un e-book útil, evitar los errores clásicos y obtener un producto listo para vender.",
+   "intro": "La IA puede escribir un e-book entero en pocos minutos. Pero un buen e-book no es un texto largo: es un texto útil, bien estructurado y sin errores. Este es un método que funciona.",
+   "sections": [
+    {"h": "1. Definir el lector y la promesa del libro", "p": ["Antes de generar nada, escribe en una frase para quién es el libro y en qué le ayuda. Ejemplo: «Ayudar a una principiante total a coser sus 5 primeros proyectos en un mes». Esa frase guía todo lo demás."]},
+    {"h": "2. Generar un índice detallado", "p": ["Pide primero un índice: de 7 a 12 capítulos, cada uno con un objetivo claro. Revísalo: ¿el orden es lógico? ¿Falta algún paso? ¿Un capítulo repite otro? Corregir el índice lleva dos minutos y evita reescribir páginas."]},
+    {"h": "3. Generar capítulo a capítulo", "p": ["Un capítulo cada vez da un texto más preciso que un libro entero de golpe. Cada capítulo debe incluir una explicación, ejemplos concretos, un ejercicio o checklist y un resumen de lo esencial."]},
+    {"h": "4. Revisar y comprobar", "ul": ["Quitar las cifras y estadísticas que no puedas verificar", "Eliminar las promesas («garantizado», «resultados en 7 días»)", "Revisar los consejos de seguridad, salud y dinero", "Añadir tus propios consejos: es lo que hace único el libro"]},
+    {"h": "5. Maquetar y exportar", "p": ["Un índice, una portada, números de página y títulos claros marcan la diferencia. Exporta un PDF en el formato que esperan tus compradores (A4 en Europa, US Letter en Estados Unidos, A5 para leer en el móvil)."]},
+    {"h": "Lo que hace Movacash", "p": ["Movacash encadena estos pasos: índice detallado, capítulos con ejemplos y ejercicios, regeneración de un capítulo con un clic, portada, PDF y ficha de Etsy. El contenido se redacta evitando estadísticas inventadas y promesas exageradas, y tú sigues siendo el autor: revisas y cambias lo que quieras antes de vender."]}
+   ],
+   "faq": [
+    ["¿Es legal vender un e-book escrito con IA?", "En la mayoría de los casos sí, siempre que no reutilices contenido protegido e indiques el uso de IA cuando la plataforma lo pida, como hace Etsy."],
+    ["¿Cuántas páginas hacen falta?", "No hay mínimo. Más valen 40 a 60 páginas sólidas que 150 de relleno."]
+   ]
+  },
+  "fiche-etsy-produit-numerique": {
+   "title": "Ficha de Etsy para un producto digital: título, 13 etiquetas y descripción",
+   "description": "Cómo escribir el título, elegir las 13 etiquetas y redactar la descripción de un e-book o PDF en Etsy para que se encuentre y se entienda.",
+   "intro": "En Etsy, un producto excelente que nadie ve no se vende. La ficha tiene dos funciones: aparecer en las búsquedas y convencer en pocos segundos. Así se construye.",
+   "sections": [
+    {"h": "El título (140 caracteres como máximo)", "p": ["Empieza por la expresión exacta que escribe tu comprador y añade el formato y el público. Ejemplo: «Programa HIIT de 20 minutos – E-book PDF para principiantes – Entrenamiento en casa sin material». Evita los títulos poéticos: son bonitos, pero nadie los encuentra."]},
+    {"h": "Las 13 etiquetas (20 caracteres cada una)", "ul": ["Usa siempre las 13", "Varía las expresiones en lugar de repetir la misma palabra", "Piensa en sinónimos y usos («regalo», «imprimible», «principiante»)", "Añade el formato: «ebook pdf», «guía pdf»"]},
+    {"h": "La descripción", "p": ["Las primeras líneas se ven como vista previa: di enseguida qué contiene el archivo y para quién es. Después enumera el contenido (capítulos, checklists, ejercicios), el formato (PDF, número de páginas, A4 o US Letter) y cómo descargarlo. Termina con una mención del uso de IA si la has usado, como exige Etsy."]},
+    {"h": "Las imágenes", "p": ["La miniatura debe seguir siendo legible en pequeño. Añade 2 o 3 vistas de páginas interiores: los compradores quieren ver lo que compran. Evita los logotipos de marcas y las promesas de resultados escritas en la imagen."]},
+    {"h": "Lo que Movacash prepara por ti", "p": ["Para cada e-book, Movacash genera un título de 140 caracteres, 13 etiquetas, una descripción con la mención de IA y una miniatura, listos para pegar en Etsy. Puedes cambiarlo todo antes de publicar."]}
+   ]
+  },
+  "prix-ebook-etsy": {
+   "title": "¿A qué precio vender un e-book en Etsy?",
+   "description": "Cómo fijar el precio de un e-book en Etsy: analizar la competencia, contar las tarifas de Etsy, elegir un precio de lanzamiento y ajustarlo.",
+   "intro": "Demasiado caro y nadie compra en una tienda desconocida. Demasiado barato y tu e-book parece no valer nada mientras las tarifas se comen tu margen. Así se encuentra el precio adecuado.",
+   "sections": [
+    {"h": "Mirar los e-books comparables", "p": ["Busca tu tema en Etsy y anota los precios de los 15 a 20 primeros resultados que tengan reseñas. Así tendrás una horquilla realista para este tipo de producto. En muchos temas prácticos, los e-books van de unos pocos euros a unos quince, pero cada nicho es distinto."]},
+    {"h": "Contar las tarifas", "ul": ["Publicación: 0,20 $ por anuncio, renovada cada 4 meses o con cada venta", "Comisión por transacción: 6,5 % del precio", "Procesamiento de pagos: un porcentaje más una cantidad fija, según el país", "Etsy Ads y anuncios externos: solo si se aplican a tu tienda"]},
+    {"h": "Elegir un precio de lanzamiento", "p": ["Muchos vendedores empiezan en la parte baja de la horquilla para conseguir sus primeras ventas y reseñas, y luego suben el precio. Otra opción es un pack (2 o 3 e-books sobre temas cercanos) a un precio más alto."]},
+    {"h": "Ajustar con tus estadísticas", "p": ["Si una ficha recibe visitas y favoritos pero ninguna venta, quizá el problema sea el precio o la descripción. Si no recibe visitas, revisa primero el título, las etiquetas o la miniatura."]},
+    {"h": "Cómo ayuda Movacash", "p": ["Cada idea de nuestra base muestra un precio recomendado, estimado a partir de productos comparables. Es un punto de partida, no una garantía: el precio lo fijas tú."]}
+   ]
+  },
+  "etsy-ia-regles": {
+   "title": "Etsy y la IA: lo que está permitido para los productos digitales",
+   "description": "¿Se puede vender en Etsy un e-book creado con IA? Las normas que hay que conocer: mención de la IA, propiedad intelectual, temas sensibles.",
+   "intro": "Etsy acepta productos creados con ayuda de la IA, pero con normas. Ignorarlas puede hacer que se retire un anuncio o incluso que se suspenda la tienda. Esto es lo que importa.",
+   "sections": [
+    {"h": "Indicar el uso de la IA", "p": ["Etsy pide transparencia a los vendedores: si tu producto se ha creado con ayuda de herramientas de IA, dilo en la descripción del anuncio. Basta una frase sencilla, por ejemplo «Contenido redactado con ayuda de herramientas de IA, revisado y maquetado por la tienda»."]},
+    {"h": "Respetar la propiedad intelectual", "ul": ["Nada de marcas, logotipos ni personajes protegidos en el título, las etiquetas o las imágenes", "Nada de copiar libros, cursos o artículos existentes", "Imágenes sobre las que tengas derechos (hechas por ti, por una IA que lo permita o con licencia)"]},
+    {"h": "Cuidado con los temas sensibles", "p": ["Salud, adelgazamiento, dinero, inversión: estos temas se venden, pero exigen cuidado. Nada de promesas de curación ni de ganancias, advertencias claras y, si hace falta, la recomendación de consultar a un profesional."]},
+    {"h": "Aportar valor real", "p": ["Etsy favorece a las tiendas con clientes satisfechos. Un e-book revisado, útil y bien presentado obtiene mejores reseñas que un texto generado y publicado sin revisar."]},
+    {"h": "Cómo te ayuda Movacash a respetar las normas", "p": ["La mención de la IA se añade automáticamente a la ficha y al PDF. Los temas de salud y dinero reciben advertencias, y el texto evita las promesas exageradas y los nombres de marcas. Tú sigues siendo responsable de lo que publicas: revisa siempre antes de vender."]}
+   ]
+  }
+ }
+}

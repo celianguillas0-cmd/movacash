@@ -1,4 +1,5 @@
-// Textes d'interface des guides : les guides existent en français et en anglais (l'anglais sert aux autres langues).
+// Textes d'interface des guides en français et en anglais ; les autres langues sont dans lib/guides-i18n.
+export type GuideUI = typeof UI.en;
 export const UI = {
   fr: {
     titre: "Guides pour vendre des e-books sur Etsy",

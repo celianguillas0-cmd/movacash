@@ -1,0 +1,105 @@
+{
+ "ui": {
+  "titre": "Gidsen voor het verkopen van e-books op Etsy",
+  "desc": "Gratis, actuele gidsen: een e-book-idee vinden, het schrijven met AI, de Etsy-vermelding maken (titel, 13 tags, beschrijving), de prijs bepalen en de regels van Etsy volgen.",
+  "intro": "Praktische gidsen, zonder inkomensbeloftes, om je winkel met digitale producten op Etsy te starten.",
+  "accueil": "Home",
+  "lire": "Lees de gids",
+  "maj": "Bijgewerkt op",
+  "faq": "Veelgestelde vragen",
+  "autres": "Meer gidsen",
+  "ctaTitre": "Vind je e-book-idee in 2 minuten",
+  "ctaTexte": "Vul de gratis vragenlijst in: Movacash stelt onderwerpen voor die bij Etsy passen, schrijft daarna het e-book en bereidt de vermelding voor.",
+  "cta": "Start de vragenlijst",
+  "mention": "Movacash is niet verbonden aan Etsy. Er wordt geen inkomen gegarandeerd."
+ },
+ "guides": {
+  "vendre-ebook-etsy": {
+   "title": "Een e-book verkopen op Etsy: de complete gids",
+   "description": "Je winkel openen, een onderwerp kiezen, de pdf maken, de vermelding schrijven en de prijs bepalen: alle stappen om je eerste e-book op Etsy te verkopen.",
+   "intro": "Etsy is niet alleen voor handgemaakte sieraden en decoratie. Digitale producten, waaronder e-books in pdf, horen er ook thuis: de koper betaalt, downloadt het bestand en jij hoeft niets te verzenden. Dit is de werkwijze, stap voor stap, zonder magische shortcut.",
+   "sections": [
+    {"h": "1. Je Etsy-winkel openen", "p": ["Je aanmelden als verkoper begint op etsy.com/sell. Etsy vraagt om een winkelnaam, een identiteitsbewijs en een bankrekening (IBAN) waarop je verkopen worden uitbetaald. Controleer de regels voor het inschrijven van een onderneming in je land voordat je regelmatig gaat verkopen."]},
+    {"h": "2. Een onderwerp kiezen dat een echt probleem oplost", "p": ["Een goed Etsy-e-book lost een concreet probleem op voor een concreet publiek: ‘De komst van de baby voorbereiden: de complete checklist’ verkoopt beter dan ‘Alles over ouderschap’. Kijk wat er al op Etsy staat, lees de reviews van kopers en zoek wat ontbreekt: een beginnersniveau, een praktischer formaat, een minder gedekte taal."], "ul": ["Een herkenbaar publiek (beginners, jonge ouders, sporters, studenten…)", "Een concreet resultaat (een plan, een methode, een checklist)", "Een onderwerp dat je eerlijk kunt presenteren, zonder medische of financiële beloftes"]},
+    {"h": "3. De pdf maken", "p": ["Je e-book moet prettig leesbaar zijn: een inhoudsopgave, korte hoofdstukken, voorbeelden, oefeningen en een actieplan. Kies voor kwaliteit in plaats van aantal pagina's. Met een tool als Movacash schrijft AI de opzet en de hoofdstukken bij je onderwerp; daarna lees je het na, pas je aan wat je niet bevalt en exporteer je een pdf in A4, A5 of US Letter."]},
+    {"h": "4. Een vermelding schrijven die gevonden wordt", "p": ["De zoekfunctie van Etsy leest vooral de titel en de 13 tags. Zet de woorden die kopers intypen vooraan in de titel (maximaal 140 tekens), gebruik alle 13 tags (elk 20 tekens) met gevarieerde termen en schrijf een beschrijving die duidelijk zegt wat het bestand bevat, voor wie het is en hoe je het downloadt."]},
+    {"h": "5. Aandacht voor de miniatuur", "p": ["De eerste afbeelding is wat kopers in de zoekresultaten zien. Ze moet een titel tonen die ook klein leesbaar is, het producttype (pdf-e-book) duidelijk maken en zin geven om te klikken. Vermijd overvolle beelden en grote geschreven beloftes."]},
+    {"h": "6. Je prijs bepalen", "p": ["Bekijk vergelijkbare e-books op Etsy en houd rekening met de kosten: plaatsingskosten (0,20 $ per vermelding, 4 maanden geldig), transactiekosten (6,5 %) en betalingsverwerking. Veel verkopers beginnen met een toegankelijke prijs om hun eerste reviews te krijgen en passen die daarna aan."]},
+    {"h": "7. Regelmatig publiceren en bijleren", "p": ["Eén vermelding levert zelden veel op. Verkopers die vooruitgaan publiceren meerdere e-books over verwante onderwerpen, volgen de statistieken van hun winkel (weergaven, favorieten, verkopen) en verbeteren de titels en miniaturen die niet werken."]}
+   ],
+   "faq": [
+    ["Heb ik een onderneming nodig om op Etsy te verkopen?", "Bij regelmatige verkoop meestal wel. Controleer de regels in je land voordat je begint."],
+    ["Accepteert Etsy e-books die met AI zijn geschreven?", "Ja, zolang je in de beschrijving vermeldt dat AI is gebruikt en je de regels van Etsy over intellectueel eigendom respecteert."],
+    ["Hoeveel kan ik verdienen?", "Niemand kan dat garanderen. De verkoop hangt af van het onderwerp, de kwaliteit van de vermelding, de concurrentie en je regelmaat."]
+   ]
+  },
+  "idees-ebook-etsy": {
+   "title": "Welke e-books verkopen op Etsy? 30 onderwerpideeën",
+   "description": "30 e-book-ideeën die bij Etsy passen, per thema gegroepeerd (gezin, sport, budget, huis, AI, hobby's), en hoe je de jouwe kiest.",
+   "intro": "Het juiste onderwerp ligt waar drie dingen samenkomen: een echte behoefte, een publiek dat op Etsy koopt en een invalshoek die je goed kunt uitwerken. Hier zijn 30 ideeën uit onze database om aan je profiel aan te passen.",
+   "sections": [
+    {"h": "Gezin en opvoeding", "ul": ["De komst van de baby voorbereiden: de complete checklist", "Borstvoeding: een praktische gids voor de eerste weken", "Bedtijdroutines voor kinderen van 3 tot 6 jaar", "Afdrukbaar takenschema voor het gezin", "Een ontspannen kinderfeestje organiseren"]},
+    {"h": "Sport en welzijn", "ul": ["Dagelijks HIIT-programma van 20 minuten", "De gids voor effectief trainen op de hometrainer", "Thuis beginnen met krachttraining", "Rekroutine voor kantoorwerkers", "Trainen voor je eerste 10 km"]},
+    {"h": "Budget en organisatie", "ul": ["Maandelijkse budgetplanner", "De enveloppenmethode, stap voor stap", "Je administratie op orde brengen", "Verhuischecklist zonder iets te vergeten", "Wekelijkse meal prep"]},
+    {"h": "Huis en tuin", "ul": ["Vogels en insecten naar je tuin lokken", "Moestuin op het balkon voor beginners", "Je huis kamer voor kamer opruimen", "Ecologisch schoonmaken: zelfgemaakte recepten", "Makkelijke kamerplanten"]},
+    {"h": "AI en digitale tools", "ul": ["Effectieve AI-prompts schrijven", "De beste gratis AI-tools", "AI gebruiken om een baan te vinden", "Beelden maken met AI (rechten en licenties)", "Pinterest voor gratis verkeer"]},
+    {"h": "Hobby's en creativiteit", "ul": ["Naaien voor beginners: eerste projecten", "Haken leren in 10 projecten", "Fotograferen met je smartphone", "Een bullet journal bijhouden", "Je puppy opvoeden: de eerste 30 dagen"]},
+    {"h": "Hoe kies je je onderwerp", "p": ["Begin bij wat je kent of wat je echt interesseert: je ziet fouten sneller en presenteert het product beter. Controleer daarna op Etsy of er vraag is (vergelijkbare e-books hebben reviews) zonder dat de eerste resultaten allemaal identiek zijn aan het jouwe. Vermijd ten slotte onderwerpen die medische, juridische of financiële expertise vereisen die je niet hebt."]},
+    {"h": "Ideeën vinden die bij je profiel passen", "p": ["De gratis vragenlijst van Movacash stelt je een paar vragen over je tijd, je niveau en je interesses en stelt daarna 3 ideeën uit onze database voor, met een inschatting van vraag en concurrentie (onze schattingen, geen garanties)."]}
+   ]
+  },
+  "creer-ebook-ia": {
+   "title": "Een e-book maken met AI: de methode stap voor stap",
+   "description": "Van onderwerp tot pdf: hoe je AI gebruikt om een nuttig e-book te schrijven, klassieke fouten vermijdt en een verkoopklaar product krijgt.",
+   "intro": "AI kan in een paar minuten een heel e-book schrijven. Maar een goed e-book is geen lange tekst: het is een nuttige, goed gestructureerde tekst zonder fouten. Hier is een methode die werkt.",
+   "sections": [
+    {"h": "1. De lezer en de belofte van het boek bepalen", "p": ["Schrijf voordat je iets genereert in één zin op voor wie het boek is en waarmee het helpt. Voorbeeld: ‘Een absolute beginner helpen om in een maand haar eerste 5 naaiprojecten te maken.’ Die zin stuurt al de rest."]},
+    {"h": "2. Een gedetailleerde opzet genereren", "p": ["Vraag eerst om een opzet: 7 tot 12 hoofdstukken, elk met een duidelijk doel. Controleer hem: is de volgorde logisch? Ontbreekt er een stap? Overlapt een hoofdstuk een ander? De opzet verbeteren kost twee minuten en voorkomt dat je pagina's moet herschrijven."]},
+    {"h": "3. Hoofdstuk voor hoofdstuk genereren", "p": ["Eén hoofdstuk tegelijk geeft preciezere tekst dan een heel boek in één keer. Elk hoofdstuk moet een uitleg, concrete voorbeelden, een oefening of checklist en een samenvatting van de kern bevatten."]},
+    {"h": "4. Nalezen en controleren", "ul": ["Cijfers en statistieken verwijderen die je niet kunt controleren", "Beloftes schrappen (‘gegarandeerd’, ‘resultaat in 7 dagen’)", "Adviezen over veiligheid, gezondheid en geld nakijken", "Je eigen tips toevoegen: dat maakt het boek uniek"]},
+    {"h": "5. Opmaken en exporteren", "p": ["Een inhoudsopgave, een cover, paginanummers en duidelijke koppen maken het verschil. Exporteer een pdf in het formaat dat je kopers verwachten (A4 in Europa, US Letter in de VS, A5 om op de telefoon te lezen)."]},
+    {"h": "Wat Movacash doet", "p": ["Movacash koppelt deze stappen aan elkaar: gedetailleerde opzet, hoofdstukken met voorbeelden en oefeningen, een hoofdstuk opnieuw genereren met één klik, cover, pdf en Etsy-vermelding. De inhoud wordt geschreven zonder verzonnen statistieken en overdreven beloftes, en jij blijft de auteur: je leest na en past aan wat je wilt voordat je verkoopt."]}
+   ],
+   "faq": [
+    ["Is het legaal om een met AI geschreven e-book te verkopen?", "In de meeste gevallen wel, zolang je geen beschermde inhoud hergebruikt en het gebruik van AI vermeldt wanneer het platform daarom vraagt, zoals Etsy doet."],
+    ["Hoeveel pagina's heb ik nodig?", "Er is geen minimum. 40 tot 60 stevige pagina's zijn beter dan 150 opgevulde."]
+   ]
+  },
+  "fiche-etsy-produit-numerique": {
+   "title": "Etsy-vermelding voor een digitaal product: titel, 13 tags en beschrijving",
+   "description": "Hoe je de titel schrijft, de 13 tags kiest en de beschrijving van een e-book of pdf op Etsy opstelt, zodat het gevonden en begrepen wordt.",
+   "intro": "Op Etsy verkoopt een geweldig product dat niemand ziet niet. De vermelding heeft twee taken: gevonden worden in de zoekresultaten en daarna binnen een paar seconden overtuigen. Zo bouw je haar op.",
+   "sections": [
+    {"h": "De titel (maximaal 140 tekens)", "p": ["Begin met de exacte zoekterm die je koper intypt en voeg daarna het formaat en het publiek toe. Voorbeeld: ‘HIIT-programma 20 minuten – Pdf-e-book voor beginners – Thuistraining zonder materiaal’. Vermijd poëtische titels: ze zijn mooi, maar niemand vindt ze."]},
+    {"h": "De 13 tags (elk 20 tekens)", "ul": ["Gebruik altijd alle 13", "Varieer de termen in plaats van hetzelfde woord te herhalen", "Denk aan synoniemen en toepassingen (‘cadeau’, ‘printable’, ‘beginner’)", "Voeg het formaat toe: ‘ebook pdf’, ‘pdf gids’"]},
+    {"h": "De beschrijving", "p": ["De eerste regels verschijnen als voorbeeld: zeg meteen wat het bestand bevat en voor wie het is. Som daarna de inhoud op (hoofdstukken, checklists, oefeningen), het formaat (pdf, aantal pagina's, A4 of US Letter) en hoe je het downloadt. Sluit af met een vermelding van AI-gebruik als je AI hebt gebruikt, zoals Etsy vereist."]},
+    {"h": "De afbeeldingen", "p": ["De miniatuur moet klein leesbaar blijven. Voeg 2 of 3 voorbeelden van binnenpagina's toe: kopers willen zien wat ze kopen. Vermijd merklogo's en resultaatbeloftes op de afbeelding."]},
+    {"h": "Wat Movacash voor je klaarzet", "p": ["Voor elk e-book maakt Movacash een titel van 140 tekens, 13 tags, een beschrijving met de AI-vermelding en een miniatuur, klaar om in Etsy te plakken. Je kunt alles aanpassen voordat je publiceert."]}
+   ]
+  },
+  "prix-ebook-etsy": {
+   "title": "Welke prijs vraag je voor een e-book op Etsy?",
+   "description": "Hoe je de prijs van een e-book op Etsy bepaalt: de concurrentie bekijken, de Etsy-kosten meerekenen, een startprijs kiezen en die bijstellen.",
+   "intro": "Te duur, en niemand koopt bij een onbekende winkel. Te goedkoop, en je e-book lijkt niets waard terwijl de kosten je marge opeten. Zo vind je de juiste prijs.",
+   "sections": [
+    {"h": "Vergelijkbare e-books bekijken", "p": ["Zoek je onderwerp op Etsy en noteer de prijzen van de eerste 15 tot 20 resultaten met reviews. Zo krijg je een realistische bandbreedte voor dit soort product. Bij veel praktische onderwerpen kosten e-books tussen een paar euro en ongeveer vijftien, maar elke niche is anders."]},
+    {"h": "De kosten meerekenen", "ul": ["Plaatsing: 0,20 $ per vermelding, elke 4 maanden of bij elke verkoop vernieuwd", "Transactiekosten: 6,5 % van de prijs", "Betalingsverwerking: een percentage plus een vast bedrag, afhankelijk van je land", "Etsy Ads en Offsite Ads: alleen als ze voor je winkel gelden"]},
+    {"h": "Een startprijs kiezen", "p": ["Veel verkopers beginnen aan de onderkant van de bandbreedte om hun eerste verkopen en reviews te krijgen en verhogen daarna de prijs. Een andere optie is een bundel (2 of 3 e-books over verwante onderwerpen) tegen een hogere prijs."]},
+    {"h": "Bijstellen met je statistieken", "p": ["Krijgt een vermelding weergaven en favorieten maar geen verkopen, dan ligt het misschien aan de prijs of de beschrijving. Krijgt ze geen weergaven, kijk dan eerst naar de titel, de tags of de miniatuur."]},
+    {"h": "Hoe Movacash helpt", "p": ["Elk idee in onze database toont een aanbevolen prijs, geschat op basis van vergelijkbare producten. Het is een vertrekpunt, geen garantie: je bepaalt je prijs zelf."]}
+   ]
+  },
+  "etsy-ia-regles": {
+   "title": "Etsy en AI: wat mag er bij digitale producten",
+   "description": "Mag je een met AI gemaakt e-book op Etsy verkopen? De regels die je moet kennen: AI-vermelding, intellectueel eigendom, gevoelige onderwerpen.",
+   "intro": "Etsy accepteert producten die met hulp van AI zijn gemaakt, maar met regels. Wie ze negeert, riskeert dat een vermelding wordt verwijderd of zelfs dat de winkel wordt geschorst. Dit is wat telt.",
+   "sections": [
+    {"h": "Het gebruik van AI vermelden", "p": ["Etsy vraagt verkopers om transparantie: als je product met hulp van AI-tools is gemaakt, zeg dat dan in de beschrijving van de vermelding. Eén eenvoudige zin volstaat, bijvoorbeeld ‘Inhoud geschreven met hulp van AI-tools, daarna nagekeken en opgemaakt door de winkel’."]},
+    {"h": "Intellectueel eigendom respecteren", "ul": ["Geen beschermde merken, logo's of personages in de titel, tags of beelden", "Geen kopie van bestaande boeken, cursussen of artikelen", "Beelden waarop je de rechten hebt (zelf gemaakt, door een AI die het toestaat, of met licentie)"]},
+    {"h": "Voorzichtig met gevoelige onderwerpen", "p": ["Gezondheid, afvallen, geld, beleggen: deze onderwerpen verkopen, maar vragen zorg. Geen beloftes van genezing of winst, duidelijke waarschuwingen en waar nodig een verwijzing naar een professional."]},
+    {"h": "Echte waarde bieden", "p": ["Etsy bevoordeelt winkels met tevreden klanten. Een nagekeken, nuttig en goed gepresenteerd e-book krijgt betere reviews dan een tekst die zonder controle is gegenereerd en gepubliceerd."]},
+    {"h": "Hoe Movacash je helpt de regels te volgen", "p": ["De AI-vermelding wordt automatisch toegevoegd aan de vermelding en de pdf. Onderwerpen over gezondheid en geld krijgen waarschuwingen, en de tekst vermijdt overdreven beloftes en merknamen. Je blijft verantwoordelijk voor wat je publiceert: lees altijd na voordat je verkoopt."]}
+   ]
+  }
+ }
+}
