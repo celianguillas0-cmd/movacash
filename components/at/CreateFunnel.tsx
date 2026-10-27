@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import Marque from "@/components/at/Marque";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocale, useT } from "@/lib/i18n/client";
@@ -17,6 +18,7 @@ const ICONES: Record<string, string> = {
   telephone: "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
   fiche: "M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h6M8 13h8M8 17h5",
   eclair: "M13 2 4 14h7l-1 8 9-12h-7z",
+  courbe: "M3 17l6-6 4 4 8-8M15 7h6v6",
 };
 
 const REVOLUT = "M20.9133 6.9566C20.9133 3.1208 17.7898 0 13.9503 0H2.424v3.8605h10.9782c1.7376 0 3.177 1.3651 3.2087 3.043.016.84-.2994 1.633-.8878 2.2324-.5886.5998-1.375.9303-2.2144.9303H9.2322a.2756.2756 0 0 0-.2755.2752v3.431c0 .0585.018.1142.052.1612L16.2646 24h5.3114l-7.2727-10.094c3.6625-.1838 6.61-3.2612 6.61-6.9494zM6.8943 5.9229H2.424V24h4.4704z";
@@ -66,9 +68,27 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     { cle: "echeance", ic: "horloge", kicker: t("Ton échéance"), t1: t("En combien de temps tu veux"), t2: t("ton e-book en vente ?"), choix: ECHEANCES },
     { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire derrière ton téléphone"), t2: t("sans te montrer ?"), choix: DISCRETION },
     { cle: "fiche", ic: "fiche", kicker: t("Ta boutique Etsy"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },
-    { cle: "plan", ic: "eclair", kicker: t("Dernière étape"), t1: t("Ton plan est prêt."), t2: "" },
+    { cle: "plan", ic: "courbe", kicker: t("Dernière étape"), t1: t("On chiffre ton scénario."), t2: "" },
   ];
   const e = ETAPES[step];
+  // Verdict : le montant défile de 0 à l'objectif choisi (aucun chiffre inventé).
+  const [compte, setCompte] = useState(0);
+  useEffect(() => {
+    if (e.cle !== "plan") return;
+    let raf = 0;
+    const debut = performance.now();
+    const duree = 1600;
+    const tick = (now: number) => {
+      const x = Math.min(1, (now - debut) / duree);
+      setCompte(Math.round(objectif * (1 - Math.pow(1 - x, 3))));
+      if (x < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [e.cle, objectif]);
+  const prix = Math.max(1, (idea.priceMin + idea.priceMax) / 2);
+  const vj = (objectif * 12) / 365 / prix;
+  const ventesJour = Math.max(1, vj >= 10 ? Math.round(vj) : Math.round(vj * 10) / 10);
   const parJour = (v: number) => fmtEur(Math.round((v * 12) / 365), locale);
 
   // Réglages de l'e-book : ceux du profil, sinon des valeurs sûres (modifiables ensuite dans l'éditeur).
@@ -132,7 +152,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     return (
       <div className="mf">
         <header className="mf-head">
-          <div className="at-wrap"><span className="at-brand">Mova<span>cash</span></span></div>
+          <div className="at-wrap"><span className="at-brand mc-marque"><Marque /></span></div>
         </header>
         <div className="at-wrap mf-gen">
           <GenerationScreen title={t("Préparation du plan de ton e-book")} steps={etapesProvisoires(t, false)} note={t("Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.")} />
@@ -144,7 +164,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     <div className="mf">
       <header className="mf-head">
         <div className="at-wrap">
-          <Link href="/app" className="at-brand">Mova<span>cash</span></Link>
+          <Link href="/app" className="at-brand mc-marque"><Marque /></Link>
           <Link href="/app/mon-idee" className="mf-quitter">← {t("Retour à l'atelier")}</Link>
         </div>
       </header>
@@ -158,6 +178,14 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
         </div>
         <div className="mf-segments" aria-hidden="true">{ETAPES.map((_, k) => <i key={k} className={k <= step ? "on" : ""} />)}</div>
 
+        {step > 0 && (
+          <aside className="mf-scenario" aria-live="polite">
+            <b>{fmtEur(objectif, locale)}</b>
+            <span>{t("Ton scénario par mois")}</span>
+            <i><em style={{ width: `${Math.round((step / (ETAPES.length - 1)) * 100)}%` }} /></i>
+            <small>{step < ETAPES.length - 1 ? (ETAPES.length - 1 - step > 1 ? t("encore {n} réponses", { n: ETAPES.length - 1 - step }) : t("plus qu'une réponse")) : t("verdict prêt")}</small>
+          </aside>
+        )}
         <section className="mf-scene" key={step}>
           <span className="mf-num" aria-hidden="true">{String(step + 1).padStart(2, "0")}</span>
           <div className="mf-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={ICONES[e.ic]} /></svg></div>
@@ -198,14 +226,19 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
 
           {e.cle === "plan" && (
             <>
-              <p className="mf-montant">{fmtEur(objectif, locale)}</p>
-              <p className="mf-soit">{t("par mois : l'objectif que tu t'es fixé, soit {jour} par jour.", { jour: parJour(objectif) })}</p>
+              <p className="mf-montant">{fmtEur(compte, locale)}</p>
+              <p className="mf-soit">{t("par mois : ton scénario, calculé sur tes réponses.")}</p>
+              <div className="mf-verdict">
+                <div><b>{parJour(objectif)}</b><small>{t("par jour")}</small></div>
+                <div><b>{ventesJour.toLocaleString(locale)}</b><small>{t("ventes par jour à {prix}", { prix: fmtEur(Math.round(prix), locale) })}</small></div>
+                <div><b>{t(({ aujourdhui: tk("Ce soir"), semaine: tk("7 jours"), mois: tk("30 jours") } as Record<string, string>)[r.echeance] || tk("30 jours"))}</b><small>{t("pour la mise en vente")}</small></div>
+              </div>
               {dateVisee() && <p className="mf-date">{dateVisee()}</p>}
               <button className="mf-btn" disabled={envoi} onClick={generer}>
                 {envoi ? t("Préparation du plan…") : t("Lancer mon business")} <span aria-hidden="true">→</span>
               </button>
               {erreur && <p className="mf-erreur">{erreur}</p>}
-              <p className="mf-mention">{t("Un objectif, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
+              <p className="mf-mention">{t("Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
             </>
           )}
         </section>

@@ -1209,5 +1209,18 @@
  "on écrit ton e-book, ta fiche Etsy et ta miniature à ta place": "vi skriver din e-bog, din Etsy-annonce og dit miniaturebillede for dig",
  "Ta boutique Etsy": "Din Etsy-butik",
  "Tu veux qu'on le fasse à ta place ?": "Vil du have, at vi gør det for dig?",
- "Tu veux tout faire derrière ton téléphone": "Vil du gøre alt bag din telefon"
+ "Tu veux tout faire derrière ton téléphone": "Vil du gøre alt bag din telefon",
+ "30 jours": "30 dage",
+ "7 jours": "7 dage",
+ "Ce soir": "I aften",
+ "encore {n} réponses": "{n} svar tilbage",
+ "On chiffre ton scénario.": "Vi sætter tal på dit scenarie.",
+ "par jour": "om dagen",
+ "par mois : ton scénario, calculé sur tes réponses.": "om måneden: dit scenarie, beregnet ud fra dine svar.",
+ "plus qu'une réponse": "kun ét svar tilbage",
+ "pour la mise en vente": "til den er til salg",
+ "Ton scénario par mois": "Dit scenarie pr. måned",
+ "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Et scenarie ud fra dine svar, ikke et løfte: dit salg afhænger af dit emne, din Etsy-annonce og din vedholdenhed.",
+ "ventes par jour à {prix}": "salg om dagen à {prix}",
+ "verdict prêt": "resultatet er klar"
 }

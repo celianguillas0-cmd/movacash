@@ -1209,5 +1209,18 @@
  "on écrit ton e-book, ta fiche Etsy et ta miniature à ta place": "kirjutame sinu eest e-raamatu, Etsy kuulutuse ja pisipildi",
  "Ta boutique Etsy": "Sinu Etsy pood",
  "Tu veux qu'on le fasse à ta place ?": "Kas tahad, et teeme selle sinu eest?",
- "Tu veux tout faire derrière ton téléphone": "Kas tahad kõike teha oma telefoni tagant"
+ "Tu veux tout faire derrière ton téléphone": "Kas tahad kõike teha oma telefoni tagant",
+ "30 jours": "30 päeva",
+ "7 jours": "7 päeva",
+ "Ce soir": "Täna õhtul",
+ "encore {n} réponses": "veel {n} vastust",
+ "On chiffre ton scénario.": "Paneme su stsenaariumile numbrid.",
+ "par jour": "päevas",
+ "par mois : ton scénario, calculé sur tes réponses.": "kuus: sinu stsenaarium, arvutatud vastuste põhjal.",
+ "plus qu'une réponse": "veel ainult üks vastus",
+ "pour la mise en vente": "müüki panemiseni",
+ "Ton scénario par mois": "Sinu kuu stsenaarium",
+ "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Sinu vastustel põhinev stsenaarium, mitte lubadus: müük sõltub teemast, Etsy kuulutusest ja järjepidevusest.",
+ "ventes par jour à {prix}": "müüki päevas hinnaga {prix}",
+ "verdict prêt": "tulemus on valmis"
 }

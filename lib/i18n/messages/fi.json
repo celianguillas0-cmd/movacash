@@ -1209,5 +1209,18 @@
  "on écrit ton e-book, ta fiche Etsy et ta miniature à ta place": "kirjoitamme puolestasi e-kirjasi, Etsy-ilmoituksesi ja pikkukuvasi",
  "Ta boutique Etsy": "Etsy-kauppasi",
  "Tu veux qu'on le fasse à ta place ?": "Haluatko, että teemme sen puolestasi?",
- "Tu veux tout faire derrière ton téléphone": "Haluatko tehdä kaiken puhelimesi takaa"
+ "Tu veux tout faire derrière ton téléphone": "Haluatko tehdä kaiken puhelimesi takaa",
+ "30 jours": "30 päivää",
+ "7 jours": "7 päivää",
+ "Ce soir": "Tänä iltana",
+ "encore {n} réponses": "vielä {n} vastausta",
+ "On chiffre ton scénario.": "Lasketaan skenaariosi.",
+ "par jour": "päivässä",
+ "par mois : ton scénario, calculé sur tes réponses.": "kuukaudessa: skenaariosi vastaustesi perusteella.",
+ "plus qu'une réponse": "vain yksi vastaus jäljellä",
+ "pour la mise en vente": "myyntiin asti",
+ "Ton scénario par mois": "Kuukausiskenaariosi",
+ "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Vastauksiisi perustuva skenaario, ei lupaus: myyntisi riippuu aiheesta, Etsy-ilmoituksesta ja säännöllisyydestä.",
+ "ventes par jour à {prix}": "myyntiä päivässä hintaan {prix}",
+ "verdict prêt": "tulos valmis"
 }

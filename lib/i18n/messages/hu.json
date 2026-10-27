@@ -1209,5 +1209,18 @@
  "on écrit ton e-book, ta fiche Etsy et ta miniature à ta place": "megírjuk helyetted az e-könyvet, az Etsy-hirdetést és a bélyegképet",
  "Ta boutique Etsy": "Az Etsy-boltod",
  "Tu veux qu'on le fasse à ta place ?": "Szeretnéd, ha megcsinálnánk helyetted?",
- "Tu veux tout faire derrière ton téléphone": "Mindent a telefonod mögül szeretnél intézni"
+ "Tu veux tout faire derrière ton téléphone": "Mindent a telefonod mögül szeretnél intézni",
+ "30 jours": "30 nap",
+ "7 jours": "7 nap",
+ "Ce soir": "Ma este",
+ "encore {n} réponses": "még {n} válasz",
+ "On chiffre ton scénario.": "Számokba öntjük a forgatókönyvedet.",
+ "par jour": "naponta",
+ "par mois : ton scénario, calculé sur tes réponses.": "havonta: a forgatókönyved a válaszaid alapján.",
+ "plus qu'une réponse": "már csak egy válasz",
+ "pour la mise en vente": "az értékesítés indulásáig",
+ "Ton scénario par mois": "Havi forgatókönyved",
+ "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "A válaszaidból számolt forgatókönyv, nem ígéret: az eladások a témától, az Etsy-hirdetéstől és a kitartásodtól függenek.",
+ "ventes par jour à {prix}": "eladás naponta {prix} áron",
+ "verdict prêt": "kész az eredmény"
 }

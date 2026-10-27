@@ -1,3 +1,4 @@
+import Marque from "@/components/at/Marque";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -29,7 +30,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     <div className="at">
       <header className="at-head">
         <div className="at-wrap">
-          <Link href="/app" className="at-brand">Mova<span>cash</span></Link>
+          <Link href="/app" className="at-brand mc-marque"><Marque /></Link>
           <div className="at-head-liens">
             <Link href="/" className="at-retour">← {t("Retour à l'accueil")}</Link>
             <LangSwitch />
