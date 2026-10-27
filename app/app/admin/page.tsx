@@ -5,6 +5,7 @@ import { all, one } from "@/lib/db";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { listCategories } from "@/lib/ideas";
 import AdminTest from "./AdminTest";
+import IndexNow from "./IndexNow";
 import { PLANS, isGeminiConfigured, isStripeConfigured } from "@/lib/config";
 import { googleConfigured } from "@/lib/google";
 import { annualAvailable } from "@/lib/stripe";
@@ -130,6 +131,8 @@ export default async function AdminPage() {
         payant={Boolean(user.stripe_subscription_id && !user.is_demo_sub && hasActiveSubscription(user))}
         sujetsRejouables={rejouables.map((r) => r.topic)}
       />
+
+      <IndexNow />
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Chiffres</h2>
