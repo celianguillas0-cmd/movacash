@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import Bars from "@/components/funnel/Bars";
+import AutresIdees from "@/components/funnel/AutresIdees";
 import { getCurrentUser } from "@/lib/auth";
 import { countIdeas, explainIdea, getIdeasByIds, terrainMatches, type QuizAnswers } from "@/lib/ideas";
 import { label } from "@/lib/quiz-questions";
@@ -103,6 +104,13 @@ export default async function Results({ searchParams }: { searchParams: Promise<
             );
           })}
         </div>
+        <AutresIdees />
+        {unlocked && (
+          <p className="q-help" style={{ textAlign: "center", marginTop: 10 }}>
+            {t("Avec ton abonnement, toute la base ({total} idées) t'attend dans ton atelier : cherche par sujet et crée autant d'e-books que ta formule le permet.", { total })}{" "}
+            <Link href="/app" style={{ textDecoration: "underline" }}>{t("Ouvrir mon atelier")}</Link>
+          </p>
+        )}
         <div className="plan30">
           <p className="eyebrow">{t("Ton plan des 30 premiers jours")}</p>
           <div style={unlocked ? undefined : { filter: "blur(6px)", userSelect: "none" }}>

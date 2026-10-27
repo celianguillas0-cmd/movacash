@@ -36,10 +36,12 @@ export default function IdeaFinder({ initialQ = "" }: { initialQ?: string }) {
     } catch {}
   }, [initialQ, CLE]);
 
-  async function chercher(e?: React.FormEvent) {
+  const [page, setPage] = useState(1);
+  async function chercher(e?: React.FormEvent, p = 1) {
     e?.preventDefault();
     setLoading(true);
-    const r = await fetch("/api/ideas/find", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ q, cible }) });
+    setPage(p);
+    const r = await fetch("/api/ideas/find", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ q, cible, page: p }) });
     const d = await r.json().catch(() => null);
     setLoading(false);
     if (!r.ok || !d) return;
@@ -92,6 +94,13 @@ export default function IdeaFinder({ initialQ = "" }: { initialQ?: string }) {
           {res.ideas.map((i, k) => (
             <IdeaCard key={i.id} idea={i} rank={k + 1} onKeep={garde === i.id ? undefined : () => garder(i.id)} />
           ))}
+          {res.total > res.ideas.length && (
+            <p style={{ textAlign: "center", marginTop: 18 }}>
+              <button type="button" className="at-btn at-btn-sec" disabled={loading} onClick={() => chercher(undefined, page + 1)}>
+                {loading ? t("Recherche…") : t("Voir d'autres idées")} <span aria-hidden="true">↓</span>
+              </button>
+            </p>
+          )}
         </>
       )}
     </div>

@@ -18,8 +18,9 @@ export async function POST(req: Request) {
     try {
       answers = JSON.parse(user.quiz_json || "{}").answers || {};
     } catch {}
+    const page = Math.min(20, Math.max(1, Number(body.page) || 1));
     const { t, locale } = await getT();
-    const res = await findIdeasForUser(answers, q, cible, 12, { t, locale });
+    const res = await findIdeasForUser(answers, q, cible, 12 * page, { t, locale });
     const raw = res.picks.map((p) => p.idea);
     if (!isFilmMode(user)) await translateIdeas(raw, locale).catch((e) => console.error("traduction des idées", e));
     const local = await localizeIdeas(raw, locale);

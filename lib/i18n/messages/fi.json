@@ -1198,5 +1198,11 @@
  "Trois formules sans engagement : 20, 50 ou 120 e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel.": "Kolme pakettia ilman sitoutumista: 20, 50 tai 120 e-kirjaa kuukaudessa, myyntivalmis PDF ja valmis Etsy-ilmoitus. −50 % vuosimaksulla.",
  "Trouve ton idée d'e-book à vendre sur Etsy : questionnaire gratuit": "Löydä e-kirjaideasi Etsyssä myytäväksi: ilmainen kysely",
  "Trouve une idée d'e-book adaptée à Etsy, laisse l'IA l'écrire (40 à 60 pages, PDF prêt à vendre), puis récupère la fiche Etsy complète : titre, 13 tags, description et miniature. Sans engagement.": "Löydä Etsyyn sopiva e-kirjaidea, anna tekoälyn kirjoittaa se (40–60 sivua, myyntivalmis PDF) ja saat valmiin Etsy-ilmoituksen: otsikko, 13 tunnistetta, kuvaus ja pikkukuva. Ilman sitoutumista.",
- "Guides Etsy": "Etsy-oppaat"
+ "Guides Etsy": "Etsy-oppaat",
+ "Aucune ne te plaît ?": "Eikö mikään miellytä?",
+ "Avec ton abonnement, toute la base ({total} idées) t'attend dans ton atelier : cherche par sujet et crée autant d'e-books que ta formule le permet.": "Tilauksellasi koko tietokanta ({total} ideaa) odottaa työpajassasi: hae aiheen mukaan ja luo niin monta e-kirjaa kuin tilauksesi sallii.",
+ "Connecte-toi pour voir d'autres idées.": "Kirjaudu sisään nähdäksesi muita ideoita.",
+ "Préparation du plan de ton e-book": "E-kirjasi runkoa valmistellaan",
+ "Voir 3 autres idées": "Näytä 3 muuta ideaa",
+ "Voir d'autres idées": "Näytä lisää ideoita"
 }

@@ -448,3 +448,5 @@
 .mc .guide-cta { margin: 44px 0 12px; padding: 26px; border: 1px solid rgba(255,255,255,.15); border-radius: 18px; background: rgba(255,255,255,.04); text-align: center; }
 .mc .guide-cta h2 { margin-top: 0 !important; }
 .mc .guide-cta .btn { margin-top: 10px; }
+.mc .autres-idees { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 22px 0 6px; }
+.mc .autres-idees p { color: var(--muted); }

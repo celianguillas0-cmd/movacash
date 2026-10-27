@@ -190,12 +190,24 @@ function scoreParts(i: Idea, a: QuizAnswers, terrain: Set<number>) {
 }
 
 // Sélection des 3 idées du sondage : thèmes choisis, terrain, public, format et contraintes, une par catégorie si possible.
-export async function pickIdeasForQuiz(a: QuizAnswers, limit = 3): Promise<Idea[]> {
+// exclude : idées déjà montrées (bouton « D'autres idées ») ; si tout a été vu, on repart de toute la sélection.
+export async function pickIdeasForQuiz(a: QuizAnswers, limit = 3, exclude: number[] = []): Promise<Idea[]> {
   const themes = arr(a.themes).slice(0, 6);
   const terrain = await terrainMatches(a);
   const where = [themes.length || terrain.size ? `(${[themes.length ? `i.category_slug IN (${themes.map(() => "?").join(",")})` : "", terrain.size ? `i.id IN (${[...terrain].join(",")})` : ""].filter(Boolean).join(" OR ")})` : "1=1"];
   if (a.sensitive === "no") where.push("i.sensitive IS NULL");
-  const pool = await all<Idea>(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug WHERE ${where.join(" AND ")}`, themes);
+  let pool = await all<Idea>(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug WHERE ${where.join(" AND ")}`, themes);
+  if (exclude.length || pool.length < limit) {
+    const vus = new Set(exclude);
+    let reste = pool.filter((i) => !vus.has(i.id));
+    // Sélection épuisée : on élargit à toute la base avant de reproposer des idées déjà vues
+    if (reste.length < limit) {
+      const tout = await all<Idea>(`SELECT i.*, c.name AS category_name, c.emoji FROM ideas i JOIN categories c ON c.slug = i.category_slug${a.sensitive === "no" ? " WHERE i.sensitive IS NULL" : ""}`);
+      reste = tout.filter((i) => !vus.has(i.id));
+    }
+    const derniers = new Set(exclude.slice(-limit));
+    pool = reste.length >= limit ? reste : pool.filter((i) => !derniers.has(i.id));
+  }
   const score = (i: Idea) => Object.values(scoreParts(i, a, terrain).parts).reduce((x, y) => x + y, 0) + Math.random() * 1.5;
   const ranked = pool.map((i) => ({ i, s: score(i) })).sort((x, y) => y.s - x.s).map((x) => x.i);
   const picks: Idea[] = [];

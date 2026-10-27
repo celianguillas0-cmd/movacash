@@ -4,10 +4,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { fmtEur, tk } from "@/lib/i18n/t";
+import GenerationScreen, { etapesProvisoires } from "./GenerationScreen";
+import { LOGO_BOURSOBANK, LOGO_CREDIT_AGRICOLE, LOGO_CREDIT_MUTUEL, type Logo } from "./banques";
 
 type Idea = { id: number; title: string; audience: string; sensitive: string | null; priceMin: number; priceMax: number };
-// logo : tracé SVG (simple-icons) ; mot : nom écrit dans la couleur de la marque (banques sans tracé libre).
-type Choix = { id: string; titre: string; detail: string; logo?: string; mot?: string; couleur?: string; logoMot?: boolean };
+type Choix = { id: string; titre: string; detail: string; logo?: Logo };
 
 const ICONES: Record<string, string> = {
   cible: "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0M12 12m-5 0a5 5 0 1 0 10 0a5 5 0 1 0-10 0M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0-2 0",
@@ -21,15 +22,18 @@ const ICONES: Record<string, string> = {
 const REVOLUT = "M20.9133 6.9566C20.9133 3.1208 17.7898 0 13.9503 0H2.424v3.8605h10.9782c1.7376 0 3.177 1.3651 3.2087 3.043.016.84-.2994 1.633-.8878 2.2324-.5886.5998-1.375.9303-2.2144.9303H9.2322a.2756.2756 0 0 0-.2755.2752v3.431c0 .0585.018.1142.052.1612L16.2646 24h5.3114l-7.2727-10.094c3.6625-.1838 6.61-3.2612 6.61-6.9494zM6.8943 5.9229H2.424V24h4.4704z";
 const N26 = "M0 3.803v1.195h7.436V3.803H0zM12.69 7.29c-2.034 0-3.038 1.252-3.038 2.684 0 .234.027.468.092.728l1.393.135a3.697 3.697 0 0 1-.09-.793c0-1.072.71-1.586 1.598-1.586.866 0 1.507.485 1.507 1.652 0 1.186-.58 1.995-1.464 2.88-.925.923-2.4 2.027-3.112 2.534v1.092h6.135v-1.195h-4.168c.695-.48 1.69-1.279 2.133-1.72.502-.503 1.931-1.794 1.931-3.636 0-1.903-1.24-2.775-2.918-2.775zm8.34 0c-1.976 0-3.454 1.517-3.454 4.916 0 3.017 1.233 4.508 3.356 4.508 1.754 0 3.068-1.198 3.068-3.172 0-1.542-.823-3.066-2.793-3.066-1.1 0-1.884.51-2.281 1.263 0-1.78.62-3.33 2.094-3.33.937 0 1.309.538 1.507 1.422l1.366-.271c-.321-1.527-1.292-2.27-2.864-2.27zM.075 7.389v9.228h1.33v-6.312c0-.56-.013-.898-.039-1.223h.026c.136.372.298.699.539 1.123l3.732 6.412h1.69V7.39H6.04v6.31c0 .56.013.898.04 1.223h-.028a7.252 7.252 0 0 0-.537-1.123L1.783 7.389H.076zm20.817 4.185c1.114 0 1.744.822 1.744 1.992 0 1.256-.717 2.034-1.701 2.034-1.09 0-1.843-1.001-1.973-2.329.33-1.133 1.063-1.697 1.93-1.697zM0 19.008v1.19h7.436v-1.19H0z";
 const BANQUE = "M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18M12 3l9 5H3z";
+const LOGO_REVOLUT: Logo = { vb: "0 0 24 24", paths: [{ d: REVOLUT }] };
+const LOGO_N26: Logo = { vb: "0 0 24 24", paths: [{ d: N26 }] };
+const LOGO_BANQUE: Logo = { vb: "0 0 24 24", paths: [{ d: BANQUE }] };
 
 // Etsy verse les ventes sur un compte bancaire (IBAN) : pas de PayPal ici.
 const PAIEMENTS: Choix[] = [
-  { id: "credit-agricole", titre: "Crédit Agricole", detail: tk("sur ton compte Crédit Agricole"), mot: "Crédit Agricole", couleur: "#00a19a" },
-  { id: "boursobank", titre: "BoursoBank", detail: tk("virement direct sur ton compte"), mot: "BoursoBank", couleur: "#e2007a" },
-  { id: "credit-mutuel", titre: "Crédit Mutuel", detail: tk("sur ton compte Crédit Mutuel"), mot: "Crédit Mutuel", couleur: "#e2231a" },
-  { id: "revolut", titre: "Revolut", detail: tk("encaissement rapide, frais bas"), logo: REVOLUT },
-  { id: "n26", titre: "N26", detail: tk("compte en ligne, sans frais"), logo: N26, logoMot: true },
-  { id: "autre", titre: tk("Une autre banque"), detail: tk("n'importe quel compte avec un IBAN"), logo: BANQUE },
+  { id: "credit-agricole", titre: "Crédit Agricole", detail: tk("sur ton compte Crédit Agricole"), logo: LOGO_CREDIT_AGRICOLE },
+  { id: "revolut", titre: "Revolut", detail: tk("encaissement rapide, frais bas"), logo: LOGO_REVOLUT },
+  { id: "boursobank", titre: "BoursoBank", detail: tk("virement direct sur ton compte"), logo: LOGO_BOURSOBANK },
+  { id: "credit-mutuel", titre: "Crédit Mutuel", detail: tk("sur ton compte Crédit Mutuel"), logo: LOGO_CREDIT_MUTUEL },
+  { id: "n26", titre: "N26", detail: tk("compte en ligne, sans frais"), logo: LOGO_N26 },
+  { id: "autre", titre: tk("Une autre banque"), detail: tk("n'importe quel compte avec un IBAN"), logo: LOGO_BANQUE },
 ];
 const ECHEANCES: Choix[] = [
   { id: "aujourdhui", titre: tk("Aujourd'hui"), detail: tk("je veux mon e-book en vente aujourd'hui") },
@@ -123,6 +127,19 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     return t("En t'y mettant ce soir, ton e-book peut être en vente sur Etsy avant le {date}.", { date: d.toLocaleDateString(locale, { weekday: "long", day: "numeric", month: "long" }) });
   };
 
+  // Dès le clic : écran de génération (le plan s'écrit côté serveur pendant ce temps), sans temps mort.
+  if (envoi && !erreur)
+    return (
+      <div className="mf">
+        <header className="mf-head">
+          <div className="at-wrap"><span className="at-brand">Mova<span>cash</span></span></div>
+        </header>
+        <div className="at-wrap mf-gen">
+          <GenerationScreen title={t("Préparation du plan de ton e-book")} steps={etapesProvisoires(t, false)} note={t("Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.")} />
+        </div>
+      </div>
+    );
+
   return (
     <div className="mf">
       <header className="mf-head">
@@ -163,8 +180,14 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
                 {e.choix.map((c, k) => (
                   <button key={c.id} className="mf-carte" aria-pressed={r[e.cle] === c.id} onClick={() => choisir(c.id)} style={{ animationDelay: `${120 + k * 70}ms` }}>
                     <span className="mf-touche">{k + 1}</span>
-                    {c.logo && <span className={`mf-logo${c.logoMot ? " mf-logo-grand" : ""}`}><svg viewBox="0 0 24 24" aria-hidden="true" fill={c.logo === BANQUE ? "none" : "currentColor"} stroke={c.logo === BANQUE ? "currentColor" : "none"} strokeWidth="1.7" strokeLinejoin="round"><path d={c.logo} /></svg></span>}
-                    {c.mot ? <span className="mf-logo mf-logo-mot" style={{ color: c.couleur }}>{c.mot}</span> : !c.logoMot && <b>{t(c.titre)}</b>}
+                    {c.logo && (
+                      <span className="mf-logo" style={c.logo.couleur ? { color: c.logo.couleur } : undefined}>
+                        <svg viewBox={c.logo.vb} aria-hidden="true" {...(c.logo === LOGO_BANQUE ? { fill: "none", stroke: "currentColor", strokeWidth: 1.7, strokeLinejoin: "round" as const } : { fill: "currentColor" })}>
+                          {c.logo.paths.map((p, j) => <path key={j} d={p.d} fill={p.fill} />)}
+                        </svg>
+                      </span>
+                    )}
+                    <b>{t(c.titre)}</b>
                     <small>{t(c.detail)}</small>
                   </button>
                 ))}

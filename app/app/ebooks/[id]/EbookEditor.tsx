@@ -8,6 +8,7 @@ import { checkEtsyCompliance, ETSY_CHECKLIST, type EtsyKit } from "@/lib/etsy";
 import { wordCount } from "@/lib/markdown";
 import { renderListingImages } from "@/lib/listing-images";
 import Miniature from "@/components/at/Miniature";
+import GenerationScreen, { etapesProvisoires, type GenStep } from "@/components/at/GenerationScreen";
 import type { ThumbStyle } from "@/lib/miniature";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { tk } from "@/lib/i18n/t";
@@ -95,7 +96,12 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
   }, [load, autostart, generateAll]);
 
   if (error && !ebook) return <p className="text-red-600">{error}</p>;
-  if (!ebook) return <p className="muted">{t("Chargement…")}</p>;
+  // Arrivée depuis le mini-funnel : l'écran de génération s'affiche tout de suite, sans page vide.
+  if (!ebook)
+    return autostart ? (
+      <GenerationScreen className="mt-4" title={t("Rédaction de ton e-book")} note={t("Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.")}
+        steps={etapesProvisoires(t, true)} />
+    ) : <p className="muted">{t("Chargement…")}</p>;
 
   const cover: Cover = JSON.parse(ebook.cover_json);
   const done = chapters.filter((c) => c.status === "done").length;
@@ -126,7 +132,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
       </div>
 
       {running && phase && (
-        <GenerationScreen chapters={chapters} current={current} phase={phase} />
+        <Generation chapters={chapters} current={current} phase={phase} />
       )}
       {!running && !ready && (
         <div className="card mt-4">
@@ -177,43 +183,19 @@ const PHRASES: Record<Exclude<Phase, null>, string> = {
   photo: tk("Création de ta miniature"),
 };
 
-// Écran de génération façon atelier : anneau de progression et étapes cochées une à une.
-function GenerationScreen({ chapters, current, phase }: { chapters: Chapter[]; current: number | null; phase: Exclude<Phase, null> }) {
+// Écran de génération : étapes du plan, des chapitres, de la fiche et de la miniature.
+function Generation({ chapters, current, phase }: { chapters: Chapter[]; current: number | null; phase: Exclude<Phase, null> }) {
   const t = useT();
-  const done = chapters.filter((c) => c.status === "done").length;
-  const total = chapters.length + 3;
-  const finished = 1 + done + (phase === "photo" ? 1 : 0);
-  const pct = Math.min(99, Math.round((finished / total) * 100));
-  const r = 84, len = 2 * Math.PI * r;
-  const steps: { label: string; state: "ok" | "now" | "" }[] = [
+  const steps: GenStep[] = [
     { label: t("Plan de l'e-book"), state: "ok" },
     ...chapters.map((c) => ({
       label: `${t("Chapitre {n}", { n: c.idx + 1 })} · ${c.title}`,
-      state: (c.status === "done" ? "ok" : c.idx === current ? "now" : "") as "ok" | "now" | "",
+      state: (c.status === "done" ? "ok" : c.idx === current || (current === null && phase === "chapitres" && c.idx === chapters.find((x) => x.status !== "done")?.idx) ? "now" : "") as GenStep["state"],
     })),
     { label: t("Fiche Etsy (titre, tags, description)"), state: phase === "etsy" ? "now" : phase === "photo" ? "ok" : "" },
     { label: t("Miniature Etsy"), state: phase === "photo" ? "now" : "" },
   ];
-  return (
-    <div className="at-gen mt-4" role="status" aria-live="polite">
-      <div className="at-anneau">
-        <svg viewBox="0 0 190 190" aria-hidden="true">
-          <circle className="fond" cx="95" cy="95" r={r} />
-          <circle className="trait" cx="95" cy="95" r={r} strokeDasharray={len} strokeDashoffset={len * (1 - pct / 100)} />
-        </svg>
-        <p><span>{pct}<small>%</small></span></p>
-      </div>
-      <div>
-        <h2>{t(PHRASES[phase])}…</h2>
-        <div className="at-gen-etapes">
-          {steps.map((s, k) => (
-            <div key={k} className={`at-gen-etape ${s.state}`}><i />{s.label}</div>
-          ))}
-        </div>
-        <p className="at-gen-note">{t("Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.")}</p>
-      </div>
-    </div>
-  );
+  return <GenerationScreen className="mt-4" title={t(PHRASES[phase])} steps={steps} note={t("Garde cette page ouverte. Compte 30 à 60 secondes par chapitre.")} />;
 }
 
 function ContentTab({ ebook, chapters, running, onRegenerate, onSaved }: { ebook: Ebook; chapters: Chapter[]; running: boolean; onRegenerate: (idx: number) => void; onSaved: () => void }) {
