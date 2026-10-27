@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Pārej uz gada maksu un maksā par {n}% mazāk",
  "ou {prix} / mois en annuel": "vai {prix} / mēnesī, maksājot par gadu",
  "Lancer mon business": "Sākt savu biznesu",
- "soit {jour} par jour": "tas ir {jour} dienā"
+ "soit {jour} par jour": "tas ir {jour} dienā",
+ "Cookies": "Sīkdatnes",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Mēs izmantojam Microsoft Clarity, lai redzētu, kā vietne tiek lietota (klikšķi, ritināšana), un to uzlabotu. Tas saglabā analītikas sīkdatnes tikai tad, ja tu piekrīti.",
+ "En savoir plus": "Uzzināt vairāk",
+ "Refuser": "Noraidīt",
+ "Accepter": "Piekrist",
+ "Gérer les cookies": "Pārvaldīt sīkdatnes"
 }

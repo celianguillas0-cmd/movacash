@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Премини на годишно плащане и плащай с {n} % по-малко",
  "ou {prix} / mois en annuel": "или {prix} / месец при годишно плащане",
  "Lancer mon business": "Стартирай моя бизнес",
- "soit {jour} par jour": "тоест {jour} на ден"
+ "soit {jour} par jour": "тоест {jour} на ден",
+ "Cookies": "Бисквитки",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Използваме Microsoft Clarity, за да виждаме как се използва сайтът (кликове, превъртане) и да го подобряваме. Той поставя бисквитки за измерване на аудиторията, само ако приемеш.",
+ "En savoir plus": "Научи повече",
+ "Refuser": "Отказвам",
+ "Accepter": "Приемам",
+ "Gérer les cookies": "Управление на бисквитките"
 }

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
+import { ConsentLink } from "@/components/Consent";
 
 export default async function FunnelFooter() {
   const { t } = await getT();
@@ -16,6 +17,7 @@ export default async function FunnelFooter() {
           <Link href="/cgv">{t("CGV")}</Link>
           <Link href="/mentions-legales">{t("Mentions légales")}</Link>
           <Link href="/confidentialite">{t("Confidentialité")}</Link>
+          <ConsentLink />
           <Link href="/avertissement-revenus">{t("Avertissement sur les revenus")}</Link>
           {/* Accès direct à la résiliation exigé par la loi (art. L215-1-1 du Code de la consommation) */}
           <Link href="/app/abonnement">{t("Résilier mon abonnement")}</Link>

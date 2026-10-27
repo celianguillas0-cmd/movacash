@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Πέρασε στην ετήσια χρέωση και πλήρωσε {n}% λιγότερα",
  "ou {prix} / mois en annuel": "ή {prix} / μήνα με ετήσια χρέωση",
  "Lancer mon business": "Ξεκινώ την επιχείρησή μου",
- "soit {jour} par jour": "δηλαδή {jour} την ημέρα"
+ "soit {jour} par jour": "δηλαδή {jour} την ημέρα",
+ "Cookies": "Cookies",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Χρησιμοποιούμε το Microsoft Clarity για να βλέπουμε πώς χρησιμοποιείται ο ιστότοπος (κλικ, κύλιση) και να τον βελτιώνουμε. Τοποθετεί cookies μέτρησης επισκεψιμότητας, μόνο αν αποδεχτείς.",
+ "En savoir plus": "Μάθε περισσότερα",
+ "Refuser": "Απόρριψη",
+ "Accepter": "Αποδοχή",
+ "Gérer les cookies": "Διαχείριση cookies"
 }

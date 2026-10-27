@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Prejdi na ročnú platbu a plať o {n} % menej",
  "ou {prix} / mois en annuel": "alebo {prix} / mesiac pri ročnej platbe",
  "Lancer mon business": "Spustiť môj biznis",
- "soit {jour} par jour": "teda {jour} denne"
+ "soit {jour} par jour": "teda {jour} denne",
+ "Cookies": "Cookies",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Používame Microsoft Clarity, aby sme videli, ako sa web používa (kliknutia, posúvanie), a mohli ho zlepšovať. Ukladá analytické cookies, len ak súhlasíš.",
+ "En savoir plus": "Viac informácií",
+ "Refuser": "Odmietnuť",
+ "Accepter": "Prijať",
+ "Gérer les cookies": "Spravovať cookies"
 }

@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Preklopi na letno plačilo in plačaj {n} % manj",
  "ou {prix} / mois en annuel": "ali {prix} / mesec pri letnem plačilu",
  "Lancer mon business": "Zaženi svoj posel",
- "soit {jour} par jour": "torej {jour} na dan"
+ "soit {jour} par jour": "torej {jour} na dan",
+ "Cookies": "Piškotki",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Uporabljamo Microsoft Clarity, da vidimo, kako se stran uporablja (kliki, drsenje), in jo izboljšamo. Namesti analitične piškotke, samo če se strinjaš.",
+ "En savoir plus": "Več o tem",
+ "Refuser": "Zavrni",
+ "Accepter": "Sprejmi",
+ "Gérer les cookies": "Upravljanje piškotkov"
 }

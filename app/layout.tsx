@@ -5,6 +5,7 @@ import { APP_NAME, APP_URL } from "@/lib/config";
 import { getDict, getLocale, getT } from "@/lib/i18n/server";
 import { I18nProvider } from "@/lib/i18n/client";
 import { Analytics } from "@vercel/analytics/next";
+import Consent from "@/components/Consent";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { t } = await getT();
@@ -45,7 +46,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script dangerouslySetInnerHTML={{ __html: PWA }} />
       </head>
       <body>
-        <I18nProvider locale={locale} dict={getDict(locale)}>{children}</I18nProvider>
+        <I18nProvider locale={locale} dict={getDict(locale)}>
+          {children}
+          <Consent />
+        </I18nProvider>
         <Analytics />
         {CRISP_ID && <script dangerouslySetInnerHTML={{ __html: crisp(CRISP_ID, locale) }} />}
       </body>

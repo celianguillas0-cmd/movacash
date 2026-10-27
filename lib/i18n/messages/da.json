@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Skift til årlig betaling og betal {n} % mindre",
  "ou {prix} / mois en annuel": "eller {prix} / md. med årlig betaling",
  "Lancer mon business": "Start min forretning",
- "soit {jour} par jour": "altså {jour} om dagen"
+ "soit {jour} par jour": "altså {jour} om dagen",
+ "Cookies": "Cookies",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Vi bruger Microsoft Clarity til at se, hvordan siden bruges (klik, rulning), og forbedre den. Den sætter statistikcookies, kun hvis du accepterer.",
+ "En savoir plus": "Læs mere",
+ "Refuser": "Afvis",
+ "Accepter": "Accepter",
+ "Gérer les cookies": "Administrer cookies"
 }

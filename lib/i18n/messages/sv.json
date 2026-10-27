@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Byt till årsvis och betala {n} % mindre",
  "ou {prix} / mois en annuel": "eller {prix} / månad med årsbetalning",
  "Lancer mon business": "Starta mitt företag",
- "soit {jour} par jour": "alltså {jour} per dag"
+ "soit {jour} par jour": "alltså {jour} per dag",
+ "Cookies": "Cookies",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Vi använder Microsoft Clarity för att se hur webbplatsen används (klick, skrollning) och förbättra den. Den sätter analyscookies, bara om du godkänner.",
+ "En savoir plus": "Läs mer",
+ "Refuser": "Avböj",
+ "Accepter": "Godkänn",
+ "Gérer les cookies": "Hantera cookies"
 }

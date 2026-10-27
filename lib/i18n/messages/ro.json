@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Treci la anual și plătești cu {n} % mai puțin",
  "ou {prix} / mois en annuel": "sau {prix} / lună cu plata anuală",
  "Lancer mon business": "Lansează-mi afacerea",
- "soit {jour} par jour": "adică {jour} pe zi"
+ "soit {jour} par jour": "adică {jour} pe zi",
+ "Cookies": "Cookie-uri",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Folosim Microsoft Clarity ca să vedem cum este folosit site-ul (clicuri, derulare) și să-l îmbunătățim. Plasează cookie-uri de analiză a audienței, doar dacă accepți.",
+ "En savoir plus": "Află mai multe",
+ "Refuser": "Refuz",
+ "Accepter": "Accept",
+ "Gérer les cookies": "Gestionează cookie-urile"
 }

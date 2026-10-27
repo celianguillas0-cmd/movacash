@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Wechsle zu jährlich und zahle {n} % weniger",
  "ou {prix} / mois en annuel": "oder {prix} / Monat bei jährlicher Zahlung",
  "Lancer mon business": "Mein Business starten",
- "soit {jour} par jour": "also {jour} pro Tag"
+ "soit {jour} par jour": "also {jour} pro Tag",
+ "Cookies": "Cookies",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Wir nutzen Microsoft Clarity, um zu sehen, wie die Seite genutzt wird (Klicks, Scrollen), und sie zu verbessern. Dabei werden Analyse-Cookies gesetzt, nur wenn du zustimmst.",
+ "En savoir plus": "Mehr erfahren",
+ "Refuser": "Ablehnen",
+ "Accepter": "Akzeptieren",
+ "Gérer les cookies": "Cookies verwalten"
 }

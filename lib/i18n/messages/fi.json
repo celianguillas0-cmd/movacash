@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Vaihda vuosilaskutukseen ja maksa {n} % vähemmän",
  "ou {prix} / mois en annuel": "tai {prix} / kk vuosilaskutuksella",
  "Lancer mon business": "Käynnistä liiketoimintani",
- "soit {jour} par jour": "eli {jour} päivässä"
+ "soit {jour} par jour": "eli {jour} päivässä",
+ "Cookies": "Evästeet",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "Käytämme Microsoft Claritya nähdäksemme, miten sivustoa käytetään (klikkaukset, vieritys), ja parantaaksemme sitä. Se tallentaa analytiikkaevästeitä vain, jos hyväksyt.",
+ "En savoir plus": "Lue lisää",
+ "Refuser": "Hylkää",
+ "Accepter": "Hyväksy",
+ "Gérer les cookies": "Hallitse evästeitä"
 }

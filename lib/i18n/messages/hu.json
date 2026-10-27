@@ -1151,5 +1151,11 @@
  "Passe à l'annuel et paie {n} % moins cher": "Válts éves fizetésre, és fizess {n}%-kal kevesebbet",
  "ou {prix} / mois en annuel": "vagy {prix} / hó éves fizetéssel",
  "Lancer mon business": "Elindítom a vállalkozásom",
- "soit {jour} par jour": "vagyis napi {jour}"
+ "soit {jour} par jour": "vagyis napi {jour}",
+ "Cookies": "Sütik",
+ "On utilise Microsoft Clarity pour voir comment le site est utilisé (clics, défilement) et l'améliorer. Ça dépose des cookies de mesure d'audience, seulement si tu acceptes.": "A Microsoft Clarityt használjuk, hogy lássuk, hogyan használják az oldalt (kattintások, görgetés), és javíthassuk. Csak akkor helyez el statisztikai sütiket, ha elfogadod.",
+ "En savoir plus": "További információ",
+ "Refuser": "Elutasítom",
+ "Accepter": "Elfogadom",
+ "Gérer les cookies": "Sütik kezelése"
 }
