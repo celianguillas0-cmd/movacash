@@ -20,9 +20,12 @@ export default function AuthForm({ mode, google = false, googleError = "" }: { m
       if (q) {
         setHasQuiz(true);
         if (q.answers?.name) setForm((f) => ({ ...f, name: f.name || q.answers.name }));
+        return;
       }
     } catch {}
-  }, []);
+    // Pas de questionnaire fait : le compte se crée dans le questionnaire, pas en raccourci
+    if (mode === "signup") window.location.replace("/quiz");
+  }, [mode]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -40,7 +43,7 @@ export default function AuthForm({ mode, google = false, googleError = "" }: { m
     const data = await res.json();
     setLoading(false);
     if (!res.ok) return setError(data.error || t("Une erreur est survenue, réessaie."));
-    router.push(mode === "signup" ? (hasQuiz ? "/resultats" : "/tarifs") : "/app");
+    router.push(mode === "signup" ? (hasQuiz ? "/resultats" : "/quiz") : "/app");
     router.refresh();
   }
 

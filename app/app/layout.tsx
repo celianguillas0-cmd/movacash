@@ -2,6 +2,7 @@ import Marque from "@/components/at/Marque";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import { getCurrentUser } from "@/lib/auth";
 import { isAdmin, isGeminiConfigured } from "@/lib/config";
 import { getUsage, subState } from "@/lib/subscription";
@@ -22,6 +23,17 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const user = await getCurrentUser();
   if (!user) redirect("/connexion");
   const state = subState(user);
+  // Sans abonnement, l'atelier passe par le parcours : questionnaire, puis résultats et formules.
+  // Restent ouverts : abonnement (résiliation), paramètres (compte, données), support et aide.
+  const chemin = (await headers()).get("x-mc-path") || "";
+  const libres = ["/app/abonnement", "/app/parametres", "/app/support", "/app/aide", "/app/compte"];
+  if (state !== "active" && state !== "canceling" && state !== "past_due" && !isAdmin(user.email) && !libres.some((p) => chemin.startsWith(p))) {
+    let aQuiz = false;
+    try {
+      aQuiz = (JSON.parse(user.quiz_json || "{}").ideaIds || []).length > 0;
+    } catch {}
+    redirect(aQuiz ? "/resultats" : "/quiz");
+  }
   const usage = await getUsage(user);
   const { t, locale } = await getT();
   const fmt = (s: number) => new Date(s * 1000).toLocaleDateString(locale, { day: "numeric", month: "long" });

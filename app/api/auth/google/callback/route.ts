@@ -56,5 +56,6 @@ export async function GET(req: Request) {
   if (user.banned) return echec("suspendu");
   await createSession(user.id);
   const next = cheminSur(saved.next);
-  return NextResponse.redirect(new URL(nouveau && next === "/app" ? "/tarifs" : next, url));
+  // Nouveau compte sans passer par le questionnaire : on l'y envoie (pas de raccourci vers l'atelier ni les formules)
+  return NextResponse.redirect(new URL(nouveau && next !== "/quiz" ? "/quiz" : next, url));
 }
