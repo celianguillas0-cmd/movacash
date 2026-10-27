@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Tvoj mesečni scenarij",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Scenarij iz tvojih odgovorov, ne obljuba: prodaja je odvisna od teme, oglasa na Etsyju in tvoje rednosti.",
  "ventes par jour à {prix}": "prodaj na dan po {prix}",
- "verdict prêt": "rezultat je pripravljen"
+ "verdict prêt": "rezultat je pripravljen",
+ "Ton marketing": "Tvoj marketing",
+ "il se précise à chaque réponse": "se izostri z vsakim odgovorom",
+ "Cette page n'existe pas.": "Ta stran ne obstaja.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Povezava je morda nepopolna ali pa se je stran preselila.",
+ "Oups, un souci est survenu.": "Ups, nekaj je šlo narobe.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Poskusi znova čez trenutek. Če se ponavlja, nam piši s strani Podpora.",
+ "Réessayer": "Poskusi znova"
 }

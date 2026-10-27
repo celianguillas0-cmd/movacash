@@ -3,7 +3,8 @@ import { redirect } from "next/navigation";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import Bars from "@/components/funnel/Bars";
 import AutresIdees from "@/components/funnel/AutresIdees";
-import { getCurrentUser } from "@/lib/auth";
+import { getCurrentUser, getUserById } from "@/lib/auth";
+import { applySubscription, getStripe } from "@/lib/stripe";
 import { countIdeas, explainIdea, getIdeasByIds, terrainMatches, type QuizAnswers } from "@/lib/ideas";
 import { label } from "@/lib/quiz-questions";
 import { hasActiveSubscription } from "@/lib/subscription";
@@ -27,11 +28,23 @@ function plan30(a: QuizAnswers, t: T): [string, string][] {
   ];
 }
 
-export default async function Results({ searchParams }: { searchParams: Promise<{ welcome?: string }> }) {
-  const user = await getCurrentUser();
+export default async function Results({ searchParams }: { searchParams: Promise<{ welcome?: string; session_id?: string }> }) {
+  let user = await getCurrentUser();
   if (!user) redirect("/inscription");
   const { t, locale } = await getT();
-  const { welcome } = await searchParams;
+  const { welcome, session_id } = await searchParams;
+  // Retour de Stripe avant le webhook : on lit le paiement tout de suite pour débloquer l'accès sans attendre.
+  if (session_id && !hasActiveSubscription(user)) {
+    const stripe = getStripe();
+    const s = stripe ? await stripe.checkout.sessions.retrieve(session_id).catch(() => null) : null;
+    if (stripe && s && s.status === "complete" && Number(s.client_reference_id) === user.id && s.subscription) {
+      const sub = await stripe.subscriptions.retrieve(String(typeof s.subscription === "string" ? s.subscription : s.subscription.id)).catch(() => null);
+      if (sub) {
+        await applySubscription(user.id, sub);
+        user = (await getUserById(user.id)) ?? user;
+      }
+    }
+  }
   let quiz: { answers?: QuizAnswers; ideaIds?: number[] } = {};
   try {
     quiz = JSON.parse(user.quiz_json || "{}");
@@ -42,6 +55,14 @@ export default async function Results({ searchParams }: { searchParams: Promise<
   const [terrain, total] = await Promise.all([terrainMatches(a), countIdeas()]);
   const name = user.name || a.name || "";
   const strengths = (Array.isArray(a.strengths) ? (a.strengths as string[]) : []).map((k) => STRENGTH[k]).filter(Boolean).map((x) => t(x));
+
+  const profil = [
+    a.time && t("{temps} par jour", { temps: t(label("time", String(a.time))).toLowerCase() }),
+    a.etsy && t(({ none: tk("premiers pas dans la vente en ligne"), online: tk("déjà vendu en ligne"), shop: tk("boutique Etsy déjà ouverte") } as Record<string, string>)[String(a.etsy)] || ""),
+    a.format && t("tu préfères {format}", { format: t(label("format", String(a.format))).toLowerCase() }),
+    strengths.length && strengths.join(t(" et ")),
+    a.tone && t("ton {ton}", { ton: t(label("tone", String(a.tone))).toLowerCase() }),
+  ].filter(Boolean).join(" · ");
 
   if (!ideas.length)
     return (
@@ -66,18 +87,12 @@ export default async function Results({ searchParams }: { searchParams: Promise<
           <h1 className="q-title" style={{ marginTop: 12 }}>{name ? t("{prenom}, voici", { prenom: name }) : t("Voici")} <em className="serif">{t("tes 3 idées.")}</em></h1>
           <p className="q-help">{t("Sélectionnées parmi {total} sujets selon tes réponses. Les indicateurs sont des estimations : vérifie toujours la demande en cherchant le sujet sur Etsy.", { total })}</p>
         </div>
-        <div className="profile">
-          <p className="eyebrow">{t("Ton profil")}</p>
-          <p>
-            {[
-              a.time && t("{temps} par jour", { temps: t(label("time", String(a.time))).toLowerCase() }),
-              a.etsy && t(({ none: tk("premiers pas dans la vente en ligne"), online: tk("déjà vendu en ligne"), shop: tk("boutique Etsy déjà ouverte") } as Record<string, string>)[String(a.etsy)] || ""),
-              a.format && t("tu préfères {format}", { format: t(label("format", String(a.format))).toLowerCase() }),
-              strengths.length && strengths.join(t(" et ")),
-              a.tone && t("ton {ton}", { ton: t(label("tone", String(a.tone))).toLowerCase() }),
-            ].filter(Boolean).join(" · ")}
-          </p>
-        </div>
+        {profil && (
+          <div className="profile">
+            <p className="eyebrow">{t("Ton profil")}</p>
+            <p>{profil}</p>
+          </div>
+        )}
         <div style={{ marginTop: 24 }}>
           {ideas.map((i, k) => {
             const locked = !unlocked && k > 0;

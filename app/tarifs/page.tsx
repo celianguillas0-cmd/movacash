@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
@@ -21,6 +22,8 @@ export const dynamic = "force-dynamic";
 
 export default async function Tarifs({ searchParams }: { searchParams: Promise<{ canceled?: string }> }) {
   const user = await getCurrentUser();
+  // Déjà abonné : on change d'offre depuis « Mon abonnement », pas depuis la page de vente
+  if (hasActiveSubscription(user)) redirect("/app/abonnement");
   const { t } = await getT();
   const payable = await canPayFromHere();
   const { canceled } = await searchParams;

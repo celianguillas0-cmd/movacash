@@ -450,3 +450,14 @@
 .mc .guide-cta .btn { margin-top: 10px; }
 .mc .autres-idees { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 22px 0 6px; }
 .mc .autres-idees p { color: var(--muted); }
+/* Langues aux mots longs (allemand, finnois…) : l'en-tête tient sur un téléphone */
+@media (max-width: 440px) {
+  .mc .nav .wrap { gap: 8px; }
+  .mc .nav .logo { font-size: 18px; }
+  .mc .nav-links { gap: 2px; min-width: 0; }
+  .mc .nav-links .link { font-size: 13px; }
+  .mc .nav-links .btn-sm { padding: 7px 10px; font-size: 13px; white-space: nowrap; }
+}
+@media (max-width: 380px) { .mc.dark .nav-links .link-login { display: none; } }
+.mc .pay-box { grid-template-columns: minmax(0, 1fr); }
+.mc .pay-row > span { min-width: 0; overflow-wrap: anywhere; }

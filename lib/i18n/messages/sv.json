@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Ditt scenario per månad",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Ett scenario utifrån dina svar, inget löfte: din försäljning beror på ditt ämne, din Etsy-annons och din regelbundenhet.",
  "ventes par jour à {prix}": "försäljningar per dag à {prix}",
- "verdict prêt": "resultatet är klart"
+ "verdict prêt": "resultatet är klart",
+ "Ton marketing": "Din marknadsföring",
+ "il se précise à chaque réponse": "blir tydligare för varje svar",
+ "Cette page n'existe pas.": "Den här sidan finns inte.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Länken kan vara ofullständig, eller så har sidan flyttat.",
+ "Oups, un souci est survenu.": "Hoppsan, något gick fel.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Försök igen om en stund. Om det fortsätter, skriv till oss via Support-sidan.",
+ "Réessayer": "Försök igen"
 }

@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Tavs mēneša scenārijs",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Scenārijs pēc tavām atbildēm, nevis solījums: pārdošana atkarīga no tēmas, Etsy sludinājuma un tavas regularitātes.",
  "ventes par jour à {prix}": "pārdošanas dienā par {prix}",
- "verdict prêt": "rezultāts gatavs"
+ "verdict prêt": "rezultāts gatavs",
+ "Ton marketing": "Tavs mārketings",
+ "il se précise à chaque réponse": "precizējas ar katru atbildi",
+ "Cette page n'existe pas.": "Šī lapa neeksistē.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Saite var būt nepilnīga, vai lapa ir pārvietota.",
+ "Oups, un souci est survenu.": "Ups, kaut kas nogāja greizi.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Mēģini vēlreiz pēc brīža. Ja tas turpinās, raksti mums no lapas Atbalsts.",
+ "Réessayer": "Mēģināt vēlreiz"
 }

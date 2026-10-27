@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Havi forgatókönyved",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "A válaszaidból számolt forgatókönyv, nem ígéret: az eladások a témától, az Etsy-hirdetéstől és a kitartásodtól függenek.",
  "ventes par jour à {prix}": "eladás naponta {prix} áron",
- "verdict prêt": "kész az eredmény"
+ "verdict prêt": "kész az eredmény",
+ "Ton marketing": "A marketinged",
+ "il se précise à chaque réponse": "minden válasszal pontosabb",
+ "Cette page n'existe pas.": "Ez az oldal nem létezik.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Lehet, hogy a link hiányos, vagy az oldal máshová költözött.",
+ "Oups, un souci est survenu.": "Hoppá, valami hiba történt.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Próbáld újra egy pillanat múlva. Ha továbbra is fennáll, írj nekünk a Támogatás oldalról.",
+ "Réessayer": "Újrapróbálás"
 }

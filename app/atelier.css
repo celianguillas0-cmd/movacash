@@ -389,3 +389,9 @@
   .at .at-head-liens button { white-space: nowrap; }
   .at .at-head-liens select { max-width: 92px; }
 }
+@media (max-width: 420px) {
+  .at .at-head .at-wrap { gap: 8px; }
+  .at .at-head-liens { gap: 8px; font-size: 12.5px; min-width: 0; }
+  .at .at-head-liens select { max-width: 78px; text-overflow: ellipsis; }
+  .at .at-head-liens button { max-width: 96px; overflow: hidden; text-overflow: ellipsis; }
+}

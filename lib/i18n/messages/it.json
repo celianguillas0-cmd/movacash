@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Il tuo scenario mensile",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Uno scenario calcolato sulle tue risposte, non una promessa: le vendite dipendono dall'argomento, dalla scheda Etsy e dalla tua costanza.",
  "ventes par jour à {prix}": "vendite al giorno a {prix}",
- "verdict prêt": "verdetto pronto"
+ "verdict prêt": "verdetto pronto",
+ "Ton marketing": "Il tuo marketing",
+ "il se précise à chaque réponse": "si precisa a ogni risposta",
+ "Cette page n'existe pas.": "Questa pagina non esiste.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Il link potrebbe essere incompleto o la pagina potrebbe aver cambiato indirizzo.",
+ "Oups, un souci est survenu.": "Ops, qualcosa è andato storto.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Riprova tra un attimo. Se continua, scrivici dalla pagina Supporto.",
+ "Réessayer": "Riprova"
 }

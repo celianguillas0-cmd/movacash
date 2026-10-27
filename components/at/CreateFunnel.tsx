@@ -67,7 +67,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     { cle: "paiement", ic: "carte", kicker: t("Tes paiements"), t1: t("Sur quoi tu veux"), t2: t("recevoir tes ventes Etsy ?"), choix: PAIEMENTS },
     { cle: "echeance", ic: "horloge", kicker: t("Ton échéance"), t1: t("En combien de temps tu veux"), t2: t("ton e-book en vente ?"), choix: ECHEANCES },
     { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire derrière ton téléphone"), t2: t("sans te montrer ?"), choix: DISCRETION },
-    { cle: "fiche", ic: "fiche", kicker: t("Ta boutique Etsy"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },
+    { cle: "fiche", ic: "fiche", kicker: t("Ton marketing"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },
     { cle: "plan", ic: "courbe", kicker: t("Dernière étape"), t1: t("On chiffre ton scénario."), t2: "" },
   ];
   const e = ETAPES[step];
@@ -178,12 +178,12 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
         </div>
         <div className="mf-segments" aria-hidden="true">{ETAPES.map((_, k) => <i key={k} className={k <= step ? "on" : ""} />)}</div>
 
-        {step > 0 && (
+        {(
           <aside className="mf-scenario" aria-live="polite">
             <b>{fmtEur(objectif, locale)}</b>
             <span>{t("Ton scénario par mois")}</span>
             <i><em style={{ width: `${Math.round((step / (ETAPES.length - 1)) * 100)}%` }} /></i>
-            <small>{step < ETAPES.length - 1 ? (ETAPES.length - 1 - step > 1 ? t("encore {n} réponses", { n: ETAPES.length - 1 - step }) : t("plus qu'une réponse")) : t("verdict prêt")}</small>
+            <small>{step === 0 ? t("il se précise à chaque réponse") : step < ETAPES.length - 1 ? (ETAPES.length - 1 - step > 1 ? t("encore {n} réponses", { n: ETAPES.length - 1 - step }) : t("plus qu'une réponse")) : t("verdict prêt")}</small>
           </aside>
         )}
         <section className="mf-scene" key={step}>

@@ -43,7 +43,7 @@ export async function POST(req: Request) {
       subscription_data: { metadata: { userId: String(user.id), plan } },
       allow_promotion_codes: true,
       locale: "auto",
-      success_url: `${APP_URL}/resultats?welcome=1`,
+      success_url: `${APP_URL}/resultats?welcome=1&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${APP_URL}/tarifs?canceled=1`,
     });
     return ok({ url: session.url });

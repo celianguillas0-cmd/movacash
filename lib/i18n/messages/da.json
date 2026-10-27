@@ -1222,5 +1222,12 @@
  "Ton scénario par mois": "Dit scenarie pr. måned",
  "Un scénario calculé sur tes réponses, pas une promesse : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.": "Et scenarie ud fra dine svar, ikke et løfte: dit salg afhænger af dit emne, din Etsy-annonce og din vedholdenhed.",
  "ventes par jour à {prix}": "salg om dagen à {prix}",
- "verdict prêt": "resultatet er klar"
+ "verdict prêt": "resultatet er klar",
+ "Ton marketing": "Din markedsføring",
+ "il se précise à chaque réponse": "bliver skarpere for hvert svar",
+ "Cette page n'existe pas.": "Denne side findes ikke.",
+ "Le lien est peut-être incomplet, ou la page a changé d'adresse.": "Linket er måske ufuldstændigt, eller siden er flyttet.",
+ "Oups, un souci est survenu.": "Ups, noget gik galt.",
+ "Réessaie dans un instant. Si ça continue, écris-nous depuis la page Support.": "Prøv igen om lidt. Hvis det fortsætter, så skriv til os fra Support-siden.",
+ "Réessayer": "Prøv igen"
 }
