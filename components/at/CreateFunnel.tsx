@@ -45,7 +45,7 @@ const DISCRETION: Choix[] = [
   { id: "non", titre: tk("Non"), detail: tk("me montrer ne me gêne pas") },
 ];
 const FICHE: Choix[] = [
-  { id: "oui", titre: tk("Oui"), detail: tk("titre, 13 tags, description et miniature prêts à copier") },
+  { id: "oui", titre: tk("Oui"), detail: tk("on écrit ton e-book, ta fiche Etsy et ta miniature à ta place") },
   { id: "non", titre: tk("Non"), detail: tk("je préfère l'écrire moi-même") },
 ];
 const JOURS: Record<string, number> = { aujourdhui: 0, semaine: 7, mois: 30 };
@@ -64,8 +64,8 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     { cle: "objectif", ic: "cible", kicker: t("Ton objectif"), t1: t("Quel revenu"), t2: t("veux-tu atteindre ?") },
     { cle: "paiement", ic: "carte", kicker: t("Tes paiements"), t1: t("Sur quoi tu veux"), t2: t("recevoir tes ventes Etsy ?"), choix: PAIEMENTS },
     { cle: "echeance", ic: "horloge", kicker: t("Ton échéance"), t1: t("En combien de temps tu veux"), t2: t("ton e-book en vente ?"), choix: ECHEANCES },
-    { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire depuis ton téléphone,"), t2: t("sans te montrer ?"), choix: DISCRETION },
-    { cle: "fiche", ic: "fiche", kicker: t("Ta fiche Etsy"), t1: t("On prépare ta fiche Etsy"), t2: t("à ta place ?"), choix: FICHE },
+    { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire derrière ton téléphone"), t2: t("sans te montrer ?"), choix: DISCRETION },
+    { cle: "fiche", ic: "fiche", kicker: t("Ta boutique Etsy"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },
     { cle: "plan", ic: "eclair", kicker: t("Dernière étape"), t1: t("Ton plan est prêt."), t2: "" },
   ];
   const e = ETAPES[step];

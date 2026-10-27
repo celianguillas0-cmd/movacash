@@ -353,3 +353,4 @@
 .mf-gen { flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; padding: 28px 0 8vh; }
 .mf-gen .at-gen { width: min(820px, 100%); margin: 0 auto; animation: mf-entre .4s cubic-bezier(.2,.8,.3,1) backwards; }
 @media (min-width: 761px) { .mf-cartes-n6 .mf-carte { padding: 15px 18px 14px; } .mf-cartes-n6 { margin-top: 26px; } }
+.mf-titre { max-width: 17ch; margin-inline: auto; text-wrap: balance; }
