@@ -1247,5 +1247,21 @@
  "Bloqué à une étape ? Pose ta question : un conseiller Movacash te répond au plus vite.": "Jäid mõne sammu juures kinni? Küsi: Movacashi nõustaja vastab esimesel võimalusel.",
  "Poser ma question": "Esita küsimus",
  "Les règles d'Etsy à connaître": "Etsy reeglid, mida teada",
- "Prochaine étape : mets-le en vente.": "Järgmine samm: pane see müüki."
+ "Prochaine étape : mets-le en vente.": "Järgmine samm: pane see müüki.",
+ "{prenom}, tes idées d'e-books t'attendent": "{prenom}, sinu e-raamatute ideed ootavad",
+ "Astuce : en annuel, c'est −50 %.": "Nipp: aastapaketiga on −50%.",
+ "Avec ton abonnement, l'IA écrit ton e-book, ta fiche Etsy et ta miniature. Tu n'as plus qu'à le mettre en vente.": "Tellimusega kirjutab tehisintellekt sinu e-raamatu, Etsy kuulutuse ja pisipildi. Sul jääb see vaid müüki panna.",
+ "C'est noté, tu ne recevras plus nos e-mails.": "Tehtud, sa ei saa enam meie e-kirju.",
+ "Ce lien de désinscription n'est pas valide.": "See tellimusest loobumise link ei kehti.",
+ "Deux autres idées t'attendent sur ta page de résultats.": "Sinu tulemuste lehel ootavad veel kaks ideed.",
+ "Envoie-moi mes idées et des conseils Etsy par e-mail (désinscription en un clic).": "Saatke mulle minu ideid ja Etsy nõuandeid e-postiga (loobumine ühe klõpsuga).",
+ "Hier, tu as créé ton compte {app}.": "Eile lõid oma {app} konto.",
+ "Hier, tu as répondu à notre questionnaire. Ta première idée d'e-book à vendre sur Etsy :": "Eile vastasid meie küsimustikule. Sinu esimene e-raamatu idee Etsys müümiseks:",
+ "Les e-mails liés à ton abonnement (paiement, résiliation) restent envoyés, car la loi les impose.": "Tellimusega seotud e-kirju (makse, tühistamine) saadetakse edasi, sest seadus nõuab seda.",
+ "Reprendre là où tu t'es arrêté(e) :": "Jätka sealt, kus pooleli jäid:",
+ "Tes idées d'e-books t'attendent": "Sinu e-raamatute ideed ootavad",
+ "Ton premier e-book t'attend": "Sinu esimene e-raamat ootab",
+ "Tu ne veux plus recevoir ces e-mails ?": "Ei soovi enam neid e-kirju saada?",
+ "Tu peux aussi décocher les e-mails dans ton espace, rubrique Paramètres.": "E-kirjad saad välja lülitada ka oma kontol jaotises Seaded.",
+ "Une question ? Écris-nous sur le chat du site, un conseiller Movacash te répond au plus vite.": "Küsimus? Kirjuta meile saidi vestlusesse, Movacashi nõustaja vastab sulle esimesel võimalusel."
 }

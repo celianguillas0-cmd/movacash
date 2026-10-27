@@ -3,6 +3,8 @@ import "./globals.css";
 import "./funnel.css";
 import { APP_NAME, APP_URL } from "@/lib/config";
 import { headers } from "next/headers";
+import { after } from "next/server";
+import { relancesSiBesoin } from "@/lib/relances";
 import { getDict, getLocale, getT } from "@/lib/i18n/server";
 import { alternates } from "@/lib/seo";
 import { I18nProvider } from "@/lib/i18n/client";
@@ -43,6 +45,8 @@ const crisp = (id: string, locale: string) =>
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = await getLocale();
+  // Relances à 24 h : vérifiées après la réponse, pour ne jamais ralentir la page
+  after(relancesSiBesoin);
   // hreflang écrits à la main : les métadonnées de Next retirent le « ?lang=xx » des adresses.
   const alt = alternates((await headers()).get("x-mc-path") || "/", locale);
   return (

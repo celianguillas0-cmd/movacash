@@ -17,7 +17,7 @@ export type FunnelConfig = {
   google?: boolean;
   storageKey?: string;
   api: {
-    signup: (d: { name: string; email: string; password: string; answers: Answers }) => Promise<{ ok: boolean; error?: string }>;
+    signup: (d: { name: string; email: string; password: string; tips: boolean; answers: Answers }) => Promise<{ ok: boolean; error?: string }>;
     saveQuiz: (answers: Record<string, unknown>) => Promise<void>;
     checkout: (plan: string, annual: boolean) => Promise<{ url?: string; error?: string }>;
   };
@@ -383,18 +383,25 @@ export function mountFunnel(cfg: FunnelConfig) {
     render(`${barre()}${retour()}<section class="stage message ${s.illustration ? "message-illu" : "message-texte"}" data-reveal>${s.illustration ? `<div class="illu-grande" aria-hidden="true">${ILLUS[s.illustration]}</div>` : ""}<p class="stage-kicker">${esc(s.kicker)}</p><h1 class="stage-title stage-title-q machine">${esc(s.titre)}</h1>${s.sous ? `<p class="stage-lede">${esc(s.sous)}</p>` : ""}${bouton(esc(s.cta || tr("Continuer")))}</section>`);
   }
 
-  function showCompte(erreur = "", valeurs: { name?: string; email?: string; password?: string; cgv?: boolean } = {}) {
-    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">${tr("Crée ton compte")}<br/><em>${tr("pour débloquer tes résultats.")}</em></h1>${cfg.google ? `<div class="account-form google-bloc"><a class="btn-google" href="/api/auth/google?next=%2Fquiz">${GOOGLE_G}${tr("Continuer avec Google")}</a><p class="form-note">${tr("En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.")}</p><p class="google-ou"><span>${tr("ou")}</span></p></div>` : ""}<form class="account-form" id="signup-form" novalidate><label class="field"><span>${tr("Prénom")}</span><input name="name" type="text" autocomplete="given-name" placeholder="${tr("Camille")}" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>${tr("E-mail")}</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="${tr("camille@exemple.fr")}" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>${tr("Mot de passe")}</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="${tr("8 caractères minimum")}" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>${tr("J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.").replace(/<1>(.*?)<\/1>/, '<a href="/cgv" target="_blank" rel="noopener">$1</a>').replace(/<2>(.*?)<\/2>/, '<a href="/confidentialite" target="_blank" rel="noopener">$1</a>')}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">${tr("Continuer")} ${fleche}</button><p class="form-note">${tr("Tes réponses sont enregistrées dans ton compte. Pas de revente de données.")}</p></form></section>`);
+  function showCompte(erreur = "", valeurs: { name?: string; email?: string; password?: string; cgv?: boolean; tips?: boolean } = {}) {
+    render(`${barre()}<section class="stage stage-center account account-court" data-reveal><span class="account-icone" aria-hidden="true">${ICONE_MAIL}</span><h1 class="stage-title stage-title-q">${tr("Crée ton compte")}<br/><em>${tr("pour débloquer tes résultats.")}</em></h1><div class="account-form"><label class="case case-tips"><input id="mc-tips" type="checkbox"/><span>${tr("Envoie-moi mes idées et des conseils Etsy par e-mail (désinscription en un clic).")}</span></label></div>${cfg.google ? `<div class="account-form google-bloc"><a class="btn-google" href="/api/auth/google?next=%2Fquiz">${GOOGLE_G}${tr("Continuer avec Google")}</a><p class="form-note">${tr("En continuant avec Google, tu acceptes les CGV et la politique de confidentialité, et tu comprends qu'aucun revenu n'est garanti.")}</p><p class="google-ou"><span>${tr("ou")}</span></p></div>` : ""}<form class="account-form" id="signup-form" novalidate><label class="field"><span>${tr("Prénom")}</span><input name="name" type="text" autocomplete="given-name" placeholder="${tr("Camille")}" value="${esc(valeurs.name || "")}" required/></label><label class="field"><span>${tr("E-mail")}</span><input name="email" type="email" autocomplete="email" inputmode="email" placeholder="${tr("camille@exemple.fr")}" value="${esc(valeurs.email || "")}" required/></label><label class="field"><span>${tr("Mot de passe")}</span><input name="password" type="password" autocomplete="new-password" minlength="8" placeholder="${tr("8 caractères minimum")}" required/></label><label class="case"><input name="cgv" type="checkbox"/><span>${tr("J'accepte les <1>CGV</1> et la <2>politique de confidentialité</2>, et je comprends qu'aucun revenu n'est garanti.").replace(/<1>(.*?)<\/1>/, '<a href="/cgv" target="_blank" rel="noopener">$1</a>').replace(/<2>(.*?)<\/2>/, '<a href="/confidentialite" target="_blank" rel="noopener">$1</a>')}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg" type="submit">${tr("Continuer")} ${fleche}</button><p class="form-note">${tr("Tes réponses sont enregistrées dans ton compte. Pas de revente de données.")}</p></form></section>`);
     const form = root.querySelector<HTMLFormElement>("#signup-form")!;
     if (valeurs.password) (form.elements.namedItem("password") as HTMLInputElement).value = valeurs.password;
     if (valeurs.cgv) (form.elements.namedItem("cgv") as HTMLInputElement).checked = true;
+    // Consentement aux e-mails (décoché par défaut), valable aussi pour « Continuer avec Google »
+    const tips = root.querySelector<HTMLInputElement>("#mc-tips")!;
+    const google = root.querySelector<HTMLAnchorElement>(".btn-google");
+    const majGoogle = () => google && (google.href = `/api/auth/google?next=%2Fquiz${tips.checked ? "&tips=1" : ""}`);
+    tips.checked = Boolean(valeurs.tips);
+    majGoogle();
+    tips.addEventListener("change", majGoogle);
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const d = new FormData(form);
       const name = String(d.get("name") || "").trim();
       const email = String(d.get("email") || "").trim();
       const password = String(d.get("password") || "");
-      const garder = { name, email, password, cgv: Boolean(d.get("cgv")) };
+      const garder = { name, email, password, cgv: Boolean(d.get("cgv")), tips: tips.checked };
       if (!name) return showCompte(tr("Indique ton prénom."), garder);
       if (!/^\S+@\S+\.\S+$/.test(email)) return showCompte(tr("Adresse e-mail invalide."), garder);
       if (password.length < 8) return showCompte(tr("Mot de passe : 8 caractères minimum."), garder);
@@ -402,7 +409,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       const btn = form.querySelector<HTMLButtonElement>("button[type=submit]")!;
       btn.disabled = true;
       btn.firstChild!.textContent = tr("Création du compte…") + " ";
-      const r = await cfg.api.signup({ name, email, password, answers: scoringAnswers(answers, name) }).catch(() => ({ ok: false, error: "" }));
+      const r = await cfg.api.signup({ name, email, password, tips: tips.checked, answers: scoringAnswers(answers, name) }).catch(() => ({ ok: false, error: "" }));
       if (!r.ok) return showCompte(r.error ? tr(r.error) : tr("Une erreur est survenue, réessaie."), garder);
       user = { name };
       next();

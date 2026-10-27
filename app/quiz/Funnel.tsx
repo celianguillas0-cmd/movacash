@@ -27,8 +27,8 @@ export default function Funnel({ categories, plans, annualAvailable, user, demo,
       t,
       locale,
       api: {
-        async signup({ name, email, password, answers }) {
-          const r = await post("/api/auth/signup", { name, email, password, acceptTerms: true, quiz: { answers } });
+        async signup({ name, email, password, tips, answers }) {
+          const r = await post("/api/auth/signup", { name, email, password, tips, acceptTerms: true, quiz: { answers } });
           return { ok: r.ok, error: r.data.error ? t(r.data.error) : undefined };
         },
         async saveQuiz(answers) {

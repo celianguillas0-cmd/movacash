@@ -3,12 +3,13 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { one } from "@/lib/db";
 import { createSession, getUserByEmail, hashPassword } from "@/lib/auth";
+import { getLocale } from "@/lib/i18n/server";
 import { GOOGLE_STATE_COOKIE, cheminSur, googleConfigured, googleRedirectUri } from "@/lib/google";
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const jar = await cookies();
-  let saved: { state?: string; next?: string } = {};
+  let saved: { state?: string; next?: string; tips?: boolean } = {};
   try {
     saved = JSON.parse(jar.get(GOOGLE_STATE_COOKIE)?.value || "{}");
   } catch {}
@@ -44,10 +45,12 @@ export async function GET(req: Request) {
   if (!user) {
     // Compte créé sans mot de passe utilisable ; « Mot de passe oublié » permet d'en définir un plus tard
     const name = String(profil.given_name || profil.name || "").trim().slice(0, 100);
-    const r = await one<{ id: number }>("INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?) RETURNING id", [
+    const r = await one<{ id: number }>("INSERT INTO users (email, name, password_hash, tips_consent, locale) VALUES (?, ?, ?, ?, ?) RETURNING id", [
       email,
       name,
       await hashPassword(crypto.randomBytes(32).toString("hex")),
+      saved.tips ? 1 : 0,
+      await getLocale(),
     ]);
     user = await getUserByEmail(email);
     nouveau = Boolean(r);

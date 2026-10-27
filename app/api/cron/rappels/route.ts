@@ -1,11 +1,12 @@
 import { all, run } from "@/lib/db";
 import type { User } from "@/lib/auth";
 import { emailRenewalReminder } from "@/lib/notify";
+import { envoyerRelances } from "@/lib/relances";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Lancé chaque matin par Vercel (vercel.json). Abonnements annuels : rappel par e-mail entre 60 et 30 jours avant
+// Lancé chaque matin par Vercel (vercel.json). Envoie aussi les relances des inscrits sans abonnement (lib/relances.ts). Abonnements annuels : rappel par e-mail entre 60 et 30 jours avant
 // la reconduction, une seule fois par période (art. L215-1 du Code de la consommation : au plus tôt 3 mois, au plus tard 1 mois avant).
 export async function GET(req: Request) {
   const secret = process.env.CRON_SECRET;
@@ -27,5 +28,5 @@ export async function GET(req: Request) {
     await run("UPDATE users SET renewal_reminded_for = ? WHERE id = ?", [u.current_period_end, u.id]);
     envoyes++;
   }
-  return Response.json({ ok: true, rappels: envoyes });
+  return Response.json({ ok: true, rappels: envoyes, relances: await envoyerRelances() });
 }

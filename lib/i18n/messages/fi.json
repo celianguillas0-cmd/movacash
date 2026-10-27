@@ -1247,5 +1247,21 @@
  "Bloqué à une étape ? Pose ta question : un conseiller Movacash te répond au plus vite.": "Jumissa jossain vaiheessa? Kysy: Movacashin neuvoja vastaa mahdollisimman pian.",
  "Poser ma question": "Esitä kysymykseni",
  "Les règles d'Etsy à connaître": "Etsyn säännöt, jotka kannattaa tietää",
- "Prochaine étape : mets-le en vente.": "Seuraava vaihe: laita se myyntiin."
+ "Prochaine étape : mets-le en vente.": "Seuraava vaihe: laita se myyntiin.",
+ "{prenom}, tes idées d'e-books t'attendent": "{prenom}, e-kirjaideasi odottavat",
+ "Astuce : en annuel, c'est −50 %.": "Vinkki: vuositilauksena −50 %.",
+ "Avec ton abonnement, l'IA écrit ton e-book, ta fiche Etsy et ta miniature. Tu n'as plus qu'à le mettre en vente.": "Tilauksellasi tekoäly kirjoittaa e-kirjasi, Etsy-ilmoituksesi ja pikkukuvasi. Sinun tarvitsee vain laittaa se myyntiin.",
+ "C'est noté, tu ne recevras plus nos e-mails.": "Selvä, et saa enää sähköpostejamme.",
+ "Ce lien de désinscription n'est pas valide.": "Tämä tilauksen peruutuslinkki ei ole kelvollinen.",
+ "Deux autres idées t'attendent sur ta page de résultats.": "Kaksi muuta ideaa odottaa tulossivullasi.",
+ "Envoie-moi mes idées et des conseils Etsy par e-mail (désinscription en un clic).": "Lähetä ideani ja Etsy-vinkit sähköpostilla (peruutus yhdellä klikkauksella).",
+ "Hier, tu as créé ton compte {app}.": "Eilen loit {app}-tilisi.",
+ "Hier, tu as répondu à notre questionnaire. Ta première idée d'e-book à vendre sur Etsy :": "Eilen vastasit kyselyymme. Ensimmäinen e-kirjaideasi myytäväksi Etsyssä:",
+ "Les e-mails liés à ton abonnement (paiement, résiliation) restent envoyés, car la loi les impose.": "Tilaukseesi liittyvät sähköpostit (maksu, irtisanominen) lähetetään edelleen, koska laki edellyttää niitä.",
+ "Reprendre là où tu t'es arrêté(e) :": "Jatka siitä, mihin jäit:",
+ "Tes idées d'e-books t'attendent": "E-kirjaideasi odottavat",
+ "Ton premier e-book t'attend": "Ensimmäinen e-kirjasi odottaa",
+ "Tu ne veux plus recevoir ces e-mails ?": "Etkö halua enää saada näitä sähköposteja?",
+ "Tu peux aussi décocher les e-mails dans ton espace, rubrique Paramètres.": "Voit myös poistaa sähköpostit käytöstä tililläsi kohdassa Asetukset.",
+ "Une question ? Écris-nous sur le chat du site, un conseiller Movacash te répond au plus vite.": "Kysyttävää? Kirjoita meille sivuston chatissa, Movacash-neuvoja vastaa sinulle mahdollisimman pian."
 }

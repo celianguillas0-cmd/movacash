@@ -29,7 +29,7 @@ export default function Privacy() {
         <li>Fournir le service, gérer le compte, l'abonnement et la facturation, envoyer les e-mails liés au contrat (confirmation, résiliation, rappel de renouvellement, mot de passe oublié) : exécution du contrat.</li>
         <li>Conserver les factures : obligation légale.</li>
         <li>Sécurité, prévention des abus, amélioration du service à partir des avis et des motifs de résiliation : intérêt légitime.</li>
-        <li>Conseils occasionnels pour vendre sur Etsy, seulement si vous avez coché la case prévue : consentement, retirable à tout moment depuis « Paramètres » (lien de désinscription dans chaque e-mail de conseils).</li>
+        <li>Rappel de vos idées et conseils occasionnels pour vendre sur Etsy (par exemple un e-mail 24 h après l'inscription si vous ne vous êtes pas abonné), seulement si vous avez coché la case prévue : consentement, retirable à tout moment depuis « Paramètres » (lien de désinscription dans chaque e-mail de conseils).</li>
       </ul>
       <p>Aucune donnée n'est vendue, louée ni utilisée pour de la publicité.</p>
 

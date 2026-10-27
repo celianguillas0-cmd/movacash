@@ -17,7 +17,7 @@ export async function GET(req: Request) {
     prompt: "select_account",
   }).toString();
   const res = NextResponse.redirect(google);
-  res.cookies.set(GOOGLE_STATE_COOKIE, JSON.stringify({ state, next }), {
+  res.cookies.set(GOOGLE_STATE_COOKIE, JSON.stringify({ state, next, tips: url.searchParams.get("tips") === "1" }), {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
