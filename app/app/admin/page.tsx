@@ -154,7 +154,7 @@ export default async function AdminPage() {
               {derniers.map((d) => (
                 <li key={d.id} className="flex justify-between gap-3 border-t border-slate-100 py-2">
                   <a href={`/app/admin/comptes/${d.id}`} className="truncate text-slate-900 underline-offset-2 hover:underline">{d.email}</a>
-                  <span className="muted shrink-0">{d.plan && ["active", "trialing", "past_due"].includes(d.sub_status) ? `${d.plan}${d.is_demo_sub ? " (offert)" : ""}` : "sans abonnement"} · {new Date(d.created_at * 1000).toLocaleDateString("fr-FR")}</span>
+                  <span className="muted shrink-0">{d.plan && ["active", "trialing", "past_due"].includes(d.sub_status) ? `${d.plan}${d.is_demo_sub ? " (offert)" : ""}` : "sans abonnement"} · {new Date(d.created_at * 1000).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
                 </li>
               ))}
             </ul>

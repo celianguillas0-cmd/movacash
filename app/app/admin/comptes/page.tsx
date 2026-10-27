@@ -86,7 +86,7 @@ export default async function Comptes({ searchParams }: { searchParams: Promise<
                   </td>
                   <td className="py-3">{Number(u.mois)} / {limite}{u.quota_override != null ? " *" : ""}</td>
                   <td className="py-3">{(Number(u.cout_mois) || 0).toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</td>
-                  <td className="py-3 text-slate-500">{new Date(u.created_at * 1000).toLocaleDateString("fr-FR")}</td>
+                  <td className="py-3 text-slate-500">{new Date(u.created_at * 1000).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" })}</td>
                   <td className="px-5 py-3 text-right"><Link className="underline" href={`/app/admin/comptes/${u.id}`}>Gérer</Link></td>
                 </tr>
               );

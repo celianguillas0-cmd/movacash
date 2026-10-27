@@ -38,7 +38,7 @@ export default async function Compte({ params }: { params: Promise<{ id: string 
       <AdminNav current="comptes" />
 
       <section className="at-table">
-        <div><span>Inscrit le</span><b>{date(u.created_at)}</b></div>
+        <div><span>Inscrit le</span><b>{new Date(u.created_at * 1000).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })}</b></div>
         <div><span>Formule</span><b>{plan ? `${plan.name}${u.is_demo_sub ? " (offerte)" : ""}` : "Aucune"}</b></div>
         <div><span>Abonnement</span><b>{ETATS[etat]}</b></div>
         <div><span>Prochaine échéance</span><b>{date(u.current_period_end)}</b></div>
