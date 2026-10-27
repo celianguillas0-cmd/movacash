@@ -39,7 +39,7 @@ export default async function Home() {
               endings={[t("trouve tes premiers acheteurs."), t("commence à construire un revenu à côté."), t("transforme ce que tu sais en source de revenus."), t("donne-toi une vraie chance de gagner en ligne.")]}
             />
             <div className="ctas">
-              <Link className="btn btn-white btn-lg" href="/quiz">{t("Créer mon premier e-book")} <span aria-hidden="true">→</span></Link>
+              <Link className="btn btn-white btn-lg" href="/quiz">{t("Lancer mon business")} <span aria-hidden="true">→</span></Link>
             </div>
             <p className="fine-line">{t("Aucun revenu garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p>
           </div>
