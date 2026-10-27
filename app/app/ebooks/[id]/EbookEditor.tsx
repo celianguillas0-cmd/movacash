@@ -459,6 +459,7 @@ function ExportTab({ ebook, ready }: { ebook: Ebook; ready: boolean }) {
         ))}
       </div>
       <p className="muted">{t("Sur Etsy, ajoute le PDF comme fichier numérique de l'annonce (20 Mo max par fichier).")}</p>
+      <p className="muted">{t("Prochaine étape : mets-le en vente.")} <a href="/app" style={{ textDecoration: "underline" }}>{t("Tes premiers pas sur Etsy")}</a></p>
     </div>
   );
 }

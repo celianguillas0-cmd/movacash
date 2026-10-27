@@ -395,3 +395,21 @@
   .at .at-head-liens select { max-width: 78px; text-overflow: ellipsis; }
   .at .at-head-liens button { max-width: 96px; overflow: hidden; text-overflow: ellipsis; }
 }
+
+/* Premiers pas sur Etsy (abonnés) */
+.at .pp { border: 1px solid var(--line-2); border-radius: var(--r-l); background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.012)); margin-bottom: 22px; overflow: hidden; }
+.at .pp-tete { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; background: none; border: 0; color: var(--text); cursor: pointer; font: inherit; text-align: left; }
+.at .pp-tete b { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 18px; letter-spacing: -0.02em; }
+.at .pp-tete small { color: var(--text-3); font-size: 13px; }
+.at .pp-tete i { font-style: normal; font-size: 22px; color: var(--text-2); width: 28px; text-align: center; }
+.at .pp-liste { list-style: none; margin: 0; padding: 0 20px 6px; display: grid; gap: 4px; }
+.at .pp-liste li { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); }
+.at .pp-liste li b { font-size: 15px; color: var(--text); }
+.at .pp-liste li p { margin-top: 2px; font-size: 13.5px; line-height: 1.5; color: var(--text-2); }
+.at .pp-liste li p a { color: var(--text); text-decoration: underline; white-space: nowrap; }
+.at .pp-liste li.fait b { color: var(--text-3); text-decoration: line-through; }
+.at .pp-case { flex: none; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--line-3); background: none; color: var(--text-2); font-size: 12px; font-weight: 700; cursor: pointer; display: grid; place-items: center; }
+.at .pp-liste li.fait .pp-case { background: #7b68a6; border-color: #7b68a6; color: #fff; }
+.at .pp-aide { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; padding: 14px 20px 18px; border-top: 1px solid var(--line); }
+.at .pp-aide p { flex: 1 1 260px; font-size: 14px; color: var(--text-2); }
+.at .pp-regles { font-size: 13px; color: var(--text-3); text-decoration: underline; }

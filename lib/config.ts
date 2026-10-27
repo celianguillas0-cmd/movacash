@@ -64,9 +64,9 @@ export function getPlan(id: string | null | undefined): Plan | undefined {
   return PLANS.find((p) => p.id === id);
 }
 
-// Seul ce compte voit l'onglet Admin (thématiques proposées dans le sondage).
-export const ADMIN_EMAIL = "celianguillas0@gmail.com";
-export const isAdmin = (email?: string | null) => (email || "").trim().toLowerCase() === ADMIN_EMAIL;
+// Seuls ces comptes voient l'onglet Admin (thématiques proposées dans le sondage).
+export const ADMIN_EMAILS = ["celianguillas0@gmail.com", "contact.asgs29200@gmail.com"];
+export const isAdmin = (email?: string | null) => ADMIN_EMAILS.includes((email || "").trim().toLowerCase());
 
 // Mode tournage, actif par défaut sur le compte admin : il filme l'outil sans consommer d'API ni de quota.
 export const isFilmMode = (u: { email: string; real_mode?: number }) => isAdmin(u.email) && !u.real_mode;

@@ -1,6 +1,7 @@
 import { requireUser } from "@/lib/auth";
 import AtHead from "@/components/ws/AtHead";
 import IdeaFinder from "@/components/at/IdeaFinder";
+import PremiersPas from "@/components/at/PremiersPas";
 import { getT } from "@/lib/i18n/server";
 
 export const dynamic = "force-dynamic";
@@ -13,6 +14,7 @@ export default async function TrouverMonIdee({ searchParams }: { searchParams: P
     <div>
       {welcome && <p className="notice-ok" style={{ marginBottom: 20 }}>{t("Abonnement activé. Bienvenue ! Commence par trouver ton idée.")}</p>}
       <AtHead name={user.name} title={t("Trouve ton idée.")} />
+      <PremiersPas />
       <IdeaFinder initialQ={q || ""} />
     </div>
   );
