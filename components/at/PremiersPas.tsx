@@ -17,19 +17,33 @@ const CLE = "mc_premiers_pas";
 // Guillemets français jamais seuls en bout de ligne.
 const insecable = (s: string) => s.replace(/« /g, "«\u00a0").replace(/ »/g, "\u00a0»");
 
-export default function PremiersPas() {
+// apresGeneration : affiché à la fin de la génération d'un e-book, centré sur la mise en vente (l'étape « créer l'e-book » est déjà faite).
+export default function PremiersPas({ apresGeneration = false }: { apresGeneration?: boolean }) {
   const t = useT();
+  const etapes = ETAPES.map((e, k) => ({ ...e, k })).filter((e) => !apresGeneration || e.k !== 1);
   const [faits, setFaits] = useState<number[]>([]);
   const [ouvert, setOuvert] = useState(true);
   useEffect(() => {
     try {
       const s = JSON.parse(localStorage.getItem(CLE) || "{}");
-      setFaits(Array.isArray(s.faits) ? s.faits : []);
-      if (s.ferme) setOuvert(false);
+      const f: number[] = Array.isArray(s.faits) ? s.faits : [];
+      if (apresGeneration) {
+        // L'e-book vient d'être créé : l'étape 2 est cochée aussi sur la carte de l'accueil.
+        const avec = f.includes(1) ? f : [...f, 1];
+        setFaits(avec);
+        localStorage.setItem(CLE, JSON.stringify({ ...s, faits: avec }));
+      } else {
+        setFaits(f);
+        if (s.ferme) setOuvert(false);
+      }
     } catch {}
-  }, []);
+  }, [apresGeneration]);
   const garder = (f: number[], o: boolean) => {
-    try { localStorage.setItem(CLE, JSON.stringify({ faits: f, ferme: !o })); } catch {}
+    try {
+      // Replier la carte de fin de génération ne replie pas celle de l'accueil.
+      const ferme = apresGeneration ? !!JSON.parse(localStorage.getItem(CLE) || "{}").ferme : !o;
+      localStorage.setItem(CLE, JSON.stringify({ faits: f, ferme }));
+    } catch {}
   };
   const cocher = (k: number) => {
     const f = faits.includes(k) ? faits.filter((x) => x !== k) : [...faits, k];
@@ -47,20 +61,20 @@ export default function PremiersPas() {
   };
 
   return (
-    <section className="pp">
+    <section className={apresGeneration ? "pp pp-pret" : "pp"}>
       <button type="button" className="pp-tete" onClick={basculer} aria-expanded={ouvert}>
         <span>
-          <b>{t("Tes premiers pas sur Etsy")}</b>
-          <small>{t("{n} sur {total} faits", { n: faits.length, total: ETAPES.length })}</small>
+          <b>{apresGeneration ? t("Ton e-book est prêt : comment le mettre en vente sur Etsy") : t("Tes premiers pas sur Etsy")}</b>
+          <small>{t("{n} sur {total} faits", { n: etapes.filter((e) => faits.includes(e.k)).length, total: etapes.length })}</small>
         </span>
         <i aria-hidden="true">{ouvert ? "−" : "+"}</i>
       </button>
       {ouvert && (
         <>
           <ol className="pp-liste">
-            {ETAPES.map((e, k) => (
+            {etapes.map(({ k, ...e }, i) => (
               <li key={k} className={faits.includes(k) ? "fait" : ""}>
-                <button type="button" className="pp-case" onClick={() => cocher(k)} aria-pressed={faits.includes(k)} aria-label={t("Marquer comme fait")}>{faits.includes(k) ? "✓" : k + 1}</button>
+                <button type="button" className="pp-case" onClick={() => cocher(k)} aria-pressed={faits.includes(k)} aria-label={t("Marquer comme fait")}>{faits.includes(k) ? "✓" : i + 1}</button>
                 <div>
                   <b>{t(e.titre)}</b>
                   <p>

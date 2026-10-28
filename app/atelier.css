@@ -413,3 +413,4 @@
 .at .pp-aide { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 14px; padding: 14px 20px 18px; border-top: 1px solid var(--line); }
 .at .pp-aide p { flex: 1 1 260px; font-size: 14px; color: var(--text-2); }
 .at .pp-regles { font-size: 13px; color: var(--text-3); text-decoration: underline; }
+.at .pp-pret { border-color: rgba(255,255,255,.22); }

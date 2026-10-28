@@ -8,6 +8,7 @@ import { checkEtsyCompliance, ETSY_CHECKLIST, type EtsyKit } from "@/lib/etsy";
 import { wordCount } from "@/lib/markdown";
 import { renderListingImages } from "@/lib/listing-images";
 import Miniature from "@/components/at/Miniature";
+import PremiersPas from "@/components/at/PremiersPas";
 import GenerationScreen, { etapesProvisoires, type GenStep } from "@/components/at/GenerationScreen";
 import type { ThumbStyle } from "@/lib/miniature";
 import { useLocale, useT } from "@/lib/i18n/client";
@@ -33,6 +34,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
   const [photoTries, setPhotoTries] = useState(0);
   const [current, setCurrent] = useState<number | null>(null);
   const [error, setError] = useState("");
+  const [fini, setFini] = useState(false);
   const started = useRef(false);
 
   const load = useCallback(async () => {
@@ -75,6 +77,7 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
         if (d && !d.photoTries) await fetch(`/api/ebooks/${id}/photo`, { method: "POST" }).catch(() => null);
         await load();
         setTab("miniature");
+        setFini(true);
       } catch (e) {
         setError((e as Error).message + " " + t("Tu peux relancer la génération, les chapitres déjà rédigés sont conservés."));
       } finally {
@@ -142,6 +145,8 @@ export default function EbookEditor({ id, autostart }: { id: number; autostart: 
         </div>
       )}
       {!running && ready && error && <p className="mt-2 text-sm text-red-600">{error}</p>}
+      {/* Fin de la génération : le guide de mise en vente s'affiche juste sous le titre. */}
+      {!running && ready && fini && <div className="mt-5"><PremiersPas apresGeneration /></div>}
 
       <div className="mt-6 flex gap-1 overflow-x-auto border-b border-slate-200">
         {([["contenu", tk("Contenu")], ["miniature", tk("Miniature Etsy")], ["etsy", tk("Fiche Etsy")], ["couverture", tk("Couverture du PDF")], ["export", tk("Export PDF")]] as const).map(([k, l]) => (
