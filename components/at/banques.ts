@@ -1,4 +1,4 @@
-// Logos des banques du mini-funnel (question « où recevoir tes ventes Etsy »).
+// Logos des banques du mini-funnel (question « où recevoir tes paiements »).
 // Chaque logo : viewBox + tracés ; fill absent = couleur du texte (logos noirs, passés en blanc sur fond sombre).
 export type Logo = { vb: string; paths: { d: string; fill?: string }[]; couleur?: string };
 

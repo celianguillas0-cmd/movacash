@@ -23,18 +23,24 @@ const ICONES: Record<string, string> = {
 
 const REVOLUT = "M20.9133 6.9566C20.9133 3.1208 17.7898 0 13.9503 0H2.424v3.8605h10.9782c1.7376 0 3.177 1.3651 3.2087 3.043.016.84-.2994 1.633-.8878 2.2324-.5886.5998-1.375.9303-2.2144.9303H9.2322a.2756.2756 0 0 0-.2755.2752v3.431c0 .0585.018.1142.052.1612L16.2646 24h5.3114l-7.2727-10.094c3.6625-.1838 6.61-3.2612 6.61-6.9494zM6.8943 5.9229H2.424V24h4.4704z";
 const N26 = "M0 3.803v1.195h7.436V3.803H0zM12.69 7.29c-2.034 0-3.038 1.252-3.038 2.684 0 .234.027.468.092.728l1.393.135a3.697 3.697 0 0 1-.09-.793c0-1.072.71-1.586 1.598-1.586.866 0 1.507.485 1.507 1.652 0 1.186-.58 1.995-1.464 2.88-.925.923-2.4 2.027-3.112 2.534v1.092h6.135v-1.195h-4.168c.695-.48 1.69-1.279 2.133-1.72.502-.503 1.931-1.794 1.931-3.636 0-1.903-1.24-2.775-2.918-2.775zm8.34 0c-1.976 0-3.454 1.517-3.454 4.916 0 3.017 1.233 4.508 3.356 4.508 1.754 0 3.068-1.198 3.068-3.172 0-1.542-.823-3.066-2.793-3.066-1.1 0-1.884.51-2.281 1.263 0-1.78.62-3.33 2.094-3.33.937 0 1.309.538 1.507 1.422l1.366-.271c-.321-1.527-1.292-2.27-2.864-2.27zM.075 7.389v9.228h1.33v-6.312c0-.56-.013-.898-.039-1.223h.026c.136.372.298.699.539 1.123l3.732 6.412h1.69V7.39H6.04v6.31c0 .56.013.898.04 1.223h-.028a7.252 7.252 0 0 0-.537-1.123L1.783 7.389H.076zm20.817 4.185c1.114 0 1.744.822 1.744 1.992 0 1.256-.717 2.034-1.701 2.034-1.09 0-1.843-1.001-1.973-2.329.33-1.133 1.063-1.697 1.93-1.697zM0 19.008v1.19h7.436v-1.19H0z";
+const PAYPAL = "M7.016 19.198h-4.2a.562.562 0 0 1-.555-.65L5.093.584A.692.692 0 0 1 5.776 0h7.222c3.417 0 5.904 2.488 5.846 5.5-.006.25-.027.5-.066.747A6.794 6.794 0 0 1 12.071 12H8.743a.69.69 0 0 0-.682.583l-.325 2.056-.013.083-.692 4.39-.015.087zM19.79 6.142c-.01.087-.01.175-.023.261a7.76 7.76 0 0 1-7.695 6.598H9.007l-.283 1.795-.013.083-.692 4.39-.134.843-.014.088H6.86l-.497 3.15a.562.562 0 0 0 .555.65h3.612c.34 0 .63-.249.683-.585l.952-6.031a.692.692 0 0 1 .683-.584h2.126a6.793 6.793 0 0 0 6.707-5.752c.306-1.95-.466-3.744-1.89-4.906z";
+const WISE = "M6.488 7.469 0 15.05h11.585l1.301-3.576H7.922l3.033-3.507.01-.092L8.993 4.48h8.873l-6.878 18.925h4.706L24 .595H2.543l3.945 6.874Z";
 const BANQUE = "M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18M12 3l9 5H3z";
 const LOGO_REVOLUT: Logo = { vb: "0 0 24 24", paths: [{ d: REVOLUT }] };
 const LOGO_N26: Logo = { vb: "0 0 24 24", paths: [{ d: N26 }] };
+const LOGO_PAYPAL: Logo = { vb: "0 0 24 24", couleur: "#009cde", paths: [{ d: PAYPAL }] };
+const LOGO_WISE: Logo = { vb: "0 0 24 24", paths: [{ d: WISE }] };
 const LOGO_BANQUE: Logo = { vb: "0 0 24 24", paths: [{ d: BANQUE }] };
 
 // Etsy verse les ventes sur un compte bancaire (IBAN) : pas de PayPal ici.
 const PAIEMENTS: Choix[] = [
+  { id: "paypal", titre: "PayPal", detail: tk("retrait sur ton compte PayPal"), logo: LOGO_PAYPAL },
   { id: "credit-agricole", titre: "Crédit Agricole", detail: tk("sur ton compte Crédit Agricole"), logo: LOGO_CREDIT_AGRICOLE },
   { id: "revolut", titre: "Revolut", detail: tk("encaissement rapide, frais bas"), logo: LOGO_REVOLUT },
   { id: "boursobank", titre: "BoursoBank", detail: tk("virement direct sur ton compte"), logo: LOGO_BOURSOBANK },
   { id: "credit-mutuel", titre: "Crédit Mutuel", detail: tk("sur ton compte Crédit Mutuel"), logo: LOGO_CREDIT_MUTUEL },
   { id: "n26", titre: "N26", detail: tk("compte en ligne, sans frais"), logo: LOGO_N26 },
+  { id: "wise", titre: "Wise", detail: tk("compte en ligne, plusieurs devises"), logo: LOGO_WISE },
   { id: "autre", titre: tk("Une autre banque"), detail: tk("n'importe quel compte avec un IBAN"), logo: LOGO_BANQUE },
 ];
 const ECHEANCES: Choix[] = [
@@ -64,7 +70,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
 
   const ETAPES = [
     { cle: "objectif", ic: "cible", kicker: t("Ton objectif"), t1: t("Quel revenu"), t2: t("veux-tu atteindre ?") },
-    { cle: "paiement", ic: "carte", kicker: t("Tes paiements"), t1: t("Sur quoi tu veux"), t2: t("recevoir tes ventes Etsy ?"), choix: PAIEMENTS },
+    { cle: "paiement", ic: "carte", kicker: t("Tes paiements"), t1: t("Où tu veux"), t2: t("recevoir tes paiements ?"), choix: PAIEMENTS },
     { cle: "echeance", ic: "horloge", kicker: t("Ton échéance"), t1: t("En combien de temps tu veux"), t2: t("ton e-book en vente ?"), choix: ECHEANCES },
     { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire derrière ton téléphone"), t2: t("sans te montrer ?"), choix: DISCRETION },
     { cle: "fiche", ic: "fiche", kicker: t("Ton marketing"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },

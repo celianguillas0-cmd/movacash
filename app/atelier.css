@@ -414,3 +414,9 @@
 .at .pp-aide p { flex: 1 1 260px; font-size: 14px; color: var(--text-2); }
 .at .pp-regles { font-size: 13px; color: var(--text-3); text-decoration: underline; }
 .at .pp-pret { border-color: rgba(255,255,255,.22); }
+
+/* Question paiements : 8 choix (PayPal, banques, Wise), 4 colonnes sur ordinateur, 2 sur téléphone (28/10) */
+.mf-cartes-n8 { grid-template-columns: repeat(4, 1fr); width: min(840px, 100%); margin-top: 26px; }
+.mf-cartes-n8 .mf-carte { padding: 15px 16px 14px; }
+.mf-cartes-n8 .mf-carte b { font-size: clamp(16px, 1.8vw, 19px); }
+@media (max-width: 760px) { .mf-cartes-n8 { grid-template-columns: 1fr 1fr; margin-top: 18px; } }
