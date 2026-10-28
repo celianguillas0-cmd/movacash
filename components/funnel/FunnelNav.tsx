@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoM from "@/components/LogoM";
 import { getCurrentUser } from "@/lib/auth";
 import { getT } from "@/lib/i18n/server";
 
@@ -8,7 +9,7 @@ export default async function FunnelNav({ minimal = false }: { minimal?: boolean
     return (
       <header className="nav nav-min">
         <div className="wrap">
-          <Link href="/" className="logo">Mova<span>cash</span></Link>
+          <Link href="/" className="logo"><LogoM /><span>Mova<span>cash</span></span></Link>
           <Link className="link back-home" href="/">← {t("Retour à l'accueil")}</Link>
         </div>
       </header>
@@ -18,7 +19,7 @@ export default async function FunnelNav({ minimal = false }: { minimal?: boolean
   return (
     <header className="nav">
       <div className="wrap">
-        <Link href="/" className="logo">Mova<span>cash</span></Link>
+        <Link href="/" className="logo"><LogoM /><span>Mova<span>cash</span></span></Link>
         <nav className="nav-links">
           <Link className="link hide-sm" href="/#faq">{t("Questions")}</Link>
           <Link className="link hide-sm" href="/tarifs">{t("Tarifs")}</Link>

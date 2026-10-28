@@ -1,3 +1,4 @@
+import LogoM from "@/components/LogoM";
 import Link from "next/link";
 import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
@@ -10,7 +11,7 @@ export default async function FunnelFooter() {
     <footer>
       <div className="wrap">
         <div>
-          <span className="logo" style={{ fontSize: 20 }}>Mova<span>cash</span></span>
+          <span className="logo" style={{ fontSize: 20 }}><LogoM /><span>Mova<span>cash</span></span></span>
           <p style={{ marginTop: 6 }}>{t("L'atelier des e-books à vendre sur Etsy. Non affilié à Etsy. Aucun revenu garanti.")}</p>
           <div style={{ marginTop: 14 }}><LangSwitch /></div>
         </div>

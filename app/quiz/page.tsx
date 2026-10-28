@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LogoM from "@/components/LogoM";
 import Funnel from "./Funnel";
 import { listCategories } from "@/lib/ideas";
 import { getCurrentUser } from "@/lib/auth";
@@ -25,7 +26,7 @@ export default async function QuizPage() {
     <div className="tf">
       <header className="head-bande">
         <div className="wrap site-head">
-          <Link href="/" className="brand">Mova<span className="brand-tld">cash</span></Link>
+          <Link href="/" className="brand"><LogoM /><span>Mova<span className="brand-tld">cash</span></span></Link>
           <Link href="/" className="head-lien">← {t("Retour à l'accueil")}</Link>
         </div>
       </header>

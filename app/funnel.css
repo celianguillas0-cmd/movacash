@@ -473,3 +473,6 @@
 .mc .home-guides li a:hover { border-color: rgba(255,255,255,.3); }
 .mc .home-guides p { margin-top: 14px; }
 .mc .home-guides p a { text-decoration: underline; text-underline-offset: 3px; }
+/* Logo : M blanc devant le nom (28/10) */
+.mc .logo { display: inline-flex; align-items: center; gap: .42em; }
+.mc-m { width: .9em; height: .9em; flex: none; }

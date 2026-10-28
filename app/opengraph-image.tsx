@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { APP_NAME } from "@/lib/config";
+import { M_PATHS } from "@/components/LogoM";
 import { getT } from "@/lib/i18n/server";
 
 // Aperçu affiché quand le lien est partagé (WhatsApp, Facebook, X, Discord…)
@@ -13,10 +14,8 @@ export default async function OgImage() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: 80, background: "#000", color: "#fff" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 20, fontSize: 40, fontWeight: 700 }}>
-          <svg width="64" height="64" viewBox="0 0 32 32">
-            <rect x=".5" y=".5" width="31" height="31" rx="6.5" fill="none" stroke="#fff" strokeOpacity=".3" />
-            <path d="M9 8h10a4 4 0 0 1 4 4v12H13a4 4 0 0 1-4-4z" fill="#fff" />
-            <path d="M13 13h6M13 17h6" stroke="#000" strokeWidth="2" />
+          <svg width="56" height="56" viewBox="0 0 100 100" fill="#fff">
+            {M_PATHS.map((d) => <path key={d} d={d} />)}
           </svg>
           {APP_NAME}
         </div>

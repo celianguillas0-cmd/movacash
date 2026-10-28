@@ -420,3 +420,5 @@
 .mf-cartes-n8 .mf-carte { padding: 15px 16px 14px; }
 .mf-cartes-n8 .mf-carte b { font-size: clamp(16px, 1.8vw, 19px); }
 @media (max-width: 760px) { .mf-cartes-n8 { grid-template-columns: 1fr 1fr; margin-top: 18px; } }
+/* Le M blanc remplace l'ancienne icône (28/10) */
+.mc-marque svg.mc-marque-ic { color: #fff; border-radius: 0; width: .9em; height: .9em; }
