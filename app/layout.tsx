@@ -27,7 +27,15 @@ export async function generateMetadata(): Promise<Metadata> {
     robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 } },
     verification: { ...(google ? { google } : {}), ...(bing ? { other: { "msvalidate.01": bing } } : {}) },
     appleWebApp: { capable: true, title: APP_NAME, statusBarStyle: "black" },
-    icons: { apple: "/apple-touch-icon.png" },
+    // Icônes reprises par Google (multiples de 48 px) et par la barre d'adresse du navigateur.
+    icons: {
+      icon: [
+        { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+        { url: "/icon-96.png", sizes: "96x96", type: "image/png" },
+        { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      ],
+      apple: "/apple-touch-icon.png",
+    },
     openGraph: { type: "website", siteName: APP_NAME, title, description, url: path, locale: locale.replace("-", "_") },
     twitter: { card: "summary_large_image", title, description },
   };
