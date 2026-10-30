@@ -126,7 +126,7 @@ export default async function AdminPage() {
       <AdminNav current="vue" />
 
       <AdminTest
-        tournage={!user.real_mode}
+        tournage={!user.mode_reel}
         vue={hasActiveSubscription(user) && user.is_demo_sub && user.plan ? (user.plan as "starter" | "pro" | "business") : hasActiveSubscription(user) ? "starter" : "aucun"}
         payant={Boolean(user.stripe_subscription_id && !user.is_demo_sub && hasActiveSubscription(user))}
         sujetsRejouables={rejouables.map((r) => r.topic)}

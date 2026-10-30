@@ -171,7 +171,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "default_language", "TEXT"],
   ["users", "default_tone", "TEXT"],
   ["users", "my_idea_id", "INTEGER"], // « Mon idée » : la première idée trouvée dans l'atelier, ou celle choisie ensuite
-  ["users", "real_mode", "INTEGER NOT NULL DEFAULT 0"], // admin : 1 = vraies générations ; par défaut, mode tournage (écran de génération sans appel à l'API)
+  ["users", "mode_reel", "INTEGER NOT NULL DEFAULT 0"], // admin : 1 = vraies générations ; par défaut mode test (tournage, sans appel à l'API), remis à 0 à chaque connexion. Remplace real_mode (30/10) pour remettre tous les admins en test
   ["users", "email_tips", "INTEGER NOT NULL DEFAULT 1"],
   ["idea_i18n", "search_text", "TEXT NOT NULL DEFAULT ''"], // titre et public traduits, en minuscules sans accents
   ["users", "banned", "INTEGER NOT NULL DEFAULT 0"], // compte suspendu depuis l'onglet Admin : plus de connexion ni de génération

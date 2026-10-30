@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import crypto from "node:crypto";
-import { one } from "./db";
+import { one, run } from "./db";
 
 export const SESSION_COOKIE = "mc_session";
 const MAX_AGE = 60 * 60 * 24 * 30;
@@ -44,7 +44,7 @@ export interface User {
   tips_consent: number; // conseils par e-mail : 0 par défaut, le client coche lui-même (consentement)
   locale: string | null;
   renewal_reminded_for: number | null;
-  real_mode: number;
+  mode_reel: number;
   my_idea_id: number | null;
   banned: number;
   quota_override: number | null;
@@ -63,6 +63,8 @@ export async function verifyPassword(pw: string, hash: string) {
 export async function createSession(userId: number) {
   // La version de session invalide les anciennes connexions (changement de mot de passe, « déconnecter partout »)
   const u = await one<{ session_version: number }>("SELECT session_version FROM users WHERE id = ?", [userId]);
+  // Les admins repartent toujours en mode test (aucun appel à l'API) à chaque connexion.
+  await run("UPDATE users SET mode_reel = 0 WHERE id = ? AND mode_reel = 1", [userId]);
   const token = await new SignJWT({ uid: userId, sv: u?.session_version ?? 1 })
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
