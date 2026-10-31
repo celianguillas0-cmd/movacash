@@ -458,7 +458,8 @@
   .mc .nav-links .link { font-size: 13px; }
   .mc .nav-links .btn-sm { padding: 7px 10px; font-size: 13px; white-space: nowrap; }
 }
-@media (max-width: 380px) { .mc.dark .nav-links .link-login { display: none; } }
+/* Petits téléphones (iPhone X, SE…) : « Se connecter » reste visible ; le bouton du questionnaire est déjà dans la page (31/10) */
+@media (max-width: 380px) { .mc.dark .nav-links .link-login { border: 1px solid var(--line-2); border-radius: 10px; padding: 7px 12px; } .mc .nav-links .btn-sm { display: none; } }
 .mc .pay-box { grid-template-columns: minmax(0, 1fr); }
 .mc .pay-row > span { min-width: 0; overflow-wrap: anywhere; }
 /* Bouton Google : texte foncé sur fond blanc, même dans le thème sombre (les liens y sont blancs) */
