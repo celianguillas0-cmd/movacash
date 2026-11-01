@@ -1,7 +1,7 @@
 import { ATTENTE, pause as pauseEntre } from "./film";
 import { geminiGenerate, parseJsonLoose } from "./gemini";
 import { isGeminiConfigured } from "./config";
-import { LANGUAGES, TONES, SENSITIVE_LABELS, aiDisclosure, type EtsyKit } from "./etsy";
+import { LANGUAGES, TONES, SENSITIVE_LABELS, aiDisclosure, conformerKit, findHype, type EtsyKit } from "./etsy";
 
 export interface EbookBrief {
   topic: string;
@@ -98,8 +98,8 @@ export async function generateEtsyKit(
   pages: number,
   fake = false
 ): Promise<EtsyKit> {
-  if (fake) return pauseEntre(...ATTENTE.fiche).then(() => mockEtsyKit(b, outline, pages));
-  if (!isGeminiConfigured()) return mockEtsyKit(b, outline, pages);
+  if (fake) return pauseEntre(...ATTENTE.fiche).then(() => conformerKit(mockEtsyKit(b, outline, pages), { sensitive: b.sensitive, language: b.language }));
+  if (!isGeminiConfigured()) return conformerKit(mockEtsyKit(b, outline, pages), { sensitive: b.sensitive, language: b.language });
   const prompt = `${briefText(b)}
 
 E-book terminé : « ${outline.title} » — ${outline.subtitle}
@@ -110,16 +110,29 @@ Rédige la fiche produit Etsy optimisée (SEO Etsy) dans la langue de l'e-book.
 Contraintes Etsy strictes :
 - "title" : 140 caractères maximum, mots-clés importants au début, sans majuscules abusives ni promesse exagérée.
 - "tags" : exactement 13 tags, chacun de 20 caractères MAXIMUM, expressions que les acheteurs tapent vraiment, sans doublons.
-- "description" : 1200 à 2000 caractères, avec : accroche, à qui s'adresse le guide, ce qu'il contient (liste des chapitres), format (PDF numérique de ${pages} pages, téléchargement immédiat, aucun envoi physique), et une ligne finale qui indique : "${aiDisclosure(b.language)}"${b.sensitive ? ", plus un avertissement indiquant que le guide est informatif et ne remplace pas un professionnel" : ""}. Si une marque est citée, précise que le guide n'est pas affilié à cette marque. Aucune promesse de résultat garanti. Texte brut avec retours à la ligne, sans Markdown.
+- "description" : 1200 à 2000 caractères, avec : accroche, à qui s'adresse le guide, ce qu'il contient (liste des chapitres), format (PDF numérique de ${pages} pages, téléchargement immédiat, aucun envoi physique), et une ligne finale qui indique : "${aiDisclosure(b.language)}"${b.sensitive ? ", plus un avertissement indiquant que le guide est informatif et ne remplace pas un professionnel" : ""}. Si une marque est citée, précise que le guide n'est pas affilié à cette marque. Aucune promesse : n'écris jamais « garanti », « miracle », « sans effort », « guérir », ni de résultat chiffré promis (kilos, euros, délais). Texte brut avec retours à la ligne, sans Markdown.
 - "priceSuggestion" : fourchette de prix réaliste en euros avec une justification courte.
 - "imageIdeas" : 5 idées d'images de fiche (couverture, aperçu du sommaire, page intérieure, bénéfices, format).
 - "category" : catégorie Etsy suggérée.
 
 Réponds uniquement en JSON : {"title": "...", "tags": ["..."], "description": "...", "priceSuggestion": "...", "imageIdeas": ["..."], "category": "..."}`;
   const kit = parseJsonLoose<EtsyKit>(await geminiGenerate(prompt, { system: SYSTEM, json: true, temperature: 0.7 }));
-  kit.tags = (kit.tags || []).map((t) => t.trim().slice(0, 20)).filter(Boolean).slice(0, 13);
-  kit.title = (kit.title || outline.title).slice(0, 140);
-  return kit;
+  kit.title = kit.title || outline.title;
+  const opts = { sensitive: b.sensitive, language: b.language };
+  // Promesse excessive malgré les consignes : une seule réécriture ciblée, puis mise en conformité automatique.
+  const promesse = findHype(`${kit.title}\n${kit.description || ""}`, b.language);
+  if (promesse) {
+    try {
+      const corr = parseJsonLoose<{ title: string; description: string }>(await geminiGenerate(
+        `Voici une fiche produit pour un e-book. Elle contient une promesse excessive interdite (« ${promesse} »).\nRéécris le titre et la description dans la même langue, sans aucune promesse de résultat, de guérison ou de gain, sans les mots « garanti », « miracle », « sans effort ». Garde tout le reste (structure, retours à la ligne, mentions légales).\n\nTitre : ${kit.title}\n\nDescription :\n${kit.description}\n\nRéponds uniquement en JSON : {"title": "...", "description": "..."}`,
+        { system: SYSTEM, json: true, temperature: 0.3 }));
+      if (corr.title) kit.title = corr.title;
+      if (corr.description) kit.description = corr.description;
+    } catch (e) {
+      console.error("réécriture de la fiche", e);
+    }
+  }
+  return conformerKit(kit, opts);
 }
 
 // ---------------------------------------------------------------------------
