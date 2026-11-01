@@ -1280,5 +1280,6 @@
  "Gérer ou résilier mon abonnement": "Halda või tühista tellimus",
  "Chaque nouvel e-book compte pour 1, au moment où le plan est créé. Le quota repart à zéro le 1er de chaque mois. Supprimer un e-book ne rend pas de crédit.": "Iga uus e-raamat loeb 1-ks hetkel, kui plaan luuakse. Kvoot nullitakse iga kuu 1. kuupäeval. E-raamatu kustutamine krediiti tagasi ei anna.",
  "Oui, chaque chapitre est modifiable directement. Relis toujours ton e-book avant de le vendre : c'est ce qui fait les bons avis.": "Jah, iga peatükki saab otse muuta. Loe oma e-raamat alati enne müümist üle: see toob häid arvustusi.",
- "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "See peatükk on juba kirjutatud. Saad seda otse muuta."
+ "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "See peatükk on juba kirjutatud. Saad seda otse muuta.",
+ "La rédaction est momentanément indisponible. Réessaie un peu plus tard.": "Kirjutamine pole hetkel saadaval. Proovi veidi hiljem uuesti."
 }

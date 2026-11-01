@@ -1280,5 +1280,6 @@
  "Gérer ou résilier mon abonnement": "Előfizetés kezelése vagy lemondása",
  "Chaque nouvel e-book compte pour 1, au moment où le plan est créé. Le quota repart à zéro le 1er de chaque mois. Supprimer un e-book ne rend pas de crédit.": "Minden új e-könyv 1-nek számít, abban a pillanatban, amikor elkészül a vázlat. A keret minden hónap 1-jén nullázódik. Egy e-könyv törlése nem adja vissza a keretet.",
  "Oui, chaque chapitre est modifiable directement. Relis toujours ton e-book avant de le vendre : c'est ce qui fait les bons avis.": "Igen, minden fejezet közvetlenül szerkeszthető. Eladás előtt mindig olvasd át az e-könyved: ettől lesznek jók az értékelések.",
- "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "Ez a fejezet már elkészült. Közvetlenül szerkesztheted."
+ "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "Ez a fejezet már elkészült. Közvetlenül szerkesztheted.",
+ "La rédaction est momentanément indisponible. Réessaie un peu plus tard.": "Az írás átmenetileg nem érhető el. Próbáld újra kicsit később."
 }

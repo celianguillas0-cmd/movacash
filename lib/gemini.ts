@@ -1,5 +1,6 @@
 // Client minimal pour l'API Gemini (REST, sans SDK).
 import { recordImage, recordText } from "./usage";
+import { tk } from "./i18n/t";
 const API = process.env.GEMINI_API_BASE || "https://generativelanguage.googleapis.com/v1beta/models";
 
 export class GeminiError extends Error {}
@@ -15,6 +16,8 @@ interface GenOptions {
 // aux nouveaux comptes le 01/11/2026) : on passe alors au suivant et on garde celui qui marche.
 const MODELES = [...new Set([process.env.GEMINI_MODEL, "gemini-3.8-flash", "gemini-3-flash", "gemini-flash-latest", "gemini-2.5-flash"].filter(Boolean) as string[])];
 let modeleOk: string | null = null;
+// Message montré au client quand le quota Gemini est épuisé (traduit dans lib/i18n/messages).
+export const QUOTA = tk("La rédaction est momentanément indisponible. Réessaie un peu plus tard.");
 
 // Coupe la « réflexion » (inutile pour la rédaction, elle multiplie le coût de sortie) avec le réglage de chaque génération.
 function reflexion(model: string, sans: boolean) {
@@ -28,6 +31,7 @@ export async function geminiGenerate(prompt: string, opts: GenOptions = {}): Pro
   if (!key) throw new GeminiError("GEMINI_API_KEY non configurée");
   const liste = modeleOk ? [modeleOk, ...MODELES.filter((m) => m !== modeleOk)] : MODELES;
   let lastErr = "";
+  let quota = false;
   for (const model of liste) {
     let sansReflexion = false;
     for (let attempt = 0; attempt < 4; attempt++) {
@@ -64,12 +68,15 @@ export async function geminiGenerate(prompt: string, opts: GenOptions = {}): Pro
       // Réglage de réflexion refusé par ce modèle : on réessaie sans.
       if (res.status === 400 && /thinking/i.test(txt) && !sansReflexion) { sansReflexion = true; attempt--; continue; }
       if (res.status === 404 || (res.status === 400 && /model/i.test(txt) && /not (found|supported)|no longer/i.test(txt))) break; // modèle retiré : suivant
+      // Quota gratuit du jour épuisé pour ce modèle : réessayer ne sert à rien, on passe au modèle suivant (quotas séparés).
+      if (res.status === 429 && /per ?day|PerDay|free_tier|quota/i.test(txt)) { quota = true; break; }
       if (![429, 500, 502, 503, 504].includes(res.status)) throw new GeminiError(`Erreur Gemini : ${lastErr}`);
       await new Promise((r) => setTimeout(r, 2000 * 2 ** attempt));
       if (attempt === 3) throw new GeminiError(`Erreur Gemini : ${lastErr}`);
     }
   }
-  throw new GeminiError(`Erreur Gemini : ${lastErr}`);
+  console.error(`Erreur Gemini : ${lastErr}`);
+  throw new GeminiError(quota ? QUOTA : `Erreur Gemini : ${lastErr}`);
 }
 
 export function parseJsonLoose<T>(text: string): T {

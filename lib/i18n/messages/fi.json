@@ -1280,5 +1280,6 @@
  "Gérer ou résilier mon abonnement": "Hallitse tai peru tilaukseni",
  "Chaque nouvel e-book compte pour 1, au moment où le plan est créé. Le quota repart à zéro le 1er de chaque mois. Supprimer un e-book ne rend pas de crédit.": "Jokainen uusi e-kirja lasketaan yhdeksi sillä hetkellä, kun runko luodaan. Kiintiö nollautuu jokaisen kuun 1. päivä. E-kirjan poistaminen ei palauta krediittiä.",
  "Oui, chaque chapitre est modifiable directement. Relis toujours ton e-book avant de le vendre : c'est ce qui fait les bons avis.": "Kyllä, jokaista lukua voi muokata suoraan. Lue e-kirjasi aina ennen myyntiä: siitä tulevat hyvät arvostelut.",
- "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "Tämä luku on jo kirjoitettu. Voit muokata sitä suoraan."
+ "Ce chapitre est déjà rédigé. Tu peux le modifier directement.": "Tämä luku on jo kirjoitettu. Voit muokata sitä suoraan.",
+ "La rédaction est momentanément indisponible. Réessaie un peu plus tard.": "Kirjoittaminen ei ole hetkellisesti käytettävissä. Yritä hetken päästä uudelleen."
 }
