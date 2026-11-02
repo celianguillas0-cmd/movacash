@@ -6,6 +6,7 @@ import { hasActiveSubscription } from "@/lib/subscription";
 import { listCategories } from "@/lib/ideas";
 import AdminTest from "./AdminTest";
 import IndexNow from "./IndexNow";
+import Inscriptions from "./Inscriptions";
 import { PLANS, isGeminiConfigured, isStripeConfigured } from "@/lib/config";
 import { googleConfigured } from "@/lib/google";
 import { annualAvailable } from "@/lib/stripe";
@@ -78,6 +79,12 @@ export default async function AdminPage() {
       [user.id]
     ),
   ]);
+  // Inscriptions des 90 derniers jours, regroupées par jour (heure de Paris)
+  const jourParis = (s: number) => new Date(s * 1000).toLocaleDateString("en-CA", { timeZone: "Europe/Paris" });
+  const recents = await all<{ created_at: number }>("SELECT created_at FROM users WHERE created_at >= ?", [Math.floor(Date.now() / 1000) - 92 * 86400]);
+  const parJour = new Map<string, number>();
+  for (const r of recents) { const d = jourParis(Number(r.created_at)); parJour.set(d, (parJour.get(d) || 0) + 1); }
+  const jours = Array.from({ length: 90 }, (_, i) => { const d = jourParis(Math.floor(Date.now() / 1000) - (89 - i) * 86400); return { d, n: parJour.get(d) || 0 }; });
   const payants = abonnes.filter((a) => !a.is_demo_sub);
   const stats = {
     comptes: Number(c?.n ?? 0),
@@ -133,6 +140,8 @@ export default async function AdminPage() {
       />
 
       <IndexNow />
+
+      <Inscriptions jours={jours} />
 
       <section className="card p-6">
         <h2 className="text-lg font-bold text-slate-900">Chiffres</h2>
