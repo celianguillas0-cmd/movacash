@@ -60,23 +60,6 @@ export const SLIDER = {
   ],
 };
 
-export const LEVIERS = [
-  {
-    id: "pinterest",
-    question: "Es-tu prêt à publier sur Pinterest ?",
-    detail: "Des épingles qui renvoient vers ta fiche Etsy. Pas besoin de montrer ton visage.",
-    libelle: "Pinterest",
-    action: "Épingler ton e-book sur Pinterest",
-  },
-  {
-    id: "catalogue",
-    question: "Es-tu prêt à créer plusieurs e-books ?",
-    detail: "Un deuxième ou un troisième guide sur le même thème, pour que chaque acheteur en découvre d'autres.",
-    libelle: "Tes autres e-books",
-    action: "Créer d'autres e-books sur ton thème",
-  },
-];
-
 export const TEMPS: Record<string, string> = { "15": "15 minutes", "30": "30 minutes", "60": "1 heure", "120": "2 heures" };
 
 export const ETAPES_CALCUL = ["Lecture de tes réponses", "Ton temps et ton rythme", "Calcul des ventes nécessaires", "Préparation de ton diagnostic"];
@@ -199,7 +182,7 @@ export const STEPS: Step[] = [
 
   { type: "compte", id: "compte" },
 
-  { type: "themes", id: "themes", kicker: "Ton terrain", titre: "Quelles thématiques t'attirent ?", aide: "Jusqu'à 4 choix.", max: 4, libre: { placeholder: "Ex : la couture, l'apiculture, la photo…", label: "Autre domaine (précise-le)" } },
+  { type: "themes", id: "themes", kicker: "Ton terrain", titre: "Quelles thématiques t'attirent ?", aide: "Jusqu'à 4 choix.", max: 4, optional: true, libre: { placeholder: "Ex : la couture, l'apiculture, la photo…", label: "Autre domaine (précise-le)" } },
   {
     type: "multi",
     id: "frustrations",
@@ -257,19 +240,6 @@ export const STEPS: Step[] = [
   },
   {
     type: "q",
-    id: "vie",
-    kicker: "La vie derrière l'argent",
-    titre: "Et au fond, tu cherches quoi ?",
-    libre: { placeholder: "Ex : être plus présent pour mes enfants…" },
-    options: [
-      { id: "securite", label: "Plus de sécurité" },
-      { id: "liberte", label: "Plus de liberté" },
-      { id: "fierte", label: "Être fier de ce que je construis" },
-      { id: "proches", label: "Plus de temps pour mes proches" },
-    ],
-  },
-  {
-    type: "q",
     id: "echeance",
     kicker: "Ton horloge",
     titre: "Quand veux-tu publier ton premier e-book ?",
@@ -278,17 +248,6 @@ export const STEPS: Step[] = [
       { id: "semaine", label: "Cette semaine" },
       { id: "mois", label: "Ce mois-ci" },
       { id: "tranquille", label: "Je prends mon temps" },
-    ],
-  },
-  {
-    type: "q",
-    id: "market",
-    kicker: "Tes futurs acheteurs",
-    titre: "Tu préfères écrire pour qui ?",
-    notesVisibles: true,
-    options: [
-      { id: "particuliers", label: "Des particuliers", note: "Loisirs, maison, famille, bien-être : des guides pratiques du quotidien." },
-      { id: "pros", label: "Des professionnels", note: "Métiers, indépendants, petites entreprises : des guides plus techniques." },
     ],
   },
   {
@@ -325,7 +284,7 @@ export function scoringAnswers(a: Answers, name?: string) {
     writing: refus.includes("relire") ? "hard" : "ok",
     sensitive: "yes",
     refuse: refus.includes("inconnu") ? ["unknown"] : [],
-    promo: refus.includes("video") ? (a.pinterest === "non" ? "none" : "faceless") : "face",
+    promo: refus.includes("video") ? "faceless" : "face",
     start: a.echeance === "aujourdhui" || a.echeance === "semaine" ? "week" : undefined,
     goal: a.goal === "ventes" ? "side" : a.goal === "publier" ? "build" : "test",
   };

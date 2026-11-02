@@ -2,7 +2,7 @@
 // Le même fichier sert à l'appli (app/quiz/Funnel.tsx) et à la maquette interactive (compilé en script autonome).
 
 import { GOOGLE_G } from "../googleLogo";
-import { ETAPES_CALCUL as ETAPES_FR, LEVIERS as LEVIERS_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
+import { ETAPES_CALCUL as ETAPES_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
 import { fmtEur, type T } from "../i18n/t";
 
 export type FunnelPlan = { id: string; name: string; price: number; annual: number; ebooks: number; features: string[]; highlight?: boolean };
@@ -92,7 +92,6 @@ export function mountFunnel(cfg: FunnelConfig) {
   const prix = (n: number) => new Intl.NumberFormat(loc, { style: "currency", currency: "EUR", minimumFractionDigits: 2 }).format(n);
   const STEPS = STEPS_FR.map((x) => localizeStep(x, tr));
   const SLIDER = { ...SLIDER_FR, paliers: SLIDER_FR.paliers.map((p) => ({ ...p, mot: tr(p.mot), note: tr(p.note) })) };
-  const LEVIERS = LEVIERS_FR.map((l) => ({ ...l, question: tr(l.question), detail: tr(l.detail), libelle: tr(l.libelle), action: tr(l.action) }));
   const TEMPS: Record<string, string> = Object.fromEntries(Object.entries(TEMPS_FR).map(([k, v]) => [k, tr(v)]));
   const ETAPES_CALCUL = ETAPES_FR.map((x) => tr(x));
   const PARCOURS = PARCOURS_FR.map((e) => ({ titre: tr(e.titre), texte: tr(e.texte) }));
@@ -104,14 +103,15 @@ export function mountFunnel(cfg: FunnelConfig) {
   let libreOuvert = false;
   let tapes = new Set<string>();
   let timers: number[] = [];
-  let popupSuite: ((v: string) => void) | null = null;
   let quizEnvoye = false;
 
   try {
     const s = JSON.parse(localStorage.getItem(KEY) || "null");
     if (s && typeof s === "object") {
       answers = s.answers || {};
-      const i = STEPS.findIndex((x) => x.id === s.step);
+      // Questions retirées le 02/11 : on reprend à la question qui les suivait
+      const id = ({ vie: "echeance", market: "dansUnAn" } as Record<string, string>)[s.step] || s.step;
+      const i = STEPS.findIndex((x) => x.id === id);
       if (i > 0) step = STEPS[i].type === "chargement" ? i - 1 : i;
     }
   } catch {}
@@ -137,7 +137,6 @@ export function mountFunnel(cfg: FunnelConfig) {
   function arreter() {
     timers.forEach((t) => clearTimeout(t));
     timers = [];
-    popupSuite = null;
   }
   function goTo(i: number) {
     arreter();
@@ -242,7 +241,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       .map((o) => `<button class="option option-check ${sel.includes(o.id) ? "selected" : ""}" data-action="toggle" data-v="${o.id}"><span class="option-tick" aria-hidden="true"></span><span class="option-label">${esc(o.label)}</span></button>`)
       .join("");
     const n = sel.length;
-    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="options ${themes ? "options-grille" : ""}">${cartes}${s.libre ? optionLibre(s, true) : ""}</div>${s.libre && libreOuvert ? panneauLibre(s, true) : ""}<button class="btn btn-primary" data-action="next" ${n ? "" : "disabled"}>${n ? (n > 1 ? tr("Continuer ({n} cochés)", { n }) : tr("Continuer (1 coché)")) : tr("Coche au moins une réponse")} ${fleche}</button></section>`);
+    render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="options ${themes ? "options-grille" : ""}">${cartes}${s.libre ? optionLibre(s, true) : ""}</div>${s.libre && libreOuvert ? panneauLibre(s, true) : ""}${!n && s.optional ? `<div class="text-actions"><button class="btn btn-primary" disabled>${tr("Continuer")} ${fleche}</button><button class="btn-ghost" data-action="next">${tr("Passer cette étape")}</button></div>` : `<button class="btn btn-primary" data-action="next" ${n ? "" : "disabled"}>${n ? (n > 1 ? tr("Continuer ({n} cochés)", { n }) : tr("Continuer (1 coché)")) : tr("Coche au moins une réponse")} ${fleche}</button>`}</section>`);
   }
 
   function showPreuve() {
@@ -300,68 +299,40 @@ export function mountFunnel(cfg: FunnelConfig) {
   }
 
   function showChargement() {
-    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">${tr("Calcul en cours")}</p><h1 class="stage-title stage-title-q">${tr("On prépare ton diagnostic.")}</h1><p class="stage-lede">${tr("Encore deux questions pendant que ça tourne.")}</p><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol><div class="popup" id="popup" hidden><div class="popup-carte" role="dialog" aria-modal="true" aria-labelledby="popup-q"><p class="popup-question" id="popup-q"></p><p class="popup-detail" id="popup-d"></p><div class="popup-actions"><button class="btn" data-action="levier" data-v="non">${tr("Non")}</button><button class="btn btn-primary" data-action="levier" data-v="oui">${tr("Oui")}</button></div></div></div></section>`);
+    render(`${barre()}<section class="stage stage-center calcul" data-reveal><p class="stage-kicker">${tr("Calcul en cours")}</p><h1 class="stage-title stage-title-q">${tr("On prépare ton diagnostic.")}</h1><div class="calcul-anneau"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="anneau-fond" cx="60" cy="60" r="54"/><circle class="anneau-trait" id="c-anneau" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/></svg><p class="calcul-pct"><b id="c-pct">0</b><i>%</i></p></div><ol class="calcul-etapes">${ETAPES_CALCUL.map((t) => `<li class="calcul-etape"><span class="calcul-coche" aria-hidden="true"></span><span>${t}</span></li>`).join("")}</ol></section>`);
     const anneau = root.querySelector<SVGCircleElement>("#c-anneau")!;
     const pct = root.querySelector<HTMLElement>("#c-pct")!;
     const etapes = [...root.querySelectorAll(".calcul-etape")];
     const calme = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const pause = calme ? 500 : 2600;
-    anneau.style.transition = `stroke-dashoffset ${pause}ms ease`;
-    let n = 0;
-    const chiffrer = (de: number, vers: number) => {
-      const debut = performance.now();
-      const tic = (t: number) => {
-        if (!pct.isConnected) return;
-        const k = Math.min(1, (t - debut) / pause);
-        pct.textContent = String(Math.round((de + (vers - de) * k) * 100));
-        if (k < 1) requestAnimationFrame(tic);
-      };
-      requestAnimationFrame(tic);
-    };
-    const marquer = (part: number) => {
-      const atteint = Math.round(part * etapes.length);
+    const duree = calme ? 900 : 4200;
+    const marquer = (faites: number) =>
       etapes.forEach((li, k) => {
-        li.classList.toggle("fait", k + 1 <= atteint);
-        li.classList.toggle("encours", k + 1 > atteint && k <= atteint);
+        li.classList.toggle("fait", k < faites);
+        li.classList.toggle("encours", k === faites);
       });
-    };
-    const avancer = () => {
-      const avant = n / (LEVIERS.length + 1);
-      const part = (n + 1) / (LEVIERS.length + 1);
-      chiffrer(avant, part);
-      anneau.style.strokeDashoffset = String(Math.max(0, 100 - Math.round(part * 100)));
-      marquer(avant);
-      timers.push(window.setTimeout(() => marquer(part), pause * 0.9));
-      const levier = LEVIERS[n];
-      if (!levier) {
-        timers.push(window.setTimeout(next, pause + 300));
-        return;
-      }
-      timers.push(
-        window.setTimeout(() => {
-          const popup = root.querySelector<HTMLElement>("#popup");
-          if (!popup) return;
-          root.querySelector("#popup-q")!.textContent = levier.question;
-          root.querySelector("#popup-d")!.textContent = levier.detail;
-          popup.hidden = false;
-          popupSuite = (v) => {
-            answers[levier.id] = v;
-            sauver();
-            popup.hidden = true;
-            n += 1;
-            avancer();
-          };
-        }, pause),
-      );
-    };
-    timers.push(window.setTimeout(avancer, 60));
+    timers.push(
+      window.setTimeout(() => {
+        anneau.style.transition = `stroke-dashoffset ${duree}ms ease`;
+        anneau.style.strokeDashoffset = "0";
+        const debut = performance.now();
+        const tic = (t: number) => {
+          if (!pct.isConnected) return;
+          const k = Math.min(1, (t - debut) / duree);
+          pct.textContent = String(Math.round(k * 100));
+          if (k < 1) requestAnimationFrame(tic);
+        };
+        requestAnimationFrame(tic);
+        marquer(0);
+        etapes.forEach((_, k) => timers.push(window.setTimeout(() => marquer(k + 1), (duree * (k + 1)) / etapes.length)));
+        timers.push(window.setTimeout(next, duree + 500));
+      }, 60),
+    );
   }
 
   function diagnostic() {
     const objectif = Number(answers.revenu ?? SLIDER.defaut);
     const actions = [
       { libelle: tr("Publier ton premier e-book sur Etsy"), detail: tr("Un sujet précis, une fiche soignée.") },
-      ...LEVIERS.filter((l) => answers[l.id] === "oui").map((l) => ({ libelle: l.action, detail: l.detail })),
       { libelle: tr("Rester régulier"), detail: answers.time ? tr("{temps} par jour, chaque semaine.", { temps: TEMPS[String(answers.time)] || tr("Un peu de temps") }) : tr("Un peu chaque semaine.") },
     ];
     return { objectif, actions, ventes: ventes(objectif) };
@@ -655,8 +626,6 @@ export function mountFunnel(cfg: FunnelConfig) {
       case "valider-curseur":
         answers[s.id] = Number(answers[s.id] ?? SLIDER.defaut);
         return next();
-      case "levier":
-        return popupSuite?.(v);
       case "plan":
         planChoisi = v;
         return showFormules();

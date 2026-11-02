@@ -3,7 +3,7 @@
 //         npx tsx scripts/i18n-extract.ts --missing de   (affiche les phrases sans traduction allemande)
 import fs from "node:fs";
 import path from "node:path";
-import { STEPS, SLIDER, LEVIERS, TEMPS, ETAPES_CALCUL, PARCOURS } from "../lib/funnel/steps";
+import { STEPS, SLIDER, TEMPS, ETAPES_CALCUL, PARCOURS } from "../lib/funnel/steps";
 import { QUESTIONS } from "../lib/quiz-questions";
 import { buildSeed } from "../lib/ideas-seed";
 import { LOCALES } from "../lib/i18n/locales";
@@ -52,7 +52,6 @@ for (const s of STEPS) {
   s.options?.forEach((o) => [o.label, o.detail, o.note].forEach(add));
 }
 SLIDER.paliers.forEach((p) => [p.mot, p.note].forEach(add));
-LEVIERS.forEach((l) => [l.question, l.detail, l.libelle, l.action].forEach(add));
 Object.values(TEMPS).forEach(add);
 ETAPES_CALCUL.forEach(add);
 PARCOURS.forEach((p) => [p.titre, p.texte].forEach(add));
