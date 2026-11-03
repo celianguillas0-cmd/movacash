@@ -41,7 +41,7 @@ export default async function Support() {
         <p className="at-kicker">{t("Nous écrire")}</p>
         {SUPPORT_EMAIL ? (
           <>
-            <p>{t("Une question, un souci avec un e-book ou ton abonnement ? Écris-nous, on répond en général sous 48 h ouvrées.")}</p>
+            <p>{t("Une question, un souci avec un e-book ou ton abonnement ? Écris-nous, on te répond par e-mail.")}</p>
             <a className="at-btn" style={{ marginTop: 16 }} href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>
           </>
         ) : (
