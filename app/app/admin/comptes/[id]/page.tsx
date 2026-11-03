@@ -42,6 +42,7 @@ export default async function Compte({ params }: { params: Promise<{ id: string 
         <div><span>Formule</span><b>{plan ? `${plan.name}${u.is_demo_sub ? " (offerte)" : ""}` : "Aucune"}</b></div>
         <div><span>Abonnement</span><b>{ETATS[etat]}</b></div>
         <div><span>Prochaine échéance</span><b>{date(u.current_period_end)}</b></div>
+        <div><span>A compris ce qu'est Movacash</span><b>{u.understood_at ? `Oui, le ${new Date(u.understood_at * 1000).toLocaleString("fr-FR", { timeZone: "Europe/Paris", day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" })} (texte du ${u.understood_version || "—"}, langue ${u.locale || "—"})` : "Pas encore (aucun paiement depuis le 3 novembre 2026)"}</b></div>
         <div><span>Paiement Stripe</span><b>{u.stripe_subscription_id && !u.is_demo_sub ? "Oui" : "Non"}</b></div>
         <div><span>E-books ce mois-ci</span><b>{usage.used} / {usage.limit}{u.quota_override != null ? " (limite fixée à la main)" : ""}</b></div>
         <div><span>E-books au total</span><b>{ebooks.length >= 15 ? "15 et plus" : ebooks.length}</b></div>

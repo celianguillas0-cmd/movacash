@@ -79,6 +79,9 @@ const ILLUS: Record<string, string> = {
 };
 
 const ICONE_MAIL = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M3.5 7.5l8.5 6 8.5-6"/></svg>`;
+const ICONE_LIVRE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5"/></svg>`;
+const ICONE_CADEAU = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v9H4v-9"/><path d="M2 7h20v5H2z"/><path d="M12 21V7"/><path d="M12 7c-2-4-6-4-6-1s6 1 6 1 6 2 6-1-4-3-6 1"/></svg>`;
+const ICONE_BOUTIQUE = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v11H3z"/><path d="M9 20v-6h6v6"/></svg>`;
 const ICONE_BOUCLIER = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6L12 3Z"/><path d="M8.8 12.2l2.2 2.2 4.4-4.6"/></svg>`;
 const EMPREINTE = `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">${[6, 11, 16, 21, 26]
   .map((r, n) => `<path d="M${32 - r} ${36 + n} a${r} ${r + 2} 0 0 1 ${r * 2} 0" opacity="${1 - n * 0.12}"/>`)
@@ -459,6 +462,7 @@ export function mountFunnel(cfg: FunnelConfig) {
   let planChoisi = "";
   // Mensuel par défaut ; l'annuel (−50 %) est mis en avant par le badge, l'astuce et le prix rappelé sur chaque plan
   let annuel = false;
+  let waiverCoche = false;
   function showFormules(erreur = "") {
     const plans = cfg.plans;
     const avecAnnuel = cfg.annualAvailable !== false;
@@ -476,6 +480,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       tr("Ton plan de 30 jours pour publier et te faire connaître"),
     ];
     const faq = [
+      [tr("Movacash, c'est quoi exactement ?"), tr("Une intelligence artificielle qui crée pour toi des e-books de qualité : pour toi, pour tes proches ou pour les vendre sur des plateformes comme Etsy, Gumroad ou Amazon Kindle. Movacash ne vend pas à ta place et ne garantit aucun revenu.")],
       [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
       [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
       [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter et publie régulièrement.")],
@@ -487,9 +492,30 @@ export function mountFunnel(cfg: FunnelConfig) {
         (p) =>
           `<button class="plan ${p.id === plan.id ? "selected" : ""} ${p.highlight ? "plan-ruban-la" : ""}" data-action="plan" data-v="${p.id}">${p.highlight ? `<span class="plan-ruban">${tr("Recommandé")}</span>` : ""}<span class="plan-radio"></span><span class="plan-gauche"><span class="plan-duree">${esc(p.name)}</span><span class="plan-prix">${tr("{n} e-books par mois · {prix} / mois", { n: p.ebooks, prix: `${annuel ? `<s class="plan-barre">${prix(p.price)}</s> ` : ""}${prix(mensuelEq(p))}` })}</span>${!annuel && avecAnnuel ? `<span class="plan-annuel plan-annuel-astuce">${tr("ou {prix} / mois en annuel", { prix: prix(p.annual) })} <b>−${remise} %</b></span>` : ""}${annuel ? `<span class="plan-annuel">${tr("facturé {prix} par an", { prix: prix(parAn(p)) })} · ${tr("tu économises {prix}", { prix: prix(Math.round((p.price * 12 - parAn(p)) * 100) / 100) })}</span>` : ""}</span><span class="plan-jour"><strong>${prix(mensuelEq(p) / p.ebooks)}</strong><em>${tr("par e-book")}</em></span></button>`,
       )
-      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${annuel ? tr("{prix} / an", { prix: prix(parAn(plan)) }) : tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
+      .join("")}</div><label class="case case-formules"><input type="checkbox" id="waiver"${waiverCoche ? " checked" : ""}/><span>${tr("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book (art. L221-28 du Code de la consommation).")}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer">${tr("Payer et accéder à mon atelier")} · ${annuel ? tr("{prix} / an", { prix: prix(parAn(plan)) }) : tr("{prix} / mois", { prix: prix(plan.price) })}</button><p class="plan-securite">${tr("Paiement sécurisé par Stripe. TVA non applicable, art. 293 B du CGI. Renouvellement automatique, résiliation en 1 clic depuis ton compte, effective à la fin de la période payée. Aucun remboursement d'une période entamée. Movacash est un outil : aucun revenu n'est garanti.")}</p>${cfg.demo ? `<p class="plan-demo">${tr("Mode démo : le paiement n'est pas encore branché, l'abonnement s'active sans être débité.")}</p>` : ""}<section class="vente-bloc"><h2 class="vente-titre">${tr("Ce que tu débloques")}</h2><ul class="plan-contenu">${avantages.map((a) => `<li>${a}</li>`).join("")}</ul></section><section class="vente-bloc"><h2 class="vente-titre">${tr("Questions fréquentes")}</h2><div class="faq">${faq
       .map(([q, r]) => `<details><summary>${q}</summary><p>${r}</p></details>`)
       .join("")}</div></section><p class="resultats-mention">${tr("Aucun revenu n'est garanti : tes ventes dépendent de ton sujet, de ta fiche Etsy et de ta régularité.")}</p></section>`);
+  }
+
+  // Étape « Movacash, c'est quoi ? » entre le choix de la formule et Stripe : le client confirme qu'il achète
+  // un outil qui crée des e-books, pas un revenu (case obligatoire, enregistrée côté serveur avec la date)
+  function showCestQuoi(erreur = "") {
+    const usages = [
+      [ICONE_LIVRE, tr("Pour toi"), tr("Apprendre, t'organiser, garder ce que tu sais dans un vrai livre.")],
+      [ICONE_CADEAU, tr("Pour tes proches"), tr("Offrir un guide, partager une passion ou un savoir-faire.")],
+      [ICONE_BOUTIQUE, tr("Pour le vendre"), tr("Sur des plateformes comme Etsy, Gumroad ou Amazon Kindle.")],
+    ];
+    const fait = [tr("L'e-book complet"), tr("Le PDF mis en page"), tr("La couverture"), tr("La fiche de vente")];
+    const faitPas = [tr("Vendre à ta place"), tr("Trouver tes acheteurs"), tr("Garantir des revenus")];
+    const liste = (l: string[]) => `<ul>${l.map((x) => `<li>${x}</li>`).join("")}</ul>`;
+    etapeAffichee = -1;
+    render(`${barre()}<section class="stage cq" data-reveal><p class="retour-haut"><button class="btn-ghost" data-action="retour-formules">← ${tr("Revenir aux formules")}</button></p><h1 class="stage-title stage-title-q">${tr("Movacash, c'est quoi ?")}<br/><em>${tr("Avant de payer, deux minutes.")}</em></h1><p class="stage-lede">${tr("Movacash est une intelligence artificielle qui crée pour toi des e-books de qualité, prêts en quelques minutes. Tu en fais ce que tu veux.")}</p><div class="cq-usages">${usages
+      .map(([ico, titre, texte]) => `<div class="cq-usage"><span class="cq-ico">${ico}</span><div><b>${titre}</b><span>${texte}</span></div></div>`)
+      .join("")}</div><div class="cq-duo"><div><b>${tr("Movacash fait")}</b>${liste(fait)}</div><div><b>${tr("Movacash ne fait pas")}</b>${liste(faitPas)}</div></div><label class="case cq-case"><input type="checkbox" id="cq-compris"/><span>${tr("J'ai compris que Movacash est un outil qui crée des e-books. Si je choisis de les vendre, mes résultats dépendent de moi et des plateformes, et aucun revenu n'est garanti. <1>En savoir plus</1>").replace(/<1>(.*?)<\/1>/, '<a href="/avertissement-revenus" target="_blank" rel="noopener">$1</a>')}</span></label>${erreur ? `<p class="form-error">${esc(erreur)}</p>` : ""}<button class="btn btn-primary btn-lg btn-payer" data-action="payer-compris" disabled>${tr("J'ai compris, continuer vers le paiement")} ${fleche}</button></section>`);
+    const caseCompris = root.querySelector<HTMLInputElement>("#cq-compris");
+    const go = root.querySelector<HTMLButtonElement>("[data-action=payer-compris]");
+    caseCompris?.addEventListener("change", () => go?.toggleAttribute("disabled", !caseCompris.checked));
+    window.scrollTo({ top: 0 });
   }
 
   function envoyerQuiz() {
@@ -633,12 +659,20 @@ export function mountFunnel(cfg: FunnelConfig) {
         annuel = v === "an";
         return showFormules();
       case "payer": {
-        const coche = root.querySelector<HTMLInputElement>("#waiver")?.checked;
-        if (!coche) return showFormules("Coche la case pour demander l'accès immédiat.");
+        waiverCoche = Boolean(root.querySelector<HTMLInputElement>("#waiver")?.checked);
+        if (!waiverCoche) return showFormules(tr("Coche la case pour demander l'accès immédiat."));
+        return showCestQuoi();
+      }
+      case "retour-formules":
+        etapeAffichee = -1;
+        showFormules();
+        return window.scrollTo({ top: 0 });
+      case "payer-compris": {
+        if (!root.querySelector<HTMLInputElement>("#cq-compris")?.checked) return showCestQuoi(tr("Coche la case pour confirmer que tu as compris ce qu'est Movacash."));
         t.setAttribute("disabled", "");
         t.textContent = "Ouverture du paiement…";
         const r = await cfg.api.checkout(planChoisi, annuel).catch(() => ({ error: "" }) as { url?: string; error?: string });
-        if (!r.url) return showFormules(r.error || "Le paiement n'a pas pu démarrer. Réessaie.");
+        if (!r.url) return showCestQuoi(r.error || tr("Le paiement n'a pas pu démarrer. Réessaie."));
         try {
           localStorage.removeItem(KEY);
         } catch {}

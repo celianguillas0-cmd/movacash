@@ -4,6 +4,7 @@ import Link from "next/link";
 import { rich } from "@/lib/i18n/rich";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { fmtEur } from "@/lib/i18n/t";
+import CestQuoi from "./CestQuoi";
 
 type P = { id: string; name: string; monthly: number; annual: number; ebooks: number; features: string[]; highlight: boolean };
 
@@ -17,6 +18,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   const [waiver, setWaiver] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [cestQuoi, setCestQuoi] = useState(false);
   const sel = plans.find((p) => p.id === plan)!;
   const price = (p: P) => (annual ? p.annual : p.monthly);
   const save = Math.round((1 - plans[1].annual / plans[1].monthly) * 100);
@@ -24,7 +26,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   async function pay() {
     setError("");
     setLoading(true);
-    const res = await fetch("/api/billing/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ plan, annual, waiver }) });
+    const res = await fetch("/api/billing/checkout", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ plan, annual, waiver, understood: true }) });
     const data = await res.json();
     if (!res.ok) {
       setLoading(false);
@@ -78,9 +80,10 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
               <span>{rich(t("Je demande l'accès immédiat au service et je comprends que je perds mon droit de rétractation de 14 jours dès que je crée mon premier e-book. J'ai lu les <1>CGV</1>."), { 1: (s) => <Link href="/cgv" target="_blank" style={{ textDecoration: "underline" }}>{s}</Link> })}</span>
             </label>
             {error && <p className="error">{error}</p>}
-            <button type="button" className="btn btn-accent btn-lg" disabled={!waiver || loading} onClick={pay}>
-              {loading ? t("Redirection vers le paiement…") : t("Payer et accéder à mon atelier") + " →"}
+            <button type="button" className="btn btn-accent btn-lg" disabled={!waiver || loading} onClick={() => { setError(""); setCestQuoi(true); }}>
+              {t("Payer et accéder à mon atelier") + " →"}
             </button>
+            {cestQuoi && <CestQuoi loading={loading} error={error} onContinue={pay} onClose={() => setCestQuoi(false)} />}
           </>
         ) : (
           <Link className="btn btn-accent btn-lg" href="/inscription">{t("Créer mon compte pour continuer")} →</Link>

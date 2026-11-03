@@ -38,7 +38,7 @@ export default function Funnel({ categories, plans, annualAvailable, user, demo,
           } catch {}
         },
         async checkout(plan, annual) {
-          const r = await post("/api/billing/checkout", { plan, annual, waiver: true });
+          const r = await post("/api/billing/checkout", { plan, annual, waiver: true, understood: true });
           return r.ok ? { url: r.data.url } : { error: r.data.error ? t(r.data.error) : undefined };
         },
       },

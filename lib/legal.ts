@@ -43,3 +43,7 @@ export function missingLegal() {
 }
 
 export const fill = (s: string) => s || "[à compléter]";
+
+// Version du texte « Movacash, c'est quoi ? » coché avant le paiement (à changer si ce texte change),
+// enregistrée avec la date dans users.understood_version comme preuve en cas de litige
+export const UNDERSTOOD_VERSION = "2026-11-03";

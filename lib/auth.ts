@@ -43,6 +43,8 @@ export interface User {
   email_tips: number;
   tips_consent: number; // conseils par e-mail : 0 par défaut, le client coche lui-même (consentement)
   locale: string | null;
+  understood_at: number | null; // « J'ai compris ce qu'est Movacash », coché avant le paiement
+  understood_version: string | null;
   renewal_reminded_for: number | null;
   mode_reel: number;
   my_idea_id: number | null;

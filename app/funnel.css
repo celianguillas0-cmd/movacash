@@ -477,3 +477,30 @@
 /* Logo : M blanc devant le nom (28/10) */
 .mc .logo { display: inline-flex; align-items: center; gap: .42em; }
 .mc-m { width: .9em; height: .9em; flex: none; }
+
+/* Étape « Movacash, c'est quoi ? » avant le paiement (questionnaire .tf et fenêtre de /tarifs .cq-modal) */
+.cq-usages { display: grid; gap: 10px; margin-top: 22px; }
+.cq-usage { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: start; padding: 13px 14px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 14px; background: rgba(255, 255, 255, .03); }
+.cq-ico { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; background: rgba(255, 255, 255, .06); color: #eef0f3; }
+.cq-ico svg { width: 21px; height: 21px; }
+.cq-usage b { display: block; color: #eef0f3; font-size: 15.5px; font-weight: 600; }
+.cq-usage span { display: block; color: #9ba1ad; font-size: 14px; line-height: 1.5; }
+.cq-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+.cq-duo > div { padding: 13px 14px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 14px; color: #9ba1ad; font-size: 14px; }
+.cq-duo b { display: block; color: #eef0f3; font-size: 14.5px; margin-bottom: 6px; }
+.cq-duo ul { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 3px; }
+@media (max-width: 420px) { .cq-duo { grid-template-columns: 1fr; } }
+.cq-case, .cq-boite .cq-case { margin-top: 18px !important; padding: 13px 14px !important; border: 1px solid rgba(255, 255, 255, .13); border-radius: 14px; background: rgba(255, 255, 255, .03); color: #eef0f3 !important; font-size: 14px !important; }
+.cq-case a { color: #eef0f3; text-decoration: underline; text-underline-offset: 3px; }
+.tf .cq .btn-payer { margin-top: 18px; width: 100%; }
+.tf .cq .btn-payer:disabled, .cq-modal .btn:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
+.tf .cq .stage-title em { font-style: normal; color: var(--text-2); }
+
+.cq-modal { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); background: rgba(5, 5, 7, .78); backdrop-filter: blur(6px); }
+.cq-boite { width: 100%; max-width: 560px; max-height: 100%; overflow-y: auto; padding: 26px 22px 22px; border: 1px solid rgba(255, 255, 255, .1); border-radius: 20px; background: #0a0a0d; color: #eef0f3; font-family: "Inter", "Segoe UI", system-ui, sans-serif; box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .9); }
+.cq-boite h2 { margin: 0; font-size: 26px; line-height: 1.2; font-weight: 800; letter-spacing: -.03em; color: #eef0f3; text-wrap: balance; }
+.cq-boite h2 em { font-style: normal; color: #9ba1ad; }
+.cq-boite .cq-lede { margin: 12px 0 0; color: #9ba1ad; font-size: 15px; line-height: 1.55; }
+.cq-boite .btn { width: 100%; margin-top: 18px; }
+.cq-boite .error { margin-top: 12px; }
+.cq-retour { display: block; margin: 12px auto 0; background: none; border: 0; color: #9ba1ad; font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }

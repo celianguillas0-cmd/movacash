@@ -181,6 +181,8 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "locale", "TEXT"], // langue de l'interface au moment du paiement, pour les e-mails liés au contrat
   ["users", "renewal_reminded_for", "INTEGER"],
   ["users", "relance_at", "INTEGER"], // e-mail de relance envoyé 24 h après l'inscription sans paiement (avec consentement)
+  ["users", "understood_at", "INTEGER"], // case « J'ai compris ce qu'est Movacash » cochée juste avant le paiement (preuve en cas de litige)
+  ["users", "understood_version", "TEXT"], // version du texte accepté (UNDERSTOOD_VERSION dans lib/legal.ts)
   ["ebooks", "film_source_id", "INTEGER"], // mode tournage : vrai e-book dont le contenu est rejoué, sans appel à l'API // fin de période annuelle pour laquelle le rappel de renouvellement (art. L215-1) a été envoyé
 ];
 

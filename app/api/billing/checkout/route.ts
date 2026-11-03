@@ -4,13 +4,17 @@ import { fail, ok, withUser } from "@/lib/api";
 import { APP_URL } from "@/lib/config";
 import { activateDemoSubscription, annualAvailable, getStripe, priceIdFor } from "@/lib/stripe";
 import { hasActiveSubscription } from "@/lib/subscription";
-import { canPayFromHere, getLocale } from "@/lib/i18n/server";
+import { canPayFromHere, getDict, getLocale } from "@/lib/i18n/server";
+import { makeT } from "@/lib/i18n/t";
+import { UNDERSTOOD_VERSION } from "@/lib/legal";
 
 const schema = z.object({
   plan: z.enum(["starter", "pro", "business"]),
   annual: z.boolean().default(false),
   // Renonciation expresse au droit de rétractation (art. L221-28 13° du Code de la consommation)
   waiver: z.literal(true, { errorMap: () => ({ message: "Tu dois accepter l'exécution immédiate du service." }) }),
+  // Étape « Movacash, c'est quoi ? » : le client confirme acheter un outil qui crée des e-books, sans revenu garanti
+  understood: z.literal(true, { errorMap: () => ({ message: "Confirme que tu as compris ce qu'est Movacash." }) }),
 });
 
 export async function POST(req: Request) {
@@ -23,7 +27,9 @@ export async function POST(req: Request) {
     if (annual && !annualAvailable()) return fail("La formule annuelle n'est pas encore disponible.");
     // Déjà abonné : on change d'offre depuis « Mon abonnement » (pas de second abonnement en parallèle)
     if (hasActiveSubscription(user)) return ok({ url: `/app/abonnement?plan=${plan}${annual ? "&annual=1" : ""}` });
-    await run("UPDATE users SET withdrawal_waiver_at = unixepoch(), locale = ? WHERE id = ?", [await getLocale(), user.id]);
+    const locale = await getLocale();
+    await run("UPDATE users SET withdrawal_waiver_at = unixepoch(), understood_at = unixepoch(), understood_version = ?, locale = ? WHERE id = ?", [UNDERSTOOD_VERSION, locale, user.id]);
+    const t = makeT(getDict(locale));
 
     const stripe = getStripe();
     if (!stripe) {
@@ -39,7 +45,8 @@ export async function POST(req: Request) {
       customer: user.stripe_customer_id || undefined,
       customer_email: user.stripe_customer_id ? undefined : user.email,
       client_reference_id: String(user.id),
-      metadata: { userId: String(user.id), plan, withdrawalWaiver: "accepted" },
+      metadata: { userId: String(user.id), plan, withdrawalWaiver: "accepted", understood: UNDERSTOOD_VERSION },
+      custom_text: { submit: { message: t("Movacash est un outil qui crée des e-books. Aucun revenu n'est garanti.") } },
       subscription_data: { metadata: { userId: String(user.id), plan } },
       allow_promotion_codes: true,
       locale: "auto",
