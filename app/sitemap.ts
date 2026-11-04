@@ -14,6 +14,7 @@ const PAGES: [string, number][] = [
   ["/tarifs", 0.8],
   ["/inscription", 0.5],
   ["/connexion", 0.3],
+  ["/c-est-quoi", 0.4],
   ["/avertissement-revenus", 0.2],
 ];
 

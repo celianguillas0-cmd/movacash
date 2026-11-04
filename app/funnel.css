@@ -485,6 +485,7 @@
 .cq-ico svg { width: 21px; height: 21px; }
 .cq-usage b { display: block; color: #eef0f3; font-size: 15.5px; font-weight: 600; }
 .cq-usage span { display: block; color: #9ba1ad; font-size: 14px; line-height: 1.5; }
+.cq-usage .cq-ico { display: grid; color: #eef0f3; } /* l'icône est aussi un span : rester centrée */
 .cq-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .cq-duo > div { padding: 13px 14px; border: 1px solid rgba(255, 255, 255, .09); border-radius: 14px; color: #9ba1ad; font-size: 14px; }
 .cq-duo b { display: block; color: #eef0f3; font-size: 14.5px; margin-bottom: 6px; }
@@ -504,3 +505,9 @@
 .cq-boite .btn { width: 100%; margin-top: 18px; }
 .cq-boite .error { margin-top: 12px; }
 .cq-retour { display: block; margin: 12px auto 0; background: none; border: 0; color: #9ba1ad; font: inherit; font-size: 14px; text-decoration: underline; cursor: pointer; }
+/* Page publique /c-est-quoi : même résumé que la fenêtre avant le paiement */
+.cq-page .cq-lede { margin: 14px 0 0; color: #9ba1ad; font-size: 16.5px; line-height: 1.6; }
+.cq-page .cq-usages { margin-top: 28px; }
+.cq-page .cq-case { display: block; }
+.cq-page .cq-note { margin-top: 18px; color: #9ba1ad; font-size: 14px; line-height: 1.6; }
+.cq-page .cq-note a { color: #eef0f3; text-decoration: underline; text-underline-offset: 3px; }

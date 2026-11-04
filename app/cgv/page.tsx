@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import LegalPage from "@/components/LegalPage";
 import { APP_NAME, APP_URL, PLANS, eur } from "@/lib/config";
 import { fill, legal } from "@/lib/legal";
@@ -16,6 +17,17 @@ export default function CGV() {
 
       <h2>2. Description du service</h2>
       <p>Le service permet notamment : la consultation d'une base d'idées de sujets, la génération de plans et de chapitres d'e-books à l'aide d'un modèle d'IA tiers (Google Gemini), l'édition des contenus, l'export au format PDF, et la génération d'aides à la rédaction de fiches produits et de miniatures. Concrètement, {APP_NAME} est une intelligence artificielle qui crée des e-books, que l'utilisateur peut garder pour lui, partager avec ses proches ou mettre en vente sur des plateformes tierces (par exemple Etsy, Gumroad ou Amazon Kindle). {APP_NAME} ne vend pas à la place de l'utilisateur, ne lui trouve pas d'acheteurs et ne garantit aucun revenu ; l'utilisateur le confirme en cochant une case avant chaque paiement, et la date de cette confirmation est conservée. L'Éditeur ne vend pas d'e-books et n'intervient pas dans les ventes réalisées par l'utilisateur sur des plateformes tierces (Etsy ou autres). {APP_NAME} n'est affilié ni à Etsy ni à Google.</p>
+
+      <h2>2 bis. {APP_NAME}, c'est quoi ? (résumé présenté avant chaque paiement)</h2>
+      <p>Avant chaque paiement, l'utilisateur voit le résumé ci-dessous et doit cocher la case « J'ai compris » pour continuer. Ce résumé est aussi consultable à tout moment, par tous, sur la page <Link href="/c-est-quoi">« {APP_NAME}, c'est quoi ? »</Link> ({APP_URL}/c-est-quoi), accessible en bas de chaque page du site.</p>
+      <p>{APP_NAME} est une intelligence artificielle qui crée pour l'utilisateur des e-books de qualité, prêts en quelques minutes. Il en fait ce qu'il veut :</p>
+      <ul>
+        <li>pour lui : apprendre, s'organiser, garder ce qu'il sait dans un vrai livre ;</li>
+        <li>pour ses proches : offrir un guide, partager une passion ou un savoir-faire ;</li>
+        <li>pour le vendre : sur des plateformes comme Etsy, Gumroad ou Amazon Kindle.</li>
+      </ul>
+      <p>{APP_NAME} fait : l'e-book complet, le PDF mis en page, la couverture et la fiche de vente. {APP_NAME} ne fait pas : vendre à la place de l'utilisateur, trouver ses acheteurs, garantir des revenus.</p>
+      <p>Texte de la case cochée avant le paiement : « J'ai compris que {APP_NAME} est un outil qui crée des e-books. Si je choisis de les vendre, mes résultats dépendent de moi et des plateformes, et aucun revenu n'est garanti. » La date, l'heure, la langue et la version du texte accepté sont conservées.</p>
 
       <h2>3. Absence de garantie de revenus</h2>
       <p>L'abonnement donne accès à un outil. L'Éditeur ne garantit aucun chiffre d'affaires, aucun nombre de ventes ni aucune rentabilité, et ne propose aucun remboursement lié aux résultats obtenus. Les résultats dépendent exclusivement de l'utilisateur (choix des sujets, relecture, qualité des fiches, promotion, concurrence, règles des plateformes). Les objectifs, calculs et estimations affichés (demande, concurrence, prix conseillé, nombre de ventes correspondant à un objectif) sont des indications et non des promesses ni des prévisions.</p>

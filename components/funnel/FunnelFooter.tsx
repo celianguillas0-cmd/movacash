@@ -19,6 +19,7 @@ export default async function FunnelFooter() {
           <Link href={`/guides?lang=${guideLang(locale)}`}>{t("Guides Etsy")}</Link>
           {/* Les pages d'idées par thème n'existent qu'en français (la base d'idées est en français) */}
           {locale === "fr" && <Link href="/idees?lang=fr">Idées d'e-books</Link>}
+          <Link href="/c-est-quoi">{t("Movacash, c'est quoi ?")}</Link>
           <Link href="/cgv">{t("CGV")}</Link>
           <Link href="/mentions-legales">{t("Mentions légales")}</Link>
           <Link href="/confidentialite">{t("Confidentialité")}</Link>

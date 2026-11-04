@@ -34,6 +34,7 @@ ${prix}
 - Home: ${APP_URL}/ (versions: ${APP_URL}/?lang=en, ${APP_URL}/?lang=fr, ${APP_URL}/?lang=de, ${APP_URL}/?lang=es, ${APP_URL}/?lang=it …)
 - Free questionnaire (3 e-book ideas): ${APP_URL}/quiz
 - Pricing: ${APP_URL}/tarifs
+- What Movacash is (and is not), shown before every payment: ${APP_URL}/c-est-quoi
 - Income disclaimer: ${APP_URL}/avertissement-revenus
 - Terms (French): ${APP_URL}/cgv
 

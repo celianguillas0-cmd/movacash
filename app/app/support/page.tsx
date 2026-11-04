@@ -11,6 +11,7 @@ export const dynamic = "force-dynamic";
 const LIENS: [string, string, string][] = [
   ["/app/regles-etsy", tk("Guide Etsy"), tk("Les règles à respecter avant de publier")],
   ["/app/abonnement", tk("Gérer mon abonnement"), tk("Changer de formule, carte, factures, résiliation")],
+  ["/c-est-quoi", tk("Movacash, c'est quoi ?"), tk("Ce que l'outil fait et ne fait pas")],
   ["/cgv", tk("Conditions générales de vente"), tk("Abonnement, résiliation, absence de remboursement")],
   ["/mentions-legales", tk("Mentions légales"), tk("Éditeur et hébergeur du site")],
   ["/confidentialite", tk("Confidentialité"), tk("Ce qu'on fait (et ne fait pas) de tes données")],

@@ -4,7 +4,7 @@ import { guideLang, guideLocales } from "./guides-tr";
 
 // Pages publiques traduites : chacune existe en 22 versions (?lang=xx) que Google peut indexer séparément.
 // Les pages légales restent en français (le français fait foi) : une seule version.
-export const MULTI_PATHS = ["/", "/quiz", "/tarifs", "/inscription", "/connexion", "/avertissement-revenus"];
+export const MULTI_PATHS = ["/", "/quiz", "/tarifs", "/inscription", "/connexion", "/avertissement-revenus", "/c-est-quoi"];
 export const FR_ONLY_PATHS = ["/cgv", "/mentions-legales", "/confidentialite"];
 
 export const langUrl = (path: string, locale: Locale) => `${APP_URL}${path === "/" ? "/" : path}?lang=${locale}`;
