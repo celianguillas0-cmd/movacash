@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
+import { railTactile } from "@/lib/rail-tactile";
 import Marque from "@/components/at/Marque";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -64,6 +65,8 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
   const locale = useLocale();
   const [step, setStep] = useState(0);
   const [objectif, setObjectif] = useState(0);
+  // Curseur d'objectif attrapable au doigt sur toute sa hauteur (nettoyé au démontage, React 19)
+  const railRef = useCallback((el: HTMLInputElement | null) => (el ? railTactile(el) : undefined), []);
   const [r, setR] = useState<Record<string, string>>({});
   const [envoi, setEnvoi] = useState(false);
   const [erreur, setErreur] = useState("");
@@ -202,7 +205,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
             <>
               <p className="mf-montant">{fmtEur(objectif, locale)}</p>
               <p className="mf-soit"><b>{t("soit {jour} par jour", { jour: parJour(objectif) })}</b></p>
-              <input className="mf-rail" type="range" min={0} max={30000} step={10} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} />
+              <input ref={railRef} className="mf-rail" type="range" min={0} max={30000} step={10} value={objectif} onChange={(ev) => setObjectif(Number(ev.target.value))} aria-label={t("Objectif mensuel")} style={{ "--part": `${(objectif / 30000) * 100}%` } as React.CSSProperties} />
               <div className="mf-bornes"><span>{fmtEur(0, locale)}</span><span>{fmtEur(30000, locale)}</span></div>
               <button className="mf-btn" disabled={objectif === 0} onClick={() => setStep(1)}>{t("Lancer mon business")} <span aria-hidden="true">→</span></button>
             </>

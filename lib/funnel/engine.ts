@@ -4,6 +4,7 @@
 import { GOOGLE_G } from "../googleLogo";
 import { ETAPES_CALCUL as ETAPES_FR, TEMPS as TEMPS_FR, PARCOURS as PARCOURS_FR, PRIX_EBOOK, SLIDER as SLIDER_FR, STEPS as STEPS_FR, scoringAnswers, type Answers, type Step } from "./steps";
 import { fmtEur, type T } from "../i18n/t";
+import { railTactile } from "../rail-tactile";
 
 export type FunnelPlan = { id: string; name: string; price: number; annual: number; ebooks: number; features: string[]; highlight?: boolean };
 
@@ -290,6 +291,7 @@ export function mountFunnel(cfg: FunnelConfig) {
     const part = ((v - SLIDER.min) / (SLIDER.max - SLIDER.min)) * 100;
     render(`${barre()}${retour()}<section class="stage" data-reveal>${tete(s)}<div class="curseur"><div class="curseur-tete"><span class="curseur-montant" id="c-montant">${euros(v)}</span><span class="curseur-palier" id="c-palier">${palier(v).mot}</span></div><input class="curseur-rail" id="c-rail" type="range" min="${SLIDER.min}" max="${SLIDER.max}" step="${SLIDER.pas}" value="${v}" aria-label="${esc(s.titre)}" style="--part:${part.toFixed(1)}%"/><div class="curseur-bornes"><span>${euros(SLIDER.min)}<em>${tr("premier pas")}</em></span><span>${euros(SLIDER.max)}<em>${tr("ambitieux")}</em></span></div><p class="curseur-note" id="c-note">${palier(v).note}</p><p class="curseur-calcul" id="c-calcul">${calcul(v)}</p></div>${bouton(tr("Continuer"), "valider-curseur")}</section>`);
     const rail = root.querySelector<HTMLInputElement>("#c-rail")!;
+    railTactile(rail);
     rail.addEventListener("input", () => {
       const x = Number(rail.value);
       answers[s.id] = x;
