@@ -428,3 +428,7 @@
 @media (max-width: 760px) { .mf-cartes-n8 { grid-template-columns: 1fr 1fr; margin-top: 18px; } }
 /* Le M blanc remplace l'ancienne icône (28/10) */
 .mc-marque svg.mc-marque-ic { color: #fff; border-radius: 0; width: .9em; height: .9em; }
+
+/* Menu des langues dans l'en-tête de l'atelier : les règles des boutons de l'en-tête (largeur max, couleur) ne s'appliquent pas à la liste */
+.at .at-head-liens .lang-liste button { max-width: none; overflow: visible; color: #d6d9df; font-size: 14px; white-space: normal; }
+.at .at-head-liens .lang-liste button[aria-selected="true"], .at .at-head-liens .lang-liste button:hover { color: #fff; }

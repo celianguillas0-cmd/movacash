@@ -11,6 +11,7 @@ import { PLANS, isGeminiConfigured, isStripeConfigured } from "@/lib/config";
 import { googleConfigured } from "@/lib/google";
 import { annualAvailable } from "@/lib/stripe";
 import AdminNav from "./AdminNav";
+import LangSwitch from "@/components/LangSwitch";
 import { usageSummary } from "@/lib/usage";
 import { missingLegal } from "@/lib/legal";
 import { isEmailConfigured } from "@/lib/email";
@@ -138,6 +139,12 @@ export default async function AdminPage() {
         payant={Boolean(user.stripe_subscription_id && !user.is_demo_sub && hasActiveSubscription(user))}
         sujetsRejouables={rejouables.map((r) => r.topic)}
       />
+
+      <section className="card p-6">
+        <h2 className="text-lg font-bold text-slate-900">Langue du site</h2>
+        <p className="muted mt-1 text-sm">Change la langue de tout le site pour toi (questionnaire, atelier, pages publiques), par exemple pour filmer une pub dans une autre langue. Le menu ne propose que les langues des 27 pays de l&apos;UE, les seuls où le paiement est ouvert.</p>
+        <div className="mt-4"><LangSwitch bloc /></div>
+      </section>
 
       <IndexNow />
 

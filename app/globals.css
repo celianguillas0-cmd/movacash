@@ -62,8 +62,32 @@ input[type="checkbox"]:checked::after { transform: translateY(-2px) rotate(-45de
 input[type="checkbox"]:focus-visible { outline: 2px solid #7b68a6; outline-offset: 2px; }
 .tf, .at, .mc.dark { --coche-fond: #fff; --coche-trait: #0a0a0d; }
 
-.lang-switch { appearance: none; -webkit-appearance: none; background: transparent; border: 1px solid rgba(140, 140, 150, 0.45); border-radius: 999px; padding: 6px 28px 6px 12px; font: inherit; font-size: 13px; color: inherit; cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 15px) 52%, calc(100% - 10px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
-.lang-switch option { color: #111; }
+/* Menu des langues avec drapeaux (components/LangSwitch.tsx) : en haut de la page d'accueil, pied de page, atelier, Paramètres, Admin */
+.lang-menu { position: relative; display: inline-block; }
+.lang-bouton { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 9px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 10px; background: rgba(255, 255, 255, 0.04); color: #eef0f3; font-family: inherit; font-size: 13.5px; font-weight: 500; line-height: 1; cursor: pointer; white-space: nowrap; }
+.lang-bouton:hover { background: rgba(255, 255, 255, 0.08); }
+.lang-drapeau { display: inline-block; flex: none; width: 21px; height: 14px; border-radius: 3px; overflow: hidden; line-height: 0; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18); }
+.lang-drapeau svg { display: block; width: 100%; height: 100%; }
+.lang-code { display: none; }
+.lang-fleche { width: 12px; height: 12px; opacity: 0.7; transition: transform 0.15s; }
+.lang-bouton[aria-expanded="true"] .lang-fleche { transform: rotate(180deg); }
+.lang-liste { position: absolute; top: calc(100% + 8px); right: 0; z-index: 50; display: flex; flex-direction: column; width: 250px; max-height: min(430px, 70vh); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 14px; background: #121216; box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.85); text-align: left; }
+.lang-menu-haut .lang-liste { top: auto; bottom: calc(100% + 8px); left: 0; right: auto; }
+.lang-liste ul { margin: 0; padding: 6px; list-style: none; overflow-y: auto; }
+.lang-liste li button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 9px 10px; border: 0; border-radius: 9px; background: none; color: #d6d9df; font-family: inherit; font-size: 14px; font-weight: 500; line-height: 1.2; text-align: left; cursor: pointer; }
+.lang-liste li button:hover, .lang-liste li button:focus-visible { background: rgba(255, 255, 255, 0.07); color: #fff; outline: none; }
+.lang-liste li button[aria-selected="true"] { color: #fff; font-weight: 600; }
+.lang-coche { width: 16px; height: 16px; margin-left: auto; }
+.lang-note { margin: 0; padding: 10px 14px 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #8b909b; font-size: 12px; line-height: 1.45; }
+.lang-menu-bloc { display: block; }
+.lang-menu-bloc .lang-bouton { width: 100%; max-width: 320px; height: 44px; justify-content: flex-start; padding: 0 14px; font-size: 14.5px; }
+.lang-menu-bloc .lang-fleche { margin-left: auto; }
+.lang-menu-bloc .lang-liste { left: 0; right: auto; width: 100%; max-width: 320px; }
+@media (max-width: 560px) {
+  .lang-menu:not(.lang-menu-bloc) .lang-nom { display: none; }
+  .lang-menu:not(.lang-menu-bloc) .lang-code { display: inline; }
+  .lang-menu:not(.lang-menu-bloc) .lang-bouton { gap: 6px; padding: 0 8px; }
+}
 
 /* Bandeau de consentement (Clarity) : sombre, deux boutons de même poids. */
 .mc-consent { position: fixed; left: 16px; bottom: 16px; z-index: 2147483647; max-width: 420px; background: #141416; color: #f4f4f5; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 14px; padding: 16px; box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.8); font-family: "Inter", system-ui, sans-serif; font-size: 13.5px; line-height: 1.5; }

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Modal from "@/components/ws/Modal";
 import { useLocale, useT } from "@/lib/i18n/client";
 import { LOCALES } from "@/lib/i18n/locales";
+import LangSwitch from "@/components/LangSwitch";
 import type { T } from "@/lib/i18n/t";
 
 type U = {
@@ -70,6 +71,10 @@ export default function Settings({ user }: { user: U }) {
             <label className="label" htmlFor="s-author">{t("Nom d'auteur sur les e-books")}</label>
             <input id="s-author" className="input" value={profile.author_name} maxLength={100} placeholder={profile.name || t("Ex. Camille Martin")} onChange={(e) => setProfile({ ...profile, author_name: e.target.value })} />
             <p className="mt-1 text-xs text-slate-500">{t("Un pseudonyme ou le nom de ta boutique Etsy, au choix.")}</p>
+          </div>
+          <div>
+            <p className="label">{t("Langue du site")}</p>
+            <LangSwitch bloc />
           </div>
           <div>
             <label className="label" htmlFor="s-lang">{t("Langue de tes e-books par défaut")}</label>

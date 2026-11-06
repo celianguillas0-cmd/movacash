@@ -458,8 +458,33 @@
   .mc .nav-links .link { font-size: 13px; }
   .mc .nav-links .btn-sm { padding: 7px 10px; font-size: 13px; white-space: nowrap; }
 }
+/* Menu des langues dans l'en-tête (06/11) : sur téléphone, drapeau seul, « Se connecter » en icône, liste sur toute la largeur */
+.mc .nav-links .login-ico { display: none; width: 20px; height: 20px; }
+@media (max-width: 560px) {
+  .mc .nav .lang-menu { position: static; }
+  .mc .nav .lang-liste { left: 12px; right: 12px; top: calc(100% - 6px); width: auto; }
+}
+@media (max-width: 440px) {
+  .mc .nav .lang-code { display: none !important; }
+  .mc .nav .lang-bouton { height: 34px; gap: 4px; padding: 0 6px 0 7px; }
+  .mc .nav .lang-fleche { width: 10px; height: 10px; }
+  .mc .nav-links .link-login { display: inline-grid; place-items: center; width: 36px; height: 34px; padding: 0 !important; margin: 0 !important; border: 1px solid var(--line-2) !important; border-radius: 10px; }
+  .mc .nav-links .link-login .login-ico { display: block; }
+  .mc .nav-links .link-login .login-txt { display: none; }
+  /* Langues aux mots longs (grec, allemand, hongrois…) : le bouton passe sur deux lignes au lieu de déborder */
+  .mc .nav .logo { flex: none; }
+  .mc .nav-links { flex: 1 1 auto; justify-content: flex-end; }
+  .mc .nav-links > * { flex: none; }
+  .mc .nav-links .btn-sm { flex: 0 1 auto; min-width: 0; white-space: normal; text-align: center; line-height: 1.15; }
+}
 /* Petits téléphones (iPhone X, SE…) : « Se connecter » reste visible ; le bouton du questionnaire est déjà dans la page (31/10) */
-@media (max-width: 380px) { .mc.dark .nav-links .link-login { border: 1px solid var(--line-2); border-radius: 10px; padding: 7px 12px; } .mc .nav-links .btn-sm { display: none; } }
+@media (max-width: 380px) {
+  .mc .nav-links .btn-sm { display: none; }
+  /* Le bouton du questionnaire est caché : « Se connecter » reprend son texte */
+  .mc .nav-links .link-login { display: inline-flex; width: auto; padding: 0 12px !important; }
+  .mc .nav-links .link-login .login-ico { display: none; }
+  .mc .nav-links .link-login .login-txt { display: inline; }
+}
 .mc .pay-box { grid-template-columns: minmax(0, 1fr); }
 .mc .pay-row > span { min-width: 0; overflow-wrap: anywhere; }
 /* Bouton Google : texte foncé sur fond blanc, même dans le thème sombre (les liens y sont blancs) */

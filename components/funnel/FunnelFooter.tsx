@@ -13,7 +13,7 @@ export default async function FunnelFooter() {
         <div>
           <span className="logo" style={{ fontSize: 20 }}><LogoM /><span>Mova<span>cash</span></span></span>
           <p style={{ marginTop: 6 }}>{t("L'atelier des e-books à vendre sur Etsy. Non affilié à Etsy. Aucun revenu garanti.")}</p>
-          <div style={{ marginTop: 14 }}><LangSwitch /></div>
+          <div style={{ marginTop: 14 }}><LangSwitch up /></div>
         </div>
         <div className="links">
           <Link href={`/guides?lang=${guideLang(locale)}`}>{t("Guides Etsy")}</Link>

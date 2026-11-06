@@ -1,6 +1,6 @@
-// Langues du site : celles des pays où Aurèle peut vendre sans TVA en micro-entreprise
-// (Union européenne sous le seuil OSS de 10 000 €, plus États-Unis, Canada, Australie, Nouvelle-Zélande, Suisse, Norvège, Islande, Liechtenstein).
-// L'irlandais et le maltais sont couverts par l'anglais.
+// Langues du site : les langues officielles des pays de l'Union européenne, seule zone où Movacash est vendu
+// (micro-entreprise sans TVA sous le seuil OSS de 10 000 € de ventes vers les autres pays de l'UE ; vérification du 06/11/2026).
+// L'irlandais et le maltais sont couverts par l'anglais (drapeau irlandais dans le menu, lib/i18n/flags.ts).
 
 export const LOCALES = [
   { code: "fr", nom: "Français" },
@@ -46,10 +46,12 @@ export const COUNTRY_LANGS: Record<string, Locale[]> = {
   NO: ["en"], IS: ["en"],
 };
 
-// Pays où l'abonnement peut être payé. Ailleurs, l'inscription reste possible mais pas le paiement :
-// soit il faudrait une immatriculation à la TVA dès la première vente (Royaume-Uni, Mexique, Inde, Turquie…),
-// soit les règles n'ont pas été vérifiées.
-export const SELLABLE_COUNTRIES = new Set(Object.keys(COUNTRY_LANGS));
+// Pays où l'abonnement peut être payé : les 27 pays de l'UE, comme la règle Stripe Radar (cartes hors UE refusées).
+// Ailleurs, l'inscription reste possible mais pas le paiement : TVA dès la première vente (Royaume-Uni…) ou risque juridique
+// trop fort (États-Unis : la FTC poursuit les outils « IA + boutique en ligne pour gagner de l'argent »). Vérifié le 06/11/2026.
+// COUNTRY_LANGS garde quelques pays hors UE seulement pour choisir la langue d'affichage.
+export const EU_COUNTRIES = ["AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"] as const;
+export const SELLABLE_COUNTRIES = new Set<string>(EU_COUNTRIES);
 
 // Choix de la langue : préférence enregistrée, sinon langue du navigateur si elle est parlée dans le pays, sinon langue du pays.
 export function detectLocale(opts: { cookie?: string | null; country?: string | null; acceptLanguage?: string | null }): Locale {
