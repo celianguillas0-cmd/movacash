@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { railTactile } from "@/lib/rail-tactile";
 import Marque from "@/components/at/Marque";
 import Link from "next/link";
@@ -17,7 +17,7 @@ const ICONES: Record<string, string> = {
   carte: "M2 7.5A2.5 2.5 0 0 1 4.5 5h15A2.5 2.5 0 0 1 22 7.5v9a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 16.5zM2 10h20",
   horloge: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2",
   telephone: "M8 2h8a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM11 18h2",
-  fiche: "M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zM14 2v6h6M8 13h8M8 17h5",
+  "porte-voix": "M3 10.5v3a1 1 0 0 0 1 1h3l6 4.5v-14L7 9.5H4a1 1 0 0 0-1 1zM16.5 9a4 4 0 0 1 0 6M19.5 6a8 8 0 0 1 0 12",
   eclair: "M13 2 4 14h7l-1 8 9-12h-7z",
   courbe: "M3 17l6-6 4 4 8-8M15 7h6v6",
 };
@@ -53,9 +53,10 @@ const DISCRETION: Choix[] = [
   { id: "oui", titre: tk("Oui"), detail: tk("pas de caméra, pas de visage, juste ton téléphone") },
   { id: "non", titre: tk("Non"), detail: tk("me montrer ne me gêne pas") },
 ];
-const FICHE: Choix[] = [
-  { id: "oui", titre: tk("Oui"), detail: tk("on écrit ton e-book, ta fiche Etsy et ta miniature à ta place") },
-  { id: "non", titre: tk("Non"), detail: tk("je préfère l'écrire moi-même") },
+// Remplace « Ton marketing, tu veux qu'on le fasse à ta place ? (automatisé) » (demande d'Aurèle du 08/11)
+const RESEAUX: Choix[] = [
+  { id: "oui", titre: tk("Oui"), detail: tk("je le partage sur TikTok, Instagram ou Pinterest") },
+  { id: "non", titre: tk("Non"), detail: tk("je compte seulement sur la recherche Etsy") },
 ];
 const JOURS: Record<string, number> = { aujourdhui: 0, semaine: 7, mois: 30 };
 
@@ -76,11 +77,26 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     { cle: "paiement", ic: "carte", kicker: t("Tes paiements"), t1: t("Où tu veux"), t2: t("recevoir tes paiements ?"), choix: PAIEMENTS },
     { cle: "echeance", ic: "horloge", kicker: t("Ton échéance"), t1: t("En combien de temps tu veux"), t2: t("ton e-book en vente ?"), choix: ECHEANCES },
     { cle: "discretion", ic: "telephone", kicker: t("Ta façon de faire"), t1: t("Tu veux tout faire derrière ton téléphone"), t2: t("sans te montrer ?"), choix: DISCRETION },
-    { cle: "fiche", ic: "fiche", kicker: t("Ton marketing"), t1: t("Tu veux qu'on le fasse à ta place ?"), t2: t("(automatisé)"), choix: FICHE },
+    { cle: "reseaux", ic: "porte-voix", kicker: t("Ta promotion"), t1: t("Tu veux faire la promotion de ton e-book"), t2: t("sur les réseaux ?"), choix: RESEAUX },
     { cle: "plan", ic: "courbe", kicker: t("Dernière étape"), t1: t("On chiffre ton scénario."), t2: "" },
   ];
   const e = ETAPES[step];
-  // Verdict : le montant défile de 0 à l'objectif choisi (aucun chiffre inventé).
+  // Scénario (demande d'Aurèle du 08/11) : l'objectif ajusté selon les réponses, à quelques centaines d'euros près.
+  // Promouvoir sur les réseaux fait monter le chiffre, ne compter que sur Etsy le fait baisser ; l'échéance et le fait
+  // de se montrer jouent un peu. Milliers, centaines et dizaines viennent du calcul, seul le dernier chiffre est tiré au hasard
+  // (une fois par passage) pour que le montant ne retombe jamais pile sur l'objectif tapé.
+  const [unite] = useState(() => 1 + Math.floor(Math.random() * 9));
+  const scenario = useMemo(() => {
+    if (!objectif) return 0;
+    const pct =
+      (r.reseaux === "oui" ? 0.08 : r.reseaux === "non" ? -0.08 : 0) +
+      (({ aujourdhui: 0.02, semaine: 0.01, mois: -0.015 } as Record<string, number>)[r.echeance] ?? 0) +
+      (r.discretion === "non" ? 0.01 : r.discretion === "oui" ? -0.005 : 0);
+    const ecart = Math.max(-900, Math.min(900, objectif * pct));
+    return Math.max(0, Math.round((objectif + ecart) / 10) * 10) + unite;
+  }, [objectif, r.reseaux, r.echeance, r.discretion, unite]);
+
+  // Verdict : le montant défile de 0 au scénario.
   const [compte, setCompte] = useState(0);
   useEffect(() => {
     if (e.cle !== "plan") return;
@@ -89,14 +105,14 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
     const duree = 1600;
     const tick = (now: number) => {
       const x = Math.min(1, (now - debut) / duree);
-      setCompte(Math.round(objectif * (1 - Math.pow(1 - x, 3))));
+      setCompte(Math.round(scenario * (1 - Math.pow(1 - x, 3))));
       if (x < 1) raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [e.cle, objectif]);
+  }, [e.cle, scenario]);
   const prix = Math.max(1, (idea.priceMin + idea.priceMax) / 2);
-  const vj = (objectif * 12) / 365 / prix;
+  const vj = (scenario * 12) / 365 / prix;
   const ventesJour = Math.max(1, vj >= 10 ? Math.round(vj) : Math.round(vj * 10) / 10);
   const parJour = (v: number) => fmtEur(Math.round((v * 12) / 365), locale);
 
@@ -238,7 +254,7 @@ export default function CreateFunnel({ idea, author, defaults }: { idea: Idea; a
               <p className="mf-montant">{fmtEur(compte, locale)}</p>
               <p className="mf-soit">{t("par mois : ton scénario, calculé sur tes réponses.")}</p>
               <div className="mf-verdict">
-                <div><b>{parJour(objectif)}</b><small>{t("par jour")}</small></div>
+                <div><b>{parJour(scenario)}</b><small>{t("par jour")}</small></div>
                 <div><b>{ventesJour.toLocaleString(locale)}</b><small>{t("ventes par jour à {prix}", { prix: fmtEur(Math.round(prix), locale) })}</small></div>
                 <div><b>{t(({ aujourdhui: tk("Ce soir"), semaine: tk("7 jours"), mois: tk("30 jours") } as Record<string, string>)[r.echeance] || tk("30 jours"))}</b><small>{t("pour la mise en vente")}</small></div>
               </div>
