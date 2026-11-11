@@ -1,6 +1,6 @@
 // Langues du site : les langues officielles des pays de l'Union européenne, seule zone où Movacash est vendu
 // (micro-entreprise sans TVA sous le seuil OSS de 10 000 € de ventes vers les autres pays de l'UE ; vérification du 06/11/2026).
-// L'irlandais et le maltais sont couverts par l'anglais (drapeau irlandais dans le menu, lib/i18n/flags.ts).
+// L'irlandais et le maltais sont couverts par l'anglais (drapeau britannique dans le menu, choix d'Aurèle du 11/11 ; lib/i18n/flags.ts).
 
 export const LOCALES = [
   { code: "fr", nom: "Français" },
