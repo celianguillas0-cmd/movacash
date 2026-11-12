@@ -54,6 +54,7 @@ export default async function SettingsPage() {
             email_tips: Boolean(user.tips_consent),
             created_at: user.created_at,
             hasSub,
+            sansMdp: Boolean(user.sans_mdp),
           }}
         />
       </div>

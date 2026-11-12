@@ -50,6 +50,7 @@ export interface User {
   my_idea_id: number | null;
   banned: number;
   quota_override: number | null;
+  sans_mdp: number; // 1 = compte Google sans mot de passe choisi
 }
 
 export const sha256 = (s: string) => crypto.createHash("sha256").update(s).digest("hex");

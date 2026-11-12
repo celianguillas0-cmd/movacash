@@ -14,7 +14,7 @@ export async function POST(req: Request) {
   await batch([
     { sql: "UPDATE password_resets SET used_at = unixepoch() WHERE user_id = ? AND used_at IS NULL", args: [row.user_id] },
     // Nouveau mot de passe : toutes les sessions ouvertes sont déconnectées
-    { sql: "UPDATE users SET password_hash = ?, session_version = session_version + 1 WHERE id = ?", args: [await hashPassword(parsed.data.password), row.user_id] },
+    { sql: "UPDATE users SET password_hash = ?, sans_mdp = 0, session_version = session_version + 1 WHERE id = ?", args: [await hashPassword(parsed.data.password), row.user_id] },
   ]);
   await createSession(row.user_id);
   return ok();

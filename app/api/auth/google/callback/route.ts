@@ -45,7 +45,7 @@ export async function GET(req: Request) {
   if (!user) {
     // Compte créé sans mot de passe utilisable ; « Mot de passe oublié » permet d'en définir un plus tard
     const name = String(profil.given_name || profil.name || "").trim().slice(0, 100);
-    const r = await one<{ id: number }>("INSERT INTO users (email, name, password_hash, tips_consent, locale) VALUES (?, ?, ?, ?, ?) RETURNING id", [
+    const r = await one<{ id: number }>("INSERT INTO users (email, name, password_hash, tips_consent, locale, sans_mdp) VALUES (?, ?, ?, ?, ?, 1) RETURNING id", [
       email,
       name,
       await hashPassword(crypto.randomBytes(32).toString("hex")),

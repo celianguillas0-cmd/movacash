@@ -183,6 +183,7 @@ const COLUMNS: [table: string, column: string, def: string][] = [
   ["users", "relance_at", "INTEGER"], // e-mail de relance envoyé 24 h après l'inscription sans paiement (avec consentement)
   ["users", "understood_at", "INTEGER"], // case « J'ai compris ce qu'est Movacash » cochée juste avant le paiement (preuve en cas de litige)
   ["users", "understood_version", "TEXT"], // version du texte accepté (UNDERSTOOD_VERSION dans lib/legal.ts)
+  ["users", "sans_mdp", "INTEGER NOT NULL DEFAULT 0"], // 1 = compte créé avec Google, aucun mot de passe choisi : suppression du compte possible sans mot de passe
   ["ebooks", "film_source_id", "INTEGER"], // mode tournage : vrai e-book dont le contenu est rejoué, sans appel à l'API // fin de période annuelle pour laquelle le rappel de renouvellement (art. L215-1) a été envoyé
 ];
 

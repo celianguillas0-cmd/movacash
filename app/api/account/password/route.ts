@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
     const me = await getUserByEmail(user.email);
     if (!me || !(await verifyPassword(parsed.data.current, me.password_hash))) return fail("Mot de passe actuel incorrect", 401);
-    await run("UPDATE users SET password_hash = ?, session_version = session_version + 1 WHERE id = ?", [await hashPassword(parsed.data.next), user.id]);
+    await run("UPDATE users SET password_hash = ?, sans_mdp = 0, session_version = session_version + 1 WHERE id = ?", [await hashPassword(parsed.data.next), user.id]);
     await createSession(user.id);
     return ok();
   });

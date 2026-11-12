@@ -4,9 +4,10 @@ import { getT } from "@/lib/i18n/server";
 import LangSwitch from "@/components/LangSwitch";
 import { ConsentLink } from "@/components/Consent";
 import { guideLang } from "@/lib/guides-tr";
+import { getCurrentUser } from "@/lib/auth";
 
 export default async function FunnelFooter() {
-  const { t, locale } = await getT();
+  const [{ t, locale }, user] = await Promise.all([getT(), getCurrentUser()]);
   return (
     <footer>
       <div className="wrap">
@@ -27,6 +28,8 @@ export default async function FunnelFooter() {
           <Link href="/avertissement-revenus">{t("Avertissement sur les revenus")}</Link>
           {/* Accès direct à la résiliation exigé par la loi (art. L215-1-1 du Code de la consommation) */}
           <Link href="/app/abonnement">{t("Résilier mon abonnement")}</Link>
+          {/* Compte, téléchargement des données et suppression (RGPD), ouvert aussi sans abonnement */}
+          {user && <Link href="/app/parametres">{t("Mon compte")}</Link>}
         </div>
       </div>
     </footer>

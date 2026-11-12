@@ -4,7 +4,7 @@ import { destroySession, getUserByEmail, verifyPassword } from "@/lib/auth";
 import { fail, ok, withUser } from "@/lib/api";
 import { stopSubscriptionNow } from "@/lib/stripe";
 
-const schema = z.object({ password: z.string().min(1, "Mot de passe requis"), confirm: z.literal("SUPPRIMER", { errorMap: () => ({ message: "Tape SUPPRIMER pour confirmer" }) }) });
+const schema = z.object({ password: z.string().optional().default(""), confirm: z.literal("SUPPRIMER", { errorMap: () => ({ message: "Tape SUPPRIMER pour confirmer" }) }) });
 
 // Suppression définitive du compte, de ses e-books et de l'abonnement en cours
 export async function DELETE(req: Request) {
@@ -12,7 +12,12 @@ export async function DELETE(req: Request) {
     const parsed = schema.safeParse(await req.json().catch(() => ({})));
     if (!parsed.success) return fail(parsed.error.issues[0]?.message || "Données invalides");
     const me = await getUserByEmail(user.email);
-    if (!me || !(await verifyPassword(parsed.data.password, me.password_hash))) return fail("Mot de passe incorrect", 401);
+    if (!me) return fail("Mot de passe incorrect", 401);
+    // Compte créé avec Google sans mot de passe choisi : taper SUPPRIMER suffit (la personne est déjà connectée)
+    if (!me.sans_mdp) {
+      if (!parsed.data.password) return fail("Mot de passe requis");
+      if (!(await verifyPassword(parsed.data.password, me.password_hash))) return fail("Mot de passe incorrect", 401);
+    }
     await stopSubscriptionNow(user);
     // Suppressions explicites : les clés étrangères ne sont pas forcément actives sur toutes les connexions Turso
     const id = [user.id];

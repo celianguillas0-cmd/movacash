@@ -9,7 +9,7 @@ import type { T } from "@/lib/i18n/t";
 
 type U = {
   email: string; name: string; author_name: string; default_language: string | null; default_tone: string | null;
-  email_tips: boolean; created_at: number; hasSub: boolean;
+  email_tips: boolean; created_at: number; hasSub: boolean; sansMdp?: boolean;
 };
 
 async function send(t: T, url: string, method: string, body?: unknown) {
@@ -190,10 +190,13 @@ export default function Settings({ user }: { user: U }) {
             }}
           >
             <p className="text-sm text-slate-700">{t("Cette action est définitive : tes e-books, chapitres, favoris et réponses seront effacés.")}</p>
-            <div>
-              <label className="label" htmlFor="d-pw">{t("Mot de passe")}</label>
-              <input id="d-pw" className="input" type="password" required autoComplete="current-password" value={del.password} onChange={(e) => setDel({ ...del, password: e.target.value })} />
-            </div>
+            {/* Compte créé avec Google : pas de mot de passe à demander */}
+            {!user.sansMdp && (
+              <div>
+                <label className="label" htmlFor="d-pw">{t("Mot de passe")}</label>
+                <input id="d-pw" className="input" type="password" required autoComplete="current-password" value={del.password} onChange={(e) => setDel({ ...del, password: e.target.value })} />
+              </div>
+            )}
             <div>
               <label className="label" htmlFor="d-conf">{t("Tape {mot} pour confirmer", { mot: MOT })}</label>
               <input id="d-conf" className="input" required value={del.confirm} onChange={(e) => setDel({ ...del, confirm: e.target.value })} autoComplete="off" />

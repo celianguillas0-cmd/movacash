@@ -27,7 +27,11 @@ export default async function QuizPage() {
       <header className="head-bande">
         <div className="wrap site-head">
           <Link href="/" className="brand"><LogoM /><span>Mova<span className="brand-tld">cash</span></span></Link>
-          <Link href="/" className="head-lien">← {t("Retour à l'accueil")}</Link>
+          <span style={{ display: "flex", gap: 18 }}>
+            {/* Compte, données et suppression, accessibles sans abonnement */}
+            {user && <Link href="/app/parametres" className="head-lien">{t("Mon compte")}</Link>}
+            <Link href="/" className="head-lien">← {t("Retour à l'accueil")}</Link>
+          </span>
         </div>
       </header>
       <main className="wrap">
