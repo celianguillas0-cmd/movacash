@@ -33,7 +33,7 @@ export const ALL_PLANS: Plan[] = [
     id: "mini",
     name: "Mini",
     priceEur: 6.9,
-    annualMonthlyEur: 29.9 / 12, // 29,90 € par an (−64 %), choix d'Aurèle le 12/11/2026
+    annualMonthlyEur: 3.45, // 41,40 € par an (−50 %) : Aurèle a essayé 29,90 € puis gardé 41,40 € le 12/11/2026
     ebooksPerMonth: 5,
     features: [tk("5 e-books par mois"), tk("Base complète d'idées"), tk("Export PDF A4, A5, US Letter"), tk("Fiche Etsy + vérification")],
     stripePriceEnv: "STRIPE_PRICE_MINI",
