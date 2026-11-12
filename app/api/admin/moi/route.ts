@@ -4,7 +4,7 @@ import { fail, ok, withUser } from "@/lib/api";
 import { isAdmin } from "@/lib/config";
 import { activateDemoSubscription } from "@/lib/stripe";
 
-const schema = z.object({ vue: z.enum(["aucun", "starter", "pro", "business"]) });
+const schema = z.object({ vue: z.enum(["aucun", "mini", "starter", "pro", "business"]) });
 
 // L'admin choisit l'abonnement avec lequel il voit le site (sans payer), pour tester ou filmer.
 export async function POST(req: Request) {

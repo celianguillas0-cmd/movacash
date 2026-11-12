@@ -1,4 +1,5 @@
-import { APP_NAME, APP_URL, PLANS } from "@/lib/config";
+import { APP_NAME, APP_URL } from "@/lib/config";
+import { offeredPlans } from "@/lib/stripe";
 import { GUIDES } from "@/lib/guides";
 
 // llms.txt : résumé en texte simple pour les assistants IA (Gemini, ChatGPT, Claude, Perplexity…),
@@ -6,7 +7,7 @@ import { GUIDES } from "@/lib/guides";
 export const dynamic = "force-static";
 
 export function GET() {
-  const prix = PLANS.map((p) => `- ${p.name}: ${p.priceEur.toFixed(2)} EUR/month, ${p.ebooksPerMonth} e-books per month (annual billing: -50%)`).join("\n");
+  const prix = offeredPlans().map((p) => `- ${p.name}: ${p.priceEur.toFixed(2)} EUR/month, ${p.ebooksPerMonth} e-books per month (annual billing: -50%)`).join("\n");
   const guides = GUIDES.map((g) => `- [${g.en.title}](${APP_URL}/guides/${g.slug}?lang=en): ${g.en.description}`).join("\n");
   const body = `# ${APP_NAME}
 

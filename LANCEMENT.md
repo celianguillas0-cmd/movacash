@@ -30,10 +30,11 @@ Le code arrive dans Vercel depuis le dépôt GitHub : chaque modification pouss�
 ## 4. Paiement : Stripe
 
 1. Produits (Catalogue de produits), un par offre, prix récurrents en EUR :
-   - Starter : 19,90 € / mois (et 119,40 € / an : l'annuel est à −50 %)
+   - Mini : 6,90 € / mois (et 41,40 € / an : l'annuel est à −50 %)
+   - Starter : 19,90 € / mois (et 119,40 € / an)
    - Pro : 39,90 € / mois (et 239,40 € / an)
-   - Business : 79,90 € / mois (et 479,40 € / an)
-2. Copie chaque identifiant de prix (`price_...`) dans Vercel : `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS`, et pour l'annuel `STRIPE_PRICE_STARTER_ANNUAL`, `STRIPE_PRICE_PRO_ANNUAL`, `STRIPE_PRICE_BUSINESS_ANNUAL`. Sans les trois prix annuels, le choix « Annuel » est simplement masqué.
+   - Business (retirée de la vente le 12/11/2026) : ne pas supprimer ses prix, les abonnés Business existants les gardent.
+2. Copie chaque identifiant de prix (`price_...`) dans Vercel : `STRIPE_PRICE_MINI`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, et pour l'annuel `STRIPE_PRICE_MINI_ANNUAL`, `STRIPE_PRICE_STARTER_ANNUAL`, `STRIPE_PRICE_PRO_ANNUAL` (garder `STRIPE_PRICE_BUSINESS` et `STRIPE_PRICE_BUSINESS_ANNUAL`). Une offre reste cachée tant que son prix mensuel manque, et le choix « Annuel » est masqué tant qu'un prix annuel d'une offre affichée manque. Redéploie après avoir ajouté les variables.
 3. Développeurs → Clés API : `STRIPE_SECRET_KEY` (commence par `sk_live_` en production, `sk_test_` pour tester).
 4. Développeurs → Webhooks → Ajouter un endpoint : `https://ton-domaine/api/stripe/webhook`, événements :
    `checkout.session.completed`, `customer.subscription.created`, `customer.subscription.updated`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`.

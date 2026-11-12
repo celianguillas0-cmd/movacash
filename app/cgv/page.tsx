@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import LegalPage from "@/components/LegalPage";
-import { APP_NAME, APP_URL, PLANS, eur } from "@/lib/config";
+import { ALL_PLANS, APP_NAME, APP_URL, eur } from "@/lib/config";
+import { offeredPlans } from "@/lib/stripe";
 import { fill, legal } from "@/lib/legal";
 
 export const metadata: Metadata = { title: "Conditions générales de vente" };
@@ -34,7 +35,8 @@ export default function CGV() {
 
       <h2>4. Offres et prix</h2>
       <ul>
-        {PLANS.map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € par mois, ou {eur(Math.round(p.annualMonthlyEur * 1200) / 100)} € par an en facturation annuelle, {p.ebooksPerMonth} e-books par mois civil.</li>)}
+        {offeredPlans().map((p) => <li key={p.id}>{p.name} : {eur(p.priceEur)} € par mois, ou {eur(Math.round(p.annualMonthlyEur * 1200) / 100)} € par an en facturation annuelle, {p.ebooksPerMonth} e-books par mois civil.</li>)}
+        {ALL_PLANS.filter((p) => p.legacy).map((p) => <li key={p.id}>{p.name} (offre retirée de la vente le 12 novembre 2026, maintenue aux mêmes conditions pour les abonnés qui l&apos;avaient déjà souscrite) : {eur(p.priceEur)} € par mois, ou {eur(Math.round(p.annualMonthlyEur * 1200) / 100)} € par an en facturation annuelle, {p.ebooksPerMonth} e-books par mois civil.</li>)}
       </ul>
       <p>Les prix sont indiqués en euros, toutes taxes comprises : TVA non applicable, art. 293 B du CGI. Chaque nouvel e-book est décompté du quota au moment de la création de son plan et la suppression d'un e-book ne restitue pas de crédit. Le quota est remis à zéro le 1er de chaque mois civil, y compris en facturation annuelle. Les quotas non utilisés ne sont pas reportés. Les prix peuvent évoluer ; tout changement est notifié par e-mail au moins 30 jours avant son application à un abonnement en cours, et l'utilisateur peut résilier avant cette date.</p>
 

@@ -1,9 +1,10 @@
 import { z } from "zod";
 import { fail, ok, withUser } from "@/lib/api";
+import { OFFER_IDS } from "@/lib/config";
 import { previewChange } from "@/lib/stripe";
 import { hasActiveSubscription } from "@/lib/subscription";
 
-const schema = z.object({ plan: z.enum(["starter", "pro", "business"]), annual: z.boolean().default(false) });
+const schema = z.object({ plan: z.enum(OFFER_IDS), annual: z.boolean().default(false) });
 
 // Ce que le changement d'offre coûtera aujourd'hui et ensuite
 export async function POST(req: Request) {

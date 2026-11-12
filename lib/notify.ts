@@ -1,5 +1,5 @@
 import type { User } from "./auth";
-import { APP_NAME, APP_URL, PLANS } from "./config";
+import { APP_NAME, APP_URL, getPlan } from "./config";
 import { sendEmail } from "./email";
 import { legal } from "./legal";
 import { getDict } from "./i18n/server";
@@ -14,7 +14,7 @@ function ctx(user: User) {
   const locale: Locale = isLocale(user.locale) ? user.locale : DEFAULT_LOCALE;
   const t = makeT(getDict(locale));
   const date = (s: number | null) => (s ? new Date(s * 1000).toLocaleDateString(locale, { day: "numeric", month: "long", year: "numeric" }) : "—");
-  const plan = PLANS.find((p) => p.id === user.plan);
+  const plan = getPlan(user.plan);
   const annual = user.billing_interval === "year";
   const price = plan ? fmtEur(annual ? Math.round(plan.annualMonthlyEur * 1200) / 100 : plan.priceEur, locale) : "";
   const hello = user.name ? t("Bonjour {prenom},", { prenom: user.name }) : t("Bonjour,");

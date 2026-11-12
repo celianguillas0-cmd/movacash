@@ -7,7 +7,9 @@ export const APP_URL =
 // Adresse de contact affichée dans l'aide (ex. support@ton-domaine.fr)
 export const SUPPORT_EMAIL = process.env.SUPPORT_EMAIL || "movacash.contact@gmail.com";
 
-export type PlanId = "starter" | "pro" | "business";
+export type PlanId = "mini" | "starter" | "pro" | "business";
+// Offres proposées à la vente (pages Tarifs, questionnaire, Abonnement, CGV), pour la validation des formulaires
+export const OFFER_IDS = ["mini", "starter", "pro"] as const;
 
 export interface Plan {
   id: PlanId;
@@ -20,10 +22,23 @@ export interface Plan {
   features: string[];
   stripePriceEnv: string;
   stripeAnnualPriceEnv: string;
+  // Ancienne offre retirée de la vente : plus proposée, mais les abonnés qui l'ont gardent leur quota et leur prix
+  legacy?: boolean;
 }
 
 // Les prix et quotas sont modifiables ici. Les IDs de prix Stripe viennent des variables d'environnement.
-export const PLANS: Plan[] = [
+// Toutes les offres, y compris les anciennes encore payées par des abonnés (legacy).
+export const ALL_PLANS: Plan[] = [
+  {
+    id: "mini",
+    name: "Mini",
+    priceEur: 6.9,
+    annualMonthlyEur: 3.45,
+    ebooksPerMonth: 5,
+    features: [tk("5 e-books par mois"), tk("Base complète d'idées"), tk("Export PDF A4, A5, US Letter"), tk("Fiche Etsy + vérification")],
+    stripePriceEnv: "STRIPE_PRICE_MINI",
+    stripeAnnualPriceEnv: "STRIPE_PRICE_MINI_ANNUAL",
+  },
   {
     id: "starter",
     name: "Starter",
@@ -45,9 +60,11 @@ export const PLANS: Plan[] = [
     stripePriceEnv: "STRIPE_PRICE_PRO",
     stripeAnnualPriceEnv: "STRIPE_PRICE_PRO_ANNUAL",
   },
+  // Retirée de la vente le 12/11/2026 (remplacée par Mini), gardée pour les abonnés Business existants
   {
     id: "business",
     name: "Business",
+    legacy: true,
     priceEur: 79.9,
     annualMonthlyEur: 39.95,
     ebooksPerMonth: 120,
@@ -57,11 +74,14 @@ export const PLANS: Plan[] = [
   },
 ];
 
+// Offres proposées à la vente (sans les anciennes)
+export const PLANS: Plan[] = ALL_PLANS.filter((p) => !p.legacy);
+
 // Prix affiché à la française : 19,90 €
 export const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2).replace(".", ","));
 
 export function getPlan(id: string | null | undefined): Plan | undefined {
-  return PLANS.find((p) => p.id === id);
+  return ALL_PLANS.find((p) => p.id === id);
 }
 
 // Seuls ces comptes voient l'onglet Admin (thématiques proposées dans le sondage).

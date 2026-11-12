@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireUser } from "@/lib/auth";
-import { PLANS, getPlan, isStripeConfigured } from "@/lib/config";
-import { annualAvailable, listInvoices, paymentMethod, type InvoiceView } from "@/lib/stripe";
+import { getPlan, isStripeConfigured, type Plan } from "@/lib/config";
+import { annualAvailable, listInvoices, offeredPlans, paymentMethod, type InvoiceView } from "@/lib/stripe";
 import { getUsage, quotaPlan, subState } from "@/lib/subscription";
 import SubscriptionManager from "./SubscriptionManager";
 import AtHead from "@/components/ws/AtHead";
@@ -49,7 +49,8 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
         <p className="at-dim" style={{ marginTop: 10 }}>{t("Change de formule, mets à jour ta carte ou résilie quand tu veux. Sans engagement.")}</p>
       </AtHead>
       <SubscriptionManager
-        plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features }))}
+        plans={offeredPlans().map(vue)}
+        current={plan ? vue(plan) : null}
         sub={{
           plan: user.plan as string,
           annual: user.billing_interval === "year",
@@ -70,6 +71,9 @@ export default async function SubscriptionPage({ searchParams }: { searchParams:
     </div>
   );
 }
+
+// Une ancienne offre (ex. Business) n'est plus dans la liste des offres, mais reste affichée comme offre actuelle de ses abonnés
+const vue = (p: Plan) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features });
 
 function InvoiceTable({ invoices, t, locale }: { invoices: InvoiceView[]; t: T; locale: string }) {
   const STATUS: Record<string, string> = { paid: t("Payée"), open: t("À régler"), void: t("Annulée"), uncollectible: t("Impayée") };

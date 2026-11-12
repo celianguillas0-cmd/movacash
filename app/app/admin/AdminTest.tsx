@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-type Vue = "aucun" | "starter" | "pro" | "business";
+type Vue = "aucun" | "mini" | "starter" | "pro" | "business";
 interface Props { tournage: boolean; vue: Vue; payant: boolean; sujetsRejouables: string[] }
 
 // Réglages de test de l'admin : mode tournage ou réel, abonnement simulé, parcours client à rejouer.
@@ -67,7 +67,7 @@ export default function AdminTest(p: Props) {
           <>
             <p className="muted mt-1 text-sm">Sans payer : tu vois exactement ce que voit un client avec cette offre (quota, page Abonnement, accès à l&apos;atelier).</p>
             <div className="mt-3 flex w-fit flex-wrap gap-1 rounded-full border border-slate-300 bg-slate-100 p-1">
-              {(["aucun", "starter", "pro", "business"] as Vue[]).map((v) =>
+              {(["aucun", "mini", "starter", "pro"] as Vue[]).map((v) =>
                 seg(vue === v, v === "aucun" ? "Aucun abonnement" : v[0].toUpperCase() + v.slice(1), () => vue !== v && post("/api/admin/moi", { vue: v }).then((ok) => ok && setVue(v)))
               )}
             </div>

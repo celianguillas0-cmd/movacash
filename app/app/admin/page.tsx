@@ -7,7 +7,7 @@ import { listCategories } from "@/lib/ideas";
 import AdminTest from "./AdminTest";
 import IndexNow from "./IndexNow";
 import Inscriptions from "./Inscriptions";
-import { PLANS, isGeminiConfigured, isStripeConfigured } from "@/lib/config";
+import { ALL_PLANS, PLANS, isGeminiConfigured, isStripeConfigured, type PlanId } from "@/lib/config";
 import { googleConfigured } from "@/lib/google";
 import { annualAvailable } from "@/lib/stripe";
 import AdminNav from "./AdminNav";
@@ -94,10 +94,10 @@ export default async function AdminPage() {
     payants: payants.reduce((n, a) => n + Number(a.n), 0),
     offerts: abonnes.filter((a) => a.is_demo_sub).reduce((n, a) => n + Number(a.n), 0),
     mrr: payants.reduce((t, a) => {
-      const p = PLANS.find((x) => x.id === a.plan);
+      const p = ALL_PLANS.find((x) => x.id === a.plan);
       return t + (p ? (a.billing_interval === "year" ? p.annualMonthlyEur : p.priceEur) * Number(a.n) : 0);
     }, 0),
-    parOffre: PLANS.map((p) => ({ nom: p.name, n: payants.filter((a) => a.plan === p.id).reduce((n, a) => n + Number(a.n), 0) })).filter((o) => o.n),
+    parOffre: ALL_PLANS.map((p) => ({ nom: p.name, n: payants.filter((a) => a.plan === p.id).reduce((n, a) => n + Number(a.n), 0) })).filter((o) => o.n),
     ebooksMois: Number(gen?.m ?? 0),
     ebooksJour: Number(gen?.j ?? 0),
   };
@@ -110,7 +110,7 @@ export default async function AdminPage() {
     { nom: "Génération des e-books (Gemini)", ok: isGeminiConfigured(), requis: true, aide: "variable GEMINI_API_KEY." },
     { nom: "Paiements Stripe", ok: isStripeConfigured(), requis: true, aide: "variable STRIPE_SECRET_KEY (clé sk_live)." },
     { nom: "Webhook Stripe", ok: env("STRIPE_WEBHOOK_SECRET"), requis: true, aide: "variable STRIPE_WEBHOOK_SECRET : sans elle, l'accès ne s'ouvre pas après paiement." },
-    { nom: "Prix Stripe", ok: !prixManquants.length, requis: true, aide: `manque ${prixManquants.join(", ")}.` },
+    { nom: "Prix Stripe", ok: !prixManquants.length, requis: true, aide: `manque ${prixManquants.join(", ")}.${prixManquants.includes("STRIPE_PRICE_MINI") ? " L'offre Mini reste cachée tant que STRIPE_PRICE_MINI manque." : ""}` },
     { nom: "Offres annuelles", ok: annualAvailable(), requis: false, aide: "les prix annuels Stripe ne sont pas tous renseignés." },
     { nom: "E-mails (Resend)", ok: isEmailConfigured(), requis: true, aide: "RESEND_API_KEY et EMAIL_FROM, après l'achat du domaine. Obligatoire : confirmations d'abonnement et de résiliation, rappel annuel." },
     { nom: "Mentions légales", ok: !missingLegal().length, requis: true, aide: `manque ${missingLegal().map(([, , label]) => label.toLowerCase()).join(", ")}.` },
@@ -135,7 +135,7 @@ export default async function AdminPage() {
 
       <AdminTest
         tournage={!user.mode_reel}
-        vue={hasActiveSubscription(user) && user.is_demo_sub && user.plan ? (user.plan as "starter" | "pro" | "business") : hasActiveSubscription(user) ? "starter" : "aucun"}
+        vue={hasActiveSubscription(user) && user.is_demo_sub && user.plan ? (user.plan as PlanId) : hasActiveSubscription(user) ? "starter" : "aucun"}
         payant={Boolean(user.stripe_subscription_id && !user.is_demo_sub && hasActiveSubscription(user))}
         sujetsRejouables={rejouables.map((r) => r.topic)}
       />

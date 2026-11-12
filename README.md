@@ -54,8 +54,8 @@ Pour la mise en ligne pas à pas, voir **LANCEMENT.md**.
 
 ## Stripe
 
-1. Créer 3 produits avec un prix récurrent mensuel (Starter 19,90 € / 20 e-books, Pro 39,90 € / 50, Business 79,90 € / 120 : modifiables dans `lib/config.ts`), et si voulu un prix annuel pour chacun.
-2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO`, `STRIPE_PRICE_BUSINESS` (et les `_ANNUAL`).
+1. Créer 3 produits avec un prix récurrent mensuel (Mini 6,90 € / 5 e-books, Starter 19,90 € / 20, Pro 39,90 € / 50 : modifiables dans `lib/config.ts` ; Business 79,90 € / 120 n'est plus vendue mais reste reconnue pour ses abonnés), et si voulu un prix annuel pour chacun (−50 %).
+2. Renseigner `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MINI`, `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_PRO` (et les `_ANNUAL`), en gardant `STRIPE_PRICE_BUSINESS` (et `_ANNUAL`) pour les anciens abonnés.
 3. Webhook vers `https://votre-domaine/api/stripe/webhook` avec les événements `checkout.session.completed`, `customer.subscription.created|updated|deleted`, `invoice.paid`, `invoice.payment_failed`, puis `STRIPE_WEBHOOK_SECRET`.
 4. Activer le portail client Stripe (moyen de paiement, factures, adresse). Changement d'offre et résiliation se font dans l'application.
 

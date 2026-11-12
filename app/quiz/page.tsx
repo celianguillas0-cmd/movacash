@@ -3,8 +3,8 @@ import LogoM from "@/components/LogoM";
 import Funnel from "./Funnel";
 import { listCategories } from "@/lib/ideas";
 import { getCurrentUser } from "@/lib/auth";
-import { PLANS, isStripeConfigured } from "@/lib/config";
-import { annualAvailable } from "@/lib/stripe";
+import { isStripeConfigured } from "@/lib/config";
+import { annualAvailable, offeredPlans } from "@/lib/stripe";
 import { googleConfigured } from "@/lib/google";
 import "../tunnel.css";
 import type { Metadata } from "next";
@@ -37,7 +37,7 @@ export default async function QuizPage() {
       <main className="wrap">
         <Funnel
           categories={categories.map((c) => ({ slug: c.slug, name: t(c.name) }))}
-          plans={PLANS.map((p) => ({ id: p.id, name: p.name, price: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: p.highlight }))}
+          plans={offeredPlans().map((p) => ({ id: p.id, name: p.name, price: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: p.highlight }))}
           annualAvailable={annualAvailable()}
           user={user ? { name: user.name || "" } : null}
           demo={!isStripeConfigured()}

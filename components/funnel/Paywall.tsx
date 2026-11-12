@@ -21,7 +21,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   const [cestQuoi, setCestQuoi] = useState(false);
   const sel = plans.find((p) => p.id === plan)!;
   const price = (p: P) => (annual ? p.annual : p.monthly);
-  const save = Math.round((1 - plans[1].annual / plans[1].monthly) * 100);
+  const save = Math.round((1 - plans[0].annual / plans[0].monthly) * 100);
 
   async function pay() {
     setError("");
@@ -44,7 +44,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
         </div>
         {!annual && <div><button type="button" className="annual-nudge" onClick={() => setAnnual(true)}>{t("Passe à l'annuel et paie {n} % moins cher", { n: save })} →</button></div>}
       </div>}
-      <div className="plans">
+      <div className="plans" style={{ "--n": plans.length } as React.CSSProperties}>
         {plans.map((p) => (
           <button type="button" key={p.id} className={`plan ${p.id === plan ? "selected" : ""}`} onClick={() => setPlan(p.id)}>
             {p.highlight && <span className="tag">{t("Recommandé")}</span>}

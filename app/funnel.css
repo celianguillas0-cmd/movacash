@@ -240,7 +240,7 @@
 .mc .toggle button.on .save { background: #fff; color: #111827; }
 .mc .price-old { font-size: 0.5em; font-weight: 500; color: var(--dim); margin-right: 8px; vertical-align: middle; }
 .mc .save-line { margin-top: 4px; font-size: 13px; font-weight: 700; color: #111827; }
-.mc .plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 36px; align-items: stretch; }
+.mc .plans { display: grid; grid-template-columns: repeat(var(--n, 3), 1fr); gap: 16px; margin-top: 36px; align-items: stretch; }
 .mc .plan { font: inherit; color: inherit; border: 1px solid var(--line); border-radius: 18px; padding: 26px; background: #fff; display: flex; flex-direction: column; gap: 16px; position: relative; text-align: left; box-shadow: var(--shadow); }
 .mc .plan.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), var(--shadow-lg); }
 .mc .plan .tag { position: absolute; top: -12px; left: 24px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; }

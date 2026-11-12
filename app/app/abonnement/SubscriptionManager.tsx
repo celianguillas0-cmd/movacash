@@ -48,8 +48,9 @@ async function post(t: T, url: string, body?: unknown) {
   return d;
 }
 
-export default function SubscriptionManager({ plans, sub, usage, annualAvailable, preselect }: {
+export default function SubscriptionManager({ plans, current: actuelle, sub, usage, annualAvailable, preselect }: {
   plans: Plan[];
+  current: Plan | null;
   sub: Sub;
   usage: { used: number; limit: number; resetsOn: string };
   annualAvailable: boolean;
@@ -58,7 +59,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
   const router = useRouter();
   const t = useT();
   const { eur, date, locale } = useFormats();
-  const current = plans.find((p) => p.id === sub.plan)!;
+  const current = actuelle ?? plans.find((p) => p.id === sub.plan) ?? plans[0];
   const [annual, setAnnual] = useState(sub.annual);
   const [target, setTarget] = useState<{ plan: Plan; annual: boolean } | null>(null);
   const [preview, setPreview] = useState<Preview | null>(null);
@@ -186,7 +187,7 @@ export default function SubscriptionManager({ plans, sub, usage, annualAvailable
             </div>
           )}
         </div>
-        <div className="grid gap-3 md:grid-cols-3">
+        <div className={`grid gap-3 ${plans.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"}`}>
           {plans.map((p) => {
             const isCurrent = p.id === sub.plan && annual === sub.annual;
             const up = p.ebooks > current.ebooks || (p.id === sub.plan && annual && !sub.annual);

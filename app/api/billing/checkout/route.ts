@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { run } from "@/lib/db";
 import { fail, ok, withUser } from "@/lib/api";
-import { APP_URL } from "@/lib/config";
+import { APP_URL, OFFER_IDS } from "@/lib/config";
 import { activateDemoSubscription, annualAvailable, getStripe, priceIdFor } from "@/lib/stripe";
 import { hasActiveSubscription } from "@/lib/subscription";
 import { canPayFromHere, getDict, getLocale } from "@/lib/i18n/server";
@@ -9,7 +9,7 @@ import { makeT } from "@/lib/i18n/t";
 import { UNDERSTOOD_VERSION } from "@/lib/legal";
 
 const schema = z.object({
-  plan: z.enum(["starter", "pro", "business"]),
+  plan: z.enum(OFFER_IDS),
   annual: z.boolean().default(false),
   // Renonciation expresse au droit de rétractation (art. L221-28 13° du Code de la consommation)
   waiver: z.literal(true, { errorMap: () => ({ message: "Tu dois accepter l'exécution immédiate du service." }) }),

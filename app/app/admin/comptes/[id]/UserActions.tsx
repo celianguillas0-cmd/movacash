@@ -47,7 +47,7 @@ export default function UserActions(p: Props) {
             <p className="muted mt-1 text-sm">Pour un testeur ou un partenaire : la formule s&apos;active sans paiement et se renouvelle tant que tu ne la retires pas.</p>
             <div className="mt-3 flex flex-wrap gap-2">
               <select className="input w-44" value={plan} onChange={(e) => setPlan(e.target.value)} aria-label="Formule">
-                <option value="starter">Starter</option><option value="pro">Pro</option><option value="business">Business</option>
+                <option value="mini">Mini</option><option value="starter">Starter</option><option value="pro">Pro</option><option value="business">Business (ancienne offre)</option>
               </select>
               <button className="at-btn" disabled={busy} onClick={() => act({ action: "offer", plan }, "Formule offerte activée.")}>Offrir</button>
             </div>

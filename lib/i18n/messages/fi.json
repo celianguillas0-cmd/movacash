@@ -1320,5 +1320,10 @@
  "sur les réseaux ?": "somessa?",
  "Ta promotion": "Markkinointisi",
  "Tu veux faire la promotion de ton e-book": "Haluatko mainostaa e-kirjaasi",
- "Mon compte": "Oma tili"
+ "Mon compte": "Oma tili",
+ "5 e-books par mois": "5 e-kirjaa kuukaudessa",
+ "C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par la plus petite offre et de publier régulièrement.": "Se on mahdollista: tilaus maksaa työkalun, ei tulosta. Siksi suosittelemme aloittamaan pienimmällä paketilla ja julkaisemaan säännöllisesti.",
+ "C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par la plus petite offre et publie régulièrement.": "Se on mahdollista: tilaus maksaa työkalun, ei tulosta. Aloita pienimmällä paketilla ja julkaise säännöllisesti.",
+ "Formules sans engagement, de {min} à {max} e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel.": "Paketit ilman sitoutumista, {min}–{max} e-kirjaa kuukaudessa, myyntivalmis PDF ja valmis Etsy-ilmoitus. −50 % vuosimaksulla.",
+ "Tarifs : crée tes e-books Etsy avec l'IA dès {prix} par mois": "Hinnat: luo Etsy-e-kirjoja tekoälyllä alkaen {prix} kuukaudessa"
 }

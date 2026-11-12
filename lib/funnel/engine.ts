@@ -485,7 +485,7 @@ export function mountFunnel(cfg: FunnelConfig) {
       [tr("Movacash, c'est quoi exactement ?"), tr("Une intelligence artificielle qui crée pour toi des e-books de qualité : pour toi, pour tes proches ou pour les vendre sur des plateformes comme Etsy, Gumroad ou Amazon Kindle. Movacash ne vend pas à ta place et ne garantit aucun revenu.")],
       [tr("Que se passe-t-il si je résilie ?"), tr("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")],
       [tr("Je peux vendre les e-books au prix que je veux ?"), tr("Oui, c'est toi qui fixes ton prix sur Etsy.")],
-      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par l'offre Starter et publie régulièrement.")],
+      [tr("Et si je ne fais aucune vente ?"), tr("C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par la plus petite offre et publie régulièrement.")],
       [tr("Le quota d'e-books se renouvelle quand ?"), tr("Le 1er de chaque mois, y compris en formule annuelle. Les e-books non utilisés ne sont pas reportés.")],
       [tr("L'annuel est-il remboursable ?"), tr("Non : l'année est payée en une fois, à moitié prix. Tu peux résilier quand tu veux pour qu'elle ne soit pas renouvelée, et tu gardes l'accès jusqu'à la fin de l'année payée.")],
     ];

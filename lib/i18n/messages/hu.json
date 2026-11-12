@@ -1320,5 +1320,10 @@
  "sur les réseaux ?": "a közösségi médiában?",
  "Ta promotion": "A népszerűsítés",
  "Tu veux faire la promotion de ton e-book": "Szeretnéd népszerűsíteni az e-könyvedet",
- "Mon compte": "Fiókom"
+ "Mon compte": "Fiókom",
+ "5 e-books par mois": "havi 5 e-könyv",
+ "C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par la plus petite offre et de publier régulièrement.": "Lehetséges: az előfizetés az eszközt fizeti, nem az eredményt. Ezért azt tanácsoljuk, hogy a legkisebb csomaggal kezdj, és publikálj rendszeresen.",
+ "C'est possible : l'abonnement paie l'outil, pas un résultat. Commence par la plus petite offre et publie régulièrement.": "Lehetséges: az előfizetés az eszközt fizeti, nem az eredményt. Kezdd a legkisebb csomaggal, és publikálj rendszeresen.",
+ "Formules sans engagement, de {min} à {max} e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel.": "Csomagok hűségidő nélkül, havi {min}–{max} e-könyv, eladásra kész PDF és teljes Etsy-hirdetés. Éves fizetésnél −50%.",
+ "Tarifs : crée tes e-books Etsy avec l'IA dès {prix} par mois": "Árak: Etsy e-könyvek MI-vel havi {prix}-tól"
 }

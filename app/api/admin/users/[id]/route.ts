@@ -12,7 +12,7 @@ const schema = z.discriminatedUnion("action", [
   z.object({ action: z.literal("unban") }),
   // null = revenir à la limite de la formule
   z.object({ action: z.literal("quota"), value: z.number().int().min(0).max(10000).nullable() }),
-  z.object({ action: z.literal("offer"), plan: z.enum(["starter", "pro", "business"]) }),
+  z.object({ action: z.literal("offer"), plan: z.enum(["mini", "starter", "pro", "business"]) }),
   z.object({ action: z.literal("unoffer") }),
 ]);
 

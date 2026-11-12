@@ -3,18 +3,20 @@ import type { Metadata } from "next";
 import FunnelNav from "@/components/funnel/FunnelNav";
 import FunnelFooter from "@/components/funnel/FunnelFooter";
 import Paywall from "@/components/funnel/Paywall";
-import { PLANS, isStripeConfigured } from "@/lib/config";
+import { isStripeConfigured } from "@/lib/config";
 import { getCurrentUser } from "@/lib/auth";
 import { hasActiveSubscription } from "@/lib/subscription";
-import { annualAvailable } from "@/lib/stripe";
+import { annualAvailable, offeredPlans } from "@/lib/stripe";
 import { countIdeas } from "@/lib/ideas";
 import { canPayFromHere, getT } from "@/lib/i18n/server";
+import { fmtEur } from "@/lib/i18n/t";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const { t } = await getT();
+  const { t, locale } = await getT();
+  const plans = offeredPlans();
   return {
-    title: t("Tarifs : crée tes e-books Etsy avec l'IA dès 19,90 € par mois"),
-    description: t("Trois formules sans engagement : 20, 50 ou 120 e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel."),
+    title: t("Tarifs : crée tes e-books Etsy avec l'IA dès {prix} par mois", { prix: fmtEur(Math.min(...plans.map((p) => p.priceEur)), locale) }),
+    description: t("Formules sans engagement, de {min} à {max} e-books par mois, PDF prêt à vendre et fiche Etsy complète. −50 % en annuel.", { min: Math.min(...plans.map((p) => p.ebooksPerMonth)), max: Math.max(...plans.map((p) => p.ebooksPerMonth)) }),
   };
 }
 
@@ -41,7 +43,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
           {!isStripeConfigured() && <p className="dim" style={{ marginTop: 12 }}>{t("Mode démo : Stripe n'est pas encore branché, l'abonnement s'active sans paiement.")}</p>}
         </div>
         <Paywall
-          plans={PLANS.map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: Boolean(p.highlight) }))}
+          plans={offeredPlans().map((p) => ({ id: p.id, name: p.name, monthly: p.priceEur, annual: p.annualMonthlyEur, ebooks: p.ebooksPerMonth, features: p.features, highlight: Boolean(p.highlight) }))}
           loggedIn={Boolean(user)}
           currentPlan={user && hasActiveSubscription(user) ? user.plan : null}
           annualAvailable={annualAvailable()}
@@ -51,7 +53,7 @@ export default async function Tarifs({ searchParams }: { searchParams: Promise<{
           <div className="faq">
             <details><summary>{t("Que se passe-t-il si je résilie ?")}</summary><p>{t("Tu gardes l'accès jusqu'à la fin de la période payée, puis tu n'es plus prélevé. Tes PDF déjà téléchargés restent à toi.")}</p></details>
             <details><summary>{t("Je peux vendre les e-books au prix que je veux ?")}</summary><p>{t("Oui, c'est toi qui fixes ton prix. Movacash te donne un prix conseillé (estimé) pour chaque sujet.")}</p></details>
-            <details><summary>{t("Et si je ne fais aucune vente ?")}</summary><p>{t("C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par l'offre Starter et de publier régulièrement.")}</p></details>
+            <details><summary>{t("Et si je ne fais aucune vente ?")}</summary><p>{t("C'est possible : l'abonnement paie l'outil, pas un résultat. C'est pour ça qu'on te conseille de commencer par la plus petite offre et de publier régulièrement.")}</p></details>
             <details><summary>{t("Le quota d'e-books se renouvelle quand ?")}</summary><p>{t("Le 1er de chaque mois, y compris en formule annuelle. Les e-books non utilisés ne sont pas reportés.")}</p></details>
           </div>
         </section>

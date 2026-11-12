@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import { one, run } from "./db";
-import { APP_URL, getPlan, PLANS, type PlanId } from "./config";
+import { ALL_PLANS, APP_URL, getPlan, PLANS, type Plan, type PlanId } from "./config";
 import type { User } from "./auth";
 
 let client: Stripe | null = null;
@@ -11,18 +11,26 @@ export function getStripe() {
 }
 
 export function priceIdFor(plan: PlanId, annual = false) {
-  const p = PLANS.find((x) => x.id === plan);
+  const p = getPlan(plan);
   return p ? process.env[annual ? p.stripeAnnualPriceEnv : p.stripePriceEnv] || null : null;
 }
 
-// Facturation annuelle proposée seulement si les 3 prix annuels existent (toujours en mode démo)
+// Offres affichées et payables : avec Stripe branché, une offre n'apparaît qu'une fois son prix mensuel renseigné dans Vercel
+// (ex. Mini tant que STRIPE_PRICE_MINI manque). Toutes en mode démo.
+export function offeredPlans(): Plan[] {
+  if (!getStripe()) return PLANS;
+  const ok = PLANS.filter((p) => Boolean(process.env[p.stripePriceEnv]));
+  return ok.length ? ok : PLANS;
+}
+
+// Facturation annuelle proposée seulement si toutes les offres affichées ont leur prix annuel (toujours en mode démo)
 export function annualAvailable() {
-  return !getStripe() || PLANS.every((p) => Boolean(process.env[p.stripeAnnualPriceEnv]));
+  return !getStripe() || offeredPlans().every((p) => Boolean(process.env[p.stripeAnnualPriceEnv]));
 }
 
 export function planFromPriceId(priceId: string | null | undefined): { plan: PlanId; annual: boolean } | null {
   if (!priceId) return null;
-  for (const p of PLANS) {
+  for (const p of ALL_PLANS) {
     if (process.env[p.stripePriceEnv] === priceId) return { plan: p.id, annual: false };
     if (process.env[p.stripeAnnualPriceEnv] === priceId) return { plan: p.id, annual: true };
   }

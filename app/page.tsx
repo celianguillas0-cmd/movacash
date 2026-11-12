@@ -7,7 +7,8 @@ import TypedLead from "@/components/funnel/TypedLead";
 import { countIdeas, searchIdeas } from "@/lib/ideas";
 import { getT } from "@/lib/i18n/server";
 import { localizeIdeas } from "@/lib/ideas-i18n";
-import { APP_NAME, APP_URL, PLANS, SUPPORT_EMAIL } from "@/lib/config";
+import { APP_NAME, APP_URL, SUPPORT_EMAIL } from "@/lib/config";
+import { offeredPlans } from "@/lib/stripe";
 import { langUrl } from "@/lib/seo";
 import { GUIDES, guideLang, guideText } from "@/lib/guides-tr";
 
@@ -43,7 +44,7 @@ export default async function Home() {
         inLanguage: locale,
         description,
         publisher: { "@id": `${APP_URL}/#org` },
-        offers: PLANS.map((p) => ({ "@type": "Offer", name: p.name, price: p.priceEur.toFixed(2), priceCurrency: "EUR", url: langUrl("/tarifs", locale) })),
+        offers: offeredPlans().map((p) => ({ "@type": "Offer", name: p.name, price: p.priceEur.toFixed(2), priceCurrency: "EUR", url: langUrl("/tarifs", locale) })),
       },
       { "@type": "FAQPage", inLanguage: locale, mainEntity: FAQ.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) },
     ],
