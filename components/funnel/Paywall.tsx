@@ -21,7 +21,9 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
   const [cestQuoi, setCestQuoi] = useState(false);
   const sel = plans.find((p) => p.id === plan)!;
   const price = (p: P) => (annual ? p.annual : p.monthly);
-  const save = Math.round((1 - plans[0].annual / plans[0].monthly) * 100);
+  // Remise de chaque offre en annuel ; le bouton « Annuel » annonce la plus petite, vraie pour toutes
+  const remise = (p: P) => Math.round((1 - p.annual / p.monthly) * 100);
+  const save = Math.min(...plans.map(remise));
 
   async function pay() {
     setError("");
@@ -52,7 +54,7 @@ export default function Paywall({ plans, loggedIn, currentPlan, annualAvailable 
             <div>
               <div className="price">{annual && <s className="price-old">{money(p.monthly)}</s>}{money(price(p))}<small> / {t("mois")}</small></div>
               <div className="per">{annual ? t("facturé {prix} par an", { prix: money(Math.round(price(p) * 1200) / 100) }) : t("facturé chaque mois, résiliable à tout moment")}</div>
-              {!annual && annualAvailable && <div className="annual-hint">{t("ou {prix} / mois en annuel", { prix: money(p.annual) })} <b>−{save} %</b></div>}
+              {!annual && annualAvailable && <div className="annual-hint">{t("ou {prix} / mois en annuel", { prix: money(p.annual) })} <b>−{remise(p)} %</b></div>}
               {annual && <div className="save-line">{t("tu économises {prix}", { prix: money(Math.round((p.monthly * 12 - Math.round(p.annual * 1200) / 100) * 100) / 100) })}</div>}
             </div>
             <div className="dim">{t("Soit {prix} par e-book", { prix: fmtEur(Math.round((price(p) / p.ebooks) * 100) / 100, locale) })}</div>

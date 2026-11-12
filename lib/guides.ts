@@ -376,7 +376,7 @@ export const GUIDES: Guide[] = [
         { h: "3. Un PDF prêt à vendre", p: ["Couverture, sommaire, numéros de page, mise en page soignée, au format A4, A5 ou US Letter. La mention de l'usage de l'IA est incluse, comme l'exige Etsy."] },
         { h: "4. La fiche Etsy et la miniature", p: ["Un titre de 140 caractères, 13 tags, une description complète et une miniature, prêts à copier dans Etsy. Les sujets santé et argent reçoivent des avertissements, et les promesses exagérées et les marques sont évitées."] },
         { h: "Ce que Movacash ne fait pas", ul: ["Il ne publie pas sur Etsy à ta place : tu restes maître de ta boutique", "Il ne garantit ni ventes ni revenus", "Il n'est pas affilié à Etsy"] },
-        { h: "Les prix", p: ["Trois formules mensuelles sans engagement : Mini à 6,90 € (5 e-books par mois), Starter à 19,90 € (20 e-books par mois) et Pro à 39,90 € (50 e-books par mois). En paiement annuel, les prix sont réduits de 50 %. Résiliation à tout moment depuis l'espace client. Le questionnaire et les premières idées sont gratuits."] },
+        { h: "Les prix", p: ["Trois formules mensuelles sans engagement : Mini à 6,90 € (5 e-books par mois), Starter à 19,90 € (20 e-books par mois) et Pro à 39,90 € (50 e-books par mois). En paiement annuel, les prix sont réduits d'au moins 50 %. Résiliation à tout moment depuis l'espace client. Le questionnaire et les premières idées sont gratuits."] },
       ],
       faq: [
         ["Movacash est-il gratuit ?", "Le questionnaire et la découverte des idées sont gratuits. La création des e-books, du PDF et des fiches Etsy demande un abonnement, à partir de 6,90 € par mois (−50 % en annuel)."],
@@ -395,7 +395,7 @@ export const GUIDES: Guide[] = [
         { h: "3. A ready-to-sell PDF", p: ["Cover, table of contents, page numbers and a clean layout, in A4, A5 or US Letter. The AI-use disclosure is included, as Etsy requires."] },
         { h: "4. The Etsy listing and thumbnail", p: ["A 140-character title, 13 tags, a full description and a thumbnail, ready to paste into Etsy. Health and money topics get disclaimers, and exaggerated promises and brand names are avoided."] },
         { h: "What Movacash doesn't do", ul: ["It doesn't publish on Etsy for you: you stay in control of your shop", "It doesn't guarantee sales or income", "It isn't affiliated with Etsy"] },
-        { h: "Pricing", p: ["Three monthly plans with no commitment: Mini at €6.90 (5 e-books a month), Starter at €19.90 (20 e-books a month) and Pro at €39.90 (50 e-books a month). With yearly billing, prices are 50% lower. Cancel anytime from your account. The questionnaire and the first ideas are free."] },
+        { h: "Pricing", p: ["Three monthly plans with no commitment: Mini at €6.90 (5 e-books a month), Starter at €19.90 (20 e-books a month) and Pro at €39.90 (50 e-books a month). With yearly billing, prices are at least 50% lower. Cancel anytime from your account. The questionnaire and the first ideas are free."] },
       ],
       faq: [
         ["Is Movacash free?", "The questionnaire and discovering your ideas are free. Creating e-books, PDFs and Etsy listings requires a subscription, from €6.90 a month (−50% yearly)."],

@@ -7,7 +7,7 @@ import { GUIDES } from "@/lib/guides";
 export const dynamic = "force-static";
 
 export function GET() {
-  const prix = offeredPlans().map((p) => `- ${p.name}: ${p.priceEur.toFixed(2)} EUR/month, ${p.ebooksPerMonth} e-books per month (annual billing: -50%)`).join("\n");
+  const prix = offeredPlans().map((p) => `- ${p.name}: ${p.priceEur.toFixed(2)} EUR/month, ${p.ebooksPerMonth} e-books per month (annual billing: ${(Math.round(p.annualMonthlyEur * 1200) / 100).toFixed(2)} EUR/year, -${Math.round((1 - p.annualMonthlyEur / p.priceEur) * 100)}%)`).join("\n");
   const guides = GUIDES.map((g) => `- [${g.en.title}](${APP_URL}/guides/${g.slug}?lang=en): ${g.en.description}`).join("\n");
   const body = `# ${APP_NAME}
 
